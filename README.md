@@ -18,6 +18,11 @@ utilizing NASA Earth Observation Data for society please visit: http://develop.l
 Run "setup.py"
 
 ### Dependencies
+
+Python 2.7
+
 arcpy  (see ESRI's ArcMap software)
 
 numpy
+
+h5py
