@@ -1,20 +1,22 @@
-"""======================================================================================
- The "convert.py" module is part of the "dnppy" package (develop national program py).
- This module houses python functions for converting between data types.
-
- If you wrote a function you think should be added to this module, or have an idea for one
- you wish was available, please email the Geoinformatics YP class or code it up yourself
- for future DEVELOP participants to use!
-
 """
-#--------------------------------------------------------------------------------------
-#           function name           development notes
-#--------------------------------------------------------------------------------------
-__all__=['Extract_HDF5',        # planned development
-         'NetCDF_to_Raster',    # working with bugs
-         'Extract_HDF']         # complete
+======================================================================================
+                                   dnppy.convert
+======================================================================================
+ This script is part of (dnppy) or "DEVELOP National Program py"
+ It is maintained by the Geoinformatics YP class.
 
-#=========================================================================================
+It contains functions for misc conversion between formats and types. 
+"""
+
+
+
+__all__=['HDF5',            # planned development
+         'NetCDF',          # working with bugs
+         'HDF',             # complete
+         'date_to_julian',  # complete
+         'julian_to_date']  # complete
+
+
 # attempt to import all the common modules and settings
 import arcpy,core,sys,os,time
 
@@ -23,8 +25,10 @@ if arcpy.CheckExtension('Spatial')=='Available':
     from arcpy.sa import *
     from arcpy import env
     arcpy.env.overwriteOutput = True
-#=========================================================================================
-def Extract_HDF5(filelist,outdir=False,Quiet=False):
+#========================================================================================
+
+
+def HDF5(filelist, outdir=False):
 
     """
     Function extracts tifs from HDF5s such as IMERG, GMP data.
@@ -39,21 +43,21 @@ def Extract_HDF5(filelist,outdir=False,Quiet=False):
     """
 
     # import modules
-    if check_module('h5py'): import h5py
-    if check_module('numpy'): import numpy
+    if core.check_module('h5py'): import h5py
+    if core.check_module('numpy'): import numpy
 
     # set up lists
     failed=[]
 
     for filename in filelist:
-        f=h5py.File(filename,'r')
-        print '{Extract_HDF5} This function is unfinished!'
+        f = h5py.File(filename,'r')
+        print '{HDF5} This function is unfinished!'
 
-    if not Quiet:print '{Extract_HDF5} Finished!'   
     return(failed)
 
-#=========================================================================================
-def NetCDF_to_Raster(filelist,outdir,Quiet=False):
+
+
+def NetCDF(filelist,outdir,Quiet=False):
 
     """
      Function converts NetCDFs to tiffs. Designed to work with TRMM data.
@@ -80,14 +84,15 @@ def NetCDF_to_Raster(filelist,outdir,Quiet=False):
         arcpy.MakeNetCDFRasterLayer_md(infile, "r", "longitude", "latitude", "r", "", "", "BY_VALUE")
         arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
         if not Quiet:
-            print '{NetCDF_to_Raster} Converted netCDF file ' + infile + ' to Raster'
+            print '{NetCDF} Converted netCDF file ' + infile + ' to Raster'
 
                 
-    if not Quiet:print '{NetCDF_to_Raster} Finished!'     
+    if not Quiet:print '{NetCDF} Finished!'     
     return (failed)
 
-#=========================================================================================
-def Extract_HDF(filelist,layerlist,layernames=False,outdir=False,Quiet=False):
+
+
+def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
 
     """
      Function extracts tifs from HDFs.
@@ -118,8 +123,8 @@ def Extract_HDF(filelist,layerlist,layernames=False,outdir=False,Quiet=False):
     
     # ignore user input layernames if they are invalid, but print warnings
     if layernames and not len(layernames)==len(layerlist):
-        print '{Extract_HDF} layernames must be the same length as layerlist!'
-        print '{Extract_HDF} ommiting user defined layernames!'
+        print '{HDF} layernames must be the same length as layerlist!'
+        print '{HDF} ommiting user defined layernames!'
         layernames=False
 
     # create empty list to add failed file names into
@@ -156,11 +161,68 @@ def Extract_HDF(filelist,layerlist,layernames=False,outdir=False,Quiet=False):
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
                 
                 if not Quiet:
-                    print '{Extract_HDF} Extracted ' + outname
+                    print '{HDF} Extracted ' + outname
             except:
                 if not Quiet:
-                    print '{Extract_HDF} Failed extract '+ outname + ' from ' + infile
+                    print '{HDF} Failed extract '+ outname + ' from ' + infile
                 failed.append(infile)
                 
-    if not Quiet:print '{Extract_HDF} Finished!' 
+    if not Quiet:print '{HDF} Finished!' 
     return(failed)
+
+
+
+def date_to_julian(year,month,day):
+
+    """
+    Converts a conventional date to julian day and year
+    
+     Inputs:
+       year        the current year (maters for leap years). string or int
+       month       the month of the year. string or int.
+       day         the day of the month. string or int.
+
+     Outputs:
+       day         date-day for input julian day
+
+     Example usage:
+       for december 5th of the year you would type.
+       julian_day = convert.date_to_julian(2014,12,5)
+    """
+
+    import datetime
+    
+    fmt = "%Y.%m.%d"
+    info = datetime.datetime.strptime('.'.join([str(year),str(month),str(day)]),fmt)
+    julian_day = info.strftime('%j')
+
+    return(julian_day)
+
+
+
+def julian_to_date(year,j_day):
+
+    """
+    Converts a julian day of the year to conventional date format.
+
+     Inputs:
+       year        the current year (maters for leap years)
+       j_day       the julian day to convert to a date for given year
+
+     Outputs:
+       month       month of input julian day
+       day         date-day for input julian day
+
+     Example usage:
+       for the 399th day of the year 2014 you would type
+               month,day = convert.julian_to_date(2014,399)
+    """
+    
+    import datetime
+    
+    fmt = "%Y.%j"
+    info = datetime.datetime.strptime('.'.join([str(year),str(j_day)]),fmt)
+    month = info.strftime('%m')
+    day = info.strftime('%d')
+    
+    return(month,day)

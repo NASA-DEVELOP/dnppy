@@ -1,8 +1,8 @@
 from dnppy.download import list_contents
 
-
-print("===== Testing 'dnppy.download.list_contents module =====")
-
+# read in the test_dir filepath
+from dnppy import test
+test_dir = test.test_dir()
 
 # test ftp
 ftp_add      = "some address"
