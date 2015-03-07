@@ -8,6 +8,7 @@
  for future DEVELOP participants to use!
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 __all__=['Filelist',    # complete
          'Urls',        # complete

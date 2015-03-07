@@ -19,17 +19,19 @@ follows, and will run in the order listed.
     test/
         download/
             0_test_list_contents.py
-            1_reverb_filelist.txt        (will not be run, because it isnt a .py file)
+            1_reverb_filelist.txt        (will not be run, because it isn't a .py file)
             1_test_download.py
             2_test_fetch.py
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
-__author__ = "Jeffry Ely, jeff.ely.08@gmail.com"
+import time
+import os
+import dnppy
+import imp
 
-import time, os, dnppy, imp
-
-
+#===============================================================================
 
 def all_modules(test_dir = False):
     """
@@ -40,8 +42,6 @@ def all_modules(test_dir = False):
         test_dir        since many functions require downloading and mainpulating
                         large data files, a test_dir is set up to contain this
                         data.
-        first_modules   list of  names of the modules that should be run first in
-                        the event that ordering is important.
     """
 
     dnppy_dir,_      = os.path.split(dnppy.__file__)
@@ -50,10 +50,9 @@ def all_modules(test_dir = False):
 
     # make sure these existing modules get tested before the others.
     first_modules    = ['download','core','raster']
-    if first_modules:
-        for first_module in first_modules:
-            a_module(first_module, test_dir)
-            module_name_list.remove(first_module)
+    for first_module in first_modules:
+        a_module(first_module, test_dir)
+        module_name_list.remove(first_module)
 
     # execute all remaining module test scripts in the directory
     for module_name in module_name_list:
@@ -106,7 +105,6 @@ def a_module(module_name, test_dir = False):
             module  = imp.load_source(test_script.replace('.py',''), ts_path)
         
     return
-
 
 
 def test_dir():

@@ -9,12 +9,15 @@ It contains functions for specific mathematical opperations, typically on raster
 Also see dnppy.raster
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
+              "Lauren Makely, lmakely09@gmail.com"]
+
 __all__ =['apply_linear_correction',
           'degree_days',
           'degree_days_accum']
 
 
-
+#======================================================================================
 def apply_linear_correction(rasterlist, factor, offset, suffix='lc', outdir=False,
                                             save=True, floor = -999999, Quiet=False):
 

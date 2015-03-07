@@ -9,6 +9,10 @@ It contains functions for fairly routine manipulations of raster data.
 Also see dnppy.calc for 
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
+              "Lauren Makely, lmakely09@gmail.com"]
+
+
 __all__ =['to_numpy',           # complete
           'from_numpy',         # complete
           'stack',              # complete
@@ -124,11 +128,9 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
                            for example: 'uint8' or 'int32' or 'float32'
 
      Usage example:
-       call raster.to_numpy with  " rast,Metadata = raster.to_numpy(Raster) "
+       call raster.to_numpy with  "rast,Metadata = raster.to_numpy(Raster)"
        perform numpy manipulations as you please
-       then save the array with " raster.from_numpy(rast,Metadata,output)   "
-
-     
+       then save the array with "raster.from_numpy(rast, Metadata, output)"
     """
 
     if num_type:
@@ -196,8 +198,6 @@ def stack(raster_paths):
         stack           3d numpy array containing stacked raster data
         meta            metadata of the first raster layer. All layers should have identical
                         metadata.
-
-    
     """
  
     for z,raster in enumerate(raster_paths):
@@ -286,8 +286,6 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype=False, NoData_Value
        outdir          the output directory to save newly created spatially matched tifs.
        resamp_type     The resampling type to use if images are not identical cell sizes.
                            "NEAREST","BILINEAR",and "CUBIC" are the most common.
-
-     
     """
 
     # import modules and sanitize inputs
@@ -371,8 +369,6 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
      outputs:
        snap_meta       metadata of the snap_raster file as output by raster.to_numpy
        meta            metadata of the rastername file as output by raster.to_numpy
-
-     
     """
 
     # grab metadata for rastname
@@ -484,8 +480,6 @@ def many_stats(rasterlist, low_thresh, high_thresh, outdir, NoData_Value, saves 
                            NUM = rasters showing the number of good pixels which comprised AVG
                            STD = rasters showing the standard deviation of pixels
                        Defaults to all three ['AVG','NUM','STD'].
-
-     
     """
     
     print('This function will eventually be developed')
@@ -509,7 +503,6 @@ def define_null(filelist, NoData_Value, Quiet=False):
        NoData_Value    Value to declare as NoData (usually 0 or -9999)
        Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
                        Defaults to 'False' if left blank.
-
     """
 
     filelist = core.enf_rastlist(filelist)
@@ -543,7 +536,6 @@ def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
                        set to 'False' if no lower bound exists
        Quiet       Set Quiet to 'True' if you don't want anything printed to screen.
                        Defaults to 'False' if left blank.
-
     """
 
     # sanitize filelist input
@@ -616,8 +608,6 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
        If a memory error occurs when processing large datasets, users can input a value for
        "start_chunk" equal to the value of the active chunk at the time of error. This will
        allow memory to clear and pick up at the beginning of the chunk where the crash occurred.
-
-     , Lauren Makely
     """
 
     saves = core.enf_list(saves)
@@ -935,9 +925,9 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
            groundstationID ground station which recieved the data download fromt he satellite
            Version         Version of landsat data product
            band            band of landsat data product, usually 1 through 10 or 11.
-
-     
     """
+
+    
     # pull the filename and path apart 
     path,name = os.path.split(filepath)
     
@@ -1075,8 +1065,6 @@ def identify(name):
            ASTER       http://mapaspects.org/article/matching-aster-granule-id-filenames
            AIRS        http://csyotc.cira.colostate.edu/documentation/AIRS/AIRS_V5_Data_Product_Description.pdf
            False       if no other types appear to be correct.
-
-     
     """
 
     if  any( x==name[0:2] for x in ['LC','LO','LT','LE','LM']):
@@ -1097,6 +1085,7 @@ def identify(name):
         return('AIRS')
 
     
-    else:return(False)
+    else:
+        return(False)
 
 

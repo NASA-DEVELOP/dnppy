@@ -11,9 +11,11 @@
  for future DEVELOP participants to use!
 
 """
-#--------------------------------------------------------------------------------------
-#           function name           development notes
-#--------------------------------------------------------------------------------------
+
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
+              "Daniel Jensen, danieljohnjensen@gmail.com"]
+
+
 __all__=['Grab_Meta',               # complete for landsat 4,5,7,8
          
          'TOA_Reflectance_8',       # complete       
@@ -41,11 +43,12 @@ __all__=['Grab_Meta',               # complete for landsat 4,5,7,8
          'NDVI_457']                # complete
      
 
-#======================================================================================
 # attempt to import all the common modules and settings
 from dnppy import core
 from textwrap import dedent
-import numpy as np
+
+if core.check_module("numpy"): import numpy
+
 # from scipy import stats
 import os, sys, time, math, arcpy, shutil
          

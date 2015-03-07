@@ -6,16 +6,22 @@
 Collection of functions for handling the common MODIS data products
 
 """
-#--------------------------------------------------------------------------------------
-#           function name               development notes
-#--------------------------------------------------------------------------------------
+
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+
 __all__=['Mosaic_MODIS',                # complete
          'Define_MODIS_Projection',     # complete
          'Extract_MODIS_HDF']           # complete
 
 # import modules
-import sys, os, arcpy, time, core
-arcpy.env.overwriteOutput = True
+import sys, os,time
+from dnppy import core
+
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    from arcpy import sa,env
+    arcpy.env.overwriteOutput = True
 
 #======================================================================================
 def Mosaic_MODIS(filelist, outdir=False, pixel_type="32_BIT_FLOAT", bands="1",

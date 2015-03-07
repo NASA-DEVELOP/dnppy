@@ -8,6 +8,7 @@
 It contains functions for misc conversion between formats and types. 
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 
 __all__=['HDF5',            # planned development
@@ -18,8 +19,12 @@ __all__=['HDF5',            # planned development
 
 
 # attempt to import all the common modules and settings
-import arcpy,core,sys,os,time
+import sys
+import os
+import time
+from dnppy import core
 
+import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     from arcpy.sa import *

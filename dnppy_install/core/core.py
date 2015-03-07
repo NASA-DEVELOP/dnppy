@@ -18,6 +18,7 @@ logical checks. It is commonly called by other modules in the dnppy package.
    Sample_Function('test',False)
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 __all__=['sample_function',     # complete
          'project',             # complete
@@ -40,6 +41,11 @@ import datetime
 import sys
 import shutil
 
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    from arcpy import sa,env
+    arcpy.env.overwriteOutput = True
 
 #======================================================================================
 def sample_function(inputs, Quiet=False):

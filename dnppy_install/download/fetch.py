@@ -2,16 +2,19 @@
 Fetches a variety of data products from various ftp and http servers
 """
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+
 __all__=['GPM',               # halted development
          'TRMM',              # active development
          'Landsat_WELD',      # complete
          'MODIS']             # complete
 
 
-from . import core
+from dnppy import core
 import download
 import list_contents
 
+#====================================================================
 def GPM(year, month, day, product, outdir, Quiet=False):
 
     """
