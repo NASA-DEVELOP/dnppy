@@ -9,22 +9,30 @@ It contains functions for fairly routine manipulations of raster data.
 Also see dnppy.calc for 
 """
 
-__all__ =['to_numpy',
-          'from_numpy',
-          'stack',
-          'temporal_fill',
-          'find_overlap',
-          'spatially_match',
-          'clip_and_snap',
-          'clip_to_shape',
-          'define_null',
-          'set_range_null',
-          'is_rast',
-          'grab_info',
-          'identify']
+__all__ =['to_numpy',           # complete
+          'from_numpy',         # complete
+          'stack',              # complete
+          'temporal_fill',      # planned development
+          'find_overlap',       # complete
+          'spatially_match',    # complete
+          'clip_and_snap',      # complete
+          'clip_to_shape',      # complete
+          'define_null',        # complete
+          'set_range_null',     # complete
+          'is_rast',            # complete
+          'grab_info',          # working, but incomplete
+          'identify']           # working, but incomplete
 
 
+from dnppy import core
+if core.check_module('numpy'): import numpy
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    from arcpy import sa,env
+    arcpy.env.overwriteOutput = True
 
+#======================================================================================
 def to_numpy(Raster, num_type=False):
 
     """
@@ -98,7 +106,6 @@ def to_numpy(Raster, num_type=False):
 
 
 def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = False):
-
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
@@ -155,14 +162,13 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
 
 
 def is_rast(filename):
-
     """ Verifies that input filenamecore.exists, and is of raster format"""
 
     import os
     
     rast_types=['bil','bip','bmp','bsq','dat','gif','img','jpg','jp2','png','tif',
                 'BIL','BIP','BMP','BSQ','DAT','GIF','IMG','JPG','JP2','PNG','TIF']
-    ext=filename[-3:]
+    ext = filename[-3:]
 
     if os.path.isfile(filename):
         for rast_type in rast_types:
@@ -174,7 +180,6 @@ def is_rast(filename):
 
           
 def stack(raster_paths):
-
     """
     Creates 3d numpy array from multiple coincident rasters
     
@@ -210,7 +215,6 @@ def stack(raster_paths):
 
 
 def find_overlap(file_A, NoData_A, file_B, NoData_B, outpath, Quiet=False):
-
     """
      Finds overlaping area between two raster images.
      
@@ -259,9 +263,8 @@ def find_overlap(file_A, NoData_A, file_B, NoData_B, outpath, Quiet=False):
 
 
 
-def spatially_match(snap_raster,rasterlist,outdir,numtype=False,NoData_Value=False,
-                            resamp_type=False,Quiet=False):
-
+def spatially_match(snap_raster, rasterlist, outdir, numtype=False, NoData_Value=False,
+                            resamp_type=False, Quiet=False):
     """
     Prepares input rasters for further numerical processing
     
@@ -344,7 +347,6 @@ def spatially_match(snap_raster,rasterlist,outdir,numtype=False,NoData_Value=Fal
 
 
 def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value = False):
-
     """
     Ensures perfect coincidence between a snap_raster and any input rasters
     
@@ -430,9 +432,7 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
     return snap_meta,meta
 
 
-
 def clip_to_shape(rasterlist, shapefile, outdir = False):
-
     """
      Simple batch clipping script to clip rasters to shapefiles. 
 
@@ -467,7 +467,6 @@ def clip_to_shape(rasterlist, shapefile, outdir = False):
 
 
 def many_stats(rasterlist, low_thresh, high_thresh, outdir, NoData_Value, saves = ['AVG','NUM','STD']):
-
     """
     Take statitics across many input raster layers
     
@@ -497,7 +496,6 @@ def many_stats(rasterlist, low_thresh, high_thresh, outdir, NoData_Value, saves 
 
 
 def define_null(filelist, NoData_Value, Quiet=False):
-
     """
     Simple batch NoData setting function. Makes raster data more arcmap viewing friendly
     
@@ -530,7 +528,6 @@ def define_null(filelist, NoData_Value, Quiet=False):
 
 
 def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
-
     """
     Changes values within a certain range to NoData
     
@@ -578,7 +575,6 @@ def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
           
 def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdir,
                     NoData_Value, chunks=False, start_chunk=False, saves = ['AVG','NUM','STD']):
-
     """
     Takes rolling statistics on time series raster data.
 
@@ -649,7 +645,7 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
     if not chunks: chunks=xyzs/3000000+1
 
     # find the dimensions of the chunks for subprocessing of the data
-    # data is split into chunks to avoid hitting the python 2gb memory limit.
+    # data is split into chunks to avoid hitting memory limits. (2GB for 32 bit python)
     for sub in range(chunks):
         ychunks.append(range(((sub)*ys)/chunks,(((sub+1)*ys)/chunks)))
         chunk_name_list.append('Chnk'+str(sub))
@@ -885,13 +881,13 @@ def temporal_fill(filelist,Quiet=False):
     """
 
     print 'This function will eventually be developed' 
-    print 'if you need it ASAP, contact the geoinformatics YPs!'
+    print 'if you need it ASAP, contact the geoinformatics Fellows!'
     
     return
 
 
 
-def grab_info(filepath,CustGroupings=False,Quiet=False):
+def grab_info(filepath, data_type = False, CustGroupings = False):
 
     """
     Extracts in-filename metadata from common NASA data products
@@ -901,12 +897,12 @@ def grab_info(filepath,CustGroupings=False,Quiet=False):
      it will be expanded to include additional data products in the future.
 
      Inputs:
-           filepath        full or partial filepath to any modis product tile
+           filepath        Full or partial filepath to any modis product tile
+           data_type       Manually tell the software what the data is.
            CustGroupings   User defined sorting by julian days of specified bin widths.
                            input of 5 for example will group January 1,2,3,4,5 in the first bin
                            and january 6,7,8,9,10 in the second bin, etc.
-           Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
-                           Defaults to 'False' if left blank.
+
      Outputs:
            info            on object containing the attributes (product, year, day, tile)
                            retrieve these values by calling "info.product", "info.year" etc.
@@ -943,59 +939,59 @@ def grab_info(filepath,CustGroupings=False,Quiet=False):
      
     """
     # pull the filename and path apart 
-    path,name=os.path.split(filepath)
+    path,name = os.path.split(filepath)
     
-    # create an object class and the info object
-    class Object(object):pass
-    info = Object()
+    # create an info object class instance
+    class info_object(object):pass
+    info = info_object()
 
     # figure out what kind of data these files are. 
-    data_type = raster.identify(name)
+    if not data_type:
+        data_type = identify(name)
 
-    # if data looks like MODIS data
     if data_type == 'MODIS':
-        params=['product','year','j_day','tile','type','version','tag','suffix']
-        n=name.split('.')
-        end=n[4]
-        string=[n[0],name[9:13],name[13:16],n[2],'MODIS',n[3],end[:13],end[13:]]
+        params  =['product','year','j_day','tile','type','version','tag','suffix']
+        n       = name.split('.')
+        end     = n[4]
+        string  =[n[0],name[9:13],name[13:16],n[2],'MODIS',n[3],end[:13],end[13:]]
+
+    if data_type == 'MODIS':
+        params  =['product','year','j_day','tile','type','version','tag','suffix']
+        n       = name.split('.')
+        end     = n[4]
+        string  =[n[0],name[9:13],name[13:16],n[2],'MODIS',n[3],end[:13],end[13:]]
             
-    # if data looks like Landsat data
     elif data_type =='Landsat':
-        params=['sensor','satellite','WRSpath','WRSrow','year','j_day','groundstationID',
-                'Version','band','type','suffix']
-        n=name.split('.')[0]
-        string=[n[1],n[2],n[3:6],n[6:9],n[9:13],n[13:16],n[16:19],
+        params  =['sensor','satellite','WRSpath','WRSrow','year','j_day','groundstationID',
+                                                        'Version','band','type','suffix']
+        n       = name.split('.')[0]
+        string  =[n[1],n[2],n[3:6],n[6:9],n[9:13],n[13:16],n[16:19],
                 n[19:21],n[23:].split('_')[0],'Landsat','_'.join(n[23:].split('_')[1:])]
             
-    # if data looks like WELD CONUS data
     elif data_type == 'WELD_CONUS' or data_type == 'WELD_AK':
-        params=['coverage','period','year','tile','start_day','end_day','type']
-        n=name.split('.')
-        string=[n[0],n[1],n[2],n[3],n[4][4:6],n[4][8:11],'WELD']
+        params  = ['coverage','period','year','tile','start_day','end_day','type']
+        n       = name.split('.')
+        string  =[n[0],n[1],n[2],n[3],n[4][4:6],n[4][8:11],'WELD']
         # take everything after the first underscore as a suffix if onecore.exists.
         if '_' in name:
             params.append('suffix')
             string.append('_'.join(name.split('_')[1:]))
             
-    # if data looks like ASTER data
     elif data_type == 'ASTER':
-        params=['product','N','W','type','period']
-        n=name.split('_')
-        string=[n[0],n[1][1:3],n[1][5:9],n[-1].split('.')[0],'none']
+        params  = ['product','N','W','type','period']
+        n       = name.split('_')
+        string  = [n[0],n[1][1:3],n[1][5:9],n[-1].split('.')[0],'none']
     
-    # if data looks like TRMM data
     elif data_type == 'TRMM':
-        print '{Grab_Data_Info} no support for TRMM data yet! you should add it!'
+        print '{Grab_Data_Info} no support for TRMM data yet! you could add it!'
         return(False)
 
-    # if data looks like AMSR_E data
     elif data_type == 'AMSR_E':
-        print '{Grab_Data_Info} no support for AMSR_E data yet! you should add it!'
+        print '{Grab_Data_Info} no support for AMSR_E data yet! you could add it!'
         return(False)
 
-    # if data looks like AIRS data
     elif data_type == 'AIRS':
-        print '{Grab_Data_Info} no support for AIRS data yet! you should add it!'
+        print '{Grab_Data_Info} no support for AIRS data yet! you could add it!'
         return(False)
 
     # if data doesnt look like anything!
@@ -1010,22 +1006,22 @@ def grab_info(filepath,CustGroupings=False,Quiet=False):
     
     # ................................................................................
     # perform additional data gathering only if data has no info.period atribute. Images with
-    # this attribute represent data that is produced from many dates, not just one.
+    # this attribute represent data that is produced from many dates, not just one day.
     if not hasattr(info,'period'):
     # fill in date format values and custom grouping and season information based on julian day
-    # many files are named according to julian day. we want the date info for these files
+    # many files are named according to julian day. we want the date info for these files.
         try:
-            tempinfo= datetime.datetime(int(info.year),1,1)+datetime.timedelta(int(int(info.j_day)-1))
+            tempinfo    = datetime.datetime(int(info.year),1,1)+datetime.timedelta(int(int(info.j_day)-1))
             info.month  = tempinfo.strftime('%b')
             info.day    = tempinfo.day
+            
         # some files are named according to date. we want the julian day info for these files
         except:
-            fmt = '%Y.%m.%d'
-            tempinfo= datetime.datetime.strptime('.'.join([info.year,info.month,info.day]),fmt)
-            info.j_day = tempinfo.strftime('%j')
+            fmt         = '%Y.%m.%d'
+            tempinfo    = datetime.datetime.strptime('.'.join([info.year,info.month,info.day]),fmt)
+            info.j_day  = tempinfo.strftime('%j')
 
     # fill in the seasons by checking the value of julian day
-    
         if int(info.j_day) <=78 or int(info.j_day) >=355:
             info.season='Winter'
         elif int(info.j_day) <=171:
@@ -1047,7 +1043,7 @@ def grab_info(filepath,CustGroupings=False,Quiet=False):
                 print('{Grab_Data_Info} [CustGrouping] must be one or more integers in a list')
 
     # make sure the filepath input actually leads to a real file, then give user the info
-    ifcore.exists(filepath):
+    if core.exists(filepath):
         if not Quiet:
             print '{Grab_Data_Info} '+ info.type + ' File ['+ name +'] has attributes '
             print vars(info)

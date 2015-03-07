@@ -15,7 +15,7 @@ logical checks. It is commonly called by other modules in the dnppy package.
 
    Example:
    from dnppy import core
-   core.Sample_Function('test',False)
+   Sample_Function('test',False)
 """
 
 
@@ -35,19 +35,13 @@ __all__=['sample_function',     # complete
          'check_module']        # complete
 
 
-
-# attempt to import most commonly used modules
-import os, datetime, sys, glob, shutil, gc
-
-# attempt to import all the common arcpy modules and settings
-import arcpy
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy import sa,env
-    arcpy.env.overwriteOutput = True
+import os
+import datetime
+import sys
+import shutil
 
 
-
+#======================================================================================
 def sample_function(inputs, Quiet=False):
 
     """
@@ -59,7 +53,7 @@ def sample_function(inputs, Quiet=False):
     outputs=inputs
     if not Quiet:
         print('This is a sample function!')
-        print('try changing your statement to core.Sample_Function(str,True)')
+        print('try changing your statement to Sample_Function(str,True)')
 
     return(outputs)
 
@@ -83,8 +77,8 @@ def resample(rasterlist,reference_cellsize,resamp_type,outdir=False,Quiet=False)
     """
 
     # sanitize inputs and create directories
-    reference_cellsize=str(reference_cellsize)
-    rasterlist=Enforce_Rasterlist(rasterlist)
+    reference_cellsize  = str(reference_cellsize)
+    rasterlist          = enforce_rastlist(rasterlist)
     if outdir and not os.path.isdir(outdir):
         os.makedirs(outdir)
         
@@ -92,7 +86,7 @@ def resample(rasterlist,reference_cellsize,resamp_type,outdir=False,Quiet=False)
     for filename in rasterlist:
 
         # create output filename
-        outname = core.create_outname(outdir,filename,'rs')
+        outname = create_outname(outdir,filename,'rs')
         
         #arcpy.Resample_management(filename,,reference_cellsize, resamp_type)
     
@@ -124,12 +118,12 @@ def project(filelist, reference_file, outdir=False, resampling_type=False,
     """
 
     # sanitize inputs 
-   core.exists(reference_file)
-    rasterlist  = core.enf_rastlist(filelist)
-    featurelist = core.enf_featlist(filelist)
-    cleanlist = rasterlist + featurelist
+    exists(reference_file)
+    rasterlist  = enf_rastlist(filelist)
+    featurelist = enf_featlist(filelist)
+    cleanlist   = rasterlist + featurelist
 
-    # ensure output directorycore.exists
+    # ensure output directoryexists
     if not os.path.exists(outdir):
         os.makedirs(outdir)
         
@@ -142,17 +136,17 @@ def project(filelist, reference_file, outdir=False, resampling_type=False,
     # determine wether coordinate system is projected or geographic and print info
     if Spatial_Reference.type=='Projected':
         if not Quiet:
-            print('{core.project} Found ['+ Spatial_Reference.PCSName +
+            print('{project} Found ['+ Spatial_Reference.PCSName +
                     '] Projected coordinate system')
     else:
         if not Quiet:
-            print('{core.project} Found ['+ Spatial_Reference.GCSName +
+            print('{project} Found ['+ Spatial_Reference.GCSName +
                     '] Geographic coordinate system')
 
     for filename in cleanlist:
         
         # create the output filename
-        outname = core.create_outname(outdir,filename,'p')
+        outname = create_outname(outdir,filename,'p')
 
         # Perform the projection!...................................................
         # use ProjectRaster_management for rast files
@@ -168,9 +162,9 @@ def project(filelist, reference_file, outdir=False, resampling_type=False,
             arcpy.Project_management(filename,outname,Spatial_Reference)
 
         # print a status update    
-        if not Quiet: print '{core.project} Wrote projected file to ' + outname
+        if not Quiet: print '{project} Wrote projected file to ' + outname
 
-    if not Quiet: print '{core.project} Finished! \n '
+    if not Quiet: print '{project} Finished! \n '
     return(Spatial_Reference)
 
 
@@ -180,13 +174,13 @@ def rolling_window(filelist, window_size, start_jday, end_jday,
     """
     Creates a list of windows each containing a list of files grouped by central date
     
-     this function calls the 'core.in_window' function for a whole range of dates to produce
+     this function calls the 'in_window' function for a whole range of dates to produce
      rolling windows. Use this if you intend to iterate through many files for rolling
      statistics
      
      Inputs:
        filelist        the list of files to include in the rolling window. This could be
-                       easily created with the core.list_files function.
+                       easily created with the list_files function.
        window_size     width of the window in days. used to group files
        start_jday      julian day on which to start the window centers
        end_jday        julian day on which to end the window centers
@@ -220,7 +214,7 @@ def rolling_window(filelist, window_size, start_jday, end_jday,
 
         # loop for as long as the current year and day do not exceed the ending year and day
         while current_jday <= end_jday and current_year <=end_year:
-            center,window= core.in_window(filelist,window_size,current_jday,current_year,Quiet)
+            center,window= in_window(filelist,window_size,current_jday,current_year,Quiet)
             window_matrix.append(window)
             window_centers.append(center)
 
@@ -241,7 +235,7 @@ def rolling_window(filelist, window_size, start_jday, end_jday,
         
         # loop for as long as the current day does not exceed the ending day
         while current_jday <= end_jday:
-            center,window= core.in_window(filelist,window_size,current_jday,False,Quiet)
+            center,window= in_window(filelist,window_size,current_jday,False,Quiet)
             window_matrix.append(window)
             window_centers.append(center)
             
@@ -252,7 +246,7 @@ def rolling_window(filelist, window_size, start_jday, end_jday,
                 current_jday=current_jday + 1
             index=index+1
 
-    if not Quiet: print '{core.rolling_window} Finished!'
+    if not Quiet: print '{rolling_window} Finished!'
         
 
     return window_centers,window_matrix
@@ -265,7 +259,7 @@ def in_window(filelist, window_size, jday, year=False, Quiet=False):
     
      this function returns a list of files within the window designation.
      This is useful for feeding into functions that create weekly/monthly/annual statistics
-     from daily data. Use the core.rolling_window function (which calls this one) if you intend
+     from daily data. Use the rolling_window function (which calls this one) if you intend
      to iterate through many files for rolling statistics.
 
      This function only works for files whos naming conventions are supported by the
@@ -274,7 +268,7 @@ def in_window(filelist, window_size, jday, year=False, Quiet=False):
      
      Inputs:
        filelist        the list of files to include in the window. This could be easily
-                       created with the core.list_files function.
+                       created with the list_files function.
        window_size     width of the window in days. used to group files
        jday            the julian day at which to center the window
        year            the year on which to center the window. If you wish to bin all days
@@ -348,10 +342,10 @@ def in_window(filelist, window_size, jday, year=False, Quiet=False):
                 
     if not Quiet:
         if year:
-            print('{core.in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
+            print('{in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
                   ']day window: '+ str(jday) +'-'+ str(year))
         else:
-            print('{core.in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
+            print('{in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
                   ']day window: '+ str(jday))
  
     return center_file,in_window
@@ -372,9 +366,9 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
                            'False'if search should ignore files in subfolders.
            Dir             The directory in which to search for files meeting the criteria
            Contains        search criteria to limit returned file list. File names must
-                           contain parameters listed here. If no criteriacore.exists use 'False'
+                           contain parameters listed here. If no criteriaexists use 'False'
            DoesNotContain  search criteria to limit returned file list. File names must not
-                           contain parameters listed here. If no criteriacore.exists use 'False'
+                           contain parameters listed here. If no criteriaexists use 'False'
            Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
                            Defaults to 'False' if left blank.
      Outputs:
@@ -382,7 +376,7 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
 
      Example Usage:
            import ND
-           filelist=ND.core.list_files(True,r'E:\Landsat7','B1',['gz','xml','ovr'])
+           filelist=ND.list_files(True,r'E:\Landsat7','B1',['gz','xml','ovr'])
 
            The above statement will find all the Band 1 tifs in a landsat data directory
            without including the associated metadata and uncompressed gz files.
@@ -395,13 +389,13 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
     filelist=[]
     templist=[]
 
-    # ensure input directory actuallycore.exists
-    if notcore.exists(Dir): return(False)
+    # ensure input directory actuallyexists
+    if notexists(Dir): return(False)
 
     # Ensure single strings are in list format for the loops below
-    if Contains: Contains = core.enf_list(Contains)
+    if Contains: Contains = enf_list(Contains)
     if DoesNotContain:
-        DoesNotContain = core.enf_list(DoesNotContain)
+        DoesNotContain = enf_list(DoesNotContain)
         DoesNotContain.append('sr.lock')    # make sure lock files don't get counted
     else:
         DoesNotContain=['sr.lock']          # make sure lock files don't get counted
@@ -449,7 +443,7 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
                     else:
                         filelist.append(filename)
                                         
-                # if neither conditioncore.exists
+                # if neither conditionexists
                     if not Contains and not DoesNotContain:
                         filelist.append(filename)
 
@@ -482,8 +476,8 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
         
     # Print a quick status summary before finishing up if Quiet is False
     if not Quiet:
-        print '{core.list_files} Files found which meet all input criteria: ' + str(len(filelist))
-        print '{core.list_files} finished! \n'
+        print '{list_files} Files found which meet all input criteria: ' + str(len(filelist))
+        print '{list_files} finished! \n'
     
     return(filelist)
 
@@ -497,7 +491,7 @@ def del_empty_dirs(path):
 
     import os
 
-    # only continue if the pathcore.exists
+    # only continue if the pathexists
     if os.path.isdir(path):
 
         # list files in directory
@@ -514,17 +508,17 @@ def del_empty_dirs(path):
 def rename(filename,replacethis,withthis,Quiet=False):
 
     """
-    Simply core.renames files
+    Simply renames files
 
      Inputs:
-       filename        input file to core.rename    
+       filename        input file to rename    
        replacethis     String to be replaced. such as " " (a space) 
        withthis        What to replace the string with. such as "_" (an underscore)
        Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
                        Defaults to 'False' if left blank.
 
      Outputs:
-           newfilename     returns the new name of the core.renamed file.
+           newfilename     returns the new name of the renamed file.
 
      
      """
@@ -533,17 +527,17 @@ def rename(filename,replacethis,withthis,Quiet=False):
     
     if replacethis in filename:
 
-        # make sure the filenamecore.exists
-       core.exists(filename)
+        # make sure the filenameexists
+       exists(filename)
 
         # define a new filename
         newfilename=filename.replace(replacethis,withthis)
 
-        # core.rename the file
-        os.core.rename(filename,newfilename)
+        # rename the file
+        os.rename(filename,newfilename)
 
         # tell the user about it.
-        if not Quiet: print '{core.rename} core.renamed',filename,'to',newfilename
+        if not Quiet: print '{rename} renamed',filename,'to',newfilename
         
         return newfilename
     else:
@@ -568,7 +562,7 @@ def enf_list(item):
         return([item])
     
     elif isinstance(item,bool):
-        print '{core.enf_list} Cannot enforce a bool to be list! at least one list type input is invalid!'
+        print '{enf_list} Cannot enforce a bool to be list! at least one list type input is invalid!'
         return(False)
     else:
         return(item)
@@ -588,7 +582,7 @@ def enf_filelist(filelist):
     
     if isinstance(filelist,str):
         if os.path.exists(filelist):
-            new_filelist= core.list_files(False,filelist,False,False,True)
+            new_filelist= list_files(False,filelist,False,False,True)
             return(new_filelist)
         elif os.path.isfile(filelist):
             return([filelist])
@@ -604,7 +598,7 @@ def enf_rastlist(filelist):
     """
     Sanitizes raster list inputs
 
-     This function works exactly like core.enf_filelist, with the added feature of removing
+     This function works exactly like enf_filelist, with the added feature of removing
      all filenames that are not of a raster type recognized by Arcmap.
 
      Input:    filelist        any list of files
@@ -614,7 +608,7 @@ def enf_rastlist(filelist):
     """
 
     # first place the input through the same requirements of any filelist
-    filelist = core.enf_filelist(filelist)
+    filelist = enf_filelist(filelist)
     new_filelist=[]
 
     for filename in filelist:
@@ -630,7 +624,7 @@ def enf_featlist(filelist):
     """
     Sanitizes feature list inputs
 
-     This function works exactly like core.enf_filelist, with the added feature of removing
+     This function works exactly like enf_filelist, with the added feature of removing
      all filenames that are not of a feature class type recognized by arcmap.
 
      Input:    filelist        any list of files
@@ -723,7 +717,7 @@ def create_outname(outdir, inname, suffix, ext = False):
        outdir = r"C:\Users\jwely\Desktop\output"
        inname = r"C:\Users\jwely\Desktop\folder\subfolder\Landsat_tile.tif"
        suffix = "adjusted"
-       outname = core.core.create_outname(outdir,inname,suffix)
+       outname = core.create_outname(outdir,inname,suffix)
 
        will set outname equal to "C:\Users\jwely\Desktop\output\Landsat_tile_adjusted.tif" which
        can be passed to other functions that require an output filepath.
@@ -813,7 +807,6 @@ def check_module(module_name):
         webbrowser.open(url)
         sys.exit()
         return(False)
-if check_module('numpy'): import numpy
 
 
 
