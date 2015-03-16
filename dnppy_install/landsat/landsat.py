@@ -40,7 +40,11 @@ __all__=['Grab_Meta',               # complete for landsat 4,5,7,8
          'AtSat_Bright_Temp_457',   # complete
 
          'NDVI_8',                  # complete
-         'NDVI_457']                # complete
+         'NDVI_457',                # complete
+
+         'Surface_Temp_8',          # planned development
+         'Surface_Temp_7',          # planned development
+         'Surface_Temp_45',]        # planned development
      
 
 # attempt to import all the common modules and settings
@@ -130,7 +134,8 @@ def Grab_Meta(filename, Quiet = True):
         
     return(meta)
 
-#======================================================================================
+
+
 def TOA_Reflectance_8(band_nums, meta_path, outdir = False):
 
     """
@@ -174,7 +179,7 @@ def TOA_Reflectance_8(band_nums, meta_path, outdir = False):
             print "{TOA_Reflectance_8} Skipping band " + band_num
     return
 
-#======================================================================================
+
 
 def TOA_Reflectance_457(band_nums, meta_path, outdir = False):
 
@@ -290,7 +295,8 @@ def TOA_Reflectance_457(band_nums, meta_path, outdir = False):
    f.close()
    return OutList
 
-#======================================================================================
+
+
 def AtSat_Bright_Temp_8(band_nums, meta_path, outdir = False):
 
     """
@@ -342,7 +348,8 @@ def AtSat_Bright_Temp_8(band_nums, meta_path, outdir = False):
             print "{AtSat_Bright_Temp_8} Skipping band " + outname
     return
 
-#======================================================================================
+
+
 def AtSat_Bright_Temp_457(meta_path, outdir = False):
    """
     Converts band 6 from Landsat 4 and 5 or bands 6 VCID 1 and 2 from Landsat 7
@@ -445,7 +452,8 @@ def AtSat_Bright_Temp_457(meta_path, outdir = False):
    f.close()
    return OutList
 
-#======================================================================================
+
+
 def TOA_Radiance_8(band_nums, meta_path, outdir = False):
 
     """
@@ -486,7 +494,8 @@ def TOA_Radiance_8(band_nums, meta_path, outdir = False):
 
     return
 
-#======================================================================================
+
+
 def TOA_Radiance_457(band_nums, meta_path, outdir = False):
 
    """
@@ -585,7 +594,8 @@ def TOA_Radiance_457(band_nums, meta_path, outdir = False):
    f.close()
    return OutList
 
-#======================================================================================
+
+
 def Cloud_Mask_8(band_nums, BQA_path, outdir = False):
    """
    Removal of cloud-covered pixels in raw Landsat 8 bands using the BQA file included.
@@ -621,7 +631,8 @@ def Cloud_Mask_8(band_nums, BQA_path, outdir = False):
 
    return
 
-#======================================================================================
+
+
 def Cloud_Mask_457(band_nums, BQA_path, outdir = False):
    """
    Removal of cloud-covered pixels in raw Landsat 4, 5, and 7 bands.
@@ -638,7 +649,6 @@ def Cloud_Mask_457(band_nums, BQA_path, outdir = False):
 
 
 
-#======================================================================================
 def NDVI_8(B5, B4, outdir = False):
    """
    This tool calculates a normalized difference vegetation index on Landsat 8 OLI data.
@@ -664,7 +674,8 @@ def NDVI_8(B5, B4, outdir = False):
         
    print "{NDVI_8} Saved output at " + outname
         
-#======================================================================================
+
+
 def NDVI_457(B4, B3, outdir = False):
    """
    This tool calculates a normalized difference vegetation index on Landsat 4/5/7 TM/ETM+ data.
