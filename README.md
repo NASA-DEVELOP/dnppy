@@ -33,9 +33,9 @@ h5py
 
 This dnppy repository is meant to be an evolving codebase for use by DEVELOP participants as well as end users. All code should be directly relevant to DEVELOP projects. The structure is tailored for us in an ArcMap environment, and should minimize external dependencies outside the python modules shipped with ArcMap 10.3, which includes python 2.7 and the SciPy stack. However, since Arcmap also allows R scripts to be used as Arcmap tools, it may be appropriate to include R scripts within dnppy. General goals are as follows:
 
-1) Make life easier for the participant
-2) Provide useful tools for end users
-3) Provide useful tools for the geospatial community 
+1. Make life easier for the participant
+2. Provide useful tools for end users
+3. Provide useful tools for the geospatial community 
 
 ###Methods
 
