@@ -19,8 +19,8 @@ Run "setup.py"
 
 ### Dependencies
 
-Most dependenices come natively with Arcmap 10.2+ 
-Expect future dependencies from the SciPy stack, which ships with Arcmap 10.3+
+Most dependenices come natively with Arcmap 10.2+ . Expect future dependencies from the SciPy stack, which ships with Arcmap 10.3+
+
 1. Python 2.7
 2. arcpy  (see ESRI's ArcMap software)
 3. numpy
