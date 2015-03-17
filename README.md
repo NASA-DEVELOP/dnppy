@@ -42,7 +42,7 @@ There are some best practices for coding python modules and scripts for use as A
 ####Key Functionality
 1.	Make NASA data easier to find, download, and use in geospatial environment
 2.	Make ancillary data sets such as those provided by NOAA easier to use in conjunction with NASA data products
-3.	Build up flexible and robust software tools for data analysis to allow DEVELOP to handle increasingly complex projects over time.
+3.	Build up flexible and robust software tools for data analysis to allow DEVELOP to handle increasingly complex projects over time
 4.	Package suitable DEVELOP code for end users to easily deploy
 5.	Preserve an educational context and decent help documentation
 6.	Preserve the testing framework that’s been implemented to ensure quality and reliability
