@@ -1,9 +1,10 @@
 
+"""
+quick landsat 8 surface temperature code, doesnt work yet
+"""
 
-# quick landsat 8 surface temperature estimate
 
-
-def surface_temp(
+def surface_temp():
     """
     calculates the surface temperature with a modified plank equation
     following Markham and Barker.
@@ -34,3 +35,4 @@ def surface_temp(
     correct_rad = ((therm_rad - path_rad) / nbt) - ((1-nbe) * sky_rad)
 
     surface_temp = (K2 / (math.ln(((nbe * K1) / correct_rad) + 1 )))
+    return
