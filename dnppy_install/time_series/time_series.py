@@ -255,8 +255,15 @@ class time_series:
         self.time_dom       = []
         self.time_dec_days  = []
         
-        for datestamp in datestamp_list:
-            t = datetime.strptime(datestamp, fmt)
+        for i,datestamp in enumerate(datestamp_list):
+
+            # If error, give user information about the line on which the error occurs
+            try:
+                t = datetime.strptime(datestamp, fmt)
+            except:
+                raise Exception("Input '{0}' in line {1} is not of format ".format(
+                                    datestamp, i+2 , fmt))
+                          
             self.time_dom.append(t)
             
             delta = t - start

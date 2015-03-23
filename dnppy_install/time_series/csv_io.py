@@ -1,11 +1,13 @@
 
-def read_csv_rows(filepath):
+def read_csv_rows(filepath, has_headers = True):
     """import csv data as standard rows"""
     
     with open(filepath,'r') as f:
 
         data = []
-        headers = next(f).replace('\n','').split(',')
+
+        if has_headers:
+            headers = next(f).replace('\n','').split(',')
 
         for line in f:
             entry = line.replace('\n','').split(',')
@@ -16,10 +18,10 @@ def read_csv_rows(filepath):
     return data, headers
 
 
-def read_csv_cols(filepath):
+def read_csv_cols(filepath, has_headers = True):
     """import csv data in columnwise format (transposed)"""
 
-    data, headers = read_csv_rows(filepath)
+    data, headers = read_csv_rows(filepath, has_headers)
     return zip(*data), headers
 
 
