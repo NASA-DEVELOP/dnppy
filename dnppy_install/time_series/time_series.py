@@ -226,7 +226,7 @@ class time_series:
         return self.time
 
     
-    def define_time(self, time_header, fmt):
+    def define_time(self, time_header, fmt, start_date = False):
         """
         Converts time strings into time objects for standardized processing
 
@@ -241,10 +241,14 @@ class time_series:
         # populates self.time with time series
         self.extract_time(time_header)
 
-        # sets starting point to beginning of first days record
-        earliest = datetime.strptime(self.time[0], fmt)
-        start = datetime(earliest.year, earliest.month, earliest.day, 0,0,0,0)
+        # use manual start date or set to begining of first day on record
+        if start_date:
+            start =datetime.strptime(start_date, fmt)
             
+        else:
+            earliest = datetime.strptime(self.time[0], fmt)
+            start = datetime(earliest.year, earliest.month, earliest.day, 0,0,0,0)
+
         datestamp_list      = self.time
         self.fmt            = fmt
         
