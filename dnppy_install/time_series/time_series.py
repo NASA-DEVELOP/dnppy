@@ -258,11 +258,9 @@ class time_series:
         for i,datestamp in enumerate(datestamp_list):
 
             # If error, give user information about the line on which the error occurs
-            try:
-                t = datetime.strptime(datestamp, fmt)
-            except:
-                raise Exception("Input '{0}' in line {1} is not of format ".format(
-                                    datestamp, i+2 , fmt))
+            try:    t = datetime.strptime(datestamp, fmt)
+            except: raise Exception("Input '{0}' in line {1} is not of format ".format(
+                    datestamp, i+2 , fmt))
                           
             self.time_dom.append(t)
             
@@ -393,8 +391,7 @@ class time_series:
 
         if self.discretized:
             for subset in self.subsets:
-                subset.column_stats(col_header)
-                
+                subset.column_stats(col_header)   
         return
 
 
@@ -449,6 +446,7 @@ class time_series:
                 len(self.time),
                 self.time[0],
                 self.time[-1]))
+            
 
     def add_mono_time(self):
         """ ammends the data structure to add goodies"""
@@ -470,10 +468,6 @@ class time_series:
 # north carolina water main stuff
 
 if __name__ == "__main__": pass
-
-    
-
-
 
 
 # northwest agriculture main stuff
