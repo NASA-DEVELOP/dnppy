@@ -5,7 +5,7 @@ from dnppy import test
 test_dir = test.test_dir()
 
 # test ftp
-ftp_add      = "some address"
+ftp_add      = "arthurhou.pps.eosdis.nasa.gov"
 names, paths = list_contents.ftp(ftp_add)
 print zip(filenames, filepaths)
 
@@ -13,3 +13,4 @@ print zip(filenames, filepaths)
 http_add = "some address"
 files    = list_contents.http(http_add)
 print files
+

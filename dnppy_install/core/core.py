@@ -396,10 +396,11 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
     templist=[]
 
     # ensure input directory actuallyexists
-    if notexists(Dir): return(False)
+    if not exists(Dir): return(False)
 
     # Ensure single strings are in list format for the loops below
-    if Contains: Contains = enf_list(Contains)
+    if Contains:
+        Contains = enf_list(Contains)
     if DoesNotContain:
         DoesNotContain = enf_list(DoesNotContain)
         DoesNotContain.append('sr.lock')    # make sure lock files don't get counted
@@ -528,16 +529,14 @@ def rename(filename,replacethis,withthis,Quiet=False):
 
      
      """
-
-    import os
     
     if replacethis in filename:
 
         # make sure the filenameexists
-       exists(filename)
+        exists(filename)
 
         # define a new filename
-        newfilename=filename.replace(replacethis,withthis)
+        newfilename = filename.replace(replacethis, withthis)
 
         # rename the file
         os.rename(filename,newfilename)
