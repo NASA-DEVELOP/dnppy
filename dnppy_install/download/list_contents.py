@@ -6,11 +6,9 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 import ftplib, urllib, os, time, sys
 
-#==============================================================================
 
 
-
-def ftp(site, Dir = False):
+def ftp(site, username = False , password = False, Dir = False):
     """
     lists contents of typical FTP download site
 
@@ -19,7 +17,13 @@ def ftp(site, Dir = False):
     """
     
     ftp = ftplib.FTP(site)
-    ftp.login()
+
+    if username and password:
+        ftp.login(username, password)
+    elif username:
+        ftp.login(username)
+    else:
+        ftp.login()
     
     if Dir:
         ftp.cwd(Dir)
@@ -31,17 +35,21 @@ def ftp(site, Dir = False):
     ftp.dir(rawdata.append)
     filenames = [i.split()[-1] for i in rawdata[1:]]
     filepaths = ["ftp://"+"/".join([site,Dir,afile]).replace("//","/") for afile in filenames]
+
+    ftp.quit()
     return(filenames,filepaths)
 
 
 def http(site):
     """Lists contents of typical http download site at [http://e4ftl01.cr.usgs.gov]"""
     
-    website=urllib.urlopen(site)
-    string=website.readlines()
+    website = urllib.urlopen(site)
+    string  = website.readlines()
     
-    files=[]
+    files = []
     for line in string:
-        try:files.append(line.replace('/','').split('"')[5])
-        except: pass
+        try:
+            files.append(line.replace('/','').split('"')[5])
+        except:
+            pass
     return files

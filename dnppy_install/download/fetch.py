@@ -176,8 +176,8 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
     """
 
     # check formats
-    tiles = core.Enforce_List(tiles)
-    years = core.Enforce_List(years)
+    tiles = core.enforce_list(tiles)
+    years = core.enforce_list(years)
     years = [str(year) for year in years]
 
     # create output directories

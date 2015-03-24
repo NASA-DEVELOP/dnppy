@@ -50,7 +50,7 @@ if os.path.isdir(dest_path):
     if upgrading(now_vers , up_vers):
         print("Updating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
         
-        time.sleep(1)   # people seem to think an error has occured when it installs too quickly.
+        time.sleep(0)   # people seem to think an error has occured when it installs too quickly.
                         # this gives people time to actually read the screen.
         
         shutil.rmtree(dest_path)

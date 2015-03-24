@@ -121,6 +121,10 @@ def test_dir():
     
     dnppy_dir,_         = os.path.split(dnppy.__file__)
     test_dir_text_path  = os.path.join(dnppy_dir,"test","test_dir.txt")
+
+    if not os.path.isdir(test_dir_text_path):
+        setup()
+
     with open(test_dir_text_path,'r') as f:
         test_dir = next(f)
         f.close()

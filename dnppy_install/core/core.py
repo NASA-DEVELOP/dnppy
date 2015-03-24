@@ -41,11 +41,11 @@ import datetime
 import sys
 import shutil
 
-import arcpy
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy import sa,env
-    arcpy.env.overwriteOutput = True
+##import arcpy
+##if arcpy.CheckExtension('Spatial')=='Available':
+##    arcpy.CheckOutExtension('Spatial')
+##    from arcpy import sa,env
+##    arcpy.env.overwriteOutput = True
 
 #======================================================================================
 def sample_function(inputs, Quiet=False):
