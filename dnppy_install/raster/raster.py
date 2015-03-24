@@ -26,11 +26,12 @@ __all__ =['to_numpy',           # complete
           'grab_info',          # working, but incomplete
           'identify',           # working, but incomplete
           'is_rast',            # complete
-          'enf_rastlist']       # complete
+          'enf_rastlist',       # complete
+          'project_resamp']     # complete
 
 
 import os, shutil
-from dnppy.core import core
+from dnppy import core
 if core.check_module('numpy'): import numpy
 import arcpy
 
@@ -105,7 +106,7 @@ def to_numpy(raster, num_type=False):
     if is_rast(raster):
 
         numpy_rast  = arcpy.RasterToNumPyArray(raster)
-        xs, ys      = numpy_rast.shape
+        ys, xs      = numpy_rast.shape
         meta        = metadata(raster, xs, ys)
         
         if num_type:
@@ -348,8 +349,8 @@ def find_overlap(file_A, NoData_A, file_B, NoData_B, outpath, Quiet=False):
 
 
 
-def spatially_match(snap_raster, rasterlist, outdir, numtype=False, NoData_Value=False,
-                            resamp_type=False, Quiet=False):
+def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Value = False,
+                            resamp_type = False):
     """
     Prepares input rasters for further numerical processing
     
@@ -409,26 +410,29 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype=False, NoData_Value
         round(float(snap_meta.cellWidth)/float(meta.cellWidth),5)!=1:
 
             if resamp_type:
-                arcpy.Resample_management(rastname,tempname,snap_raster, resamp_type)
+                cell_size = "{0} {1}".format(snap_meta.cellHeight,snap_meta.cellWidth)
+                arcpy.Resample_management(rastname, tempname, cell_size, resamp_type)
                 usetemp = True
                 
-            print('The files are not the same resolution!')
-            print('Resample the images manually or input a value for "resampe_type"!')
-
+            else:
+                raise Exception("images are NOT the same resolution! {0} vs {1} input a resample type!".format(
+                    (snap_meta.cellHeight,snap_meta.cellWidth),(meta.cellHeight,meta.cellWidth)))
+            
         # define an output name and run the Clip_ans_Snap_Raster function on formatted tifs.
         head,tail   = os.path.split(rastname)
-        outname     = os.path.join(outdir,tail[:-4]+'_matched.tif')
+        outname     = core.create_outname(outdir, rastname,'matched')
 
         # if a temporary file was created in previous steps, use that one for clip and snap               
         if usetemp:   
             clip_and_snap(snap_raster, tempname, outname, numtype, NoData_Value)
         else:
-            clip_and_snap(snap_raster, rastname, outname, numtype, NoData_Value)  
+            clip_and_snap(snap_raster, rastname, outname, numtype, NoData_Value)
+            
         print(' Finished matching raster!')
 
     shutil.rmtree(tempdir)
     return
-
+           
 
 def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value = False):
     """
@@ -474,7 +478,7 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
         os.makedirs(tempdir)
 
     # set the snap raster environment in arcmap.
-    arcpy.env.snapRaster=snap_raster
+    arcpy.env.snapRaster = snap_raster
 
     # remove data that is outside the bounding box and snap the image
     print("Clipping {0}".format(rastname))
@@ -489,9 +493,6 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
     raster, meta = to_numpy(tempout)
     xoffset      = int(round((meta.Xmin - snap_meta.Xmin)/meta.cellWidth,0))
     yoffset      = int(round((meta.Ymin - snap_meta.Ymin)/meta.cellHeight,0))
-
-    print("xoffset",xoffset,"yoffset",yoffset)
-
 
     # first iteration of clip with snap_raster environment sometimes has rounding issues
     # run clip a second time if raster does not fully lie within the extents of the bounding box
@@ -514,8 +515,17 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
     newraster = numpy.zeros((snap_meta.Ysize, snap_meta.Xsize)) + float(meta.NoData_Value)
     
     print("recasting rastwer with shape ({1}) to shape ({0})".format(newraster.shape, raster.shape))
+
+    '''print snap_meta.Ysize
+    print meta.Ysize
+    print yoffset
     
-    newraster[(snap_meta.Ysize - meta.Ysize - yoffset):(snap_meta.Ysize - yoffset), xoffset:(xoffset + meta.Xsize)] = raster[:,:]
+    print snap_meta.Xsize
+    print meta.Xsize
+    print xoffset'''
+    
+    newraster[(snap_meta.Ysize - meta.Ysize - yoffset):(snap_meta.Ysize - yoffset),
+              (snap_meta.Xsize - meta.Xsize - xoffset):(snap_meta.Xsize - xoffset)] = raster[:,:]
     from_numpy(newraster, meta, outname, NoData_Value, numtype)
 
     # clean up
@@ -1169,3 +1179,75 @@ def enf_rastlist(filelist):
                 new_filelist.append(filename)
 
     return(new_filelist)
+
+
+def project_resamp(filelist, reference_file, outdir = False,
+                   resampling_type = False, cell_size = False):
+
+    """
+    Wrapper for multiple arcpy projecting functions. Projects to reference file
+    
+     Inputs a filelist and a reference file, then projects all rasters or feature classes
+     in the filelist to match the projection of the reference file. Writes new files with a
+     "_p" appended to the end of the input filenames.
+
+     Inputs:
+       filelist            list of files to be projected
+       outdir              optional desired output directory. If none is specified, output files
+                           will be named with '_p' as a suffix.
+       reference_file      Either a file with the desired projection, or a .prj file.
+       resampling type     exactly as the input for arcmaps project_Raster_management function
+       cell_size           exactly as the input for arcmaps project_Raster_management function
+
+     Output:
+       Spatial reference   spatial referencing information for further checking.
+    """
+
+    # sanitize inputs
+    core.exists(reference_file)
+           
+    rasterlist  = enf_rastlist(filelist)
+    featurelist = core.enf_featlist(filelist)
+    cleanlist   = rasterlist + featurelist
+
+    # ensure output directoryexists
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+        
+    # grab data about the spatial reference of the reference file. (prj or otherwise)
+    if reference_file[-3:]=='prj':
+        Spatial_Reference = arcpy.SpatialReference(Spatial_Reference)
+    else:
+        Spatial_Reference = arcpy.Describe(reference_file).spatialReference
+        
+    # determine wether coordinate system is projected or geographic and print info
+    if Spatial_Reference.type == 'Projected':
+        print('Found {0} projected coord system'.format(Spatial_Reference.PCSName))
+    else:
+        print('Found {0} geographic coord system'.format(Spatial_Reference.GCSName))
+
+
+    for filename in cleanlist:
+        
+        # create the output filename
+        outname = core.create_outname(outdir, filename, 'p')
+
+        # use ProjectRaster_management for rast files
+        if is_rast(filename):
+            if resampling_type:
+                
+                arcpy.ProjectRaster_management(
+                    filename, outname, Spatial_Reference,resampling_type, cell_size)
+                print('Wrote projected and resampled file to {0}'.format(outname))
+                
+            else:
+                arcpy.ProjectRaster_management(filename, outname, Spatial_Reference)
+                print('Wrote projected file to {0}'.format(outname))
+                
+        # otherwise, use Project_management for featureclasses and featurelayers
+        else:
+            arcpy.Project_management(filename,outname,Spatial_Reference)
+            print('Wrote projected file to {0}'.format(outname))
+
+    print("finished projecting!")
+    return(Spatial_Reference)     

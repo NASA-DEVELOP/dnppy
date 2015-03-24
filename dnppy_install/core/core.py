@@ -21,13 +21,13 @@ logical checks. It is commonly called by other modules in the dnppy package.
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 __all__=['sample_function',     # complete
-         'project',             # complete
          'rolling_window',      # complete
          'in_window',           # complete
          'del_empty_dirs',      # complete
          'rename',              # complete
          'enf_list',            # complete
          'enf_filelist',        # complete
+         'enf_featlist',        # complete
          'list_files',          # complete
          'move',                # complete
          'exists',              # complete
@@ -40,11 +40,11 @@ import datetime
 import sys
 import shutil
 
-##import arcpy
-##if arcpy.CheckExtension('Spatial')=='Available':
-##    arcpy.CheckOutExtension('Spatial')
-##    from arcpy import sa,env
-##    arcpy.env.overwriteOutput = True
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    from arcpy import sa,env
+    arcpy.env.overwriteOutput = True
 
 #======================================================================================
 def sample_function(inputs, Quiet=False):
@@ -96,81 +96,6 @@ def resample(rasterlist,reference_cellsize,resamp_type,outdir=False,Quiet=False)
         #arcpy.Resample_management(filename,,reference_cellsize, resamp_type)
     
     return
-
-
-def project(filelist, reference_file, outdir=False, resampling_type=False,
-                      cell_size=False, Quiet=False):
-
-    """
-    Wrapper for multiple arcpy projecting functions. Projects to reference file
-    
-     Inputs a filelist and a reference file, then projects all rasters or feature classes
-     in the filelist to match the projection of the reference file. Writes new files with a
-     "_p" appended to the end of the input filenames.
-
-     Inputs:
-       filelist            list of files to be projected
-       outdir              optional desired output directory. If none is specified, output files
-                           will be named with '_p' as a suffix.
-       reference_file      Either a file with the desired projection, or a .prj file.
-       resampling type     exactly as the input for arcmaps project_Raster_management function
-       cell_size           exactly as the input for arcmaps project_Raster_management function
-
-     Output:
-       Spatial reference   spatial referencing information for further checking.
-
-     
-    """
-
-    # sanitize inputs 
-    exists(reference_file)
-    rasterlist  = enf_rastlist(filelist)
-    featurelist = enf_featlist(filelist)
-    cleanlist   = rasterlist + featurelist
-
-    # ensure output directoryexists
-    if not os.path.exists(outdir):
-        os.makedirs(outdir)
-        
-    # grab data about the spatial reference of the reference file. (prj or otherwise)
-    if reference_file[-3:]=='prj':
-        Spatial_Reference=arcpy.SpatialReference(Spatial_Reference)
-    else:
-        Spatial_Reference=arcpy.Describe(reference_file).spatialReference
-        
-    # determine wether coordinate system is projected or geographic and print info
-    if Spatial_Reference.type=='Projected':
-        if not Quiet:
-            print('{project} Found ['+ Spatial_Reference.PCSName +
-                    '] Projected coordinate system')
-    else:
-        if not Quiet:
-            print('{project} Found ['+ Spatial_Reference.GCSName +
-                    '] Geographic coordinate system')
-
-    for filename in cleanlist:
-        
-        # create the output filename
-        outname = create_outname(outdir,filename,'p')
-
-        # Perform the projection!...................................................
-        # use ProjectRaster_management for rast files
-        if raster.is_rast(filename):
-            if resampling_type:
-                arcpy.ProjectRaster_management(filename,outname,Spatial_Reference,
-                            resampling_type)
-            else:
-                arcpy.ProjectRaster_management(filename,outname,Spatial_Reference)
-                
-        # otherwise, use Project_management for featureclasses and featurelayers
-        else:
-            arcpy.Project_management(filename,outname,Spatial_Reference)
-
-        # print a status update    
-        if not Quiet: print '{project} Wrote projected file to ' + outname
-
-    if not Quiet: print '{project} Finished! \n '
-    return(Spatial_Reference)
 
 
 def rolling_window(filelist, window_size, start_jday, end_jday,
@@ -618,7 +543,7 @@ def enf_featlist(filelist):
     """
 
     # first place the input through the same requirements of any filelist
-    filelist        = enforce_filelist(filelist)
+    filelist        = enf_filelist(filelist)
     new_filelist    = []
     feat_types      = ['shp']
 
