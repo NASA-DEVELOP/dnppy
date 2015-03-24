@@ -1,3 +1,12 @@
+"""
+quick dirty script for simple read and write of csv files
+
+It can't do anything that pythons native csv module can't do,
+but it is provided for educational purposes
+"""
+
+__author__ = "Jeffry Ely, jeff.ely.08@gmail.com"
+
 
 def read_csv_rows(filepath, has_headers = True):
     """import csv data as standard rows"""
@@ -45,7 +54,6 @@ def write_csv_cols(data, headers, filepath):
     """ writes some column wise data structure to a csv file"""
 
     data = zip(*data)
-
     write_csv_rows(data, headers, filepath)
     return
 
