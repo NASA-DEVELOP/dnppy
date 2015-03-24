@@ -210,12 +210,16 @@ class time_series:
         """ special case of "extract_column" method for time domain"""
 
         self.time_header = time_header
-
         self.build_col_data()
 
+        if isinstance(time_header, list):
+            
+            
         if time_header in self.headers:
-            self.time_col   = self.headers.index(time_header)
-            self.time       = self.col_data[time_header]
+            
+            else:
+                self.time_col   = self.headers.index(time_header)
+                self.time       = self.col_data[time_header]
         else:
             raise LookupError("Time header not in dataset!")
         
@@ -240,10 +244,11 @@ class time_series:
 
         # populates self.time with time series
         self.extract_time(time_header)
+            
 
         # use manual start date or set to begining of first day on record
         if start_date:
-            start =datetime.strptime(start_date, fmt)
+            start = datetime.strptime(start_date, fmt)
             
         else:
             earliest = datetime.strptime(self.time[0], fmt)
@@ -259,7 +264,7 @@ class time_series:
 
             # If error, give user information about the line on which the error occurs
             try:    t = datetime.strptime(datestamp, fmt)
-            except: raise Exception("Input '{0}' in line {1} is not of format ".format(
+            except: raise Exception("Input '{0}' in line {1} is not of format {2}".format(
                     datestamp, i+2 , fmt))
                           
             self.time_dom.append(t)
@@ -465,9 +470,12 @@ class time_series:
         return self.row_data
 
 
-# north carolina water main stuff
+# other testing
 
-if __name__ == "__main__": pass
+if __name__ == "__main__":
+    ts = time_series('test')
+    ts.from_csv("separate_date_time.csv")
+    ts.define_time(["date","time"],["%Y%m%d","%H%M%S"])
 
 
 # northwest agriculture main stuff
