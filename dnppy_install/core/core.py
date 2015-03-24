@@ -28,7 +28,6 @@ __all__=['sample_function',     # complete
          'rename',              # complete
          'enf_list',            # complete
          'enf_filelist',        # complete
-         'enf_rastlist',        # complete
          'list_files',          # complete
          'move',                # complete
          'exists',              # complete
@@ -596,31 +595,6 @@ def enf_filelist(filelist):
         print 'Expected file list or directory but recieved boolean or None type input!'
         return(False)
     else:        return(filelist)
-    
-
-def enf_rastlist(filelist):
-
-    """
-    Sanitizes raster list inputs
-
-     This function works exactly like enf_filelist, with the added feature of removing
-     all filenames that are not of a raster type recognized by Arcmap.
-
-     Input:    filelist        any list of files
-     Output:   new_filelist    New list with all non-raster files in filelist removed.
-
-     
-    """
-
-    # first place the input through the same requirements of any filelist
-    filelist = enf_filelist(filelist)
-    new_filelist=[]
-
-    for filename in filelist:
-        if raster.is_rast(filename):
-            new_filelist.append(filename)
-
-    return(new_filelist)
 
 
 
@@ -644,10 +618,9 @@ def enf_featlist(filelist):
     """
 
     # first place the input through the same requirements of any filelist
-    filelist=Enforce_Filelist(filelist)
-    new_filelist=[]
-
-    feat_types=['shp']
+    filelist        = enforce_filelist(filelist)
+    new_filelist    = []
+    feat_types      = ['shp']
 
     for filename in filelist:
         ext=filename[-3:]

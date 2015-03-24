@@ -23,21 +23,24 @@ __all__ =['to_numpy',           # complete
           'clip_to_shape',      # complete
           'define_null',        # complete
           'set_range_null',     # complete
-          'is_rast',            # complete
           'grab_info',          # working, but incomplete
-          'identify']           # working, but incomplete
+          'identify',           # working, but incomplete
+          'is_rast',            # complete
+          'enf_rastlist']       # complete
 
 
-from dnppy import core
+import os, shutil
+from dnppy.core import core
 if core.check_module('numpy'): import numpy
 import arcpy
+
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     from arcpy import sa,env
     arcpy.env.overwriteOutput = True
 
 #======================================================================================
-def to_numpy(Raster, num_type=False):
+def to_numpy(raster, num_type=False):
 
     """
     Wrapper for arcpy.RasterToNumpyArray with better metadata handling
@@ -67,7 +70,7 @@ def to_numpy(Raster, num_type=False):
            .NoData_Value    the numerical value which represents NoData in this raster
 
      Usage example:
-       call this function with  " rast,Metadata = raster.to_numpy(Raster) "
+       call this function with  " rast,Metadata = to_numpy(Raster) "
        perform numpy manipulations as you please
        then save the array with " raster.from_numpy(rast,Metadata,output)   "
     """
@@ -75,37 +78,43 @@ def to_numpy(Raster, num_type=False):
     # create a metadata object and assign attributes to it
     class metadata:
 
-        def __init__(Raster):
+        def __init__(self, raster, xs, ys):
 
-            self.Ysize, self.Xsize  = Raster.shape
+            self.Xsize          = xs
+            self.Ysize          = ys
             
-            self.cellWidth      = arcpy.Describe(Raster).meanCellWidth
-            self.cellHeight     = arcpy.Describe(Raster).meanCellHeight
+            self.cellWidth      = arcpy.Describe(raster).meanCellWidth
+            self.cellHeight     = arcpy.Describe(raster).meanCellHeight
+            
+            self.Xmin           = arcpy.Describe(raster).Extent.XMin
+            self.Ymin           = arcpy.Describe(raster).Extent.YMin
+            self.Xmax           = self.Xmin + (xs * self.cellWidth)
+            self.Ymax           = self.Ymin + (ys * self.cellHeight)
 
-            self.Xmin           = arcpy.Describe(Raster).Extent.XMin
-            self.Ymin           = arcpy.Describe(Raster).Extent.YMin
-            self.Xmax           = Xmin + (xs * cellWidth)
-            self.Ymax           = Ymin + (ys * cellHeight)
+            self.rectangle      = ' '.join([str(self.Xmin),
+                                            str(self.Ymin),
+                                            str(self.Xmax),
+                                            str(self.Ymax)])
             
-            self.rectangle      = ' '.join([str(Xmin), str(Ymin), str(Xmax), str(Ymax)])
-            self.projection     = arcpy.Describe(Raster).spatialReference
-            self.NoData_Value   = arcpy.Describe(Raster).noDataValue
+            self.projection     = arcpy.Describe(raster).spatialReference
+            self.NoData_Value   = arcpy.Describe(raster).noDataValue
             return
-        
+            
 
     # read in the raster as an array
-    if raster.is_rast(Raster):
+    if is_rast(raster):
 
-        numpy_rast  = arcpy.RasterToNumPyArray(Raster)
-        Metadata    = metadata(numpy_rast)
+        numpy_rast  = arcpy.RasterToNumPyArray(raster)
+        xs, ys      = numpy_rast.shape
+        meta        = metadata(raster, xs, ys)
         
         if num_type:
             numpy_rast = numpy_rast.astype(num_type)
             
     else:  
-        print("{raster.to_numpy} Raster '{0}'does not exist".format(Raster))
+        print("Raster '{0}'does not exist".format(raster))
 
-    return numpy_rast, Metadata
+    return numpy_rast, meta
 
 
 
@@ -114,13 +123,13 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
      this is just a wraper for the NumPyArrayToRaster function within arcpy. It is used in
-     conjunction with raster.to_numpy to streamline reading image files in and out of numpy
+     conjunction with to_numpy to streamline reading image files in and out of numpy
      arrays. It also ensures that all spatial referencing and projection info is preserved
      between input and outputs of numpy manipulations.
 
      inputs:
        numpy_rast          the numpy array version of the input raster
-       Metadata            The variable exactly as output from "raster.to_numpy"
+       Metadata            The variable exactly as output from "to_numpy"
        outpath             output filepath of the individual raster
        NoData_Value        the no data value of the output raster
        num_type            must be a string equal to any of the types listed at the following
@@ -128,7 +137,7 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
                            for example: 'uint8' or 'int32' or 'float32'
 
      Usage example:
-       call raster.to_numpy with  "rast,Metadata = raster.to_numpy(Raster)"
+       call to_numpy with  "rast,Metadata = to_numpy(Raster)"
        perform numpy manipulations as you please
        then save the array with "raster.from_numpy(rast, Metadata, output)"
     """
@@ -139,27 +148,103 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
     if not NoData_Value:
         NoData_Value = Metadata.NoData_Value
             
-    llcorner= arcpy.Point(Metadata.Xmin,Metadata.Ymin)
+    llcorner = arcpy.Point(Metadata.Xmin, Metadata.Ymin)
     
     # save the output.
-    OUT = arcpy.NumPyArrayToRaster(numpy_rast,llcorner,Metadata.cellWidth,Metadata.cellHeight)
+    OUT = arcpy.NumPyArrayToRaster(numpy_rast, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
     OUT.save(outpath)
 
     # define its projection
-    try: arcpy.DefineProjection_management(outpath,Metadata.projection)
-    except: pass
+    try:
+        arcpy.DefineProjection_management(outpath, Metadata.projection)
+    except:
+        pass
 
     # reset the NoData_Values
-    try: arcpy.SetRasterProperties_management(outpath, data_type="#", nodata = "1 " + str(NoData_Value))
-    except: pass
+    try:
+        arcpy.SetRasterProperties_management(outpath, data_type="#", nodata = "1 " + str(NoData_Value))
+    except:
+        pass
     
     # do statistics and pyramids
     arcpy.CalculateStatistics_management(outpath)
     arcpy.BuildPyramids_management(outpath)
     
-    print("{raster.from_numpy} Saved output file as {0}".format(outpath))
+    print("Saved output file as {0}".format(outpath))
 
     return
+
+
+def many_stats(rasterlist, outdir, saves = ['AVG','NUM','STD'],
+                                   low_thresh = None, high_thresh = None):
+    """
+    Take statitics across many input rasters
+    
+     this function is used to take statistics on large groups of rasters with identical
+     spatial extents. Similar to Rolling_Raster_Stats
+
+     Inputs:
+        rasterlist      list of raster filepaths for which to take statistics
+        outdir          Directory where output should be stored.
+        saves           which statistics to save in a raster. In addition to the options
+                        supported by 
+                           
+                        Defaults to all three ['AVG','NUM','STD'].
+        low_thresh      values below low_thresh are assumed erroneous and set to NoData
+        high_thresh     values above high_thresh are assumed erroneous and set to NoData.
+    """
+
+    def almost_equal(x,y):
+        """aserts approximate equality, used with floats"""
+        
+        if x == y:
+            return True
+        
+        ratio = float(x)/float(y)
+        if ratio > 0.999999 and ratio <1.0000001:
+            return True
+        else:
+            return False
+
+    
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+    
+    rasterlist = enf_rastlist(rasterlist)
+
+    # build the empty numpy array based on size of first raster
+    temp_rast, metadata = to_numpy(rasterlist[0])
+    xs, ys              = temp_rast.shape
+    zs                  = len(rasterlist)
+
+    print xs,ys,zs
+
+    # a 3 dimensional list data structure is created. A 3d numpy array
+    # is not used here because of its inability to keep No_data values
+    # from skewing statistics
+    rast_3d = []
+
+    # populate the 3d matrix with values from all rasters
+    for i,raster in enumerate(rasterlist):
+        print('working on file {0}'.format(raster))
+        new_rast, new_meta  = to_numpy(raster)
+
+        if not new_rast.shape == (xs,ys):
+            print new_rast.shape
+
+        # set values outside thresholds to nodata values
+        if not low_thresh == None:
+            new_rast[new_rast < low_thresh] = new_meta.NoData_Value
+        if not high_thresh == None:
+            new_rast[new_rast > high_thresh] = new_meta.NoData_Value
+
+        for i in range(xs):
+            for j in range(ys):
+                pixel = new_rast[i,j]
+                if almost_equal(pixel,new_meta.NoData_Value):
+                    rast_3d[i,j].append(pixel)
+    
+    return rast_3d
 
 
 
@@ -201,7 +286,7 @@ def stack(raster_paths):
     """
  
     for z,raster in enumerate(raster_paths):
-        temp_image, temp_meta = raster.to_numpy(raster)
+        temp_image, temp_meta = to_numpy(raster)
 
         if z==0:
             stack = numpy.zeros((len(raster_paths),temp_meta.Ysize,temp_meta.Xsize))
@@ -240,8 +325,8 @@ def find_overlap(file_A, NoData_A, file_B, NoData_B, outpath, Quiet=False):
     raster.clip_and_snap(file_A,file_B,file_B,False,NoData_B)
     
     # load the rasters as numpy arays.
-    a,metaA = raster.to_numpy(file_A)
-    b,metaB = raster.to_numpy(file_B)
+    a,metaA = to_numpy(file_A)
+    b,metaB = to_numpy(file_B)
 
     Workmatrix = numpy.zeros((metaA.Ysize,metaA.Xsize))
     Workmatrix = Workmatrix.astype('uint8')
@@ -296,49 +381,50 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype=False, NoData_Value
     if not os.path.isdir(tempdir):
         os.makedirs(tempdir)
     
-    rasterlist = core.enf_rastlist(rasterlist)
-   core.exists(snap_raster)
-    usetemp=False
+    rasterlist = enf_rastlist(rasterlist)
+    core.exists(snap_raster)
+    
+    usetemp = False
 
     # set the snap raster environment in arcmap.
-    arcpy.env.snapRaster=snap_raster
+    arcpy.env.snapRaster = snap_raster
 
-    print '{raster.spatially_match} Loading snap raster: ',snap_raster
-    _,snap_meta = raster.to_numpy(snap_raster)
-    print '{raster.spatially_match} Bounds of rectangle to define boundaries: [',snap_meta.rectangle,']'
-
+    print('Loading snap raster {0}'.format(snap_raster))
+    _,snap_meta = to_numpy(snap_raster)
+    print('Bounds of rectangle to define boundaries: [{0}]'.format(snap_meta.rectangle))
+    
     # for every raster in the raster list, snap rasters and clip.
     for rastname in rasterlist:
         
-        _,meta = raster.to_numpy(rastname)
-        head,tail=os.path.split(rastname)
-        tempname=os.path.join(tempdir,tail)
+        _,meta      = to_numpy(rastname)
+        head,tail   = os.path.split(rastname)
+        tempname    = os.path.join(tempdir,tail)
 
         if snap_meta.projection.projectionName != meta.projection.projectionName:
-            print '{raster.spatially_match} The files are not the same projection!'
-            Project_Files(rastname,snap_raster,tempname,resamp_type,snap_raster)
-            usetemp=True
+            print 'The files are not the same projection!'
+            core.project(rastname, snap_raster, tempname, resamp_type, snap_raster)
+            usetemp = True
 
         if round(float(snap_meta.cellHeight)/float(meta.cellHeight),5)!=1 and \
         round(float(snap_meta.cellWidth)/float(meta.cellWidth),5)!=1:
 
             if resamp_type:
                 arcpy.Resample_management(rastname,tempname,snap_raster, resamp_type)
-                usetemp=True
+                usetemp = True
                 
-            print '{raster.spatially_match} The files are not the same resolution!'
-            print '{raster.spatially_match} Resample the images manually or input a value for "resampe_type"!'
+            print('The files are not the same resolution!')
+            print('Resample the images manually or input a value for "resampe_type"!')
 
         # define an output name and run the Clip_ans_Snap_Raster function on formatted tifs.
-        head,tail=os.path.split(rastname)
-        outname=os.path.join(outdir,tail[:-4]+'_matched.tif')
+        head,tail   = os.path.split(rastname)
+        outname     = os.path.join(outdir,tail[:-4]+'_matched.tif')
 
         # if a temporary file was created in previous steps, use that one for clip and snap               
         if usetemp:   
-            raster.clip_and_snap(snap_raster,tempname,outname,numtype,NoData_Value,False)
+            clip_and_snap(snap_raster, tempname, outname, numtype, NoData_Value)
         else:
-            raster.clip_and_snap(snap_raster,rastname,outname,numtype,NoData_Value,False)  
-        print '{raster.spatially_match} Finished matching raster!'
+            clip_and_snap(snap_raster, rastname, outname, numtype, NoData_Value)  
+        print(' Finished matching raster!')
 
     shutil.rmtree(tempdir)
     return
@@ -367,22 +453,23 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
        NoData_Value    Value desired to represent NoData in the saved image.
 
      outputs:
-       snap_meta       metadata of the snap_raster file as output by raster.to_numpy
-       meta            metadata of the rastername file as output by raster.to_numpy
+       snap_meta       metadata of the snap_raster file as output by to_numpy
+       meta            metadata of the rastername file as output by to_numpy
     """
 
     # grab metadata for rastname
-    _,snap_meta = raster.to_numpy(snap_raster)
-    _,meta      = raster.to_numpy(rastname)
+    _,snap_meta = to_numpy(snap_raster)
+    _,meta      = to_numpy(rastname)
 
     if not NoData_Value:
         NoData_Value = meta.NoData_Value
 
     if not numtype:
-        numtype='float32'
+        numtype = 'float32'
         
-    head,tail=os.path.split(outname)
-    tempdir=os.path.join(head,'temp')
+    head,tail   = os.path.split(outname)
+    tempdir     = os.path.join(head, 'temp')
+    
     if not os.path.isdir(tempdir):
         os.makedirs(tempdir)
 
@@ -390,15 +477,21 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
     arcpy.env.snapRaster=snap_raster
 
     # remove data that is outside the bounding box and snap the image
-    print '{raster.clip_and_snap} Clipping '+rastname
-    tempout=os.path.join(tempdir,tail)
-    try:    arcpy.Clip_management(rastname,snap_meta.rectangle, tempout,"#","#","NONE","MAINTAIN_EXTENT")
-    except: arcpy.Clip_management(rastname,snap_meta.rectangle, tempout,"#","#","NONE")
+    print("Clipping {0}".format(rastname))
+    
+    tempout = os.path.join(tempdir,tail)
+    try:
+        arcpy.Clip_management(rastname, snap_meta.rectangle, tempout, "#", "#", "NONE", "MAINTAIN_EXTENT")
+    except:
+        arcpy.Clip_management(rastname, snap_meta.rectangle, tempout, "#", "#", "NONE")
     
     # load the newly cliped raster, find the offsets
-    raster,meta = raster.to_numpy(tempout)
-    xoffset = int(round((meta.Xmin - snap_meta.Xmin)/meta.cellWidth,0))
-    yoffset = int(round((meta.Ymin - snap_meta.Ymin)/meta.cellHeight,0))
+    raster, meta = to_numpy(tempout)
+    xoffset      = int(round((meta.Xmin - snap_meta.Xmin)/meta.cellWidth,0))
+    yoffset      = int(round((meta.Ymin - snap_meta.Ymin)/meta.cellHeight,0))
+
+    print("xoffset",xoffset,"yoffset",yoffset)
+
 
     # first iteration of clip with snap_raster environment sometimes has rounding issues
     # run clip a second time if raster does not fully lie within the extents of the bounding box
@@ -406,22 +499,24 @@ def clip_and_snap(snap_raster, rastname, outname, numtype = False , NoData_Value
         arcpy.Clip_management(tempout,snap_meta.rectangle, tempout[:-4] + '2.tif',"#","#","NONE")
 
         # reload and recalculate offsets
-        raster,meta = raster.to_numpy(tempout[:-4] + '2.tif')
-        xoffset = int(round((meta.Xmin - snap_meta.Xmin)/meta.cellWidth,0))
-        yoffset = int(round((meta.Ymin - snap_meta.Ymin)/meta.cellHeight,0))
+        raster, meta = to_numpy(tempout[:-4] + '2.tif')
+        xoffset      = int(round((meta.Xmin - snap_meta.Xmin)/meta.cellWidth,0))
+        yoffset      = int(round((meta.Ymin - snap_meta.Ymin)/meta.cellHeight,0))
 
     # plop the snaped raster into the new output raster, alter the metadata, and save it
-    meta.Xmin = snap_meta.Xmin
-    meta.Ymin = snap_meta.Ymin
-    Yrange= range(yoffset,(yoffset + meta.Ysize))
-    Xrange= range(xoffset,(xoffset + meta.Xsize))
+    meta.Xmin   = snap_meta.Xmin
+    meta.Ymin   = snap_meta.Ymin
+    Yrange      = range(yoffset,(yoffset + meta.Ysize))
+    Xrange      = range(xoffset,(xoffset + meta.Xsize))
 
     # create empty matrix of NoData_Values to store output
-    print('{raster.clip_and_snap} Saving formated file' + rastname)
-    newraster=numpy.zeros((snap_meta.Ysize,snap_meta.Xsize))+float(meta.NoData_Value)
-    newraster[(snap_meta.Ysize - meta.Ysize - yoffset):(snap_meta.Ysize - yoffset),
-              xoffset:(xoffset + meta.Xsize)] = raster[:,:]
-    raster.from_numpy(newraster,meta,outname,NoData_Value,numtype,False)
+    print('Saving {0}'.format(rastname))
+    newraster = numpy.zeros((snap_meta.Ysize, snap_meta.Xsize)) + float(meta.NoData_Value)
+    
+    print("recasting rastwer with shape ({1}) to shape ({0})".format(newraster.shape, raster.shape))
+    
+    newraster[(snap_meta.Ysize - meta.Ysize - yoffset):(snap_meta.Ysize - yoffset), xoffset:(xoffset + meta.Xsize)] = raster[:,:]
+    from_numpy(newraster, meta, outname, NoData_Value, numtype)
 
     # clean up
     shutil.rmtree(tempdir)
@@ -439,7 +534,7 @@ def clip_to_shape(rasterlist, shapefile, outdir = False):
                        new files will simply have '_c' added as a suffix. 
     """
 
-    rasterlist=Enforce_Rasterlist(rasterlist)
+    rasterlist = enf_rastlist(rasterlist)
 
     # ensure output directorycore.exists
     if outdir and not os.path.exists(outdir):
@@ -455,38 +550,9 @@ def clip_to_shape(rasterlist, shapefile, outdir = False):
         arcpy.Clip_management(raster,"#",outname,shapefile,"ClippingGeometry")
         out = sa.ExtractByMask(outname,shapefile)
         out.save(outname)
-        print("{raster.clip_to_shape} Clipped and saved: " + outname)
-
-    print("{raster.clip_to_shape} Clipping complete! \n")
+        print("Clipped and saved: {0}".format(outname))
     
     return
-
-
-def many_stats(rasterlist, low_thresh, high_thresh, outdir, NoData_Value, saves = ['AVG','NUM','STD']):
-    """
-    Take statitics across many input raster layers
-    
-     this function is used to take statistics on large groups of rasters with identical
-     spatial extents. Similar to Rolling_Raster_Stats
-
-     Inputs:
-       rasterlist      list of rasters or directory of rasters on which to perform statistics
-       low_thresh      values below low_thresh are assumed erroneous and set to NoData
-       high_thresh     values above high_thresh are assumed erroneous and set to NoData.
-       outdir          Directory where output should be stored.
-       NoData_Value    Value representing NoData.
-       saves           which statistics to save in a raster. Any of
-                           AVG = rasters showing average value across all input rasters
-                           NUM = rasters showing the number of good pixels which comprised AVG
-                           STD = rasters showing the standard deviation of pixels
-                       Defaults to all three ['AVG','NUM','STD'].
-    """
-    
-    print('This function will eventually be developed')
-    print('if you need it ASAP, contact the geoinformatics YPs!')
-    
-    return    
-
 
 
 def define_null(filelist, NoData_Value, Quiet=False):
@@ -520,7 +586,7 @@ def define_null(filelist, NoData_Value, Quiet=False):
 
 
 
-def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
+def set_range_null(filelist, above, below, NoData_Value):
     """
     Changes values within a certain range to NoData
     
@@ -534,17 +600,15 @@ def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
                        set to 'False' if now upper bound exists
        below       will set all values below this, but above "above" to NoData
                        set to 'False' if no lower bound exists
-       Quiet       Set Quiet to 'True' if you don't want anything printed to screen.
-                       Defaults to 'False' if left blank.
     """
 
     # sanitize filelist input
-    filelist=Enforce_Rasterlist(filelist)
+    filelist = enf_rastlist(filelist)
 
     # iterate through each file in the filelist and set nodata values
     for filename in filelist:
         #load raster as numpy array and save spatial referencing.
-        raster, meta = raster.to_numpy(filename)
+        raster, meta = to_numpy(filename)
 
         if above and below:
             raster[raster <= below and raster >= above] = NoData_Value
@@ -554,13 +618,11 @@ def set_range_null(filelist,above,below,NoData_Value,Quiet=False):
             raster[raster <= below] = NoData_Value
             
         raster.from_numpy(raster, meta, filename)
-        arcpy.SetRasterProperties_management(filename,data_type="#",statistics="#",
+        arcpy.SetRasterProperties_management(filename, data_type="#",statistics="#",
                     stats_file="#",nodata="1 "+str(NoData_Value))
         
-        if not Quiet:
-            print '{raster.set_range_null} Set NoData values in ' + filename
-
-    if not Quiet:print '{raster.set_range_null} Finished!'            
+        print("Set NoData values in {0}".format(filename))
+            
     return
 
 
@@ -625,10 +687,10 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
     chunk_name_list=[]   
     
     # define sizes based on window size and dims of first image in window
-    temp,meta=raster.to_numpy(windows[0][0])
-    xs,ys=temp.shape
-    zs=len(windows[0])
-    xyzs=xs*ys*zs
+    temp, meta  =to_numpy(windows[0][0])
+    xs, ys      =temp.shape
+    zs          =len(windows[0])
+    xyzs        =xs*ys*zs
 
     # automatically determine number of chunks to use by limiting the size of
     # any given data brick to 3 million values
@@ -637,19 +699,19 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
     # find the dimensions of the chunks for subprocessing of the data
     # data is split into chunks to avoid hitting memory limits. (2GB for 32 bit python)
     for sub in range(chunks):
-        ychunks.append(range(((sub)*ys)/chunks,(((sub+1)*ys)/chunks)))
+        ychunks.append(range(((sub)*ys)/chunks, (((sub+1)*ys)/chunks)))
         chunk_name_list.append('Chnk'+str(sub))
 
     # find the maximum width of a chunk    
     width=len(max(ychunks,key=len))
     
-    print('{Rolling_Raster_Stats} Split data into ' + str(chunks) + ' chunks.')
+    print('rolling stats has split data into ' + str(chunks) + ' chunks.')
 
     # process each chunk
     for chunkID,ychunk in enumerate(ychunks):
-        if chunkID>=start_chunk:
+        if chunkID >= start_chunk:
             
-            print '{Rolling_Raster_Stats}  Processing chunk number '+ str(chunkID) + ' with width '+ str(width)
+            print 'Processing chunk number '+ str(chunkID) + ' with width '+ str(width)
             
             for j,window in enumerate(windows):
                 filtered=0
@@ -695,7 +757,7 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
                         newmatrix[:,:,i]=oldmatrix[:,:,rollover_from[index]]
                     else:
                         print '{Rolling_Raster_Stats} New file loaded: '+ name
-                        tempmatrix,x,y,w,h,spat_ref = raster.to_numpy(Raster)
+                        tempmatrix,x,y,w,h,spat_ref = to_numpy(Raster)
                         try:
                             newmatrix[:,range(len(ychunk)),i]=tempmatrix[:,ychunk]
                             newmatrix[:,range(len(ychunk),width),i]=numpy.zeros((xs,width-len(ychunk)))+NoData_Value
@@ -779,15 +841,15 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
                 #write output to chunk file
 
                 if 'AVG' in saves: 
-                    raster.to_numpy(average,x,y,w,h,spat_ref,chunk_average_name)
+                    to_numpy(average,x,y,w,h,spat_ref,chunk_average_name)
                     chunk_average_list.append(chunk_average_name)
                     
                 if 'NUM' in saves:
-                    raster.to_numpy(count,x,y,w,h,spat_ref,chunk_average_name)
+                    to_numpy(count,x,y,w,h,spat_ref,chunk_average_name)
                     chunk_count_list.append(chunk_count_name)
                     
                 if 'STD' in saves:
-                    raster.to_numpy(Std,x,y,w,h,spat_ref,chunk_average_name)
+                    to_numpy(Std,x,y,w,h,spat_ref,chunk_average_name)
                     chunk_std_list.append(chunk_std_name)
 
                 # clean up at the end of each window and set the newmatrix to the old one
@@ -826,7 +888,7 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
                 Avg_chunk= os.path.join(tempdir,'.'.join(tail.split('.')[:-1])+
                     '_W'+str(window_width).zfill(2)+'_C'+info.year+info.j_day+'_Avg_Chnk'+str(chunkID)+'.tif')       
 
-                temp,x,y,w,h,spat_ref = raster.to_numpy(Avg_chunk)
+                temp,x,y,w,h,spat_ref = to_numpy(Avg_chunk)
                 out_Avg[:,ychunk]=temp[:,range(len(ychunk))]
                 
             raster.from_numpy(out_Avg,x,y,w,h,spat_ref,average_name)
@@ -836,7 +898,7 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
                 Num_chunk= os.path.join(tempdir,'.'.join(tail.split('.')[:-1])+
                     '_W'+str(window_width).zfill(2)+'_C'+info.year+info.j_day+'_Num_Chnk'+str(chunkID)+'.tif')      
 
-                temp,x,y,w,h,spat_ref = raster.to_numpy(Num_chunk)
+                temp,x,y,w,h,spat_ref = to_numpy(Num_chunk)
                 out_Num[:,ychunk]=temp[:,range(len(ychunk))]
             
             raster.from_numpy(out_Num,x,y,w,h,spat_ref,count_name)
@@ -846,7 +908,7 @@ def rolling_stats(centers, windows, window_width, low_thresh, high_thresh, outdi
                 Std_chunk= os.path.join(tempdir,'.'.join(tail.split('.')[:-1])+
                     '_W'+str(window_width).zfill(2)+'_C'+info.year+info.j_day+'_Std_Chnk'+str(chunkID)+'.tif')       
                 
-                temp,x,y,w,h,spat_ref = raster.to_numpy(Std_chunk)
+                temp,x,y,w,h,spat_ref = to_numpy(Std_chunk)
                 out_Std[:,ychunk]=temp[:,range(len(ychunk))]
 
             raster.from_numpy(out_Std,x,y,w,h,spat_ref,std_name)
@@ -1089,3 +1151,21 @@ def identify(name):
         return(False)
 
 
+def enf_rastlist(filelist):
+
+    """
+    ensures a list of inputs filepaths contains only valid raster tyeps
+    """
+
+    # first place the input through the same requirements of any filelist
+    filelist        = core.enf_filelist(filelist)
+    new_filelist    = []
+
+    for filename in filelist:
+        ext=filename[-3:]
+
+        if os.path.isfile(filename):
+            if is_rast(filename):
+                new_filelist.append(filename)
+
+    return(new_filelist)
