@@ -1189,7 +1189,7 @@ def project_resamp(filelist, reference_file, outdir = False,
     
      Inputs a filelist and a reference file, then projects all rasters or feature classes
      in the filelist to match the projection of the reference file. Writes new files with a
-     "_p" appended to the end of the input filenames.
+     "_p" appended to the end of the input filenames. This also will perform resampling.
 
      Inputs:
        filelist            list of files to be projected
