@@ -12,12 +12,14 @@ Also see dnppy.raster
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
               "Lauren Makely, lmakely09@gmail.com"]
 
-__all__ =['apply_linear_correction',
-          'degree_days',
-          'degree_days_accum']
+__all__ =['apply_linear_correction',    # complete
+          'degree_days',                # complete
+          'degree_days_accum']          # complete
 
 
 #======================================================================================
+
+
 def apply_linear_correction(rasterlist, factor, offset, suffix='lc', outdir=False,
                                             save=True, floor = -999999, Quiet=False):
 
@@ -84,7 +86,7 @@ def apply_linear_correction(rasterlist, factor, offset, suffix='lc', outdir=Fals
 
 
 def degree_days(T_base, Max, Min, NoData_Value,
-                             outpath=False, roof=False, floor=False, Quiet=False):
+                             outpath = False, roof = False, floor = False):
 
     """
     Inputs rasters for maximum and minimum temperatures, calculates Growing Degree Days
@@ -115,8 +117,6 @@ def degree_days(T_base, Max, Min, NoData_Value,
      Outputs:
        degree_days     numpy array of output values. This same data is saved if outpath is
                        not left at its default value of False.
-
-     , Lauren Makely
     """
 
     # format numerical inputs as floating point values
@@ -138,7 +138,7 @@ def degree_days(T_base, Max, Min, NoData_Value,
             highs, meta = raster.to_numpy(Max)
             lows, meta  = raster.to_numpy(Min)
 
-            if not Quiet: print '{calc.degree_days} Found spatialy referenced image pair!'
+            print 'Found spatialy referenced image pair!'
         else:
             highs = numpy.array(Max)
             lows  = numpy.array(Min)
@@ -174,13 +174,13 @@ def degree_days(T_base, Max, Min, NoData_Value,
                 
     # print error if the arrays are not the same size
     else:
-        print '{calc.degree_days} Images are not the same size!, Check inputs!'
+        print 'Images are not the same size!, Check inputs!'
         return(False)
 
     # if an output path was specified, save it with the spatial referencing information.
     if outpath and type(Max) is str and type(Min) is str:
         raster.from_numpy(degree_days, meta, outpath)
-        print '{calc.degree_days} Output saved at : ' + outpath
+        'Output saved at : ' + outpath
         
     return(degree_days)
 
@@ -224,7 +224,7 @@ def degree_days_accum(rasterlist, critical_values = False, outdir = False):
     for i,raster in enumerate(rasterlist):
 
         image,meta = raster.to_numpy(raster,"float32")
-        print "{calc.degree_days_accum} Loaded " + raster
+        print "Loaded " + raster
         xs,ys = image.shape
 
         if i==0:
@@ -246,7 +246,7 @@ def degree_days_accum(rasterlist, critical_values = False, outdir = False):
                                 if Sum[x,y] >= critical_value and Crit[z,x,y]==0:
                                     Crit[z,x,y] = i
         else:
-            print "{calc.degree_days_accum} Encountered an image of incorrect size! Skipping it!"
+            print "Encountered an image of incorrect size! Skipping it!"
 
         Sum = Sum.astype('float32')
         outname = core.create_outname(outdir, raster, "Accum")

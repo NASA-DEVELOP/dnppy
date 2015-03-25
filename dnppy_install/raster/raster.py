@@ -261,7 +261,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
         from_numpy(std_rast, metadata, std_name)
         
     if "NUM" in saves:
-        num_rast        = (numpy.zeros(xs,ys) + zs) - numpy.sum(rast_3d_masked.mask, axis = 2)
+        num_rast        = (numpy.zeros((xs,ys)) + zs) - numpy.sum(rast_3d_masked.mask, axis = 2)
         num_rast        = numpy.array(num_rast)
         show_stats(avg_rast, fig, im, "Good pixel count (NUM)")
         time.sleep(2)
