@@ -15,6 +15,7 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
 
 __all__ =['to_numpy',           # complete
           'from_numpy',         # complete
+          'many_stats',         # working, but incomplete
           'stack',              # complete
           'temporal_fill',      # planned development
           'find_overlap',       # complete
@@ -27,10 +28,13 @@ __all__ =['to_numpy',           # complete
           'identify',           # working, but incomplete
           'is_rast',            # complete
           'enf_rastlist',       # complete
-          'project_resamp']     # complete
+          'project_resamp',     # complete
+          'show_stats']         # complete
 
 
-import os, shutil
+import os, shutil, time
+import matplotlib.pyplot as plt
+
 from dnppy import core
 if core.check_module('numpy'): import numpy
 import arcpy
@@ -41,7 +45,7 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 #======================================================================================
-def to_numpy(raster, num_type=False):
+def to_numpy(raster, num_type = False):
 
     """
     Wrapper for arcpy.RasterToNumpyArray with better metadata handling
@@ -100,7 +104,6 @@ def to_numpy(raster, num_type=False):
             self.projection     = arcpy.Describe(raster).spatialReference
             self.NoData_Value   = arcpy.Describe(raster).noDataValue
             return
-            
 
     # read in the raster as an array
     if is_rast(raster):
@@ -176,7 +179,7 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
     return
 
 
-def many_stats(rasterlist, outdir, saves = ['AVG','NUM','STD'],
+def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
                                    low_thresh = None, high_thresh = None):
     """
     Take statitics across many input rasters
@@ -195,20 +198,7 @@ def many_stats(rasterlist, outdir, saves = ['AVG','NUM','STD'],
         high_thresh     values above high_thresh are assumed erroneous and set to NoData.
     """
 
-    def almost_equal(x,y):
-        """aserts approximate equality, used with floats"""
-        
-        if x == y:
-            return True
-        
-        ratio = float(x)/float(y)
-        if ratio > 0.999999 and ratio <1.0000001:
-            return True
-        else:
-            return False
-
-    
-    if not os.path.exists(outdir):
+    if not os.path.isdir(outdir):
         os.makedirs(outdir)
     
     rasterlist = enf_rastlist(rasterlist)
@@ -217,36 +207,52 @@ def many_stats(rasterlist, outdir, saves = ['AVG','NUM','STD'],
     temp_rast, metadata = to_numpy(rasterlist[0])
     xs, ys              = temp_rast.shape
     zs                  = len(rasterlist)
+    rast_3d             = numpy.zeros((xs,ys,zs))
 
-    print xs,ys,zs
+    metadata.NoData_Value = 'nan'
 
-    # a 3 dimensional list data structure is created. A 3d numpy array
-    # is not used here because of its inability to keep No_data values
-    # from skewing statistics
-    rast_3d = []
+    # open up the initial figure
+    fig, im = make_fig(temp_rast)
 
     # populate the 3d matrix with values from all rasters
     for i,raster in enumerate(rasterlist):
+
+        # print a status and open a figure
         print('working on file {0}'.format(raster))
-        new_rast, new_meta  = to_numpy(raster)
+        new_rast, new_meta  = to_numpy(raster, 'float32')
+        show_stats(new_rast, fig, im)
 
         if not new_rast.shape == (xs,ys):
             print new_rast.shape
 
+        # set rasters to inherit the nodata value of first raster
+        if new_meta.NoData_Value != metadata.NoData_Value:
+            new_rast[new_rast == new_meta.NoData_Value] = metadata.NoData_Value
+            
         # set values outside thresholds to nodata values
         if not low_thresh == None:
-            new_rast[new_rast < low_thresh] = new_meta.NoData_Value
+            new_rast[new_rast < low_thresh] = metadata.NoData_Value
         if not high_thresh == None:
-            new_rast[new_rast > high_thresh] = new_meta.NoData_Value
+            new_rast[new_rast > high_thresh] = metadata.NoData_Value
 
-        for i in range(xs):
-            for j in range(ys):
-                pixel = new_rast[i,j]
-                if almost_equal(pixel,new_meta.NoData_Value):
-                    rast_3d[i,j].append(pixel)
+        rast_3d[:,:,i] = new_rast
+
+    # build up our statistics by masking nan values
+    rast_3d_masked  = numpy.ma.masked_array(rast_3d, numpy.isnan(rast_3d))
     
-    return rast_3d
+    avg_rast        = numpy.mean(rast_3d_masked, axis = 2)
+    avg_rast        = numpy.array(avg_rast)
+    show_stats(avg_rast, fig, im)
+    time.sleep(2)
 
+    # save the statistics we wanted!
+    avg_name = core.create_outname(outdir, outname, 'AVG', 'tif')
+    print("Saving output raster as {0}".format(avg_name))
+    from_numpy(avg_rast, metadata, avg_name)
+
+    close_fig(fig, im)
+    
+    return avg_rast
 
 
 def is_rast(filename):
@@ -1250,4 +1256,33 @@ def project_resamp(filelist, reference_file, outdir = False,
             print('Wrote projected file to {0}'.format(outname))
 
     print("finished projecting!")
-    return(Spatial_Reference)     
+    return(Spatial_Reference)
+
+    
+def show_stats(numpy_rast, fig , im):
+    """
+    Function to show stats, updates a figure that already exists
+    """
+
+    im.set_data(numpy_rast)
+    fig.canvas.draw()
+    return
+
+
+
+def make_fig(numpy_rast):
+    """function to set up an updating figure"""
+
+    fig, ax = plt.subplots()
+    fig.show()
+
+    im = ax.imshow(numpy_rast)
+    im.set_data(numpy_rast)
+    fig.canvas.draw()
+    return fig, im
+
+def close_fig(fig, im):
+    """closes an active figure"""
+
+    plt.close(fig)
+    return

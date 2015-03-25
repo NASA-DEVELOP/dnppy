@@ -627,9 +627,17 @@ def create_outname(outdir, inname, suffix, ext = False):
     """
     
     # isolate the filename from its directory and extension
-    head,tail = os.path.split(inname)
-    noext = tail.split('.')[:-1]
-    noext='.'.join(noext)
+    if os.path.isfile(inname):
+        head, tail  = os.path.split(inname)
+        noext       = tail.split('.')[:-1]
+        noext       ='.'.join(noext)
+    else:
+        tail    = inname
+        if "." in inname:
+            noext   = tail.split('.')[:-1]
+            noext   = '.'.join(noext)
+        else:
+            noext   = inname
 
     # create the suffix
     if ext:
