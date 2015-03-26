@@ -357,7 +357,7 @@ class time_series:
         return
 
 
-    def discretize(self, subset_units):
+    def discretize(self, fmt_units):
         """
         splits the time series into individual time chunks
 
@@ -366,9 +366,14 @@ class time_series:
         in a dataset for a variety of purposes including data
         sanitation, periodic curve fitting, etc.
 
-        supported discretizations are as follows:
-        "year", "month", "day", "hour", "minute", and "second".
+        fmt_units follows convention of fmt. For example:
+        %Y  groups files by year
+        %m  groups files by month
+        %j  groups file by julian day of year
         """
+
+        # convert units into subset units (because these are the attribute names)
+        subset_units = self._fmt_to_units(fmt_units)
 
         if self.discretized:
 
@@ -437,22 +442,22 @@ class time_series:
         subset_units = self.units
         datetime_obj = self.time_dom[0]
 
-        if subset_units == "year":
+        if subset_units == "year" or subset_units == "%Y":
             self.name = datetime_obj.strftime("%Y")
 
-        if subset_units == "month":
+        if subset_units == "month" or subset_units == "%m":
             self.name = datetime_obj.strftime("%Y-%b")
 
-        if subset_units == "day":
+        if subset_units == "day" or subset_units == "%d":
             self.name = datetime_obj.strftime("%Y-%m-%d")
 
-        if subset_units == "hour":
+        if subset_units == "hour" or subset_units == "%H":
             self.name = datetime_obj.strftime("%Y-%m-%d-%H")
 
-        if subset_units == "minute":
+        if subset_units == "minute" or subset_units == "%M":
             self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M")
 
-        if subset_units == "second":
+        if subset_units == "second" or subset_units == "%S":
             self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M:%S")
 
         return
@@ -523,22 +528,57 @@ class time_series:
         %j  groups file by julian day of year
         """
 
+        self.discretized = True
+
+        # ensure proper unit format is present
+        fmt_units = self._units_to_fmt(fmt_units)
+
         grouping = [int(obj.strftime(fmt_units)) for obj in self.time_dom]
 
         for i in range(min(grouping),max(grouping)):
 
-            subset_units    = fmt_units.replace('%','')
-            subset_name     = "{0}_{1}".format(subset_units, i)
-            new_subset      = time_series(subset_name, subset_units)
+            subset_units    = self._fmt_to_units(fmt_units)
+            new_subset      = time_series("temp_name", subset_units)
 
             new_subset._get_atts_from(self)
 
             subset_rows = [j for j,e in enumerate(grouping) if e == i]
             subset_data = [self.row_data[row] for row in subset_rows]
+
             new_subset.from_list(subset_data, self.headers, self.time_header, self.fmt)
+            new_subset.define_time(self.time_header, self.fmt)
+            new_subset._name_as_subset()
 
             self.subsets.append(new_subset)
         return
+
+
+    def _fmt_to_units(self, fmt):
+        """ converts fmt strings to unit names of associated datetime attributes """
+
+        fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
+        unitlist = ["year","month","month","day","day","hour","minute","second"]
+
+        if fmt in fmtlist:
+            unit = unitlist[fmtlist.index(fmt)]
+            return unit
+
+        if fmt in unitlist:
+            return fmt
+
+
+    def _units_to_fmt(self, units):
+        """ converts unit names to fmt strings used by datetime.stftime """
+
+        fmtlist  = ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
+        unitlist = ["year","month","month","day","day","hour","minute","second"]
+
+        if units in unitlist:
+            fmt = fmtlist[unitlist.index(units)]
+            return fmt
+
+        if units in fmtlist:
+            return units
 
 
     def add_mono_time(self):
@@ -606,14 +646,14 @@ if __name__ == "__main__":
     print "ts[0][0]      :", ts[0][0]
 
 
-    ts.discretize('day')
+    ts.discretize('%d')
     print("time series with one subset layer")
     print "ts[0]         :", ts[0]
     print "ts[0][0]      :", ts[0][0]
     print "ts[0][0][0]   :", ts[0][0][0]
 
 
-    ts.discretize('hour')
+    ts.discretize('%H')
     print("time series with two subset layers")
     print "ts[0]         :", ts[0]
     print "ts[0][0]      :", ts[0][0]
@@ -622,7 +662,15 @@ if __name__ == "__main__":
 
     ts.interogate()
 
+    # testing bining
+    ts = time_series('Master_TS')
+    ts.from_csv("separate_date_time.csv")
+    ts.merge_cols("date", "time")
+    ts.define_time("date_time", "%Y%m%d%H%M%S", "20000101000000")
+    ts.add_mono_time()
 
+    ts.group_bins("%d")
+    ts.interogate()
 
 
 
