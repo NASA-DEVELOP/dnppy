@@ -603,9 +603,9 @@ class time_series:
 
         if self.disc_level == 0:
             print("")
-            print("="*89)
-            print("time_series name \t\t\t\t len \t start \t\t\t\t\t end")
-            print("="*89)
+            print("="*84)
+            print("time_series name \t\t len \t start \t\t\t end")
+            print("="*84)
 
         if self.discretized:
 
