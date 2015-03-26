@@ -211,13 +211,8 @@ class time_series:
 
         self.time_header = time_header
         self.build_col_data()
-
-        if isinstance(time_header, list):
-            
-            
+        
         if time_header in self.headers:
-            
-            else:
                 self.time_col   = self.headers.index(time_header)
                 self.time       = self.col_data[time_header]
         else:
@@ -228,6 +223,24 @@ class time_series:
                 subset.extract_time(time_header)
                 
         return self.time
+
+
+    def merge_cols(self, header1, header2):
+        """merges two columns together (string concatenation)"""
+
+        new_header  = "_".join([header1, header2])
+        
+        for i, entry in enumerate(self.col_data):
+                new_field   = "".join([self.col_data[header1][i], self.col_data[header2][i]])
+                
+                self.row_data.append(new_entry)
+
+        # updates column and row data
+        self.headers.append(new_header)
+        self.build_col_data()
+        
+        return
+        
 
     
     def define_time(self, time_header, fmt, start_date = False):
@@ -278,29 +291,6 @@ class time_series:
                 subset.define_time(time_header, fmt)
 
         return
-    
-
-    def extract_column(self, col_header):
-        """
-        extracts a specific column of data into its own list
-
-        This function predates the establishment of self.col_data
-        and should probably not be used anymore
-        """
-        print("are you sure you should be using the extract_column function!")
-
-        self.build_col_data()
-
-        if col_header in self.headers:
-            setattr(self, col_header, self.col_data[col_header])
-        else:
-            raise LookupError("{0} header not in dataset!".format(col_header))
-        
-        if self.discretized:
-            for subset in self.subsets:
-                subset.extract_column(col_header)
-                
-        return getattr(self, col_header)
 
     
     def discretize(self, subset_units):
@@ -475,82 +465,8 @@ class time_series:
 if __name__ == "__main__":
     ts = time_series('test')
     ts.from_csv("separate_date_time.csv")
-    ts.define_time(["date","time"],["%Y%m%d","%H%M%S"])
-
-
-# northwest agriculture main stuff
-##if __name__ == "__main__":
-##
-##    time_name   = "Time"
-##    temp_name   = "Tnorm"
-##    fmt         = "%Y%m%d%H%M"
-##    
-##    ts = time_series("2003_set")
-##    ts.from_csv("2003Eph_KR4_JE1.csv")
-##    
-##    ts.clean("Hnorm")
-##    ts.clean("Tnorm")
-##    
-##    ts.define_time(time_name, fmt)
-##    ts.discretize("day")
-##    ts.column_stats(temp_name)
-##    ts.add_mono_time()
-##    ts.to_csv("2003Eph_KR4_JE2.csv")
-##    
-##    def remove_irregular_days(time_series):
-##        """
-##        specific function for NWag
-##
-##        removes entire days with irregular temperature profiles from dataset
-##        """
-##        
-##        high_times = []
-##        low_times = []
-##        
-##        for subset in time_series.subsets:
-##            h_i = getattr(subset, "{0}_max_i".format(temp_name))
-##            l_i = getattr(subset, "{0}_min_i".format(temp_name))
-##
-##            high_times.append(float(subset.col_data['Hnorm'][h_i]))
-##            low_times.append(float(subset.col_data['Hnorm'][l_i]))
-##
-##        import numpy
-##        h_mean = numpy.mean(high_times)
-##        l_mean = numpy.mean(low_times)
-##        h_std  = numpy.std(high_times)
-##        l_std  = numpy.std(low_times)
-##
-##        print "hmean",h_mean
-##        print "lmean",l_mean
-##        print "hstd",h_std
-##        print "lstd",l_std
-##        
-##        for subset in time_series.subsets:
-##            h = getattr(subset, "{0}_max_i".format(temp_name))
-##            l = getattr(subset, "{0}_min_i".format(temp_name))
-##
-##            ht = float(subset.col_data['Hnorm'][h])
-##            lt = float(subset.col_data['Hnorm'][l])
-##            
-##            if ht < 0.69 or ht > 0.71:
-##                print("removed because high temp",ht,subset.name)
-##                time_series.subsets.remove(subset)
-##
-##            elif lt > 0.1 and lt < 0.9:
-##                print("removed because low temp",lt,subset.name)
-##                time_series.subsets.remove(subset)
-##
-##        time_series.rebuild()
-##
-##        return time_series
-##
-##    ts = remove_irregular_days(ts)
-##
-##    for subset in ts.subsets:
-##        print subset.name
-##        
-##    ts.to_csv("2003Eph_KR4_JE3.csv")
-
+    #ts.merge_cols("date","time")
+    ts.define_time("date_time","%Y%m%d%H%M%S")
 
 
         
