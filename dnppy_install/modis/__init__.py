@@ -1,1 +1,1 @@
-from modis import *
+from .modis import *

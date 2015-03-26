@@ -20,9 +20,8 @@ __all__ =['apply_linear_correction',    # complete
 #======================================================================================
 
 
-def apply_linear_correction(rasterlist, factor, offset, suffix='lc', outdir=False,
-                                            save=True, floor = -999999, Quiet=False):
-
+def apply_linear_correction(rasterlist, factor, offset, suffix = 'lc', outdir = False,
+                                            save = True, floor = -999999, Quiet = False):
     """
     Applies a linear correction to a raster dataset.
     
@@ -207,29 +206,29 @@ def degree_days_accum(rasterlist, critical_values = False, outdir = False):
                            the index number of the file at which the value was reached.
                            This input must be a list of ints or floats, not strings.
        outdir              Desired output directory for all output files.
-
-     Warnings:
-       Do not input "0" as a critical value. if you wish to know when something becomes positive
-       please use a small floating point value such as "0.001"
-
-     Authors: Fall2014: Lauren Makely, Jeffry Ely
     """
 
     rasterlist = core.enf_rastlist(rasterlist)
+    
     if critical_values:
         critical_values = core.enf_list(critical_values)
+
+    # critical values of zero are problematic, so replace it with a small value.
+    if 0 in critical_values:
+        critical_values.remove(0)
+        critical_values.append(0.000001)
+        
     if outdir and not os.path.exists(outdir):
         os.makedirs(outdir)
 
     for i,raster in enumerate(rasterlist):
 
-        image,meta = raster.to_numpy(raster,"float32")
-        print "Loaded " + raster
-        xs,ys = image.shape
+        image, meta = raster.to_numpy(raster,"float32")
+        xs, ys = image.shape
 
         if i==0:
-            Sum = numpy.zeros((xs,ys))
-            Crit= numpy.zeros((len(critical_values),xs,ys))
+            Sum  = numpy.zeros((xs,ys))
+            Crit = numpy.zeros((len(critical_values),xs,ys))
         
         if image.shape == Sum.shape:
 
@@ -248,23 +247,20 @@ def degree_days_accum(rasterlist, critical_values = False, outdir = False):
         else:
             print "Encountered an image of incorrect size! Skipping it!"
 
-        Sum = Sum.astype('float32')
+        Sum     = Sum.astype('float32')
         outname = core.create_outname(outdir, raster, "Accum")
         raster.from_numpy(Sum, meta, outname)
 
-        # collect garbage
         del image
-        gc.collect()
 
     # output critical accumulation rasters.
     Crit = Crit.astype('int16')
     crit_meta = meta
     crit_meta.NoData_Value = 0
     head , tail = os.path.split(outname)        # place these in the last raster output location
-    for z,critical_value in enumerate(critical_values): 
+    for z, critical_value in enumerate(critical_values): 
         outname = os.path.join(head,"Crit_Accum_Index_Val-{0}.tif".format(str(critical_value)))
         print "Saving :",outname
         raster.from_numpy(Crit[z,:,:], crit_meta, outname)
-
-    del Crit                       
+                     
     return
