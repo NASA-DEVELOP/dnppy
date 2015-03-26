@@ -15,22 +15,28 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
 
 __all__ =['to_numpy',           # complete
           'from_numpy',         # complete
+          
           'many_stats',         # working, but incomplete
           'stack',              # complete
           'temporal_fill',      # planned development
           'find_overlap',       # complete
-          'spatially_match',    # complete
+          'spatially_match',    # appears defective
+          
           'clip_and_snap',      # complete
           'clip_to_shape',      # complete
+          
           'define_null',        # complete
           'set_range_null',     # complete
+          
           'grab_info',          # working, but incomplete
           'identify',           # working, but incomplete
           'is_rast',            # complete
           'enf_rastlist',       # complete
           'project_resamp',     # complete
-          'show_stats']         # complete
-
+          
+          'update_fig',         # complete
+          'make_fig',           # complete
+          'close_fig']          # complete
 
 import os, shutil, time
 import matplotlib.pyplot as plt
@@ -39,9 +45,9 @@ from dnppy import core
 if core.check_module('numpy'): import numpy
 import arcpy
 
-if arcpy.CheckExtension('Spatial')=='Available':
+if arcpy.CheckExtension('Spatial') == 'Available':
     arcpy.CheckOutExtension('Spatial')
-    from arcpy import sa,env
+    from arcpy import sa, env
     arcpy.env.overwriteOutput = True
 
 #======================================================================================
@@ -220,7 +226,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
         # print a status and open a figure
         print('working on file {0}'.format(raster))
         new_rast, new_meta  = to_numpy(raster, 'float32')
-        show_stats(new_rast, fig, im)
+        update_fig(new_rast, fig, im)
 
         if not new_rast.shape == (xs,ys):
             print new_rast.shape
@@ -243,7 +249,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
     if "AVG" in saves:
         avg_rast        = numpy.mean(rast_3d_masked, axis = 2)
         avg_rast        = numpy.array(avg_rast)
-        show_stats(avg_rast, fig, im, "Average")
+        update_fig(avg_rast, fig, im, "Average")
         time.sleep(2)
 
         avg_name = core.create_outname(outdir, outname, 'AVG', 'tif')
@@ -253,17 +259,17 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
     if "STD" in saves:
         std_rast        = numpy.std(rast_3d_masked, axis = 2)
         std_rast        = numpy.array(std_rast)
-        show_stats(avg_rast, fig, im, "Standard Deviation")
+        update_fig(avg_rast, fig, im, "Standard Deviation")
         time.sleep(2)
 
         std_name = core.create_outname(outdir, outname, 'STD', 'tif')
-        print("Saving AVERAGE output raster as {0}".format(std_name))
+        print("Saving STANDARD DEVIATION output raster as {0}".format(std_name))
         from_numpy(std_rast, metadata, std_name)
         
     if "NUM" in saves:
         num_rast        = (numpy.zeros((xs,ys)) + zs) - numpy.sum(rast_3d_masked.mask, axis = 2)
         num_rast        = numpy.array(num_rast)
-        show_stats(avg_rast, fig, im, "Good pixel count (NUM)")
+        update_fig(avg_rast, fig, im, "Good pixel count (NUM)")
         time.sleep(2)
 
         std_name = core.create_outname(outdir, outname, 'NUM', 'tif')
@@ -298,7 +304,7 @@ def stack(raster_paths):
     Creates 3d numpy array from multiple coincident rasters
     
     This function is to create a 3d numpy array out of multiple coincident rasters.
-    Usefull for layering multiple bands in a sceen or bulding a time series "data brick".
+    Usefull for layering multiple bands in a scene or bulding a time series "data brick".
     It is important that all layers that are stacked are perfectly coincident, having
     identical pixel dimensions, resolution, projection, and spatial referencing. 
 
@@ -316,7 +322,7 @@ def stack(raster_paths):
         temp_image, temp_meta = to_numpy(raster)
 
         if z==0:
-            stack = numpy.zeros((len(raster_paths),temp_meta.Ysize,temp_meta.Xsize))
+            stack = numpy.zeros((len(raster_paths), temp_meta.Ysize, temp_meta.Xsize))
         
         stack[z,:,:] = temp_image
         meta = temp_meta
@@ -986,10 +992,8 @@ def project_resamp(filelist, reference_file, outdir = False,
     return(Spatial_Reference)
 
     
-def show_stats(numpy_rast, fig , im, title = False):
-    """
-    Function to show stats, updates a figure that already exists
-    """
+def update_fig(numpy_rast, fig , im, title = False):
+    """Function to update a figure that already exists"""
 
     if title:
         fig.suptitle(title, fontsize = 20)
@@ -1000,7 +1004,7 @@ def show_stats(numpy_rast, fig , im, title = False):
 
 
 def make_fig(numpy_rast, title = False):
-    """function to set up an updating figure"""
+    """function to set up an initial figure"""
 
     fig, ax = plt.subplots()
     fig.show()
