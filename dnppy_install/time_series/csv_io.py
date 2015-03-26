@@ -23,7 +23,7 @@ def read_csv_rows(filepath, has_headers = True):
             data.append(entry)
         f.close()
             
-    print("Loaded data from {0}".format(filepath))
+    print("Loaded data from '{0}'".format(filepath))
     return data, headers
 
 
@@ -46,7 +46,7 @@ def write_csv_rows(data, headers, filepath):
             f.write(entry)
         f.close()
         
-    print("Saved data to {0}".format(filepath))
+    print("Saved data to '{0}'".format(filepath))
     return
 
 
