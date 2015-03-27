@@ -136,10 +136,10 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
         Radraster.save(BandPath)
         OutList.append(arcpy.Raster(BandPath))
 
-         del Radraster
+        del Radraster
 
-         arcpy.AddMessage("toa radiance saved for Band {0}".format(band_num))
-         print("toa radiance saved for Band {0}".format(band_num))
+        arcpy.AddMessage("toa radiance saved for Band {0}".format(band_num))
+        print("toa radiance saved for Band {0}".format(band_num))
          
     f.close()
     return OutList

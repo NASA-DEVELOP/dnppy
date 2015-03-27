@@ -15,7 +15,6 @@ from .mosaic import *
 from .projection import *
 from .extract_from_hdf import *
 
-
 # standard imports
 import sys, os,time
 

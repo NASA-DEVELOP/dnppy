@@ -3,7 +3,7 @@ Fetches a variety of data products from various ftp and http servers
 """
 
 __all__=['GPM',               # halted development
-         'TRMM',              # active development
+         'TRMM_1',            # active development
          'Landsat_WELD',      # complete
          'MODIS']             # complete
 

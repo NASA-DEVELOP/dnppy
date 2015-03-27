@@ -1,8 +1,4 @@
 
-import os
-
-from dnppy import landsat
-#import arcpy
 
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
