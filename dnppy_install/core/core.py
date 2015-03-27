@@ -1,33 +1,8 @@
-"""
-======================================================================================
-                                   dnppy.core
-======================================================================================
- This script is part of (dnppy) or "DEVELOP National Program py"
- It is maintained by the Geoinformatics YP class.
 
-It contains some core functions to assist in data formatting , path manipulation, and
-logical checks. It is commonly called by other modules in the dnppy package.
-
-
- Requirements:
-   Python 2.7
-   Arcmap 10.2 or newer for some functions
-
-   Example:
-   from dnppy import core
-   Sample_Function('test',False)
-"""
-
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 __all__=['sample_function',     # complete
-         'rolling_window',      # complete
-         'in_window',           # complete
          'del_empty_dirs',      # complete
          'rename',              # complete
-         'enf_list',            # complete
-         'enf_filelist',        # complete
-         'enf_featlist',        # complete
          'list_files',          # complete
          'move',                # complete
          'exists',              # complete
@@ -35,18 +10,6 @@ __all__=['sample_function',     # complete
          'check_module']        # complete
 
 
-import os
-import datetime
-import sys
-import shutil
-
-import arcpy
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy import sa,env
-    arcpy.env.overwriteOutput = True
-
-#======================================================================================
 def sample_function(inputs, Quiet=False):
 
     """
@@ -63,225 +26,7 @@ def sample_function(inputs, Quiet=False):
     return(outputs)
 
 
-
-def resample(rasterlist,reference_cellsize,resamp_type,outdir=False,Quiet=False):
-
-    """
-     Simple a batch processor for resampling with arcmap
-
-     Inputs:
-       rasterlist          list of rasters to resample
-       reference_cellsize  Either a cell size writen as "10 10" for example or a reference
-                           raster file to match cell sizes with. 
-       resamp_type         The resampling type to use if images are not identical cell sizes.
-                               "NEAREST","BILINEAR","CUBIC","MAJORITY" are the options.
-       outdir              output directory to save files. if left "False" output files will
-                           be saved in same folder as the input file.
-
-     
-    """
-
-    # sanitize inputs and create directories
-    reference_cellsize  = str(reference_cellsize)
-    rasterlist          = enforce_rastlist(rasterlist)
-    if outdir and not os.path.isdir(outdir):
-        os.makedirs(outdir)
-        
-    # resample the files.
-    for filename in rasterlist:
-
-        # create output filename
-        outname = create_outname(outdir,filename,'rs')
-        
-        #arcpy.Resample_management(filename,,reference_cellsize, resamp_type)
-    
-    return
-
-
-def rolling_window(filelist, window_size, start_jday, end_jday,
-                                           start_year=False, end_year=False, Quiet=False):
-
-    """
-    Creates a list of windows each containing a list of files grouped by central date
-    
-     this function calls the 'in_window' function for a whole range of dates to produce
-     rolling windows. Use this if you intend to iterate through many files for rolling
-     statistics
-     
-     Inputs:
-       filelist        the list of files to include in the rolling window. This could be
-                       easily created with the list_files function.
-       window_size     width of the window in days. used to group files
-       start_jday      julian day on which to start the window centers
-       end_jday        julian day on which to end the window centers
-       start_year      year on which to start the window centers. If you wish to bin all days
-                       at a given point in the year together for long term averages, leave
-                       year inputs blank or set to 'False'. This will then consider all
-                       julian days within the window for all years in 'filelist'
-       end_year        year on which to end the window centers. If you wish to bin all days
-                       at a given point in the year together for long term averages, leave
-                       year inputs blank or set to 'False'. This will then consider all
-                       julian days within the window for all years in 'filelist'
-
-     Outputs:
-       window_centers  list of window center names
-       window_matrix   list of all files in grouping around each window center
-
-     
-    """
-    
-    # set intial conditions for while loop
-    index=0
-    current_jday=start_jday
-    current_year=start_year
-    window_matrix=[]
-    window_centers=[]
-
-    filelist=Enforce_Filelist(filelist)
-
-    # if a start year and end year exist (not False)
-    if start_year and end_year:
-
-        # loop for as long as the current year and day do not exceed the ending year and day
-        while current_jday <= end_jday and current_year <=end_year:
-            center,window= in_window(filelist,window_size,current_jday,current_year,Quiet)
-            window_matrix.append(window)
-            window_centers.append(center)
-
-            # if the current day counter has reached the end of the year, reset the day
-            # and advance the year count forward
-            if current_jday==365 and not current_year%4==0:
-                current_jday=1
-                current_year=current_year + 1
-            elif current_jday==366 and current_year%4==0:
-                current_jday==1
-                current_year=current_year + 1
-            else:
-                current_jday=current_jday + 1
-                index=index+1
-                
-    # if years are set to False, process based soley on julian days.
-    else:
-        
-        # loop for as long as the current day does not exceed the ending day
-        while current_jday <= end_jday:
-            center,window= in_window(filelist,window_size,current_jday,False,Quiet)
-            window_matrix.append(window)
-            window_centers.append(center)
-            
-            # if the user has chosen to ignore years, the code must stop at day 366.
-            if current_jday==366:
-                return window_centers,window_matrix
-            else:
-                current_jday=current_jday + 1
-            index=index+1
-
-    if not Quiet: print '{rolling_window} Finished!'
-        
-
-    return window_centers,window_matrix
-
-
-def in_window(filelist, window_size, jday, year=False, Quiet=False):
-
-    """
-    Uses raster.grab_info to bin raster data by date
-    
-     this function returns a list of files within the window designation.
-     This is useful for feeding into functions that create weekly/monthly/annual statistics
-     from daily data. Use the rolling_window function (which calls this one) if you intend
-     to iterate through many files for rolling statistics.
-
-     This function only works for files whos naming conventions are supported by the
-     'Grab_Data_Info' function, and relies upon the attributes stored in info.year and
-     info.j_day
-     
-     Inputs:
-       filelist        the list of files to include in the window. This could be easily
-                       created with the list_files function.
-       window_size     width of the window in days. used to group files
-       jday            the julian day at which to center the window
-       year            the year on which to center the window. If you wish to bin all days
-                       at a given point in the year together for long term averages, leave
-                       year input blank or set to 'False'. This will then consider all
-                       julian days within the window for all years in 'filelist'
-
-     Outputs:
-       center          A file representing the center of the window, useful in naming.
-       in_window       outputs only the files within the specified window.
-
-     
-    """
-    
-    # initialize empty lists for tracking
-    in_window=[]
-    yearlist=[]
-    jdaylist=[]
-    center_file=False
-
-    # sanitize inputs
-    jday=int(jday)
-    window_size=int(window_size)
-    filelist=Enforce_Filelist(filelist)
-    
-    # define list of acceptable values
-    
-    # if the window is an even number, it has to be centered on the half day
-    # if the window is an odd number, it can be centered exactly on the day
-    if window_size%2==0:
-        window=range(-(window_size/2)+1,(window_size/2)+1)                   
-    else:
-        window=range(-((window_size-1)/2),((window_size-1)/2)+1)
-
-    # generate concurent lists of acceptable parameters
-    for day in window:
-        if year:
-            date= datetime.datetime(year,1,1) + datetime.timedelta(day+jday-1)
-            yearlist.append(str(date.year))
-        else:
-            date= datetime.datetime(2010,1,1) + datetime.timedelta(day+jday-1)
-        jdaylist.append(str(date.strftime('%j')))
-
-    # if window is not year specific, make sure we include 366 when appropriate
-    if not year and '365' in jdaylist and '001' in jdaylist:
-        jdaylist.append('366')
-
-    # gather statistics on the filelist.
-    for item in filelist:
-        info=Grab_Data_Info(item,False,True)
-
-        if year:
-            # checks to see if both day and year are on the respective lists
-            if info.j_day in jdaylist and info.year in yearlist:
-
-                # further verifies that they are for concurent list entries (not mismatched)
-                if yearlist[jdaylist.index(info.j_day)]==info.year:
-                    in_window.append(item)
-                    
-                    # if this files info indicates it is on the center julian day, save this info
-                    if info.j_day==str(jday).zfill(3):
-                        center_file=item
-        else:
-            # checks to make sure day only is within the window, without considering year
-            if info.j_day in jdaylist:
-                in_window.append(item)
-
-                # if this files info indicates it is on the center julian day, save this info
-                if info.j_day==str(jday).zfill(3):
-                    center_file=item
-                
-    if not Quiet:
-        if year:
-            print('{in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
-                  ']day window: '+ str(jday) +'-'+ str(year))
-        else:
-            print('{in_window} Found ' + str(len(in_window)) + ' files in ['+ str(window_size) + 
-                  ']day window: '+ str(jday))
- 
-    return center_file,in_window
-
-
-def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False):
+def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
 
     """
     Simple file listing function with more versatility than python builtins or arcpy.List
@@ -299,8 +44,6 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
                            contain parameters listed here. If no criteriaexists use 'False'
            DoesNotContain  search criteria to limit returned file list. File names must not
                            contain parameters listed here. If no criteriaexists use 'False'
-           Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
-                           Defaults to 'False' if left blank.
      Outputs:
            filelist        An array of full filepaths meeting the criteria.
 
@@ -311,8 +54,6 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
            The above statement will find all the Band 1 tifs in a landsat data directory
            without including the associated metadata and uncompressed gz files.
            "filelist" variable will contain full filepaths to all files found.
-
-     
     """
     
     # import modules and set up empty lists
@@ -406,9 +147,7 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
         except: pass
         
     # Print a quick status summary before finishing up if Quiet is False
-    if not Quiet:
-        print '{list_files} Files found which meet all input criteria: ' + str(len(filelist))
-        print '{list_files} finished! \n'
+    print('Files found which meet all input criteria: {0}'.format(len(filelist)))
     
     return(filelist)
 
@@ -417,10 +156,8 @@ def list_files(recursive, Dir, Contains=False, DoesNotContain=False, Quiet=False
 
 
 def del_empty_dirs(path):
-
     """Removes empty folders, used for cleaning up temporary workspace."""
 
-    import os
 
     # only continue if the pathexists
     if os.path.isdir(path):
@@ -436,8 +173,7 @@ def del_empty_dirs(path):
     return(False)
 
 
-def rename(filename,replacethis,withthis,Quiet=False):
-
+def rename(filename, replacethis, withthis):
     """
     Simply renames files
 
@@ -445,13 +181,9 @@ def rename(filename,replacethis,withthis,Quiet=False):
        filename        input file to rename    
        replacethis     String to be replaced. such as " " (a space) 
        withthis        What to replace the string with. such as "_" (an underscore)
-       Quiet           Set Quiet to 'True' if you don't want anything printed to screen.
-                       Defaults to 'False' if left blank.
 
      Outputs:
            newfilename     returns the new name of the renamed file.
-
-     
      """
     
     if replacethis in filename:
@@ -466,128 +198,36 @@ def rename(filename,replacethis,withthis,Quiet=False):
         os.rename(filename,newfilename)
 
         # tell the user about it.
-        if not Quiet: print '{rename} renamed',filename,'to',newfilename
+        print("renamed" + filename + "to" + newfilename)
         
         return newfilename
     else:
         return filename
 
 
-def enf_list(item):
-
-    """
-    Ensures input item is list format. 
-
-     many functions within this module allow the user
-     to input either a single input or list of inputs in string format. This function makes
-     sure single inputs in string format are handled like single entry lists for iterative
-     purposes. It also will output an error if it is given a boolean value to signal that
-     an input somewhere else is incorrect.
-
-     
-     """
-
-    if not isinstance(item,list) and item:
-        return([item])
-    
-    elif isinstance(item,bool):
-        print '{enf_list} Cannot enforce a bool to be list! at least one list type input is invalid!'
-        return(False)
-    else:
-        return(item)
-    
-
-def enf_filelist(filelist):
-
-    """
-    Sanitizes file list inputs
-
-    This function checks that the input is a list of files and not a directory. If the input
-     is a directory, then it returns a list of ALL files in the directory. This is to allow
-     all functions which input filelists to be more flexible by accepting directories instead.
-
-     
-    """
-    
-    if isinstance(filelist,str):
-        if os.path.exists(filelist):
-            new_filelist= list_files(False,filelist,False,False,True)
-            return(new_filelist)
-        elif os.path.isfile(filelist):
-            return([filelist])
-    
-    elif isinstance(filelist,bool):
-        print 'Expected file list or directory but recieved boolean or None type input!'
-        return(False)
-    else:        return(filelist)
-
-
-
-def enf_featlist(filelist):
-
-    """
-    Sanitizes feature list inputs
-
-     This function works exactly like enf_filelist, with the added feature of removing
-     all filenames that are not of a feature class type recognized by arcmap.
-
-     Input:    filelist        any list of files
-     Output:   new_filelist    New list with all non-feature class files in filelist removed.
-
-     Bugs:
-       right now, all this does is check for a shape file extension. Sometimes shape files
-       can be empty or otherwise contain no feature class data. This function does not check
-       for this.
-
-     
-    """
-
-    # first place the input through the same requirements of any filelist
-    filelist        = enf_filelist(filelist)
-    new_filelist    = []
-    feat_types      = ['shp']
-
-    for filename in filelist:
-        ext=filename[-3:]
-
-        if os.path.isfile(filename):
-            for feat_type in feat_types:
-                if ext == feat_type:
-                    new_filelist.append(filename)
-
-    return(new_filelist)
-
-
-
-
-def move(source,destination,Quiet=False):
-
+def move(source, destination):
     """Moves a file"""
 
-    dest_path,name=os.path.split(destination)
+    dest_path, name = os.path.split(destination)
 
     # create that directory if it doesnt already exist
     if not os.path.exists(dest_path):
         os.makedirs(dest_path)
     try:     
-        shutil.move(source,destination)
-        if not Quiet:
-            print '{Move_File} moved file : [' + source + ']'
+        shutil.move(source, destination)
+        print('moved file from {0} to {1}'.format(source, destination))
     except:
-        if not Quiet:
-            print '{Move_File} Failed to move file : [' + source + ']'
+        print("failed to move file from {0}".format(source))
         
     return(dest_path)
 
 
-
 def exists(location):
-
     """Ensures inputlocation is either a file or a folder"""
     
     # if the object is neither a file or a location, return False.
     if not os.path.exists(location) and not os.path.isfile(location):
-        print '{Exists} '+location + ' is not a valid file or folder!'
+        print("{0} is not a valid file or folder!".format(location))
         sys.exit()
         return(False)
     
@@ -597,7 +237,6 @@ def exists(location):
 
 
 def create_outname(outdir, inname, suffix, ext = False):
-
     """
     Quick way to create unique output filenames within iterative functions
 

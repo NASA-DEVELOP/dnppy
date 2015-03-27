@@ -1,6 +1,8 @@
 
 # modules
 from datetime import datetime
+from dnppy import raster
+
 import csv_io
 import os
 
@@ -76,13 +78,13 @@ class time_series:
 
     def __getitem__(self, arg):
         """
-        allows subsets of the time series to be accessed as follows
+        allows subsets of the time series to be accessed as follows, for example:
 
         Time series whos first row is:
         ['20010101', '045316', '1', '20010101045316', 366]
 
         With no discretezation layers
-        comand        : result
+        command       : result
         ts[0]         : ['20010101', '045316', '1', '20010101045316', 366]
         ts[0][0]      : 20010101
 
@@ -116,7 +118,6 @@ class time_series:
 
             else:
                 return list(self.row_data[arg])
-
 
 
     def _get_atts_from(self, parent_time_series):
@@ -167,25 +168,6 @@ class time_series:
         # populates self.time with time series
         self.define_time(self.time_header, self.fmt)
         self.build_col_data()
-        return
-
-
-    def from_rasterlist(self, filepaths, fmt):
-        """ loads up a list of filepaths as a time series """
-
-        self.headers = ['filepaths','filenames']
-        self.row_data = []
-
-        for filepath in filepaths:
-            head, filename = os.path.split(filepath)
-            self.row_data.append([filepath, filename])
-
-        self.build_col_data()
-        self.define_time('filenames', fmt)
-
-        # flags this time series as being comprised of rasterpaths
-        self.rasterpaths  = True
-
         return
 
 
@@ -631,6 +613,50 @@ class time_series:
         return
 
 
+    def from_rastlist(self, filepaths, fmt):
+        """ loads up a list of filepaths as a time series """
+
+        self.headers = ['filepaths','filenames']
+        self.row_data = []
+
+        for filepath in filepaths:
+            head, filename = os.path.split(filepath)
+            self.row_data.append([filepath, filename])
+
+        self.build_col_data()
+        self.define_time('filenames', fmt)
+
+        # flags this time series as being comprised of rasterpaths
+        self.rasterpaths  = True
+
+        return
+
+    def rast_statistics(self, outdir, saves = ["AVG","STD","NUM"],
+                                        low_thresh = False, high_thresh = False):
+        """
+        wraper for the "many_stats" function in the raster module
+
+        performs the many_stats function on each of the lowest level
+        subsets of this time_series object
+        """
+
+        self.outdir = outdir
+        self.saves  = saves
+
+        if not self.rasterpaths:
+            raise Exception("this method is only for rasterlist time_series!")
+        
+        # only at the lowest discretezation level should stats be taken.
+        if self.discretized:
+            for subset in self.subsets:
+                subset.rast_statistics(outdir, saves)
+
+        else:
+            raster.many_stats(self.col_data['filepaths'],
+                              outdir, self.name, saves, low_thresh, high_thresh)
+        return
+
+            
 # testing
 if __name__ == "__main__":
 
@@ -671,6 +697,10 @@ if __name__ == "__main__":
 
     ts.group_bins("%d")
     ts.interogate()
+
+    # test rasterlist operations
+    #ts = time_series('modis_sequence')
+    #ts.from_rastlist(filelist, fmt)
 
 
 
