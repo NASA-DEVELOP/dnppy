@@ -13,9 +13,7 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 __all__=['HDF5',            # planned development
          'NetCDF',          # working with bugs
-         'HDF',             # complete
-         'date_to_julian',  # complete
-         'julian_to_date']  # complete
+         'HDF']             # complete
 
 
 # attempt to import all the common modules and settings
@@ -175,59 +173,3 @@ def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
     if not Quiet:print '{HDF} Finished!' 
     return(failed)
 
-
-
-def date_to_julian(year,month,day):
-
-    """
-    Converts a conventional date to julian day and year
-    
-     Inputs:
-       year        the current year (maters for leap years). string or int
-       month       the month of the year. string or int.
-       day         the day of the month. string or int.
-
-     Outputs:
-       day         date-day for input julian day
-
-     Example usage:
-       for december 5th of the year you would type.
-       julian_day = convert.date_to_julian(2014,12,5)
-    """
-
-    import datetime
-    
-    fmt = "%Y.%m.%d"
-    info = datetime.datetime.strptime('.'.join([str(year),str(month),str(day)]),fmt)
-    julian_day = info.strftime('%j')
-
-    return(julian_day)
-
-
-
-def julian_to_date(year,j_day):
-
-    """
-    Converts a julian day of the year to conventional date format.
-
-     Inputs:
-       year        the current year (maters for leap years)
-       j_day       the julian day to convert to a date for given year
-
-     Outputs:
-       month       month of input julian day
-       day         date-day for input julian day
-
-     Example usage:
-       for the 399th day of the year 2014 you would type
-               month,day = convert.julian_to_date(2014,399)
-    """
-    
-    import datetime
-    
-    fmt = "%Y.%j"
-    info = datetime.datetime.strptime('.'.join([str(year),str(j_day)]),fmt)
-    month = info.strftime('%m')
-    day = info.strftime('%d')
-    
-    return(month,day)
