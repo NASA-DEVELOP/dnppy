@@ -2,12 +2,6 @@
 Lists the contents of either an ftp or http download site and returns filenames/paths
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
-
-import ftplib, urllib, os, time, sys
-
-
-
 def ftp(site, username = False , password = False, Dir = False):
     """
     lists contents of typical FTP download site

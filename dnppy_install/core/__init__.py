@@ -26,13 +26,12 @@ from .core import *
 from .enforce import *
 
 
-
-
 # standard imports
 import os, datetime, sys, shutil
 
 
 # arcpy imports
+import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     from arcpy.sa import *

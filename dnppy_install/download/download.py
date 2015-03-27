@@ -1,24 +1,4 @@
-"""
- the "download.py" module is part of the "dnppy" package (develop national program py)
- this module houses python functions for obtaining data from the internet in a systematic
- way.
 
- If you wrote a function you think should be added to this module, or have an idea for one
- you wish was available, please email the Geoinformatics YP class or code it up yourself
- for future DEVELOP participants to use!
-"""
-
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
-
-
-__all__=['filelist',    # complete
-         'urls',        # complete
-         'a_url']       # complete 
-
-import os, time, urllib
-
-from dnppy.core import core
-import list_contents
 
 
 def filelist(ftptexts, filetypes = False, outdir = False):
@@ -50,10 +30,10 @@ def filelist(ftptexts, filetypes = False, outdir = False):
         core.exists(ftptext)
 
         if not outdir:
-            outdir,_ =os.path.split(ftptext)
+            outdir,_ = os.path.split(ftptext)
         
-        ftp = open(ftptext,'r')
-        sites =ftp.readlines()
+        ftp     = open(ftptext,'r')
+        sites   = ftp.readlines()
         
         print("Attempting to download {0} files!".format(len(sites)))
         print("Saving all files to {0}".format(outdir))
@@ -102,8 +82,8 @@ def urls(url_list, filetypes, outdir):
        failed          list of files which failed download
     """
 
-    failed  = []
-    url_list= core.enf_list(url_list)
+    failed   = []
+    url_list = core.enf_list(url_list)
 
     # creates output folder at desired path if it doesn't already exist
     if not os.path.exists(outdir):
@@ -114,11 +94,11 @@ def urls(url_list, filetypes, outdir):
     wait = 0
 
     for site in url_list:
-        download= False
-        url     = site.rstrip()
-        sub     = url.split("/")
-        leng    = len(sub)
-        name    = sub[leng-1]
+        download = False
+        url      = site.rstrip()
+        sub      = url.split("/")
+        leng     = len(sub)
+        name     = sub[leng-1]
         
         # Determine wether or not to download the file based on filetype.
         if filetypes:

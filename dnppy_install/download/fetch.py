@@ -2,19 +2,12 @@
 Fetches a variety of data products from various ftp and http servers
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
-
 __all__=['GPM',               # halted development
          'TRMM',              # active development
          'Landsat_WELD',      # complete
          'MODIS']             # complete
 
 
-from dnppy import core
-import download
-import list_contents
-
-#====================================================================
 def GPM(year, month, day, product, outdir, Quiet=False):
 
     """
@@ -87,7 +80,6 @@ def GPM(year, month, day, product, outdir, Quiet=False):
     return(failed)
 
 
-#=======================================================================================
 def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
 
     """
@@ -153,7 +145,6 @@ def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
     return(failed)
 
 
-#=======================================================================================
 def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
 
     """
@@ -221,11 +212,10 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
 
                         #download the file.
                         outname=os.path.join(outdir,tile,afile)
-                        download.Url(address,outname)
+                        Url(address,outname)
     return
 
     
-#======================================================================================-
 def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
 
     """
@@ -294,6 +284,8 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
             print '{Find_MODIS_Product} No such MODIS product is availble for download with this script!'
         
         return site, ftp, Dir
+
+
 
 
     # check formats
@@ -366,7 +358,7 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
 
                         #download the file
                         outname = os.path.join(outdir,afile)
-                        download.Url(address,outname)
+                        Url(address,outname)
 
     if not Quiet: print '{Fetch_MODIS} Finished! \n'
     return
