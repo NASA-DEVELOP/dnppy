@@ -2,8 +2,9 @@
 
 __author__ = "Jeffry Ely, Jeff.ely.08@gmail.com"
 
-import csv_io
+import csv_io, os
 from datetime import datetime, timedelta
+from calendar import monthrange
 
 class time_series:
     """
@@ -72,6 +73,8 @@ class time_series:
 
         self.bad_rows       = []            # subset from data attribute with "bad rows"
 
+        self.infilepath     = []            # tracks filepath of input CSV. used to DISALLOW overwriting
+                                            # source CSV with output CSV.
 
         # run some methods to build subset attributes
         if parent:
@@ -140,8 +143,148 @@ class time_series:
         return
 
 
+    def _fmt_to_units(self, fmt):
+        """ converts fmt strings to unit names of associated datetime attributes """
+
+        fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
+        unitlist = ["year","month","month","day","day","hour","minute","second"]
+
+        if fmt in fmtlist:
+            unit = unitlist[fmtlist.index(fmt)]
+            return unit
+
+        if fmt in unitlist:
+            return fmt
+        else:
+            raise Exception("'{0}' is an invalid unit or format!".format(fmt))
+
+
+    def _units_to_fmt(self, units):
+        """ converts unit names to fmt strings used by datetime.stftime """
+
+        fmtlist =  ["%Y", "%b", "%m", "%j", "%d", "%H", "%M", "%S"]
+        unitlist = ["year","month","month","day","day","hour","minute","second"]
+
+        if units in unitlist:
+            fmt = fmtlist[unitlist.index(units)]
+            return fmt
+        
+        if units == "%b":
+            return "%m"
+        
+        if units in fmtlist:
+            return units
+        else:
+            raise Exception("'{0}' is an invalid unit or format!".format(fmt))
+
+
+    def _extract_time(self, time_header):
+        """
+        special case of "extract_column" method for time domain
+
+        internal use only
+        """
+
+        self.time_header = time_header
+        self.build_col_data()
+
+        if time_header in self.headers:
+                self.time_col   = self.headers.index(time_header)
+                self.time       = self.col_data[time_header]
+        else:
+            raise LookupError("Time header not in dataset!")
+
+        if self.discretized:
+            for subset in self.subsets:
+                subset._extract_time(time_header)
+
+        return self.time
+
+
+    def _center_datetime(self, datetime_obj, units):
+        """ returns datetime obj that is centered on the "unit" of the input datetime obj"""
+
+        dto = datetime_obj
+        
+        if units == "day":
+            return datetime(dto.year, dto.month, dto.day, 12)
+
+        if units == "month":
+            # we need to find the middle day of the month which could be 14 or 15
+            middle = (monthrange(dto.year, dto.month)[1]) / 2
+            
+            return datetime(dto.year, dto.month, middle, 0)
+
+        if units == "year":
+            # we need to find the middle day of the month which could be 14 or 15
+            middle = (monthrange(dto.year, dto.month)[1]) / 2
+            return datetime(dto.year, 7, 1, 0)
+
+
+    def _units_to_seconds(self, units):
+        """ converts other time units to seconds. internal use only"""
+
+        # ensure proper unit formatting
+        units = self._fmt_to_units(units)
+
+        if units == "second":   return 1.0
+        if units == "minute":   return 60.0
+        if units == "hour":     return 60.0 * 60.0
+        if units == "day":      return 60.0 * 60.0 * 24.0
+        if units == "month":    return 60.0 * 60.0 * 24.0 * (365.25 / 12.0)
+        if units == "year":     return 60.0 * 60.0 * 24.0 * 365.25
+
+
+    def _seconds_to_units(self, seconds, units):
+        """ converts seconds to other time units. internal use only"""
+
+        if units == "second":   return 1.0
+        if units == "minute":   return seconds / (60.0)
+        if units == "hour":     return seconds / (60.0 * 60.0)
+        if units == "day":      return seconds / (60.0 * 60.0 * 24.0)
+        if units == "month":    return seconds / (60.0 * 60.0 * 24.0 * (365.25 / 12.0))
+        if units == "year":     return seconds / (60.0 * 60.0 * 24.0 * 365.25)
+
+    
+    def _name_as_subset(self, binned = False):
+        """ uses time series object to descriptively name itself. internal use only"""
+
+        subset_units = self.units
+        
+        if isinstance(self.center_time, datetime):
+            datetime_obj = self.center_time
+        else:
+            datetime_obj = self.time_dom[0]
+
+        if binned:
+            self.name = datetime_obj.strftime(self._units_to_fmt(self.units))
+
+        else:
+            if subset_units == "year" or subset_units == "%Y":
+                self.name = datetime_obj.strftime("%Y")
+
+            if subset_units == "month" or subset_units == "%m":
+                self.name = datetime_obj.strftime("%Y-%b")
+
+            if subset_units == "day" or subset_units == "%d":
+                self.name = datetime_obj.strftime("%Y-%m-%d")
+
+            if subset_units == "hour" or subset_units == "%H":
+                self.name = datetime_obj.strftime("%Y-%m-%d-%H")
+
+            if subset_units == "minute" or subset_units == "%M":
+                self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M")
+
+            if subset_units == "second" or subset_units == "%S":
+                self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M:%S")
+
+        return
+
+    
     def from_csv(self, csv_path):
         """ creates the time_series data from a csv"""
+
+        self.infilepath = os.path.abspath(csv_path)
 
         if not self.discretized:
             self.row_data, self.headers = csv_io.read_csv_rows(csv_path)
@@ -155,6 +298,10 @@ class time_series:
 
     def to_csv(self, csv_path):
         """ simply write the data to a csv file"""
+
+        # disallow overwriting the csv used as input. Added by request
+        if os.path.abspath(self.infilepath) == os.path.abspath(csv_path):
+            csv_path = csv_path.replace(".csv", "_out.csv")
 
         print("Saved time series '{0}' with {1} rows and {2} columns".format(
                                     self.name, len(self.row_data), len(self.col_data)))
@@ -200,11 +347,10 @@ class time_series:
 
             try:
                 test = float(row[col_index])
+                self.row_data.append(row)
             except:
                 self.bad_rows.append(row)
                 continue
-
-            self.row_data.append(row)
 
         print("Removed {0} rows with invalid '{1}'".format(len(self.bad_rows),col_header))
         print("Dataset now has {0} rows".format(len(self.row_data)))
@@ -246,29 +392,6 @@ class time_series:
         return
 
 
-    def _extract_time(self, time_header):
-        """
-        special case of "extract_column" method for time domain
-
-        internal use only
-        """
-
-        self.time_header = time_header
-        self.build_col_data()
-
-        if time_header in self.headers:
-                self.time_col   = self.headers.index(time_header)
-                self.time       = self.col_data[time_header]
-        else:
-            raise LookupError("Time header not in dataset!")
-
-        if self.discretized:
-            for subset in self.subsets:
-                subset._extract_time(time_header)
-
-        return self.time
-
-
     def merge_cols(self, header1, header2):
         """merges two columns together (string concatenation)"""
 
@@ -290,7 +413,6 @@ class time_series:
                 subset.merge_cols(header1, header2)
 
         return
-
 
 
     def define_time(self, time_header, fmt, start_date = False):
@@ -327,25 +449,41 @@ class time_series:
         for i,datestamp in enumerate(datestamp_list):
 
             # If error, give user information about the line on which the error occurs
-            try:    t = datetime.strptime(datestamp, fmt)
-            except: raise Exception("Input '{0}' in line {1} is not of format {2}".format(
-                    datestamp, i+2 , fmt))
+            try:
+                t = datetime.strptime(datestamp, fmt)
+            except:
+                raise Exception("Input '{0}' in line {1} is not of format {2}".format(
+                                datestamp, i+2 , fmt))
 
             self.time_dom.append(t)
 
             delta = t - start
             delta = float(delta.total_seconds())
             self.time_seconds.append(float(delta))
-            self.time_dec_days.append(float(delta / 8640))
+            self.time_dec_days.append(float(delta / 86400))
+
+
+        # If the data was not already in ascending time order, fix it here
+        
 
         if self.discretized:
             for subset in self.subsets:
-                subset.define_time(time_header, fmt)
+                subset.define_time(time_header, fmt)     
 
         return
 
 
-    def discretize(self, fmt_units):
+    def sort_ascending(self):
+        """ reorders the data in this time_series to be in ascending order by time"""
+
+        sorted_cols = sorted(zip(*self.col_data))
+
+        for i,header in enumerate(self.headers): pass
+            
+        
+
+        
+    def discretize(self, subset_units, overlap_width = 0):
         """
         splits the time series into individual time chunks
 
@@ -358,10 +496,14 @@ class time_series:
         %Y  groups files by year
         %m  groups files by month
         %j  groups file by julian day of year
-        """
 
-        # convert units into subset units (because these are the attribute names)
-        subset_units = self._fmt_to_units(fmt_units)
+        the "overlap_width" variable can be set to greater than 0
+        to allow "window" type statistics, so each subset may contain 
+        data points from adjacent subsets.
+        
+        overlap_width = 1 is like a window size of 3
+        overlap_width = 2 is like a window size of 5
+        """
 
         if self.discretized:
 
@@ -369,164 +511,130 @@ class time_series:
                 subset.discretize(subset_units)
 
         else:
+            
+            self.discretized = True
+            
+            if overlap_width < 0:
+                print("overlap_width must be 0 or more, setting it to 0!")
+                overlap_width = 1
 
-            print("Discretizing data by {0}".format(subset_units))
+            # convert units into subset units and into terms of seconds
+            # timedelta objecs can only have units of days or seconds, so we use seconds
+            subset_units = self._fmt_to_units(subset_units)
+            unit_seconds = self._units_to_seconds(subset_units)
+            wind_seconds = unit_seconds * (overlap_width + 0.5)
+
+            if subset_units not in ['year','month','day']:
+               raise Exception("Data is too high resolution! try the 'discretize()' fn")
+
+            print("Discretizing2 data by {0}".format(subset_units))
 
             if self.time_dom == False:
                 raise Exception("must call 'define_time' method before discretization!")
+            
+            # determine subset lists starting, end points and incriment
+            time_s = self.time_dom[0]
+            time_f = self.time_dom[-1]
 
-            self.discretized = True
+            ustart      = self._center_datetime(time_s, subset_units)
+            uend        = self._center_datetime(time_f, subset_units) + timedelta(seconds = unit_seconds)
 
-            # set up list by which to discretize
-            disc_list   = [getattr(x, subset_units) for x in self.time_dom]
+            delta       = uend - ustart
+            units_delta = int(self._seconds_to_units(delta.total_seconds(), subset_units) + 1)
 
-            # set up the first subset time_series object
-            counter     = 0
-            new_subset  = time_series(units = subset_units, parent = self)
-
-            # anywhere the subset_unit has changed make new subset time_series
-            for i,t in enumerate(disc_list[:-1]):
-                now     = disc_list[i]
-                later   = disc_list[i+1]
-
-                new_subset.add_row(self.row_data[i])
-
-                if not now == later:
-                    # name the current subset and add it to the parent time series
+            # Iterate through entire dataset to make sure each subset has all valid entries.
+            for i in xrange(units_delta):
+                
+                temp_data = []
+                center_time = ustart + timedelta(seconds = i * unit_seconds)
+    
+                for j, current_time in enumerate(self.time_dom):
+                    dt = abs(center_time - current_time)
+                    
+                    if dt.total_seconds() < wind_seconds:
+                        temp_data.append(self.row_data[j])
+                        
+                if len(temp_data) > 0:
+                    new_subset = time_series(units = subset_units, parent = self)
+                    new_subset.center_time = center_time
+                    new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
                     new_subset._name_as_subset()
                     self.subsets.append(new_subset)
-
-                    # create new empty subset
-                    counter += 1
-                    new_subset  = time_series(units = subset_units, parent = self)
-
-            # handles the last group in the data
-            new_subset.add_row(self.row_data[-1])
-            new_subset.define_time(self.time_header, self.fmt)
-            new_subset._name_as_subset()
-
-            self.subsets.append(new_subset)
-
-            # rebuild the time domain
-            self.define_time(self.time_header, self.fmt)
-
         return
 
-    def discretize2(self, subset_units, overlap_width = 1):
-        """
-        splits the time series into individual time chunks
 
-        used for taking advanced statistics, usually periodic
-        in nature. Also usefull for exploiting temporal relationships
-        in a dataset for a variety of purposes including data
-        sanitation, periodic curve fitting, etc.
+    def group_bins(self, fmt_units, overlap_width = 0, cyclical = True):
+        """
+        sorts the time series into time chunks by common bin_unit
+
+        used for grouping data rows together. For example, if one used
+        this function on a 5 year dataset with a bin_unit of month,
+        then the time_series would be subseted into 12 sets (1 for each
+        month), which each set containing all entries for that month,
+        regardless of what year they occurred in.
 
         fmt_units follows convention of fmt. For example:
         %Y  groups files by year
         %m  groups files by month
         %j  groups file by julian day of year
 
-        the "overlap_width" variable can be set to greater than 1
-        to allow "window" type statistics, so each subset may contain 
-        data points from adjacent subsets. This really only works well
-        for data at the daily, monthly, or yearly resolutions
+        similarly to "discretize" the "overlap_width" variable can be
+        set to greater than 1 to allow "window" type statistics, so
+        each subset may contain data points from adjacent subsets.
+        However, for group_bins, overlap_width must be an integer.
+
+        "cyclical" of "True" will allow end points to be considered adjacent.
+        So, for example, January will be considered adjacent to December,
+        day 1 will be considered adjacent to day 365.
         """
 
-        # convert units into subset units (because these are the attribute names)
-        subset_units = self._fmt_to_units(subset_units)
-        unit_seconds = self._units_to_seconds(subset_units)
+        ow = int(overlap_width)
+        
+        self.discretized = True
 
-        if subset_units not in ['year','month','day']:
-            raise Exception("Data is too high resolution! try the 'discretize()' fn")
+        # ensure proper unit format is present
+        fmt     = self._units_to_fmt(fmt_units)
+        units   = self._fmt_to_units(fmt_units)
 
-        if self.discretized:
+        # set up cyclical parameters
+        if fmt == "%j":     cylen = 365
+        if fmt == "%m":     cylen = 12
+        if fmt == "%b":     cylen = 12
 
-            for subset in self.subsets:
-                subset.discretize(subset_units)
+        # initialize a grouping array to idenfity row indices for each subset
+        grouping  = [int(obj.strftime(fmt)) for obj in self.time_dom]
+        
+        for i in xrange(min(grouping),max(grouping) + 1):
 
-        else:
+            subset_units    = self._fmt_to_units(fmt)
+            new_subset      = time_series( units = subset_units, parent = self)
 
-            print("Discretizing data by {0}".format(subset_units))
+            # only take rows whos grouping is within ow of i
+            subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
 
-            if self.time_dom == False:
-                raise Exception("must call 'define_time' method before discretization!")
-            
-            self.discretized = True
+            # fix endpoints
+            if cyclical:
+                if i <= ow:
+                    subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g-cylen <= i+ow and g-cylen >=i-ow]
+                elif i >= cylen - ow:
+                    subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g+cylen <= i+ow and g+cylen >=i-ow]
 
-            # build up the subset list
-            time_s = self.time_dom[0]
-            time_f = self.time_dom[-1]
-            day_s  = datetime(time_s.year, time_s.month, time_s.day, 12, 0, 0, 0)
-            day_f  = datetime(time_f.year, time_f.month, time_f.day, 12, 0, 0, 0) + timedelta(1)
+            # grab row indeces from parent matrix to put in the subset      
+            subset_data = [self.row_data[row] for row in subset_rows]
 
-            delta = day_f - day_s
-
-            new_subsets = []
-            for i in range(delta.days):
-                new_subset = time_series(units = subset_units, parent = self)
-                new_subset.center_time = day_s + timedelta(days = i)
-                new_subsets.append(new_subset)
-
-            for subset in new_subsets:
-                for i, time in enumerate(self.time_dom):
-
-                    
-
-            
+            # run naming methods and definitions on the new subset
+            if not len(subset_data) == 0:
+                new_subset.from_list(subset_data, self.headers, self.time_header, self.fmt)
+                new_subset.define_time(self.time_header, self.fmt)
                 
+                new_subset.center_time = self.time_dom[grouping.index(i)]
+                new_subset._name_as_subset(binned = True)
 
+                self.subsets.append(new_subset)
         return
-
-
-    def _units_to_seconds(self, units):
-        """ converts units to seconds"""
-
-        # ensure proper unit formatting
-        units = self._fmt_to_units(units)
-
-        if units == "second":   return 1.0
-        if units == "minute":   return 60.0
-        if units == "hour":     return 60.0 * 60.0
-        if units == "day":      return 60.0 * 60.0 * 24.0
-        if units == "month":    return 60.0 * 60.0 * 24.0 * (365.25 / 12.0)
-        if units == "year":     return 60.0 * 60.0 * 24.0 * 365.25
 
     
-    def _name_as_subset(self):
-        """
-        generates a name string from a datetime object and units
-
-        internal use only
-        """
-
-        # uses the time_series object units attribute and
-        # first entry in its dataset to descriptively name itself
-
-        subset_units = self.units
-        datetime_obj = self.time_dom[0]
-
-        if subset_units == "year" or subset_units == "%Y":
-            self.name = datetime_obj.strftime("%Y")
-
-        if subset_units == "month" or subset_units == "%m":
-            self.name = datetime_obj.strftime("%Y-%b")
-
-        if subset_units == "day" or subset_units == "%d":
-            self.name = datetime_obj.strftime("%Y-%m-%d")
-
-        if subset_units == "hour" or subset_units == "%H":
-            self.name = datetime_obj.strftime("%Y-%m-%d-%H")
-
-        if subset_units == "minute" or subset_units == "%M":
-            self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M")
-
-        if subset_units == "second" or subset_units == "%S":
-            self.name = datetime_obj.strftime("%Y-%m-%d-%H:%M:%S")
-
-        return
-
-
     def column_stats(self, col_header):
         """
         takes statistics on a specific column of data
@@ -534,11 +642,12 @@ class time_series:
         creates object attributes according to the column name
         """
 
-        #print("Stats for time_series '{0}'. Column '{1}'".format(self.name,col_header))
+        print("calculated stats for time_series '{0}', col '{1}'".format(self.name,col_header))
 
         # pull column data and find some stats
         import numpy as np
 
+        self.clean(col_header)
         col_data = map(float, self.col_data[col_header])
 
         # build array of stats
@@ -568,98 +677,47 @@ class time_series:
         return
 
 
-    def normalize(col):
+    def normalize(self, col_header):
         """ used to normalize specific columns in the time series"""
+        
+        # make sure data is cleaned for numerical formatting
+        self.clean(col_header)
+        temp_col = self.col_data[col_header]
+        temp_col = map(float, temp_col)
 
-        raise Exception("This 'normalize' function isnt finished!")
+        # perform normalization
+        minval   = min(temp_col)
+        maxval   = max(temp_col)
 
+        c = self.headers.index(col_header)
+        for i,row in enumerate(self.row_data):
+            self.row_data[i][c] = (float(row[c]) - minval) / (maxval - minval)
+
+        print("data in column '{0}' has been normalized!".format(col_header))
+
+        if self.discretized:
+            for subset in self.subsets:
+                subset.normalize(col_header)
         return
-
-
-    def group_bins(self, fmt_units):
-        """
-        sorts the time series into time chunks by common bin_unit
-
-        used for grouping data rows together. For example, if one used
-        this function on a 5 year dataset with a bin_unit of month,
-        then the time_series would be subseted into 12 sets (1 for each
-        month), which each set containing all entries for that month,
-        regardless of what year they occurred in
-
-        fmt_units follows convention of fmt. For example:
-        %Y  groups files by year
-        %m  groups files by month
-        %j  groups file by julian day of year
-        """
-
-        self.discretized = True
-
-        # ensure proper unit format is present
-        fmt_units = self._units_to_fmt(fmt_units)
-
-        grouping = [int(obj.strftime(fmt_units)) for obj in self.time_dom]
-
-        for i in range(min(grouping),max(grouping)):
-
-            subset_units    = self._fmt_to_units(fmt_units)
-            new_subset      = time_series("temp_name", subset_units)
-
-            new_subset._get_atts_from(self)
-
-            subset_rows = [j for j,e in enumerate(grouping) if e == i]
-            subset_data = [self.row_data[row] for row in subset_rows]
-
-            new_subset.from_list(subset_data, self.headers, self.time_header, self.fmt)
-            new_subset.define_time(self.time_header, self.fmt)
-            new_subset._name_as_subset()
-
-            self.subsets.append(new_subset)
-        return
-
-
-    def _fmt_to_units(self, fmt):
-        """ converts fmt strings to unit names of associated datetime attributes """
-
-        fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
-        unitlist = ["year","month","month","day","day","hour","minute","second"]
-
-        if fmt in fmtlist:
-            unit = unitlist[fmtlist.index(fmt)]
-            return unit
-
-        if fmt in unitlist:
-            return fmt
-
-
-    def _units_to_fmt(self, units):
-        """ converts unit names to fmt strings used by datetime.stftime """
-
-        fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
-        unitlist = ["year","month","month","day","day","hour","minute","second"]
-
-        if units in unitlist:
-            fmt = fmtlist[unitlist.index(units)]
-            return fmt
-
-        if units in fmtlist:
-            return units
 
 
     def add_mono_time(self):
         """Adds a monotonically increasing time column with units of decimal days"""
 
-        self.row_data = zip(*self.row_data)
-        self.row_data.insert(int(self.time_col) + 1, self.time_dec_days)
-        self.row_data = zip(*self.row_data)
-
+        # add an entry to every row item in row_data, then rebuild column data
         if "decimal_days" not in self.headers:
-            self.headers.insert(int(self.time_col) + 1, "decimal_days")
+            self.headers.append("decimal_days")
+            
+            for i, row in enumerate(self.row_data):
+                self.row_data[i].append(self.time_dec_days[i])
+
+        self.build_col_data()
 
         if self.discretized:
             for subset in self.subsets:
-                subset.add_mono_time()
+                subset.add_mono_time() 
 
-        return self.row_data
+        return 
 
 
     def interogate(self):
@@ -713,7 +771,7 @@ class time_series:
 
         return
 
-    def rast_statistics(self, outdir, saves = ["AVG","STD","NUM"],
+    def rast_stats(self, outdir, saves = ["AVG","STD","NUM"],
                                         low_thresh = False, high_thresh = False):
         """
         wraper for the "many_stats" function in the raster module
@@ -742,11 +800,20 @@ class time_series:
 # testing
 if __name__ == "__main__":
 
+    filepath = r"test_data\two_years_daily_hourly_variation.csv"
+    fmt = "%d/%m/%Y%H%M"
+    start = "01/01/20000000"
+
+##    filepath = r"test_data\separate_date_time.csv"
+##    fmt = "%Y%m%d%H%M%S"
+##    start = "20000101000000"
     # testing csv manipulations
+    print(" \n\n testing csv manipulations \n\n")
+
     ts = time_series('Master_TS')
-    ts.from_csv(r"test_data\separate_date_time.csv")
+    ts.from_csv(filepath)
     ts.merge_cols("date", "time")
-    ts.define_time("date_time", "%Y%m%d%H%M%S", "20000101000000")
+    ts.define_time("date_time", fmt, start)
     ts.add_mono_time()
 
     print("time series with no subsets")
@@ -754,14 +821,14 @@ if __name__ == "__main__":
     print "ts[0][0]      :", ts[0][0]
 
 
-    ts.discretize('%d')
+    ts.discretize('%Y')
     print("time series with one subset layer")
     print "ts[0]         :", ts[0]
     print "ts[0][0]      :", ts[0][0]
     print "ts[0][0][0]   :", ts[0][0][0]
+    #ts.interogate()
 
-
-    ts.discretize('%H')
+    ts.discretize('%m')
     print("time series with two subset layers")
     print "ts[0]         :", ts[0]
     print "ts[0][0]      :", ts[0][0]
@@ -769,30 +836,20 @@ if __name__ == "__main__":
     print "ts[0][0][0][0]:", ts[0][0][0][0]
 
     ts.interogate()
+    ts.to_csv(r"test_data\separate_date_time_disc.csv")
 
     # testing bining
+    print(" \n\n testing bin function \n\n")
+    
     ts = time_series('Master_TS')
-    ts.from_csv(r"test_data\separate_date_time.csv")
+    ts.from_csv(filepath)
     ts.merge_cols("date", "time")
-    ts.define_time("date_time", "%Y%m%d%H%M%S", "20000101000000")
+    ts.define_time("date_time", fmt, start)
     ts.add_mono_time()
 
-    ts.group_bins("%d")
+    ts.group_bins("%b", overlap_width = 1, cyclical = False)
     ts.interogate()
-
-    # testing new way of discretizing to allow overlap
-    ts = time_series('Master_TS')
-    ts.from_csv(r"test_data\separate_date_time.csv")
-    ts.merge_cols("date", "time")
-    ts.define_time("date_time", "%Y%m%d%H%M%S", "20000101000000")
-    ts.add_mono_time()
-
-    delta = ts.discretize2('%d', 1)
-    ts.interogate()
-
-
-
-
+    ts.to_csv(r"test_data\separate_date_time_bin.csv")
 
 
 
