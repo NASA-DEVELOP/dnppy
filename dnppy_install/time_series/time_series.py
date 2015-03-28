@@ -4,7 +4,7 @@ __author__ = "Jeffry Ely, Jeff.ely.08@gmail.com"
 
 import csv_io, os
 from datetime import datetime, timedelta
-from calendar import monthrange
+from calendar import monthrange, isleap
 
 class time_series:
     """
@@ -216,12 +216,10 @@ class time_series:
             return datetime(dto.year, dto.month, middle, 0)
 
         if units == "year":
-            # we need to find the middle day of the month which could be 14 or 15
-            middle = (monthrange(dto.year, dto.month)[1]) / 2
-            return datetime(dto.year, 7, 1, 0)
+            return datetime(dto.year, 7, 2, 0)
 
 
-    def _units_to_seconds(self, units):
+    def _units_to_seconds(self, units, dto = None):
         """ converts other time units to seconds. internal use only"""
 
         # ensure proper unit formatting
@@ -231,8 +229,18 @@ class time_series:
         if units == "minute":   return 60.0
         if units == "hour":     return 60.0 * 60.0
         if units == "day":      return 60.0 * 60.0 * 24.0
-        if units == "month":    return 60.0 * 60.0 * 24.0 * (365.25 / 12.0)
-        if units == "year":     return 60.0 * 60.0 * 24.0 * 365.25
+        
+        if units == "month":
+            if dto:
+                return 60.0 * 60.0 * 24.0 * monthrange(dto.year, dto.month)[1]
+            else:
+                return 60.0 * 60.0 * 24.0 * (365.25/12)
+            
+        if units == "year":
+            if dto:
+                return 60.0 * 60.0 * 24.0 * (365 + isleap(dto.year) *1)
+            else:
+                return 60.0 * 60.0 * 24.0 * 365.25
 
 
     def _seconds_to_units(self, seconds, units):
@@ -503,12 +511,27 @@ class time_series:
         
         overlap_width = 1 is like a window size of 3
         overlap_width = 2 is like a window size of 5
+
+        WARNING: this function is imperfect for discretizing by months.
+        the possible lengths of a month are extremely variant, so sometimes
+        data points at the ends of a month will get placed in the adjacent
+        month. If you absolutely require accurate month discretization,
+        you should use this function to discretize by year, then use the
+        "group_bins" function to bin each year by month. so,
+
+        instead of
+            ts.discretize("%Y")
+            ts.discretize("%b")
+
+        use
+            ts.discretize("%Y")
+            ts.group_bins("%b")
         """
 
         if self.discretized:
 
             for subset in self.subsets:
-                subset.discretize(subset_units)
+                subset.discretize(subset_units, overlap_width)
 
         else:
             
@@ -516,13 +539,14 @@ class time_series:
             
             if overlap_width < 0:
                 print("overlap_width must be 0 or more, setting it to 0!")
-                overlap_width = 1
+                overlap_width = 0
 
             # convert units into subset units and into terms of seconds
             # timedelta objecs can only have units of days or seconds, so we use seconds
             subset_units = self._fmt_to_units(subset_units)
-            unit_seconds = self._units_to_seconds(subset_units)
-            wind_seconds = unit_seconds * (overlap_width + 0.5)
+
+            # initial step width
+            step_width = self._units_to_seconds(subset_units)
 
             if subset_units not in ['year','month','day']:
                raise Exception("Data is too high resolution! try the 'discretize()' fn")
@@ -537,17 +561,18 @@ class time_series:
             time_f = self.time_dom[-1]
 
             ustart      = self._center_datetime(time_s, subset_units)
-            uend        = self._center_datetime(time_f, subset_units) + timedelta(seconds = unit_seconds)
+            uend        = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
 
             delta       = uend - ustart
-            units_delta = int(self._seconds_to_units(delta.total_seconds(), subset_units) + 1)
 
             # Iterate through entire dataset to make sure each subset has all valid entries.
-            for i in xrange(units_delta):
+            center_time = ustart
+            while center_time < uend:
                 
+                step_width   = self._units_to_seconds(subset_units, center_time)
+                wind_seconds = step_width * (overlap_width + 0.5)
+
                 temp_data = []
-                center_time = ustart + timedelta(seconds = i * unit_seconds)
-    
                 for j, current_time in enumerate(self.time_dom):
                     dt = abs(center_time - current_time)
                     
@@ -561,6 +586,9 @@ class time_series:
                     new_subset.define_time(self.time_header, self.fmt)
                     new_subset._name_as_subset()
                     self.subsets.append(new_subset)
+
+                center_time += timedelta(seconds = step_width)
+
         return
 
 
@@ -591,47 +619,53 @@ class time_series:
 
         ow = int(overlap_width)
         
-        self.discretized = True
+        if self.discretized:
+            for subset in self.subsets:
+                subset.group_bins(fmt_units, overlap_width, cyclical)
 
-        # ensure proper unit format is present
-        fmt     = self._units_to_fmt(fmt_units)
-        units   = self._fmt_to_units(fmt_units)
+        else:
 
-        # set up cyclical parameters
-        if fmt == "%j":     cylen = 365
-        if fmt == "%m":     cylen = 12
-        if fmt == "%b":     cylen = 12
+            self.discretized = True
 
-        # initialize a grouping array to idenfity row indices for each subset
-        grouping  = [int(obj.strftime(fmt)) for obj in self.time_dom]
-        
-        for i in xrange(min(grouping),max(grouping) + 1):
+            # ensure proper unit format is present
+            fmt     = self._units_to_fmt(fmt_units)
+            units   = self._fmt_to_units(fmt_units)
 
-            subset_units    = self._fmt_to_units(fmt)
-            new_subset      = time_series( units = subset_units, parent = self)
+            # set up cyclical parameters
+            if fmt == "%j":     cylen = 365
+            if fmt == "%m":     cylen = 12
+            if fmt == "%b":     cylen = 12
 
-            # only take rows whos grouping is within ow of i
-            subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
+            # initialize a grouping array to idenfity row indices for each subset
+            grouping  = [int(obj.strftime(fmt)) for obj in self.time_dom]
+            
+            for i in xrange(min(grouping),max(grouping) + 1):
 
-            # fix endpoints
-            if cyclical:
-                if i <= ow:
-                    subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g-cylen <= i+ow and g-cylen >=i-ow]
-                elif i >= cylen - ow:
-                    subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g+cylen <= i+ow and g+cylen >=i-ow]
+                subset_units    = self._fmt_to_units(fmt)
+                new_subset      = time_series( units = subset_units, parent = self)
 
-            # grab row indeces from parent matrix to put in the subset      
-            subset_data = [self.row_data[row] for row in subset_rows]
+                # only take rows whos grouping is within ow of i
+                subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
 
-            # run naming methods and definitions on the new subset
-            if not len(subset_data) == 0:
-                new_subset.from_list(subset_data, self.headers, self.time_header, self.fmt)
-                new_subset.define_time(self.time_header, self.fmt)
-                
-                new_subset.center_time = self.time_dom[grouping.index(i)]
-                new_subset._name_as_subset(binned = True)
+                # fix endpoints
+                if cyclical:
+                    if i <= ow:
+                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g-cylen <= i+ow and g-cylen >=i-ow]
+                    elif i >= cylen - ow:
+                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g+cylen <= i+ow and g+cylen >=i-ow]
 
-                self.subsets.append(new_subset)
+                # grab row indeces from parent matrix to put in the subset      
+                subset_data = [self.row_data[row] for row in subset_rows]
+
+                # run naming methods and definitions on the new subset
+                if not len(subset_data) == 0:
+                    new_subset.from_list(subset_data, self.headers, self.time_header, self.fmt)
+                    new_subset.define_time(self.time_header, self.fmt)
+                    
+                    new_subset.center_time = self.time_dom[grouping.index(i)]
+                    new_subset._name_as_subset(binned = True)
+
+                    self.subsets.append(new_subset)
         return
 
     
@@ -816,26 +850,10 @@ if __name__ == "__main__":
     ts.define_time("date_time", fmt, start)
     ts.add_mono_time()
 
-    print("time series with no subsets")
-    print "ts[0]         :", ts[0]
-    print "ts[0][0]      :", ts[0][0]
-
-
-    ts.discretize('%Y')
-    print("time series with one subset layer")
-    print "ts[0]         :", ts[0]
-    print "ts[0][0]      :", ts[0][0]
-    print "ts[0][0][0]   :", ts[0][0][0]
-    #ts.interogate()
-
-    ts.discretize('%m')
-    print("time series with two subset layers")
-    print "ts[0]         :", ts[0]
-    print "ts[0][0]      :", ts[0][0]
-    print "ts[0][0][0]   :", ts[0][0][0]
-    print "ts[0][0][0][0]:", ts[0][0][0][0]
-
+    #ts.discretize('%Y')
+    ts.discretize('%b', overlap_width = 2)
     ts.interogate()
+    
     ts.to_csv(r"test_data\separate_date_time_disc.csv")
 
     # testing bining
@@ -847,8 +865,10 @@ if __name__ == "__main__":
     ts.define_time("date_time", fmt, start)
     ts.add_mono_time()
 
-    ts.group_bins("%b", overlap_width = 1, cyclical = False)
+    #ts.discretize("%Y")
+    ts.group_bins("%b", overlap_width = 2)
     ts.interogate()
+    
     ts.to_csv(r"test_data\separate_date_time_bin.csv")
 
 
