@@ -2,10 +2,6 @@
 
 __author__ = "Jeffry Ely, Jeff.ely.08@gmail.com"
 
-import csv_io, os
-from datetime import datetime, timedelta
-from calendar import monthrange, isleap
-
 class time_series:
     """
     A subsetable and discretizable time series object
@@ -833,6 +829,10 @@ class time_series:
             
 # testing
 if __name__ == "__main__":
+
+    import csv_io, os
+    from datetime import datetime, timedelta
+    from calendar import monthrange, isleap
 
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
     fmt = "%d/%m/%Y%H%M"
