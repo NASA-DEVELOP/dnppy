@@ -11,7 +11,7 @@ from .raster_stack import *
 from .temporal_fill import *
 
 
-def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
+def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
                                    low_thresh = None, high_thresh = None):
     """
     Take statitics across many input rasters
@@ -85,7 +85,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
     if "STD" in saves:
         std_rast        = numpy.std(rast_3d_masked, axis = 2)
         std_rast        = numpy.array(std_rast)
-        update_fig(avg_rast, fig, im, "Standard Deviation")
+        update_fig(std_rast, fig, im, "Standard Deviation")
         time.sleep(2)
 
         std_name = core.create_outname(outdir, outname, 'STD', 'tif')
@@ -95,12 +95,22 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD'],
     if "NUM" in saves:
         num_rast        = (numpy.zeros((xs,ys)) + zs) - numpy.sum(rast_3d_masked.mask, axis = 2)
         num_rast        = numpy.array(num_rast)
-        update_fig(avg_rast, fig, im, "Good pixel count (NUM)")
+        update_fig(num_rast, fig, im, "Good pixel count (NUM)")
         time.sleep(2)
 
-        std_name = core.create_outname(outdir, outname, 'NUM', 'tif')
-        print("Saving NUMBER output raster as {0}".format(std_name))
+        num_name = core.create_outname(outdir, outname, 'NUM', 'tif')
+        print("Saving NUMBER output raster as {0}".format(num_name))
         from_numpy(num_rast, metadata, num_name)
+
+    if "SUM" in saves:
+        sum_rast        = numpy.sum(rast_3d_masked, axis = 2)
+        sum_rast        = numpy.array(sum_rast)
+        update_fig(sum_rast, fig, im, "Good pixel count (NUM)")
+        time.sleep(2)
+
+        sum_name = core.create_outname(outdir, outname, 'SUM', 'tif')
+        print("Saving NUMBER output raster as {0}".format(sum_name))
+        from_numpy(sum_rast, metadata, sum_name) 
                    
     close_fig(fig, im)
 
