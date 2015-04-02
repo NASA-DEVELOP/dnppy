@@ -1,4 +1,8 @@
-from .csv_io import *
+from csv_io import *
+
+import csv_io, os
+from datetime import datetime, timedelta
+from calendar import monthrange, isleap
 
 __author__ = "Jeffry Ely, Jeff.ely.08@gmail.com"
 
@@ -333,7 +337,7 @@ class time_series:
 
         self.col_data = {}
         for i,col in enumerate(temp_col):
-            self.col_data[self.headers[i]] = col
+            self.col_data[self.headers[i]] = list(col)
         return
 
 
@@ -829,10 +833,6 @@ class time_series:
             
 # testing
 if __name__ == "__main__":
-
-    import csv_io, os
-    from datetime import datetime, timedelta
-    from calendar import monthrange, isleap
 
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
     fmt = "%d/%m/%Y%H%M"
