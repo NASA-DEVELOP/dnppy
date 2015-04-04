@@ -1,10 +1,15 @@
+# local imports
 from csv_io import *
 
-import csv_io, os
+# standard imports
+import numpy
+import os
 from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 
-__author__ = "Jeffry Ely, Jeff.ely.08@gmail.com"
+
+__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
+
 
 class time_series:
     """
@@ -65,6 +70,7 @@ class time_series:
         self.time_dec_days  = []            # self.time converted to mono rising decimal days
         self.time_seconds   = []            # self.time converted to mono rising seconds
         self.center_time    = []            # time around which data in a subset it centered
+        self.start_dto      = []            # datetime_object that mono rising times start from
 
         self.subsets        = []            # object list containing constituent time_seires
 
@@ -179,11 +185,7 @@ class time_series:
 
 
     def _extract_time(self, time_header):
-        """
-        special case of "extract_column" method for time domain
-
-        internal use only
-        """
+        """  special case of "extract_column" method for time domain """
 
         self.time_header = time_header
         self.build_col_data()
@@ -447,6 +449,8 @@ class time_series:
             earliest = datetime.strptime(self.time[0], fmt)
             start = datetime(earliest.year, earliest.month, earliest.day, 0,0,0,0)
 
+        self.start_dto = start
+
         datestamp_list      = self.time
         self.fmt            = fmt
 
@@ -472,8 +476,8 @@ class time_series:
 
 
         # If the data was not already in ascending time order, fix it here
-        
 
+    
         if self.discretized:
             for subset in self.subsets:
                 subset.define_time(time_header, fmt)     
@@ -703,7 +707,6 @@ class time_series:
         # set attributes for names and stats
         for i,stat in enumerate(stats):
             setattr(self, names[i], stats[i])
-            #print("{0} \t {1}".format(names[i], stats[i]))
 
         if self.discretized:
             for subset in self.subsets:
@@ -754,6 +757,30 @@ class time_series:
         return 
 
 
+    def interp_col(self, time_obj, col_header):
+        """
+        for input column, interpolate values to estimate value at input time_obj.
+        input time_obj may also be of datestring matching decared fmt
+        """
+
+        # start by cleaning data by input column
+        self.clean(col_header)
+
+        # x and y data for interpolation
+        y = self.col_data[col_header]
+        x = self.time_seconds
+
+        if isinstance(time_obj, datetime):
+            delta = time_obj - self.start_dto
+        else:
+            delta = datetime.strptime(time_obj, self.fmt) - self.start_dto
+
+        interp_x = delta.total_seconds()
+        interp_y = numpy.interp(interp_val,x,y)
+
+        return interp_y
+        
+        
     def interogate(self):
         """ prints a heads up stats table of all subsets in this time_series """
 
@@ -763,27 +790,17 @@ class time_series:
             print("time_series name \t\t len \t start \t\t\t end")
             print("="*84)
 
+        # use leading and trailing spaces for visualizing discretization depth
+        padded_name = self.disc_level * "   " + self.name
+        print("{0} \t {1} \t {2} \t {3}".format(
+            padded_name.ljust(28, " "),
+            str(len(self.time)).ljust(5," "),
+            self.time_dom[0],
+            self.time_dom[-1]))
+
         if self.discretized:
-
-            # use leading and trailing spaces for visualizing discretization depth
-            padded_name = self.disc_level * "   " + self.name
-            print("{0} \t {1} \t {2} \t {3}".format(
-                padded_name.ljust(28, " "),
-                str(len(self.time)).ljust(5," "),
-                self.time_dom[0],
-                self.time_dom[-1]))
-
             for subset in self.subsets:
                 subset.interogate()
-
-        else:
-            # use leading and trailing spaces for visualizing discretization depth
-            padded_name = self.disc_level * "   " + self.name
-            print("{0} \t {1} \t {2} \t {3}".format(
-                padded_name.ljust(28, " "),
-                str(len(self.time)).ljust(5," "),
-                self.time_dom[0],
-                self.time_dom[-1]))
         return
 
 
@@ -802,8 +819,8 @@ class time_series:
 
         # flags this time series as being comprised of rasterpaths
         self.rasterpaths  = True
-
         return
+    
 
     def rast_stats(self, outdir, saves = ["AVG","STD","NUM"],
                                         low_thresh = False, high_thresh = False):
@@ -831,7 +848,7 @@ class time_series:
         return
 
             
-# testing
+# testing zone
 if __name__ == "__main__":
 
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
