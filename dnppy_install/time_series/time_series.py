@@ -297,7 +297,7 @@ class time_series:
         self.infilepath = os.path.abspath(csv_path)
 
         if not self.discretized:
-            self.row_data, self.headers = csv_io.read_csv_rows(csv_path)
+            self.row_data, self.headers = read_csv_rows(csv_path)
             self.build_col_data()
 
         else:
@@ -316,7 +316,7 @@ class time_series:
         print("Saved time series '{0}' with {1} rows and {2} columns".format(
                                     self.name, len(self.row_data), len(self.col_data)))
 
-        csv_io.write_csv_rows(self.row_data, self.headers, csv_path)
+        write_csv_rows(self.row_data, self.headers, csv_path)
         return
 
 
@@ -432,12 +432,18 @@ class time_series:
         for tips on how to use 'fmt' variable, see url below:
         https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
 
+        time header variable can be either the header string, or a column index num
+
         Creates two things:
             a converted list of time objects
             a new list of monotonically increasing decimal days
         """
 
-        # populates self.time with time series
+        # allows column index integers as time_header inputs
+        if isinstance(time_header, int):
+            time_header = self.headers[time_header]
+
+        # populates self.time with time series  
         self._extract_time(time_header)
 
 
@@ -492,7 +498,7 @@ class time_series:
 
         for i,header in enumerate(self.headers): pass
             
-        
+        return
 
         
     def discretize(self, subset_units, overlap_width = 0):
@@ -770,13 +776,15 @@ class time_series:
         y = self.col_data[col_header]
         x = self.time_seconds
 
-        if isinstance(time_obj, datetime):
-            delta = time_obj - self.start_dto
-        else:
-            delta = datetime.strptime(time_obj, self.fmt) - self.start_dto
+        if not isinstance(time_obj, datetime):
+            time_obj = datetime.strptime(time_obj, self.fmt)
+
+        delta = time_obj - self.start_dto
 
         interp_x = delta.total_seconds()
-        interp_y = numpy.interp(interp_val,x,y)
+        interp_y = numpy.interp(interp_x, x, y)
+
+        print("Val in '{0}' at time '{1}' is '{2}'".format(col_header, time_obj, interp_y))
 
         return interp_y
         
