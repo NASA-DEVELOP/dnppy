@@ -8,4 +8,9 @@ Please consult the tutorial videos for instruction on how to use it!"""
 # dnppy verion info
 __version__= "1.15.1"
 
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
+              "Daniel Jensen",
+              "Quinten Geddes",
+              "Scott Baron"]
+
 
