@@ -3,32 +3,64 @@ from time_series import time_series
 from datetime import datetime
 #from function_bank import *
 
-time        = "empty"
-wx_filepath = "Sparrow_Kent_KEWN_Daily_July2013.txt"
 
-def Wx_Data_Extract(time_obj, wx_daypath, wx_hourpath):
+
+def Wx_Data_Extract(time_obj, wx_path):
     """
     This function was writen to reenstate wx file parsing for tha greed upon NOAA
     weather data format for any study area within the USA. This is THE function
     that should be used for reading weather data, the others will not be supported.
 
+    It expects data in the format as retrieved from this URL:
+        [http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&cfg=cdo&theme=hourly&layers=1&node=gi]
+    
+    Please see the readme for more detailed instructions on data download.
+
+    Inputs:
+        time_obj    A datetime object representing the image data aquisition datetime
+        wx_path     filepath to the weather data. (hourly data)
+
+    Returns:
+        an array with specific ordering of climate variables.
+    
     Author: Jeffry Ely
     """
-
-    # datetime , num ,max_temp (F) , min_temp (F), max_dew_pt (F), min_dew_pt (F), average_P (kpa), reference_ET (in)
     
     # format weather (daily and hourly) as a time series object from dnppy module
-    wx_day = time_series("wx_daily_data")
-    wx_day.from_csv(wx_daypath)
-    wx_day.define_time(0, "%m/%d/%Y", "01/01/2000")
+    wx = time_series("wx_data")
+    wx.from_csv(wx_path, delim = " ", spec_format = "DS3505")
 
-##    wx_hour = time_series("wx_hourly_data")
-##    wx.hour.from_csv(wx_hourpath)
-##    wx_hour.define_time(0, "%m/%d/%Y", "01/01/2000")
+    time_lable  = "YR--MODAHRMN"
+    time_format = "%Y%m%d%H%M"
+    start_time  = "200001010000"
+    wx.define_time(time_lable, time_format, start_time)
 
-    return wx_day
+    # bin the data into days pull out the one we want.
+    wx.group_bins("%j")
+
+    day_name = time_obj.strftime("%j")
+    wx_day   = wx[day_name]
+
+    # get min/max temperatures and convert to Celcius (statistical operations clean up NoData)
+    Tstats = wx_day.column_stats("TEMP")
+    temp_C_min = (Tstats["TEMP_min_v"] - 32) * (5.0/9)  # F --> C
+    temp_C_max = (Tstats["TEMP_max_v"] - 32) * (5.0/9)  # F --> C
+
+    # get instantaneous variables at input @param time_obj by interpolating between nearest values
+    temp_C_mid  = (wx_day.interp_col(time_obj, "TEMP") - 32) * (5.0/9)  # F --> C
+    P_air       =  wx_day.interp_col(time_obj, "STP" )                  # in millibars
+    wind_speed  =  wx_day.interp_col(time_obj, "SPD" ) * 0.51444        # knots --> meters / second
+    dewp_C      = (wx_day.interp_col(time_obj, "DEWP") - 32) * (5.0/9)  # F --> C
+
     return [temp_C_min, temp_C_max, temp_C_mid, P_air, wind_speed, dewp_C]
 
 
-w = Wx_Data_Extract(time, wx_filepath, "poop")
-w.interp_col(datetime(2013,7,1,12),w.headers[2])
+
+# testing
+if __name__ == "__main__":
+
+    wx_filepath = r"E:\DEVELOP\Team_Projects\2015_Spring_METRIC\code_current_dev\input_weather\2013_July_CravenCountyAirport.txt"
+    time = datetime(2013,7,17, 11,43,24)
+    wx = Wx_Data_Extract(time, wx_filepath)
+    print wx
+

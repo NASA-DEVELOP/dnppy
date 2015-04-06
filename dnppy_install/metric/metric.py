@@ -6,21 +6,14 @@ import math
 import os
 import time
 import shutil
-
 from dnppy_limited import landsat
 
 import function_bank as DM
 
-__author__ = ["Kent Sparrow",
-              "Jamie Vanderheiden",
-              "Nathan Qian",
-              "Kenton Ross",
-              "Jeffry Ely, jeff.ely.08@gmail.com"]
+
         
 class MetricModel:
-    """
-    Master class for running a metric model, with its many many methods
-    """
+
 
     def __init__(self, working_directory, saveflag, recalc):
         """
@@ -35,7 +28,6 @@ class MetricModel:
         
         # copy the empty metric model template into the newly created working directory
         print("Initializing: Preparing a fresh workspace for METRIC")
-        
         if not os.path.exists(working_directory):
             # get the absolute path of the empty metric model template directory
             live_path = os.path.realpath(__file__)
@@ -1038,7 +1030,7 @@ class MetricModel:
         return self.latent_heat
 
     def get_instantaneous_evapotranspiration(self):
-        self.evapotranspiration = self.latent_energy * 0.035 / 60
+        self.evapotranspiration = self.latent_energy * 0.035 / 24
 
         if self.check_saveflag("ET_inst"):
             self.evapotranspiration.save("ET_inst.tif")
@@ -1082,12 +1074,16 @@ class MetricModel:
    
 def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,doy, solar_declination_angle, 
                           decimal_time, temp_C_min, temp_C_max, temp_C_mid, P_air, wind_speed, dewp_C, crop, timezone):
-
-
-    # time zone invertion to match sign convention
+    # REFERENCE - Refactor to Function ???
+#
+#
+#Set time zone offset for project
+    """TIME ZONE OFFSET VALUE!!!"""
+#    tzo = 6.0 ##Initial weather & biophysical reference calcs
     tzo = -timezone
-    
-    #reference crop height (m) & albedo (unitless) alfalfa
+#reference crop height (m) & albedo (unitless) alfalfa
+#    crop_hgt = 0.5
+#    crop_a = 0.23
     if crop == "grass":
         crop_hgt = 0.12
         crop_a = 0.23
@@ -1095,129 +1091,125 @@ def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,d
         crop_hgt = 0.5
         crop_a = 0.23
         
-    #wind speed measurement height, m
+#wind speed measurement height, m
     z_m = 2
-
-    #aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
+#aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
     r_aero = DM.Aerodynamic_Resistance(wind_speed, z_m, crop_hgt)
     print "Aerodynamic Resistance: ", r_aero, "s/m"
-
-    #aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
+#aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
     LAI_ref = 24 * crop_hgt
     r_surf = DM.Surface_Resistance(LAI_ref)
     print "Surface Resistance: ", r_surf, "s/m"
-
-    #Hour Angle2
-    
-    #Hour angle2 requires longitude in positive degrees west
+#Hour Angle2
+#Hour angle2 requires longitude in positive degrees west
     lon_alt = -longitude * 180 / math.pi
     dtime_alt = decimal_time * 24
     ltime = dtime_alt - tzo
     print "Acquisition Time, Local: ", ltime, "Decimal Hours"
     ha_ref = DM.Hour_Angle2(lon_alt, dtime_alt, doy, tzo)
     print "Hour Angle Alt: ", ha_ref, "rad"
-
-    #hour angles bracketing one hour
+#hour angles bracketing one hour
     ha1 = DM.Hour_Angle2(lon_alt, (dtime_alt - 0.5), doy, tzo)
     ha2 = DM.Hour_Angle2(lon_alt, (dtime_alt + 0.5), doy, tzo)
+## EDITED: Taken from paper, but gives oversized time-step
+##    ha1 = ha_ref - math.pi * ltime / 24
+##    ha2 = ha_ref + math.pi * ltime / 24
     print "Hour Angle Start: ", ha1, "rad"
     print "Hour Angle End: ", ha2, "rad"
-
-    #Sunset Hour Angle
+#Sunset Hour Angle
     ha_ss = DM.Sunset_Hour_Angle(latitude, solar_declination_angle)
     print "Sunset Hour Angle: ", ha_ss, "rad"
-
-    #Daily Extraterrestrial Radiation, R_a_day
+#Daily Extraterrestrial Radiation, R_a_day
     R_a_day = DM.XTerr_Radiation_Day(latitude, solar_declination_angle, ha_ss, earth_sun_distance)
     print "**Daily Extraterrestrial Radiation: ", R_a_day, "MJ*m^-2*day^-1"
-    
-    #Hourly Extraterrestrial Radiation, R_a
+#Hourly Extraterrestrial Radiation, R_a
     R_a_hr = DM.XTerr_Radiation_Period(latitude, solar_declination_angle, ha1, ha2, earth_sun_distance)
     print "**Hourly Extraterrestrial Radiation: ", R_a_hr, "MJ*m^-2*hour^-1"
-    
-    #Daylight Hours
+    '''
+    R_a_hr = R_a_short
+    print "**Period Extraterrestrial Radiation: ", R_a_hr, "MJ*m^-2*day^-1"
+    '''
+#Daylight Hours
     Nhours = DM.Daylight_Hours(ha_ss)
     print "Daylight Hours: ", Nhours, "hours"
-    
-    #Sunshine Hours
+#Sunshine Hours
     nnhours = Nhours * (1 - (cloud_cover / 100))
     print "Sunshine Hours: ", nnhours, "hours"
-    
-    #Solar Radiation
-    #assume Angstrom values, a_s & b_s
-    #a_s, fraction of radiation reaching Earth on overcast days, assume 0.25
+#Solar Radiation
+#assume Angstrom values, a_s & b_s
+#a_s, fraction of radiation reaching Earth on overcast days, assume 0.25
     a_s = 0.25
-    
-    #b_s, additional fraction reaching Earth on clear days, assume 0.5
+#b_s, additional fraction reaching Earth on clear days, assume 0.5
     b_s = 0.5
     R_s_day = DM.Solar_Radiation(a_s, b_s, nnhours, Nhours, R_a_day)
     R_s_hr = DM.Solar_Radiation(a_s, b_s, nnhours, Nhours, R_a_hr)
     print "Solar Radiation, Day: ", R_s_day, "MJ*m^-2*day^-1"
     print "Solar Radiation, 1030: ", R_s_hr, "MJ*m^-2*day^-1"
-    
-    #Clear Sky Solar Radiation
+#Clear Sky Solar Radiation
     R_so_day = DM.Solar_Radiation(a_s, b_s, Nhours, Nhours, R_a_day)
     R_so_hr = DM.Solar_Radiation(a_s, b_s, Nhours, Nhours, R_a_hr)
     print "Clear-Sky Solar Radiation, Day: ", R_so_day, "MJ*m^-2*day^-1"
     print "Clear-Sky Solar Radiation, 1030: ", R_so_hr, "MJ*m^-2*day^-1"
-    
-    #Net Solar Radiation
+#Net Solar Radiation
     R_ns_day = DM.Net_Solar_Radiation(crop_a, R_s_day)
     R_ns_hr = DM.Net_Solar_Radiation(crop_a, R_s_hr)
     print "Net Solar Radiation, Day: ", R_ns_day, "MJ*m^-2*day^-1"
     print "Net Solar Radiation, 1030: ", R_ns_hr, "MJ*m^-2*day^-1"
-    
-    #mean saturation vapor pressure, e_s
+#mean saturation vapor pressure, e_s
     e_zero_max = DM.Saturation_Vapor_Pressure(temp_C_max)
     e_zero_min = DM.Saturation_Vapor_Pressure(temp_C_min)
     e_s = (e_zero_max + e_zero_min) / 2 #MAYBE A BETTER WAY FOR USA WX DATA
     print "Mean Saturation Pressure, e_s: ", e_s, "kPa"
-
-    #get actual (near-surface) vapor pressure, e_a
+## Removed from Run version, but put in Module as Saturation_Vapor_Pressure_Alt
+##    nsvp1 = 0.1 * ( 6.11 * 10 ** ( (7.5 * dewp_C) / (237.3 + dewp_C) ) )
+##    print "Near-Surface Vapor Pressure (1): ", nsvp1, "kPa"
+## Alternate Version from reference less preferred
+##    nsvp3 = (RH_mean / 100) * satvp_mean
+##    print "Near-Surface Vapor Pressure (3): ", nsvp3, "kPa"
+#get actual (near-surface) vapor pressure, e_a
     e_a = DM.Saturation_Vapor_Pressure(dewp_C)
     print "Near-Surface Vapor Pressure: ", e_a, "kPa"
-    
-    #Pyschometric constant
+#Pyschometric constant
     gamma_pc = DM.Pyschometric_Constant(P_air)
     print "Pychometric constant: ", gamma_pc, "kPa*C^-1"
-    
-    #Slope of saturation vapor pressure
+#Slope of saturation vapor pressure
     Delta_svp = DM.Slope_Saturation_Vapor_Pressure(temp_C_mid)
     print "Slope of saturation vapor pressure curve: ", Delta_svp, "kPa*C^-1"
-    
-    #Net Longwave Radiation
+#Net Longwave Radiation
     R_nl_day = DM.Net_Longwave_Radiation(temp_C_max, temp_C_min, e_a, R_s_day, R_so_day)
     R_nl_hr = DM.Net_Longwave_Radiation(temp_C_max, temp_C_min, e_a, R_s_hr, R_so_hr)
     print "Net Longwave Radiation: ", R_nl_day, "MJ*m^-2*day^-1"
     print "**Net Longwave Radiation: ", R_nl_hr, "MJ*m^-2*day^-1"
-    
-    #Net Radiation
+#Net Radiation
     R_n_day = R_ns_day - R_nl_day
     R_n_hr = R_ns_hr - R_nl_hr
     print "Net Radiation, Day: ", R_n_day, "MJ*m^-2*day^-1"
     print "Net Radiation, 1030: ", R_n_hr, "MJ*m^-2*day^-1"
-    
-    #Soil Heat Flux
-    #Daily assumption
+#Soil Heat Flux
+#Daily assumption
     G_day = 0.0
-    
-    #Hourly assumptions
+#Hourly assumptions
     G_hr = 0.1 * R_n_hr
     print "Soil Heat Flux, Day: ", G_day, "MJ*m^-2*day^-1"
     print "Soil Heat Flux, 1030: ", G_hr, "MJ*m^-2*day^-1"
-    
-    #Reference Evapotranspiration
+#Reference Evapotranspiration
     ET_ref_day = DM.Reference_ET_day(Delta_svp, R_n_day, G_day, gamma_pc, temp_C_mid, 
         wind_speed, e_s, e_a, crop)
     ET_ref_hr = DM.Reference_ET_hr(Delta_svp, R_n_hr, G_hr, gamma_pc, temp_C_mid, 
         wind_speed, e_s, e_a, crop)
     print "Reference Evapotranspiration, Daily Rate: ", ET_ref_day, "mm*day^-1"
     print "Reference Evapotranspiration, 1030 Rate: ", ET_ref_hr, "mm*hour^-1"
-    
-    #Air Density, Reference
+#Air Density, Reference
     rho_air_ref = DM.Num37(P_air, temp_C_mid, 0)
     print "Air Density, Reference: ", rho_air_ref, "kg*m^-3"
-    LE_reference = ET_ref_hr * 28.4 
+#Latent Heat Flux, Reference
+## Didn't seem quite right ... simple 28.4 conversion made sense, 7/31/2014
+##    LE_ref1a = DM.Latent_Heat_Flux_PM(Delta_svp, R_n_hr, G_hr, gamma_pc, e_s, e_a,
+##                                    rho_air_ref, r_surf, r_aero)
+##    print "Latent Heat Flux, LE, Penman Monteith Form, 1030: ", LE_ref1a, "MJ*m^-2*day^-1"
+##    LE_ref1 = LE_ref1a * 11.6
+##    print "Latent Heat Flux, LE, Penman Monteith Form, 1030: ", LE_ref1, "W*m^-2"
+    LE_reference = ET_ref_hr * 28.4 #jeff flag
     print "Latent Heat Flux, LE, Reference, 1030: ", LE_reference, "W*m^-2"
     return LE_reference, ET_ref_day, ET_ref_hr
 
