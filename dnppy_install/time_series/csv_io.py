@@ -10,6 +10,9 @@ frequently used by DEVELOP participants
 
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
+# standard imports
+import os
+
 
 def read_csv_rows(filepath, has_headers = True, delim = ',', spec_format = False):
     """
