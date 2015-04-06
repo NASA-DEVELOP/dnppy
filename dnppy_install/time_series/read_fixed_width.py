@@ -7,8 +7,8 @@ def read_fixed_width(intxt, num_header_rows = 1):
     designed to give a good initial stab at reading fixed width
     data from a text file by attempting csv format conversion.
 
-    headder rows are assumed to contain header information, and will
-    influence the way columns are split.
+    headder rows are assumed to contain header information, and are
+    handled a little differently.
     """
     
     lines = []
@@ -25,20 +25,8 @@ def read_fixed_width(intxt, num_header_rows = 1):
             header2 = next(f).replace(' \n','')
 
             # combine headers
-            header1_pos = []
-            for i,h in enumerate(header1.split()):
-                
-                if i == 0:
-                    header1_pos.append(header1.index(h + " "))
-                if i == len(header1.split()):
-                    header1_pos.append(header1.index(" " + h))
-                else:
-                    header1_pos.append(header1.index(h + " "))
-
-                print i,h,header1_pos[-1]
-                    
-            print header1_pos
-            print header1
+            
+            lines.insert(0, header)
 
         # read in data rows
         for i,line in enumerate(f):
