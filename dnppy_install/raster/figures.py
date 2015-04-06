@@ -1,14 +1,6 @@
-# local imports
-from .grab_data_info import *
-from .null_values import *
-from .project_resample import *
-from .raster_clipping import *
-from .raster_enforcement import *
-from .raster_numpy_inter import *
-from .raster_overlap import *
-from .raster_stack import *
-from .raster_statistics import *
-from .temporal_fill import *
+# standard imports
+import os, shutil, time
+import matplotlib.pyplot as plt
 
 
 __all__=['update_fig',      # complete
@@ -17,7 +9,7 @@ __all__=['update_fig',      # complete
 
 
 def update_fig(numpy_rast, fig , im, title = False):
-    """Function to update a figure that already exists"""
+    """ Function to update a figure that already exists """
 
     if title:
         fig.suptitle(title, fontsize = 20)
@@ -28,7 +20,7 @@ def update_fig(numpy_rast, fig , im, title = False):
 
 
 def make_fig(numpy_rast, title = False):
-    """function to set up an initial figure"""
+    """ function to set up an initial figure """
 
     fig, ax = plt.subplots()
     fig.show()

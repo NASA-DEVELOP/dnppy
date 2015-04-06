@@ -1,3 +1,5 @@
+
+
 # local imports
 from csv_io import *
 
@@ -6,6 +8,7 @@ import numpy
 import os
 from datetime import datetime, timedelta
 from calendar import monthrange, isleap
+import matplotlib.pyplot as plt
 
 
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
@@ -23,8 +26,7 @@ class time_series:
     A time series object is comprised of a matrix of data, and may contain
     an object list of subset time_series objects. Potentially unlimited
     nesting of time series datasets is possible, for example: a years worth
-    of hourly data may be discretized into 1-month time series, while each
-    of those is in turn discretized into days. The highest level time series
+    of hourly data may be discretized into 1-month time series, while each    of those is in turn discretized into days. The highest level time series
     will still allow opperations to be performed upon it.
 
     All internal methods are built to handle this flexible definition of a
@@ -113,6 +115,8 @@ class time_series:
         ts[0][0][0][0]: 20010101
         """
 
+
+        # allows finding a slice of subsets or rows from a subset.
         if isinstance(arg, slice):
             a = arg.start
             b = arg.stop
@@ -125,12 +129,24 @@ class time_series:
                 if b > len(self.row_data): b = len(self.row_data)
                 return [self.row_data[x] for x in range(a,b)]
 
-        else:
+        # allows finding subsets or rows by index.
+        elif isinstance(arg, int):
             if self.discretized:
                 return self.subsets[arg]
 
             else:
                 return list(self.row_data[arg])
+
+        # allows finding subsets by name.
+        elif isinstance(arg, str):
+            if self.discretized:
+                for subset in self.subsets:
+                    if subset.name == arg:
+                        return subset
+                    
+                else:   raise Exception("no subset with that name!")
+            else:       raise Exception("String input is allowed for discretized time_series only!")
+        else:           raise Exception("Unrecognized argument type! use int, slice, or string!")
 
 
     def _get_atts_from(self, parent_time_series):
@@ -166,7 +182,7 @@ class time_series:
 
 
     def _units_to_fmt(self, units):
-        """ converts unit names to fmt strings used by datetime.stftime """
+        """ converts unit names to fmt strings used by datetime.stftime. internal use"""
 
         fmtlist =  ["%Y", "%b", "%m", "%j", "%d", "%H", "%M", "%S"]
         unitlist = ["year","month","month","day","day","hour","minute","second"]
@@ -185,7 +201,7 @@ class time_series:
 
 
     def _extract_time(self, time_header):
-        """  special case of "extract_column" method for time domain """
+        """  special case of "extract_column" method for time domain. internal use """
 
         self.time_header = time_header
         self.build_col_data()
@@ -291,13 +307,17 @@ class time_series:
         return
 
     
-    def from_csv(self, csv_path):
-        """ creates the time_series data from a csv"""
+    def from_csv(self, csv_path, has_headers = True, delim = ',', spec_format = False):
+        """
+        creates the time_series data from a csv.
+
+        This simply wraps the read_csv_rows function in csv_io module.
+        """
 
         self.infilepath = os.path.abspath(csv_path)
 
         if not self.discretized:
-            self.row_data, self.headers = read_csv_rows(csv_path)
+            self.row_data, self.headers = read_csv_rows(csv_path, has_headers, delim, spec_format)
             self.build_col_data()
 
         else:
@@ -346,28 +366,42 @@ class time_series:
     def clean(self, col_header):
         """ Removes rows where the specified column has an invalid number"""
 
-        if not col_header in self.headers:
-            raise LookupError("{0} header not in dataset!".format(col_header))
 
-        col_index = self.headers.index(col_header)
-        temp_data = self.row_data
-        self.row_data = []
+        # loop cleaning for multiple column header inputs
+        if isinstance(col_header, list):
+            for col_head in col_header:
+                self.clean(col_head)
+                
+        # clean for just one input column header
+        else:
+            if not col_header in self.headers:
+                raise LookupError("{0} header not in dataset!".format(col_header))
 
-        for row in temp_data:
+            col_index = self.headers.index(col_header)
+            temp_data = self.row_data
+            self.row_data = []
 
-            try:
-                test = float(row[col_index])
-                self.row_data.append(row)
-            except:
-                self.bad_rows.append(row)
-                continue
+            bad_count = 0
+            for row in temp_data:
 
-        print("Removed {0} rows with invalid '{1}'".format(len(self.bad_rows),col_header))
-        print("Dataset now has {0} rows".format(len(self.row_data)))
+                try:
+                    test = float(row[col_index])
+                    self.row_data.append(row)
+                except:
+                    bad_count += 1
+                    self.bad_rows.append(row)
+                    continue
 
-        if self.discretized:
-            for subset in self.subsets:
-                subset.clean(col_header)
+            if bad_count >0:
+                print("Removed {0} rows with invalid '{1}'".format(bad_count,col_header))
+                print("Dataset now has {0} rows".format(len(self.row_data)))
+
+            # since rows have been removed, we must redefine the time domain. (sloppy, but concise)
+            self.define_time(self.time_header, self.fmt, self.start_dto)
+
+            if self.discretized:
+                for subset in self.subsets:
+                    subset.clean(col_header)
         return
 
 
@@ -447,9 +481,12 @@ class time_series:
         self._extract_time(time_header)
 
 
-        # use manual start date or set to begining of first day on record
-        if start_date:
+        # use manual start date (str or dto) or set to begining of first day on record
+        if isinstance(start_date, str):
             start = datetime.strptime(start_date, fmt)
+            
+        elif isinstance(start_date, datetime):
+            start = start_date
 
         else:
             earliest = datetime.strptime(self.time[0], fmt)
@@ -480,8 +517,7 @@ class time_series:
             self.time_seconds.append(float(delta))
             self.time_dec_days.append(float(delta / 86400))
 
-
-        # If the data was not already in ascending time order, fix it here
+        # If the data was not already in ascending time order, fix it here #unfinished
 
     
         if self.discretized:
@@ -642,9 +678,10 @@ class time_series:
             units   = self._fmt_to_units(fmt_units)
 
             # set up cyclical parameters
-            if fmt == "%j":     cylen = 365
-            if fmt == "%m":     cylen = 12
-            if fmt == "%b":     cylen = 12
+            if fmt == "%j": cylen = 365
+            if fmt == "%d": cylen = 365
+            if fmt == "%m": cylen = 12
+            if fmt == "%b": cylen = 12
 
             # initialize a grouping array to idenfity row indices for each subset
             grouping  = [int(obj.strftime(fmt)) for obj in self.time_dom]
@@ -664,7 +701,7 @@ class time_series:
                     elif i >= cylen - ow:
                         subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g+cylen <= i+ow and g+cylen >=i-ow]
 
-                # grab row indeces from parent matrix to put in the subset      
+                # grab row indeces from parent matrix to put in the subset
                 subset_data = [self.row_data[row] for row in subset_rows]
 
                 # run naming methods and definitions on the new subset
@@ -710,13 +747,25 @@ class time_series:
                  "{0}_avg".format(col_header),
                  "{0}_std".format(col_header)]
 
-        # set attributes for names and stats
+        # set attributes for names and stats, also make dict for immediate return
+        statistics = {}
         for i,stat in enumerate(stats):
             setattr(self, names[i], stats[i])
-
+            statistics[names[i]] = stats[i]
+            
         if self.discretized:
             for subset in self.subsets:
                 subset.column_stats(col_header)
+        
+        return statistics
+    
+
+    def column_plot(self, col_header):
+        """ plots a specific column """
+
+        # clean columnar data of non-numeric elements
+        self.clean(col_header)
+
         return
 
 
@@ -856,7 +905,7 @@ class time_series:
         return
 
             
-# testing zone
+# testing code
 if __name__ == "__main__":
 
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
