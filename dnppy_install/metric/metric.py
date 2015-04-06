@@ -1,15 +1,20 @@
+
+# arcpy imports
 import arcpy
 from arcpy.arcobjects.arcobjects import Extent
 from arcpy.sa.Functions import CreateConstantRaster
+
+# standard imports
 from datetime import datetime
 import math
 import os
 import time
 import shutil
-from dnppy_limited import landsat
 
+# local imports
 import function_bank as DM
-
+from Wx_Data_Extract import Wx_Data_Extract
+from dnppy_limited import landsat
 
         
 class MetricModel:
@@ -160,7 +165,7 @@ class MetricModel:
             """
 
             self.metadata_path  = metadata_path
-            self.landsat_meta   = landsat.Grab_Meta(metadata_path) #dnppy function
+            self.landsat_meta   = landsat.grab_meta(metadata_path) #dnppy function
             
             band_names          = [2,3,4,5,6,7,10,11]
             new_band_filepaths  = []
