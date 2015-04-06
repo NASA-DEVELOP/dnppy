@@ -1,6 +1,6 @@
 from csv_io import *
 
-import csv_io, os
+import os
 from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 
