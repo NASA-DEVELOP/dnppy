@@ -11,5 +11,6 @@ from dnppy.modis import *
 from dnppy.raster import *
 from dnppy.test import *
 from dnppy.time_series import *
+from dnppy.chunking import *
 
 print("able to import all modules!")
