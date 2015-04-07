@@ -10,7 +10,8 @@ from .raster_stack import *
 from .raster_statistics import *
 from .temporal_fill import *
 
-__all__=['is_rast',         # complete
+__all__=['in_dir',          # complete
+         'is_rast',         # complete
          'enf_rastlist']    # complete
 
 
