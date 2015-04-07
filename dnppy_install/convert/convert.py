@@ -69,8 +69,6 @@ def TRMM_NetCDF(filelist, outdir):
      inputs:
        filelist    list of '.nc' files to conver to tifs.
        outdir      directory to which tif files should be saved
-
-     Authors: Fall2014: Jeffry Ely
     """
 
     # Set up initial parameters.
@@ -159,8 +157,6 @@ def HDF(filelist, layerlist, layernames=False, outdir=False):
        outdir      directory to which tif files should be saved
                    if outdir is left as 'False', files are saved in the same directory as
                    the input file was found.
-
-     Authors: Fall2014: Jeffry Ely
     """
 
 
