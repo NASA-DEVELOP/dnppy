@@ -1,3 +1,7 @@
+#module imports.
+from dnppy import core
+import os, shutil, time
+
 # local imports
 from .figures import *
 from .grab_data_info import *
@@ -20,6 +24,8 @@ def in_dir(dir_name, recursive = False):
 
     rast_list = core.list_files(recursive, dir_name)
     rast_list = enf_rastlist(rast_list)
+
+    print("Found {0} file with valid raster format".format(len(rast_list)))
 
     return rast_list
     

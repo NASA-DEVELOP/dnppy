@@ -26,7 +26,8 @@ class time_series:
     A time series object is comprised of a matrix of data, and may contain
     an object list of subset time_series objects. Potentially unlimited
     nesting of time series datasets is possible, for example: a years worth
-    of hourly data may be discretized into 1-month time series, while each    of those is in turn discretized into days. The highest level time series
+    of hourly data may be discretized into 1-month time series, while each
+    of those is in turn discretized into days. The highest level time series
     will still allow opperations to be performed upon it.
 
     All internal methods are built to handle this flexible definition of a

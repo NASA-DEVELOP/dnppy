@@ -11,5 +11,5 @@ outside of an armap geospatial environment.
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 
-from .chunk import *
+from .chunking import *
     

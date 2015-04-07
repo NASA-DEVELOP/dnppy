@@ -28,8 +28,8 @@ from .temporal_fill import *
 # standard imports
 import os, shutil, time
 import matplotlib.pyplot as plt
-
 from dnppy import core
+
 if core.check_module('numpy'): import numpy
 
 # arcpy imports
