@@ -239,9 +239,6 @@ class MetricModel:
         self.hot_pixel_table = os.path.join(self.ref_pixel_dir,"pixel_hot_stats.dbf")
         self.cold_pixel_table = os.path.join(self.ref_pixel_dir,"pixel_cold_stats.dbf")
         return
-
-    def get_timezone(self):
-        """Gets timezone from test_mid_atlantic"""
         
 
     def get_date(self):

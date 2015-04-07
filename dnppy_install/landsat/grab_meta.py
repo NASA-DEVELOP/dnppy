@@ -1,18 +1,24 @@
 
+# standard imports
+from datetime import datetime
 
 def grab_meta(filename):
     """
     Parses the xml format landsat metadata "MTL.txt" file
 
-     This function parses the xml format metadata file associated with landsat images.
-     it outputs a class instance metadata object with all the attributes found in the MTL
-     file for quick referencing by other landsat related functions.
+    This function parses the xml format metadata file associated with landsat images.
+    it outputs a class instance metadata object with all the attributes found in the MTL
+    file for quick referencing by other landsat related functions.
 
-     Inputs:
+    Custom additions to metadata:
+        datetime_obj    a datetime object for the precise date and time of image
+                        aquisition (in Z time!)
+    
+    Inputs:
        filename    the filepath to a landsat MTL file.
 
-     Returns:
-       meta        class object with all metadata attributes
+    Returns:
+        meta        class object with all metadata attributes
     """
 
     # if the "filename" input is actually already a metadata class object, return it back.
@@ -50,7 +56,6 @@ def grab_meta(filename):
             values[i] = values[i].replace('"','')
             setattr(meta,fields[i],values[i])   
         
-    # print "{0} : {1}".format(fields[i],values[i])
 
     # Add a FILEPATH attribute for local filepath of MTL file.
     meta.FILEPATH = filename
@@ -65,5 +70,13 @@ def grab_meta(filename):
         sm_ax = 1.000002610
         meta.EARTH_SUN_DISTANCE = sm_ax*(1-(ecc*ecc))/(1+ecc*(math.cos(theta)))
         print("Calculated Earth to Sun distance as {0} AU".format(str(meta.EARTH_SUN_DISTANCE)))
-        
+
+
+    # create datetime_obj attribute (drop decimal seconds
+    dto_string          = meta.DATE_ACQUIRED + meta.SCENE_CENTER_TIME
+    dto_string          = dto_string.split(".")[0]
+    meta.datetime_obj   = datetime.strptime(dto_string, "%Y-%m-%d%H:%M:%S")
+    
+    print("Sceen center time is {0}".format(meta.datetime_obj))
+    
     return(meta)
