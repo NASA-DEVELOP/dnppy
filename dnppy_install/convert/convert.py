@@ -60,7 +60,7 @@ def HDF5(filelist, outdir=False):
 
 
 
-def NetCDF(filelist,outdir,Quiet=False):
+def NetCDF(filelist, outdir):
 
     """
      Function converts NetCDFs to tiffs. Designed to work with TRMM data.
@@ -77,8 +77,8 @@ def NetCDF(filelist,outdir,Quiet=False):
 
     # Set up initial parameters.
     arcpy.env.workspace = outdir
-    filelist=core.Enforce_List(filelist)
-    failed=[]
+    filelist    = core.enforce_list(filelist)
+    failed      = []
 
     # convert every file in the list "filelist"
     for infile in filelist:
@@ -86,16 +86,13 @@ def NetCDF(filelist,outdir,Quiet=False):
         # use arcpy module to make raster layer from netcdf
         arcpy.MakeNetCDFRasterLayer_md(infile, "r", "longitude", "latitude", "r", "", "", "BY_VALUE")
         arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
-        if not Quiet:
-            print '{NetCDF} Converted netCDF file ' + infile + ' to Raster'
+        print('{NetCDF} Converted netCDF file ' + infile + ' to Raster')
 
-                
-    if not Quiet:print '{NetCDF} Finished!'     
     return (failed)
 
 
 
-def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
+def HDF(filelist, layerlist, layernames=False, outdir=False):
 
     """
      Function extracts tifs from HDFs.
@@ -120,14 +117,14 @@ def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
     arcpy.env.overwriteOutput = True
 
     # enforce lists for iteration purposes
-    filelist=core.Enforce_List(filelist)
-    layerlist=core.Enforce_List(layerlist)
-    layernames=core.Enforce_List(layernames)
+    filelist = core.enforce_list(filelist)
+    layerlist = core.enforce_list(layerlist)
+    layernames = core.enforce_list(layernames)
     
     # ignore user input layernames if they are invalid, but print warnings
-    if layernames and not len(layernames)==len(layerlist):
-        print '{HDF} layernames must be the same length as layerlist!'
-        print '{HDF} ommiting user defined layernames!'
+    if layernames and not len(layernames) == len(layerlist):
+        print('layernames must be the same length as layerlist!')
+        print('ommiting user defined layernames!')
         layernames=False
 
     # create empty list to add failed file names into
@@ -144,9 +141,9 @@ def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
             
             # specify the layer names.
             if layernames:
-                layername=layernames[i]
+                layername = layernames[i]
             else:
-                layername=str(layer).zfill(3)
+                layername = str(layer).zfill(3)
 
             # use the input output directory if the user input one, otherwise build one  
             if outdir:
@@ -156,20 +153,17 @@ def HDF(filelist, layerlist, layernames=False, outdir=False, Quiet=False):
             else:
                 if not os.path.exists(os.path.join(path,layername)):
                     os.makedirs(os.path.join(path,layername))
-                outname=os.path.join(path,layername,name[:-4] +'_'+ layername +'.tif')
+                outname = os.path.join(path,layername,name[:-4] +'_'+ layername +'.tif')
 
             # perform the extracting and projection definition
             try:
                 # extract the subdataset
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
                 
-                if not Quiet:
-                    print '{HDF} Extracted ' + outname
+                print('Extracted ' + outname)
             except:
-                if not Quiet:
-                    print '{HDF} Failed extract '+ outname + ' from ' + infile
-                failed.append(infile)
+                print('Failed extract '+ outname + ' from ' + infile)
                 
-    if not Quiet:print '{HDF} Finished!' 
+                failed.append(infile)
     return(failed)
 
