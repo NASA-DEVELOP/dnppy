@@ -8,6 +8,9 @@ from .surface_temp import *
 from .toa_radiance import *
 from .toa_reflectance import *
 
+from dnppy import core
+
+
 __all__=['cloud_mask_8',            # complete
          'cloud_mask_457']          # planned development (to include slc-off band gaps)
 
@@ -26,7 +29,7 @@ def cloud_mask_8(band_nums, BQA_path, outdir = False):
     """
 
     #enforce the input band numbers as a list of strings
-    band_nums = core.Enforce_List(band_nums)
+    band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
 
     #define the range of values in the BQA file to be reclassified as cloud (0) or not cloud (1)

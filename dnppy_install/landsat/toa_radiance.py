@@ -8,6 +8,8 @@ from .surface_reflectance import *
 from .surface_temp import *
 from .toa_reflectance import *
 
+from dnppy import core
+
 __all__=['toa_radiance_8',          # complete
          'toa_radiance_457']        # complete
 
@@ -25,7 +27,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     outdir      Output directory to save converted files.
     """
 
-    band_nums = core.Enforce_List(band_nums)
+    band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
 
@@ -63,7 +65,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     """
 
     OutList = []
-    band_nums = core.Enforce_List(band_nums)
+    band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     TM_ETM_bands = ['1','2','3','4','5','7','8']
 

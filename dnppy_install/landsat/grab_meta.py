@@ -2,6 +2,7 @@
 # standard imports
 from datetime import datetime
 
+
 def grab_meta(filename):
     """
     Parses the xml format landsat metadata "MTL.txt" file

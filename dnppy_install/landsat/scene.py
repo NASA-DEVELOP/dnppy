@@ -8,6 +8,9 @@ from .surface_temp import *
 from .toa_radiance import *
 from .toa_reflectance import *
 
+from dnppy import core
+
+
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 class scene:

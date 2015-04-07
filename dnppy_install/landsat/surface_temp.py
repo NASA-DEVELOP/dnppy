@@ -8,6 +8,9 @@ from .surface_reflectance import *
 from .toa_radiance import *
 from .toa_reflectance import *
 
+from dnppy import core
+
+
 __all__=['surface_temp_8',          # planned development
          'surface_temp_7',          # planned development
          'surface_temp_45',]        # planned development

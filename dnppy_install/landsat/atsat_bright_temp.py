@@ -8,6 +8,8 @@ from .surface_temp import *
 from .toa_radiance import *
 from .toa_reflectance import *
 
+from dnppy import core
+
 __all__=['atsat_bright_temp_8',     # complete
          'atsat_bright_temp_457']   # complete
 
@@ -28,7 +30,7 @@ def atsat_bright_temp_8(band_nums, meta_path, outdir = False):
     """
     
 
-    band_nums = core.Enforce_List(band_nums)
+    band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
     
@@ -54,8 +56,9 @@ def atsat_bright_temp_8(band_nums, meta_path, outdir = False):
         
             outname = core.create_outname(outdir, band_path, "Bright-Temp")
             Bright_Temp.save(outname)
-            print "{atsat_bright_temp_8} Saved output at " + outname
+            print("Saved output at {0}".format(outname))
             del TOA_rad
+            
         else:
             print("Can only perform brightness temperature on TIRS sensor bands!")
             print("Skipping band  {0}".format(outname))

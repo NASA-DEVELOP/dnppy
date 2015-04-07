@@ -862,6 +862,15 @@ class time_series:
         return
 
 
+    def from_rastdir(self, rast_dir, fmt):
+        """ wraps "from_rastlist" function to allow directory input """
+
+        rast_list = raster.in_dir(rast_dir)
+        self.from_rastlist(rast_list, fmt)
+        
+        return
+    
+
     def from_rastlist(self, filepaths, fmt):
         """ loads up a list of filepaths as a time series """
 
@@ -877,6 +886,8 @@ class time_series:
 
         # flags this time series as being comprised of rasterpaths
         self.rasterpaths  = True
+
+        print("Imported {0} rasters to time_series!".format(len(filepaths)))
         return
     
 
@@ -898,7 +909,7 @@ class time_series:
         # only at the lowest discretezation level should stats be taken.
         if self.discretized:
             for subset in self.subsets:
-                subset.rast_statistics(outdir, saves)
+                subset.rast_statists(outdir, saves)
 
         else:
             raster.many_stats(self.col_data['filepaths'],
@@ -912,10 +923,7 @@ if __name__ == "__main__":
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
     fmt = "%d/%m/%Y%H%M"
     start = "01/01/20000000"
-
-##    filepath = r"test_data\separate_date_time.csv"
-##    fmt = "%Y%m%d%H%M%S"
-##    start = "20000101000000"
+    
     # testing csv manipulations
     print(" \n\n testing csv manipulations \n\n")
 
@@ -947,6 +955,9 @@ if __name__ == "__main__":
     ts.to_csv(r"test_data\separate_date_time_bin.csv")
 
 
+    # raster directory testing
+
+    rast_dir = r"
 
 
 

@@ -29,7 +29,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
                    files in the same directory as input files.
     """
 
-    band_nums = core.Enforce_List(band_nums)
+    band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
     meta = grab_meta(meta_path)
@@ -72,7 +72,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
    
    OutList = []
 
-   band_nums = core.Enforce_List(band_nums)
+   band_nums = core.enf_list(band_nums)
    band_nums = map(str, band_nums)
    TM_ETM_bands = ['1','2','3','4','5','7','8']
 

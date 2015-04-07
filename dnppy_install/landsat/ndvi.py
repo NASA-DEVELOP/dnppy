@@ -8,9 +8,11 @@ from .surface_temp import *
 from .toa_radiance import *
 from .toa_reflectance import *
 
+from dnppy import core
+
+
 __all__=['ndvi_8',                  # complete
          'ndvi_457']                # complete
-
 
 
 def ndvi_8(B5, B4, outdir = False):
@@ -36,6 +38,7 @@ def ndvi_8(B5, B4, outdir = False):
     L8_NDVI.save(outname)
         
     print("saved ndvi_8 at {0}".format(outname))
+    return
         
 
 
@@ -62,3 +65,5 @@ def ndvi_457(B4, B3, outdir = False):
     L457_NDVI.save(outname)
         
     print("saved ndvi_457 at {0}".format(outname))
+
+    return 
