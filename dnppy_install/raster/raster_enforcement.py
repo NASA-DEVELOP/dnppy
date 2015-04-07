@@ -14,6 +14,15 @@ __all__=['is_rast',         # complete
          'enf_rastlist']    # complete
 
 
+def in_dir(dir_name, recursive = False):
+    """ lists all the rasters in an input directory """
+
+    rast_list = core.list_files(recursive, dir_name)
+    rast_list = enf_rastlist(rast_list)
+
+    return rast_list
+    
+
 def is_rast(filename):
     """ Verifies that input filenamecore.exists, and is of raster format"""
 
