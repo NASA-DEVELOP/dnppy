@@ -12,7 +12,8 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 
 __all__=['HDF5',            # planned development
-         'NetCDF',          # working with bugs
+         'TRMM_NetCDF',     # working with bugs
+         'GCMO_NetCDF',     # complete
          'HDF']             # complete
 
 
@@ -60,7 +61,7 @@ def HDF5(filelist, outdir=False):
 
 
 
-def NetCDF(filelist, outdir):
+def TRMM_NetCDF(filelist, outdir):
 
     """
      Function converts NetCDFs to tiffs. Designed to work with TRMM data.
@@ -69,16 +70,12 @@ def NetCDF(filelist, outdir):
        filelist    list of '.nc' files to conver to tifs.
        outdir      directory to which tif files should be saved
 
-     Bugs:
-       does not work with CMIP3 and CMIP5 netcdf's
-
      Authors: Fall2014: Jeffry Ely
     """
 
     # Set up initial parameters.
     arcpy.env.workspace = outdir
     filelist    = core.enforce_list(filelist)
-    failed      = []
 
     # convert every file in the list "filelist"
     for infile in filelist:
@@ -88,8 +85,63 @@ def NetCDF(filelist, outdir):
         arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
         print('{NetCDF} Converted netCDF file ' + infile + ' to Raster')
 
-    return (failed)
+    return
 
+
+def GCMO_NetCDF(netcdf_list, variable, outdir):
+    """
+    Extracts all time layers from a "Global Climate Model Output" NetCDF layer
+
+    Inputs:
+        netcdf_list     list of netcdfs from CORDEX climate distribution
+        varaible        the climate variable of interest (tsmax, tsmin, etc)
+        outdir          output directory to save files.
+    """
+
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+
+    for netcdf in netcdf_list:
+        # get net cdf properties object
+        props = arcpy.NetCDFFileProperties(netcdf)
+        
+        print("finding dimensions")
+        dims  = props.getDimensions()
+        for dim in dims:
+            print dim, props.getDimensionSize(dim)
+
+        # make sure the variable is in this netcdf
+        if variable:
+            if not variable in props.getVariables():
+                print("Valid variables for this file include {0}".format(props.getVariables()))
+                raise Exception("Variable '{0}' is not in this netcdf!".format(variable))
+
+        for dim in dims:
+            if dim == "time":
+
+                # set other dimensions
+                x_dim = "lon"
+                y_dim = "lat"
+                band_dim = ""
+                valueSelectionMethod = "BY_VALUE"
+                
+                size = props.getDimensionSize(dim)
+                for i in range(size):
+
+                    # sanitize the dimname for invalid characters
+                    dimname = props.getDimensionValue(dim,i).replace(" 12:00:00 PM","")
+                    dimname = dimname.replace("/","-").replace(" ","_")
+                    
+                    dim_value = [["time", props.getDimensionValue(dim,i)]]
+                    print("extracting '{0}' from '{1}'".format(variable, dim_value))
+
+                    outname = core.create_outname(outdir, netcdf, dimname, 'tif')
+                    
+                    arcpy.MakeNetCDFRasterLayer_md(netcdf, variable, x_dim, y_dim, "temp",
+                                                   band_dim, dim_value, valueSelectionMethod)
+                    arcpy.CopyRaster_management("temp", outname, "", "", "", "NONE", "NONE", "")
+                    
+    return
 
 
 def HDF(filelist, layerlist, layernames=False, outdir=False):
