@@ -99,6 +99,8 @@ def GCMO_NetCDF(netcdf_list, variable, outdir):
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
+    netcdf_list = core.enf_list(netcdf_list)
+
     for netcdf in netcdf_list:
         # get net cdf properties object
         props = arcpy.NetCDFFileProperties(netcdf)
