@@ -1,6 +1,7 @@
 
 # standard imports
 from datetime import datetime
+import math
 
 
 def grab_meta(filename):

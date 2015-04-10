@@ -1,3 +1,6 @@
+import arcpy
+from dnppy import core
+
 # local imports
 from .cloud_mask import *
 from .grab_meta import *
@@ -7,8 +10,6 @@ from .surface_reflectance import *
 from .surface_temp import *
 from .toa_radiance import *
 from .toa_reflectance import *
-
-from dnppy import core
 
 __all__=['atsat_bright_temp_8',     # complete
          'atsat_bright_temp_457']   # complete
@@ -46,8 +47,8 @@ def atsat_bright_temp_8(band_nums, meta_path, outdir = False):
             TOA_rad = (Qcal * Ml) + Al
             
             # now convert to at-sattelite brightness temperature
-            K1   = getattr(meta,"K1_CONSTANT_BAND_"+ band_num)  # thermal conversion constant 1
-            K2   = getattr(meta,"K2_CONSTANT_BAND_"+ band_num)  # thermal conversion constant 2
+            K1   = getattr(meta,"K1_CONSTANT_BAND_" + band_num)  # thermal conversion constant 1
+            K2   = getattr(meta,"K2_CONSTANT_BAND_" + band_num)  # thermal conversion constant 2
 
             Bright_Temp = K2/(arcpy.sa.Ln((K1/TOA_rad) + 1))
             
