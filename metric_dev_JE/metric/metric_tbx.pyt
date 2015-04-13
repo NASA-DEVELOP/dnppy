@@ -3,21 +3,6 @@ import arcpy
 from arcpy import env
 arcpy.env.overwriteOutput = True
 
-##from arcpy.arcobjects.arcobjects import Extent
-##from arcpy.sa.Functions import CreateConstantRaster
-##
-### standard imports
-##from datetime import datetime, timedelta
-##import math
-##import os
-##import time
-##import shutil
-##
-### local imports
-##import function_bank as DM
-##from Wx_Data_Extract import Wx_Data_Extract
-##from dnppy_limited import landsat
-
 import metric_py
 
 
@@ -32,8 +17,8 @@ class Toolbox(object):
         """Define the toolbox (the name of the toolbox is the name of the
         .pyt file)."""
 
-        self.label = "Develop METRIC Toolbox"
-        self.alias = "Develop METRIC Toolbox"
+        self.label = "DEVELOP_METRIC" 
+        self.alias = "DEVELOP_METRIC"
 
         self.tools = [METRIC_run]
         return
@@ -50,7 +35,7 @@ class METRIC_run(object):
         """Define parameter definitions"""
 
         param0 = arcpy.Parameter(
-            displayName =   "Landsat 8 Metadata File",
+            displayName =   "Landsat 8 Metadata filepath",
             name =          "l8_meta",
             datatype =      "DEFile",
             parameterType = "Required",
@@ -58,84 +43,92 @@ class METRIC_run(object):
         param0.filter.list = ['txt']
 
         param1 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 2",
+            displayName =   "Landsat 8 Band 2 filepath (tif)",
             name =          "l8_b2",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param2 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 3",
+            displayName =   "Landsat 8 Band 3 filepath (tif)",
             name =          "l8_b3",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param3 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 4",
+            displayName =   "Landsat 8 Band 4 filepath (tif)",
             name =          "l8_b4",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param4 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 5",
+            displayName =   "Landsat 8 Band 5 filepath (tif)",
             name =          "l8_b5",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param5 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 6",
+            displayName =   "Landsat 8 Band 6 filepath (tif)",
             name =          "l8_b6",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param6 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 7",
+            displayName =   "Landsat 8 Band 7 filepath (tif)",
             name =          "l8_b7",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param7 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 10",
+            displayName =   "Landsat 8 Band 10 filepath (tif)",
             name =          "l8_b10",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param8 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 11",
+            displayName =   "Landsat 8 Band 11 filepath (tif)",
             name =          "l8_b11",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param9 = arcpy.Parameter(
-            displayName =   "DEM TIF File",
+            displayName =   "Digital Elevation Model raster (tif)",
             name =          "DEM",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
             direction =     "Input")
 
         param10 = arcpy.Parameter(
-            displayName =   "shapefile of hot pixels",
+            displayName =   "shapefile of hot pixels (non-irrigated)",
             name =          "hot_pix",
             datatype =      "DEShapefile",
             parameterType = "Required",
             direction =     "Input")
         
         param11 = arcpy.Parameter(
-            displayName =   "shapefile of cold pixels",
+            displayName =   "shapefile of cold pixels (irrigated)",
             name =          "cold_pix",
             datatype =      "DEShapefile",
             parameterType = "Required",
             direction =     "Input")
 
         param12 = arcpy.Parameter(
-            displayName =   "Weather data text file",
+            displayName =   "Weather data text file (txt)",
             name =          "wx_file",
             datatype =      "DEFile",
             parameterType = "Required",
@@ -143,7 +136,7 @@ class METRIC_run(object):
         param12.filter.list = ['txt']
         
         param13 = arcpy.Parameter(
-            displayName =   "Reference crop type 'alfalfa' or 'grass'",
+            displayName =   "Reference crop type",
             name =          "crop",
             datatype =      "GPString",
             parameterType = "Required",
@@ -158,7 +151,7 @@ class METRIC_run(object):
             direction =     "Input")        
 
         param15 = arcpy.Parameter(
-            displayName =   "Created Workspace to store outputs",
+            displayName =   "Workspace to store intermediates and outputs (full path to a NEW directory)",
             name =          "workspace",
             datatype =      "GPString",
             parameterType = "Required",
