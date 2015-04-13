@@ -26,8 +26,7 @@ class time_series:
     A time series object is comprised of a matrix of data, and may contain
     an object list of subset time_series objects. Potentially unlimited
     nesting of time series datasets is possible, for example: a years worth
-    of hourly data may be discretized into 1-month time series, while each
-    of those is in turn discretized into days. The highest level time series
+    of hourly data may be discretized into 1-month time series, while each    of those is in turn discretized into days. The highest level time series
     will still allow opperations to be performed upon it.
 
     All internal methods are built to handle this flexible definition of a
@@ -145,7 +144,7 @@ class time_series:
                     if subset.name == arg:
                         return subset
                     
-                else:   raise Exception("no subset with that name!")
+                else:   raise Exception("no subset with name {0}".format(arg))
             else:       raise Exception("String input is allowed for discretized time_series only!")
         else:           raise Exception("Unrecognized argument type! use int, slice, or string!")
 
@@ -538,7 +537,7 @@ class time_series:
         return
 
         
-    def discretize(self, subset_units, overlap_width = 0):
+    def discretize(self, subset_units, overlap_width = 0, cust_center_time = False):
         """
         splits the time series into individual time chunks
 
@@ -573,6 +572,12 @@ class time_series:
         use
             ts.discretize("%Y")
             ts.group_bins("%b")
+
+        Allows a custom center time to be used! This was added so that
+        days could be centered around a specific daily aquisition time.
+        for example, its often usefull to define a day as
+        satellite data aquisition time +/- 12 hours.
+        if used, "cust_center_time" must be a datetime object!
         """
 
         if self.discretized:
@@ -598,7 +603,7 @@ class time_series:
             if subset_units not in ['year','month','day']:
                raise Exception("Data is too high resolution! try the 'discretize()' fn")
 
-            print("Discretizing2 data by {0}".format(subset_units))
+            print("Discretizing data by {0}".format(subset_units))
 
             if self.time_dom == False:
                 raise Exception("must call 'define_time' method before discretization!")
@@ -607,12 +612,36 @@ class time_series:
             time_s = self.time_dom[0]
             time_f = self.time_dom[-1]
 
-            ustart      = self._center_datetime(time_s, subset_units)
-            uend        = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
+            # set up starttime with custom center times.
+            if cust_center_time:
+                if subset_units == "month":
+                    ustart  = datetime(time_s.year, time_s.month,
+                                       cust_center_time.day, cust_center_time.hour,
+                                       cust_center_time.minute, cust_center_time.second,
+                                       cust_center_time.microsecond)
+                elif subset_units == "hour":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day, time_s.hour,
+                                       cust_center_time.minute, cust_center_time.second,
+                                       cust_center_time.microsecond)
+                elif subset_units == "minute":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day, time_s.hour, time_s.minute,
+                                       cust_center_time.second, cust_center_time.microsecond)
+                else: #subset_units == "day":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day,
+                                       cust_center_time.hour, cust_center_time.minute,
+                                       cust_center_time.second, cust_center_time.microsecond)
 
-            delta       = uend - ustart
+                td      = time_f - time_s
+                uend    = cust_center_time + timedelta(seconds = td.total_seconds())
 
-            # Iterate through entire dataset to make sure each subset has all valid entries.
+            # otherwise, set the centers with no offest.
+            else:
+                ustart  = self._center_datetime(time_s, subset_units)
+                uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
+
+            delta = uend - ustart
+
+            # Iterate through entire dataset one time step unit at a time.
             center_time = ustart
             while center_time < uend:
                 
@@ -625,7 +654,8 @@ class time_series:
                     
                     if dt.total_seconds() < wind_seconds:
                         temp_data.append(self.row_data[j])
-                        
+
+                # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
                     new_subset = time_series(units = subset_units, parent = self)
                     new_subset.center_time = center_time
@@ -862,15 +892,6 @@ class time_series:
         return
 
 
-    def from_rastdir(self, rast_dir, fmt):
-        """ wraps "from_rastlist" function to allow directory input """
-
-        rast_list = raster.in_dir(rast_dir)
-        self.from_rastlist(rast_list, fmt)
-        
-        return
-    
-
     def from_rastlist(self, filepaths, fmt):
         """ loads up a list of filepaths as a time series """
 
@@ -886,8 +907,6 @@ class time_series:
 
         # flags this time series as being comprised of rasterpaths
         self.rasterpaths  = True
-
-        print("Imported {0} rasters to time_series!".format(len(filepaths)))
         return
     
 
@@ -909,7 +928,7 @@ class time_series:
         # only at the lowest discretezation level should stats be taken.
         if self.discretized:
             for subset in self.subsets:
-                subset.rast_statists(outdir, saves)
+                subset.rast_statistics(outdir, saves)
 
         else:
             raster.many_stats(self.col_data['filepaths'],
@@ -923,7 +942,10 @@ if __name__ == "__main__":
     filepath = r"test_data\two_years_daily_hourly_variation.csv"
     fmt = "%d/%m/%Y%H%M"
     start = "01/01/20000000"
-    
+
+##    filepath = r"test_data\separate_date_time.csv"
+##    fmt = "%Y%m%d%H%M%S"
+##    start = "20000101000000"
     # testing csv manipulations
     print(" \n\n testing csv manipulations \n\n")
 
@@ -955,9 +977,6 @@ if __name__ == "__main__":
     ts.to_csv(r"test_data\separate_date_time_bin.csv")
 
 
-    # raster directory testing
-
-    rast_dir = r"
 
 
 
