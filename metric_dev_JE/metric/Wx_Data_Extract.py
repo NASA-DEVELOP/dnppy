@@ -59,7 +59,7 @@ def Wx_Data_Extract(time_obj, wx_path):
     wind_speed  =  wx_day.interp_col(time_obj, "SPD" ) * 0.51444        # knots --> meters / second
     dewp_C      = (wx_day.interp_col(time_obj, "DEWP") - 32) * (5.0/9)  # F --> C
 
-       
+    # this format is for legacy support
     return [temp_C_min, temp_C_max, temp_C_mid, P_air, wind_speed, dewp_C]
 
 

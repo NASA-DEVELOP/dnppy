@@ -28,24 +28,23 @@ def grab_meta(filename):
     fields = []
     values = []
 
-    class metadata_obj(object):pass
+    class metadata_obj(object): pass
+    
     meta = metadata_obj()
+    
 
-    if filename:
-        metafile = open(filename,'r')
-        metadata = metafile.readlines()
-
-    for line in metadata:
-        # skips lines that contain "bad flags" denoting useless data AND lines
-        # greater than 1000 characters. 1000 character limit works around an odd LC5
-        # issue where the metadata has 40,000+ erroneous characters of whitespace
-        bad_flags = ["END","GROUP"]                 
-        if not any(x in line for x in bad_flags) and len(line)<=1000:   
-                line = line.replace("  ","")
-                line = line.replace("\n","")
-                field_name , field_value = line.split(' = ')
-                fields.append(field_name)
-                values.append(field_value)
+    with open(filename, 'r') as metadata:
+        for line in metadata:
+            # skips lines that contain "bad flags" denoting useless data AND lines
+            # greater than 1000 characters. 1000 character limit works around an odd LC5
+            # issue where the metadata has 40,000+ erroneous characters of whitespace
+            bad_flags = ["END","GROUP"]                 
+            if not any(x in line for x in bad_flags) and len(line)<=1000:   
+                    line = line.replace("  ","")
+                    line = line.replace("\n","")
+                    field_name , field_value = line.split(' = ')
+                    fields.append(field_name)
+                    values.append(field_value)
 
     for i in range(len(fields)):
         

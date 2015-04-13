@@ -612,10 +612,29 @@ class time_series:
             time_s = self.time_dom[0]
             time_f = self.time_dom[-1]
 
+            # set up starttime with custom center times.
             if cust_center_time:
-                ustart = cust_center_time
-                td = time_f - time_s
-                uend   = cust_center_time + timedelta(seconds = td.total_seconds())
+                if subset_units == "month":
+                    ustart  = datetime(time_s.year, time_s.month,
+                                       cust_center_time.day, cust_center_time.hour,
+                                       cust_center_time.minute, cust_center_time.second,
+                                       cust_center_time.microsecond)
+                elif subset_units == "hour":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day, time_s.hour,
+                                       cust_center_time.minute, cust_center_time.second,
+                                       cust_center_time.microsecond)
+                elif subset_units == "minute":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day, time_s.hour, time_s.minute,
+                                       cust_center_time.second, cust_center_time.microsecond)
+                else: #subset_units == "day":
+                    ustart  = datetime(time_s.year, time_s.month, time_s.day,
+                                       cust_center_time.hour, cust_center_time.minute,
+                                       cust_center_time.second, cust_center_time.microsecond)
+
+                td      = time_f - time_s
+                uend    = cust_center_time + timedelta(seconds = td.total_seconds())
+
+            # otherwise, set the centers with no offest.
             else:
                 ustart  = self._center_datetime(time_s, subset_units)
                 uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)

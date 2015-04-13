@@ -1054,26 +1054,27 @@ class MetricModel:
             self.latent_heat.save("LH_vapor_output.tif")
         return self.latent_heat
 
-    def get_instantaneous_evapotranspiration(self):
-        self.evapotranspiration = self.latent_energy * 0.035 / 60 # jeff_flag should be 24
-
-        if self.check_saveflag("ET_inst"):
-            self.evapotranspiration.save("ET_inst.tif")
-        return self.evapotranspiration
-    
-    def get_ETrF(self, ET_ref_hr):
-        self.ET_rf = self.evapotranspiration/ET_ref_hr
-        
-        if self.check_saveflag("ET_frac"):
-            self.ET_rf.save("ET_frac.tif")
-        return self.ET_rf
-        
-    def get_daily_evapotranspiration(self, ET_ref_day):
-        self.daily_evapotranspiration = self.ET_rf * ET_ref_day
-
-        if self.check_saveflag("ET_24hr"):
-            self.daily_evapotranspiration.save("ET_24hr.tif")
-        return self.daily_evapotranspiration
+# old functions, probably bad
+##    def get_instantaneous_evapotranspiration(self):
+##        self.evapotranspiration = self.latent_energy * 0.035 / 60 # jeff_flag should be 24
+##
+##        if self.check_saveflag("ET_inst"):
+##            self.evapotranspiration.save("ET_inst.tif")
+##        return self.evapotranspiration
+##    
+##    def get_ETrF(self, ET_ref_hr):
+##        self.ET_rf = self.evapotranspiration/ET_ref_hr
+##        
+##        if self.check_saveflag("ET_frac"):
+##            self.ET_rf.save("ET_frac.tif")
+##        return self.ET_rf
+##        
+##    def get_daily_evapotranspiration(self, ET_ref_day):
+##        self.daily_evapotranspiration = self.ET_rf * ET_ref_day
+##
+##        if self.check_saveflag("ET_24hr"):
+##            self.daily_evapotranspiration.save("ET_24hr.tif")
+##        return self.daily_evapotranspiration
 
 
     def get_evapotranspiration_instant(self):
@@ -1239,7 +1240,7 @@ def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,d
     return LE_reference, ET_ref_day, ET_ref_hr
 
 
-def main(workspace, landsat_filepath_list, landsat_metapath,
+def run(workspace, landsat_filepath_list, landsat_metapath,
                      dem_path, hot_shape_path, cold_shape_path, wx_filepath, saveflag, recalc, crop, timezone):
     """
     main function for calling and executing the metric model
@@ -1310,10 +1311,14 @@ def main(workspace, landsat_filepath_list, landsat_metapath,
                 print_stats(var, name + str(i))
                 
         if isinstance(variable, arcpy.Raster):
-            print("{0} max({1:4.6f})  min({2:4.6f})  mean({3:4.6f})".format(name.ljust(70, " "), variable.maximum, variable.minimum, variable.mean))
+            message = "{0} max({1:4.6f})  min({2:4.6f})  mean({3:4.6f})".format(name.ljust(70, "."), variable.maximum, variable.minimum, variable.mean)
+            print(message)
+            arcpy.AddMessage(str(message))
 
         if isinstance(variable, float) or isinstance(variable, int):
-            print("{0} val({1:4.6f})".format(name.ljust(70, " "), variable))
+            message = "{0} val({1:4.6f})".format(name.ljust(70, "."), variable)
+            print(message)
+            arcpy.AddMessage(str(message))
             
         return
     
@@ -1323,9 +1328,9 @@ def main(workspace, landsat_filepath_list, landsat_metapath,
     NDVI = mike.get_NDVI(reflectance_bands[3], reflectance_bands[2])
     LAI = mike.get_LAI(SAVI)
 
-    print_stats(SAVI,"SAVI")
-    print_stats(NDVI,"NDVI")
-    print_stats(LAI,"LAI")
+    print_stats(SAVI, "SAVI")
+    print_stats(NDVI, "NDVI")
+    print_stats(LAI, "LAI")
     del SAVI
     
     broad_band_surface_emissivity = mike.get_broadband_surface_emissivity(LAI)
@@ -1429,15 +1434,16 @@ def main(workspace, landsat_filepath_list, landsat_metapath,
     lecet = mike.get_latent_energy_consumed_by_ET()
     print_stats(lecet, "latent energy consumed by ET")
 
+#       old functions, probably bad
+##    # calculate ets
+##    iet  = mike.get_instantaneous_evapotranspiration()
+##    etrf = mike.get_ETrF(ET_ref_hr)
+##    det  = mike.get_daily_evapotranspiration(ET_ref_day)
+##    print_stats(iet, "instantaneous evapotranspiration")
+##    print_stats(etrf, "et reference hour")
+##    print_stats(det, "daily evapotranspiration")
+    
     # calculate ets
-    iet  = mike.get_instantaneous_evapotranspiration()
-    etrf = mike.get_ETrF(ET_ref_hr)
-    det  = mike.get_daily_evapotranspiration(ET_ref_day)
-    print_stats(iet, "instantaneous evapotranspiration")
-    print_stats(etrf, "et reference hour")
-    print_stats(det, "daily evapotranspiration")
-    
-    
     eti = mike.get_evapotranspiration_instant()
     etf = mike.get_ET_fraction(ET_ref_hr)
     etd = mike.get_evapotranspiration_day(ET_ref_day)
@@ -1465,6 +1471,6 @@ class Timer:
 
 if __name__ == "__main__":
     with Timer() as t:
-        main()
+        run()
 
     print('Time elapsed %0.3f sec' % t.interval)
