@@ -220,34 +220,34 @@ class METRIC_run(object):
 
 
 # Manually run the metric model here
-##if __name__ == "__main__":
-##
-##    tbx = Toolbox()
-##    tool = METRIC_run()
-##
-##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_man_tbx"
-##
-##    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip4.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip5.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip6.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip7.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip10.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip11.tif"]
-##
-##    landsat_meta    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\NC_metadata.txt"
-##    dem_path        = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_dem\grdn37ww78_13_UTM_Subset.tif"
-##    hot_shp_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\nonirrigated_hot.shp"
-##    cold_shp_path   = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\irrigated_cool.shp"
-##    weather_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_weather\6564006671082dat.txt"    
-##
-##    testflag        = "ALL"         # valid inputs are "ALL", "LIMITED", "ET-ONLY" (ET-ONLY 25% less time than ALL)
-##    recalc          = True          # recalc = True will prevent all 
-##
-##    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa" 
-##    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
-##
-##    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
-##                    hot_shp_path, cold_shp_path, weather_path, testflag,
-##                    recalc, crop, timezone)
+if __name__ == "__main__":
+
+    tbx = Toolbox()
+    tool = METRIC_run()
+
+    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_H_fix"
+
+    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip4.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip5.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip6.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip7.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip10.tif",
+                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip11.tif"]
+
+    landsat_meta    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\NC_metadata.txt"
+    dem_path        = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_dem\grdn37ww78_13_UTM_Subset.tif"
+    hot_shp_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\nonirrigated_hot.shp"
+    cold_shp_path   = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\irrigated_cool.shp"
+    weather_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_weather\6564006671082dat.txt"    
+
+    testflag        = "ALL"         # valid inputs are "ALL", "LIMITED", "ET-ONLY" (ET-ONLY 25% less time than ALL)
+    recalc          = True          # recalc = True will prevent all 
+
+    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa" 
+    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
+
+    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
+                    hot_shp_path, cold_shp_path, weather_path, testflag,
+                    recalc, crop, timezone)

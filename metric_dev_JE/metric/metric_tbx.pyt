@@ -219,13 +219,13 @@ class METRIC_run(object):
                            recalc, crop, timezone)
 
 
-# Manually run the metric model here
+### Manually run the metric model here
 ##if __name__ == "__main__":
 ##
 ##    tbx = Toolbox()
 ##    tool = METRIC_run()
 ##
-##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_man_tbx"
+##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_H_fix"
 ##
 ##    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
 ##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
