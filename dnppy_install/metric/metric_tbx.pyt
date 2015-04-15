@@ -17,8 +17,8 @@ class Toolbox(object):
         """Define the toolbox (the name of the toolbox is the name of the
         .pyt file)."""
 
-        self.label = "Develop METRIC Toolbox"
-        self.alias = "Develop METRIC Toolbox"
+        self.label = "DEVELOP_METRIC" 
+        self.alias = "DEVELOP_METRIC"
 
         self.tools = [METRIC_run]
         return
@@ -34,8 +34,16 @@ class METRIC_run(object):
     def getParameterInfo(self):
         """Define parameter definitions"""
 
+        
+        param15 = arcpy.Parameter(
+            displayName =   "Workspace to store intermediates and outputs (full path to a NEW directory)",
+            name =          "workspace",
+            datatype =      "GPString",
+            parameterType = "Required",
+            direction =     "Input")
+        
         param0 = arcpy.Parameter(
-            displayName =   "Landsat 8 Metadata File",
+            displayName =   "Landsat 8 Metadata filepath",
             name =          "l8_meta",
             datatype =      "DEFile",
             parameterType = "Required",
@@ -43,84 +51,92 @@ class METRIC_run(object):
         param0.filter.list = ['txt']
 
         param1 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 2",
+            displayName =   "Landsat 8 Band 2 filepath (tif)",
             name =          "l8_b2",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param2 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 3",
+            displayName =   "Landsat 8 Band 3 filepath (tif)",
             name =          "l8_b3",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param3 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 4",
+            displayName =   "Landsat 8 Band 4 filepath (tif)",
             name =          "l8_b4",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param4 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 5",
+            displayName =   "Landsat 8 Band 5 filepath (tif)",
             name =          "l8_b5",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param5 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 6",
+            displayName =   "Landsat 8 Band 6 filepath (tif)",
             name =          "l8_b6",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param6 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 7",
+            displayName =   "Landsat 8 Band 7 filepath (tif)",
             name =          "l8_b7",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param7 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 10",
+            displayName =   "Landsat 8 Band 10 filepath (tif)",
             name =          "l8_b10",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param8 = arcpy.Parameter(
-            displayName =   "Landsat 8 Band 11",
+            displayName =   "Landsat 8 Band 11 filepath (tif)",
             name =          "l8_b11",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
-            direction =     "Input")
+            direction =     "Input",
+            category =      "Landsat bands")
 
         param9 = arcpy.Parameter(
-            displayName =   "DEM TIF File",
+            displayName =   "Digital Elevation Model raster (tif)",
             name =          "DEM",
             datatype =      "GPRasterLayer",
             parameterType = "Required",
             direction =     "Input")
 
         param10 = arcpy.Parameter(
-            displayName =   "shapefile of hot pixels",
+            displayName =   "shapefile of hot pixels (non-irrigated)",
             name =          "hot_pix",
             datatype =      "DEShapefile",
             parameterType = "Required",
             direction =     "Input")
         
         param11 = arcpy.Parameter(
-            displayName =   "shapefile of cold pixels",
+            displayName =   "shapefile of cold pixels (irrigated)",
             name =          "cold_pix",
             datatype =      "DEShapefile",
             parameterType = "Required",
             direction =     "Input")
 
         param12 = arcpy.Parameter(
-            displayName =   "Weather data text file",
+            displayName =   "Weather data text file (txt)",
             name =          "wx_file",
             datatype =      "DEFile",
             parameterType = "Required",
@@ -128,7 +144,7 @@ class METRIC_run(object):
         param12.filter.list = ['txt']
         
         param13 = arcpy.Parameter(
-            displayName =   "Reference crop type 'alfalfa' or 'grass'",
+            displayName =   "Reference crop type",
             name =          "crop",
             datatype =      "GPString",
             parameterType = "Required",
@@ -142,15 +158,52 @@ class METRIC_run(object):
             parameterType = "Required",
             direction =     "Input")        
 
-        param15 = arcpy.Parameter(
-            displayName =   "Created Workspace to store outputs",
-            name =          "workspace",
+        param16 = arcpy.Parameter(
+            displayName =   "manual elevation of weather station (in meters)",
+            name =          "wx_elevation",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
+            direction =     "Input")
+            
+        param17 = arcpy.Parameter(
+            displayName =   "manual roughness length (zom) estimate at weather station location ",
+            name =          "wx_zom",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
+            direction =     "Input")
+            
+        param18 = arcpy.Parameter(
+            displayName =   "manual LE_cold calibration factor Usually 1.05",
+            name =          "LE_cold_cal_factor",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
+            direction =     "Input")
+        
+        param19 = arcpy.Parameter(
+            displayName =   "Mountainous terrain",
+            name =          "mounts",
+            datatype =      "GPBoolean",
+            parameterType = "Optional",
+            direction =     "Input")
+        
+        param20 = arcpy.Parameter(
+            displayName =   "Save_flag (decides which variables to save to hard disk)",
+            name =          "saveflag",
             datatype =      "GPString",
             parameterType = "Required",
             direction =     "Input")
+        param20.filter.list = ["ALL", "LIMITED", "ET-ONLY"]
 
-        params = [param0, param1, param2, param3, param4, param5, param6, param7, param8,
-                   param9, param10, param11, param12, param13, param14, param15]
+        param21 = arcpy.Parameter(
+            displayName =   "Force Recalculation",
+            name =          "recalc",
+            datatype =      "GPBoolean",
+            parameterType = "Required",
+            direction =     "Input")
+        
+        params = [param0, param1, param2, param3, param4, param5, param6, param7, param8, param9,
+                  param10, param11, param12, param13, param14, param15, param16, param17, param18,
+                  param19, param20, param21]
         
         return params
     
@@ -197,8 +250,17 @@ class METRIC_run(object):
         crop            = str(parameters[13].value)
         timezone        = float(parameters[14].value)
 
-        testflag        = "ALL"
-        recalc          = True
+        try:    wx_elev = float(parameters[16].value)
+        except: wx_elev = None
+        try:    wx_zom  = float(parameters[17].value)
+        except: wx_zom  = None
+        try:    LE_ref  = float(parameters[18].value)
+        except: LE_ref  = None
+        try:    mounts  = bool(parameters[19].value)
+        except: mounts  = None
+
+        testflag        = str(parameters[20].value)
+        recalc          = bool(parameters[21].value)
 
         # print parameters to screen
         for param in parameters:
@@ -207,17 +269,17 @@ class METRIC_run(object):
             arcpy.AddMessage(message)
 
         metric_py.run(metric_workspace, landsat_files, landsat_meta, dem_path,
-                           hot_shp_path, cold_shp_path, weather_path, testflag,
-                           recalc, crop, timezone)
+                    hot_shp_path, cold_shp_path, weather_path, testflag,
+                    recalc, crop, timezone, wx_elev, wx_zom, LE_ref, mounts)
 
 
-# Manually run the metric model here
+### Manually run the metric model here
 ##if __name__ == "__main__":
 ##
 ##    tbx = Toolbox()
 ##    tool = METRIC_run()
 ##
-##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_man_tbx"
+##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\model_run_NC_manual"
 ##
 ##    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
 ##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
@@ -240,6 +302,11 @@ class METRIC_run(object):
 ##    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa" 
 ##    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
 ##
+##    wx_elev         = 1.000         # elevation of the weather station
+##    wx_zom          = 0.010         # estimated zom at weather station (temporary)
+##    LE_cold_cal_fac = 1.050         # LE calibration factor, should probably always be 1.05
+##    mountains       = False         # set true for mountainous regions
+##
 ##    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
 ##                    hot_shp_path, cold_shp_path, weather_path, testflag,
-##                    recalc, crop, timezone)
+##                    recalc, crop, timezone, wx_elev, wx_zom, LE_cold_cal_fac, mountains)

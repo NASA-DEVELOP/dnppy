@@ -108,9 +108,6 @@ class chunk_bundle():
         # write without metadata using simple CV  
         else: pass
 
-
-
-
         return
 
 
@@ -145,6 +142,7 @@ class chunk():
         return
 
             
+
     
 if __name__ == "__main__":
 

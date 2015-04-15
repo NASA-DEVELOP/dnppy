@@ -13,6 +13,7 @@ import shutil
 
 # local imports
 import function_bank as DM
+from function_bank import print_stats
 from Wx_Data_Extract import Wx_Data_Extract
 from dnppy_limited import landsat
 
@@ -24,7 +25,8 @@ __author__ = ["Kent Sparrow",
 class MetricModel:
 
 
-    def __init__(self, working_directory, saveflag, recalc):
+    def __init__(self, working_directory, saveflag, recalc,
+                            wx_elev = 1, wx_zom = 0.010, LE_cold_cal_factor = 1.05, mountainous = False):
         """
         Initializes the new metric model workspace
 
@@ -32,8 +34,29 @@ class MetricModel:
         created METRIC model folder.
         """ 
 
+        self.work_dir   = working_directory
         self.saveflag   = saveflag
         self.recalc     = recalc
+
+        # set up some scalar attributes
+        if not wx_elev == None:
+            self.wx_elev  = float(wx_elev)                  # elevation of weather station
+        else:
+            self.wx_elev  = 1.0
+            
+        if not mountainous == True:
+            self.mountainous_terrain = False                # set True for mountanous terrain
+        
+            
+        if not LE_cold_cal_factor == None:
+            self.LE_cold_cal_factor  = LE_cold_cal_factor   # reference cold calibration factor
+        else:
+            self.LE_cold_cal_factor  = 1.05
+            
+        if not wx_zom == None:
+            self.wx_zom = wx_zom                            # estimated zom at station location
+        else:
+            self.wx_zom = 0.100
         
         # copy the empty metric model template into the newly created working directory
         print("Initializing a fresh workspace for METRIC at {0}".format(working_directory))
@@ -75,26 +98,27 @@ class MetricModel:
         this function returns True, otherwise returns False.
         """
 
-        ETO =      [ "net_rad",     # net radiation from incoming and outgoing
-                     "H",           # sensible heat flux convected to the air
-                     "LE",          # latent energy
-                     "LH_vapor",
+        ETO =      [ "slope",       # slope of the dem
+                     "aspect",      # aspect of the dem
+                     "LH_vapor",    # latent heat of vaporization
                      "ET_inst",     # instantaneous evapotranspiration
-                     "ET_inst2",
-                     "ET_frac2",
                      "ET_frac",     # reference evapotranspiration fraction
                      "ET_24hr",     # 24 hour ET estimate
-                     "ET_24hr2",
                      "LS_ref"]      # landsat reflectance bands
 
-        LIM = ETO+ [ "savi",        # soil adjusted vegetation index
+        LIM = ETO+ [ "net_rad",     # net radiation from incoming and outgoing
+                     "savi",        # soil adjusted vegetation index
                      "ndvi",        # normalized difference vegetation index
-                     "lai"]         # leaf area index
-                     
-                                        
-        ALL = LIM+ [ "slope",       # slope of the dem
-                     "aspect",      # aspect of the dem
-                     "sia",         # cosine of solar incidence angle
+                     "lai",         # leaf area index
+                     "H",           # sensible heat flux convected to the air
+                     "LE",          # latent energy
+                     "L",           # Monin-Obukhov length (height at which buoyancy and mechanical mixing balance
+                     "dT",          # sensible heat flux
+                     "ustar",       # friction velocity
+                     "zom",         # momentum rougness length
+                     "rah"]         # aerodynamic transport
+        
+        ALL = LIM+ [ "sia",         # cosine of solar incidence angle
                      "bbse",        # broadband sufrace emissivity
                      "nbe",         # narrow band emissivity
                      "therm_rad10", # initial thermal radiance band 10
@@ -113,18 +137,13 @@ class MetricModel:
                      "bsa",         # broadband surface albedo
                      "eae",         # effective atmospheric transmissivity
                      "g_ratio",     # soil heat flux to net radiation ratio
-                     "zom",         # momentum rougness length
                      "ilwr",        # incoming long wave radiation
                      "olwr",        # outgoing long wave radiation
                      "soil_hf",     # soil heat flux.
                      "wcoeff",      # wind speed weighting coefficient
                      "T_s_datum",   # TS datum
                      "ws_200m",     # wind speed at assumed blending height of 200m
-                     "fric_vel",    # friction velocity
-                     "aero_res",    # aerodynamic resistance
-                     "L",           # Monin-Obukhov length (height at which buoyancy and mechanical mixing balance
-                     "psi",         # stability corrections for momentum transport at various atmospheric layers  
-                     "dT"]          # sensible heat flux         
+                     "psi"]         # stability corrections for momentum transport at various atmospheric layers        
         
         if self.saveflag == "ALL":
             save_list = ALL
@@ -231,8 +250,13 @@ class MetricModel:
 
         if not path == self.ref_pixel_dir:
             shutil.copy(hot_shape_path, destination)
-            shutil.copy(hot_shape_path.replace('tif','tfw'), destination.replace('tif','tfw'))
-
+            shutil.copy(hot_shape_path.replace('shp','cpg'), destination.replace('shp','cpg'))
+            shutil.copy(hot_shape_path.replace('shp','dbf'), destination.replace('shp','dbf'))
+            shutil.copy(hot_shape_path.replace('shp','prj'), destination.replace('shp','prj'))
+            shutil.copy(hot_shape_path.replace('shp','sbn'), destination.replace('shp','sbn'))
+            shutil.copy(hot_shape_path.replace('shp','sbx'), destination.replace('shp','sbx'))
+            shutil.copy(hot_shape_path.replace('shp','shx'), destination.replace('shp','shx'))
+            
         # copy the input cold shape into workspace if it isnt already there
         path, name          = os.path.split(cold_shape_path)
         destination         = os.path.join(self.ref_pixel_dir, name)
@@ -240,7 +264,12 @@ class MetricModel:
 
         if not path == self.ref_pixel_dir:
             shutil.copy(cold_shape_path, destination)
-            shutil.copy(cold_shape_path.replace('tif','tfw'), destination.replace('tif','tfw'))
+            shutil.copy(cold_shape_path.replace('shp','cpg'), destination.replace('shp','cpg'))
+            shutil.copy(cold_shape_path.replace('shp','dbf'), destination.replace('shp','dbf'))
+            shutil.copy(cold_shape_path.replace('shp','prj'), destination.replace('shp','prj'))
+            shutil.copy(cold_shape_path.replace('shp','sbn'), destination.replace('shp','sbn'))
+            shutil.copy(cold_shape_path.replace('shp','sbx'), destination.replace('shp','sbx'))
+            shutil.copy(cold_shape_path.replace('shp','shx'), destination.replace('shp','shx'))
 
         # these hot/cold pixel tables are empty template dbfs included in empty METRIC
         self.hot_pixel_table = os.path.join(self.ref_pixel_dir,"pixel_hot_stats.dbf")
@@ -333,15 +362,17 @@ class MetricModel:
 
     def get_slope(self):
         """ calculates a slope raster from the DEM"""
-        
+
         sfname = "slope.tif"
         sfpath = os.path.join(self.middle_dir, sfname)
         
         if os.path.isfile(sfpath) and not self.recalc:
             print "Reading previously estimated slopes... "
+            arcpy.AddMessage("Reading previously estimated slopes... ")
             slope = arcpy.Raster(sfpath)
         else:
             print "Calculating elevation derivatives... "
+            arcpy.AddMessage("Calculating elevation derivatives... ")
             slope = arcpy.sa.Slope(self.dem_file)
             
             # cap slopes at 30 degrees to reduce DEM artifacts
@@ -363,7 +394,6 @@ class MetricModel:
         afpath = os.path.join(self.middle_dir, afname)
         
         if os.path.isfile(afpath) and not self.recalc:
-            print "Reading previously estimated aspects... "
             aspect = arcpy.Raster(afpath)
         else:
             
@@ -892,13 +922,13 @@ class MetricModel:
         else:
             self.soil_heat_flux = self.net_radiation * g_ratio
             if self.check_saveflag("soil_hf"):
-                
                 self.soil_heat_flux.save(shflux_path)
+                
         return self.soil_heat_flux
 
 
-    def get_wind_speed_weihting_coefficient(self):  # jeff flag
-        elev_wx = float(1205)
+    def get_wind_speed_weihting_coefficient(self):  
+        elev_wx = self.wx_elev
         wcoeff = DM.Num36(self.dem_file, elev_wx)
 
         if self.check_saveflag("wcoeff"):
@@ -907,7 +937,7 @@ class MetricModel:
 
 
     def get_T_s_datum(self, sfc_temp):
-        elev_ts_datum = 2670 # jeff_flag
+        elev_ts_datum = self.wx_elev
         T_s_datum_path = os.path.join(self.middle_dir, "T_s_datum.tif")
         T_s_datum = DM.Datum_Ref_Temp(sfc_temp, self.dem_file, elev_ts_datum)
 
@@ -916,8 +946,8 @@ class MetricModel:
         return T_s_datum
 
 
-    def get_wind_speed_at_assumed_blending_height(self, wind_speed): #jeff_flag
-        lai_w = 0.764196 #PUT IN LAI FOR ID OR NC WX STATION !!!
+    def get_wind_speed_at_assumed_blending_height(self, wind_speed): 
+        lai_w = 0.764196 #jeff_flag #PUT IN LAI FOR ID OR NC WX STATION !!!
         zom_w = 0.018 * lai_w
         ws_200m = DM.Num32(wind_speed, zom_w)
         return ws_200m
@@ -946,99 +976,226 @@ class MetricModel:
             aero_res.save(aero_res_path)
         return aero_res
 
-    def get_sensible_heat_flux(self, lai, wind_speed, p, sfc_temp, LEref): # jeff_flag
-        """ itteratively solves for sensible heat flux"""
+
+    def get_sensible_heat_flux2(self, lai, wx_wind_speed, pressure, surface_temp, LEr, dem, slope):
+        """
+        iteratively solves for sensible heat flux
+
+        inputs:
+            lai             leaf area index (raster)
+            wind_speed      wind speed (raster)
+            p               atmospheric pressure (raster)
+            surface_temp    temperature measured at the station?
+            LEr             reference LE value.
+
+        This function was re-writen durring final code review.
+        It is fairly complex so it prints nearly every variable for heads up sanity checking
+        """
+
+        print("========================= Sensible heat calculation: iteration 0 =========================")
+        arcpy.AddMessage("========================= Sensible heat calculation: iteration 0 =========================")
         
-        zom = self.get_momentum_roughness_length(lai)
+    # Needed parameters
+        T_s_datum   = self.get_T_s_datum(surface_temp) 
 
-        ws_200m     = self.get_wind_speed_at_assumed_blending_height(wind_speed) ## ws_200m is a scalar float !!!
-        T_s_datum   = self.get_T_s_datum(sfc_temp)
-        fric_vel    = self.get_friction_velocity(wind_speed, zom)
-        aero_res    = self.get_aerodynamic_resistance(fric_vel)
-        dsc         = arcpy.Describe(zom)
-        ext         = dsc.Extent
-        dT          = aero_res * 0.0
-        dT_path     = os.path.join(self.middle_dir,"dT0.tif")
+        z_wx = self.wx_elev                     # grab elevation of WX station
+        if z_wx < 1:                            # prevents errors
+            z_wx = 1
         
-        if self.check_saveflag("dT"):
-            dT.save(dT_path)
+        if self.mountainous_terrain:
+            zom     = DM.Num33(lai)             # momentum roughness length (eq 33)
+            zom     = DM.Num35(zom, slope)      # momentum roughness for mountainous terrain (eq 35)
+            omega   = DM.Num36(dem, z_wx)       # correction for mountanous terrain
+        else:
+            zom     = DM.Num33(lai)             # momentum roughness length (eq 33)
+
+        LEr_factor  = self.LE_cold_cal_factor   # grab reference cold calibration factor
+        zom_wx      = self.wx_zom               # grab guessed zom at station locationS
+
+        print_stats(zom, "zom")
         
-        self.sensible_heat_flux = aero_res * 0.0
+        # calculate sensible heat flux at reference locations (eq 47 and 48)
+        T_s_datum_hot   = DM.ref_pix_mean(T_s_datum, self.hot_shape_path, self.hot_pixel_table)
+        T_s_datum_cold  = DM.ref_pix_mean(T_s_datum, self.cold_shape_path, self.cold_pixel_table)
         
-        rho_air = DM.Num37(p, sfc_temp, dT)
-        rho_air.save(os.path.join(self.middle_dir, "rho_air.tif"))
+        Rn_hot  = DM.ref_pix_mean(self.net_radiation, self.hot_shape_path, self.hot_pixel_table)
+        Rn_cold = DM.ref_pix_mean(self.net_radiation, self.cold_shape_path, self.cold_pixel_table)
+        
+        G_hot   = DM.ref_pix_mean(self.soil_heat_flux, self.hot_shape_path, self.hot_pixel_table)
+        G_cold  = DM.ref_pix_mean(self.soil_heat_flux, self.cold_shape_path, self.cold_pixel_table)
 
-        # we are assuming that 5 itterations is enough for convergence.
-        for i in xrange(5):
-            if i > 0:
-               
-               # equation 40-45b
-                L_path = os.path.join(self.middle_dir, "L{0}.tif".format(i))
-                L = DM.Num40(rho_air, fric_vel, sfc_temp, self.sensible_heat_flux)
+        LE_hot  = 0
+        LE_cold = LEr * LEr_factor
 
-                if self.check_saveflag("L"):
-                    L.save(L_path)
-                    
-                # separate loop needed to filter L
-                psi_200_unstable_path   = os.path.join(self.middle_dir, "psi_200_unst{0}.tif".format(i))
-                psi_200_stable_path     = os.path.join(self.middle_dir, "psi_200_stab{0}.tif".format(i))
-                
-                psi_200_unstable = DM.Num41(L)
-                psi_200_stable = DM.Num44(L)
+        H_hot   = (Rn_hot - G_hot)
+        H_cold  = (Rn_cold - G_cold) - LE_cold
 
-                if self.check_saveflag("psi"):
-                    psi_200_unstable.save(psi_200_unstable_path)
-                    psi_200_stable.save(psi_200_stable_path)
-
-                psi_2_unstable = DM.Num42a(L)
-                psi_2_stable = DM.Num45a(L)
-
-                psi_1_unstable = DM.Num42b(L)
-                psi_1_stable = DM.Num45b(L)
-                
-                psi_200 = arcpy.sa.Con(L, psi_200_unstable, L, "VALUE < 0")
-                psi_2 = arcpy.sa.Con(L, psi_2_unstable, L, "VALUE < 0")
-                psi_1 = arcpy.sa.Con(L, psi_1_unstable, L, "VALUE < 0")
-
-                psi_200 = arcpy.sa.Con(L, psi_200_stable, 0, "VALUE > 0")
-                psi_2 = arcpy.sa.Con(L, psi_2_stable, 0, "VALUE > 0")
-                psi_1 = arcpy.sa.Con(L, psi_1_stable, 0, "VALUE > 0")
-
-                fric_vel = DM.Num38(ws_200m, zom, psi_200)
-                aero_res = DM.Num39(psi_2, psi_1, fric_vel)
-                
-                print "fric_vel path =", fric_vel
-                print "aero_res path = ", aero_res
-                
-            rho_air_hot = DM.meanFromRasterBySingleZone(rho_air, self.hot_shape_path, self.hot_pixel_table)
-            net_rad_hot = DM.meanFromRasterBySingleZone(self.net_radiation, self.hot_shape_path, self.hot_pixel_table)
+        print_stats(wx_wind_speed, "wind speed")
+        print_stats(T_s_datum_hot, "Ts datum hot")
+        print_stats(T_s_datum_cold, "Ts datum cold")
+        print_stats(Rn_hot, "Rn hot")
+        print_stats(Rn_cold, "Rn cold")
+        print_stats(G_hot, "G hot")
+        print_stats(G_cold, "G cold")
+        print_stats(LE_hot, "LE hot")
+        print_stats(LE_cold, "LE cold")
+        print_stats(H_hot, "H hot")
+        print_stats(H_cold, "H cold")
+        
+    # initial guesses for iteration
+        if self.mountainous_terrain:
+            u200= omega * DM.Num32(wx_wind_speed, zom_wx, z_wx) # guess at assumed bending height
+        else:
+            u200= DM.Num32(wx_wind_speed, zom_wx, z_wx)         # guess at assumed bending height
             
-            G_hot = DM.meanFromRasterBySingleZone(self.soil_heat_flux, self.hot_shape_path, self.hot_pixel_table)
-            aero_res_hot = DM.meanFromRasterBySingleZone(aero_res, self.hot_shape_path, self.hot_pixel_table)
-            T_s_datum_hot = DM.meanFromRasterBySingleZone(T_s_datum, self.hot_shape_path, self.hot_pixel_table)
-            dT_hot = DM.Num46(net_rad_hot, G_hot, aero_res_hot, rho_air_hot)
+        ustar   = DM.Num31(u200, zom)                           # guess at friction velocity (eq 31)
+        rah     = DM.Num30(ustar)                               # guess at aerodynamic trans (eq 30)
+        rho_air = DM.Num37(pressure, surface_temp, 0)           # guess at air density (eq 37)
 
-            rho_air_cold = DM.meanFromRasterBySingleZone(rho_air, self.cold_shape_path, self.cold_pixel_table)
-            net_rad_cold = DM.meanFromRasterBySingleZone(self.net_radiation, self.cold_shape_path, self.cold_pixel_table)
-            G_cold = DM.meanFromRasterBySingleZone(self.soil_heat_flux, self.cold_shape_path, self.cold_pixel_table)
-            aero_res_cold = DM.meanFromRasterBySingleZone(aero_res, self.cold_shape_path, self.cold_pixel_table)
-            T_s_datum_cold = DM.meanFromRasterBySingleZone(T_s_datum, self.cold_shape_path, self.cold_pixel_table)
-            dT_cold = DM.Num49(net_rad_cold, G_cold, LEref, aero_res_cold, rho_air_cold)
+        if self.check_saveflag("ustar"):
+            ustar.save(os.path.join(self.middle_dir, "ustar_0.tif"))
+        if self.check_saveflag("rah"):
+            rah.save(os.path.join(self.middle_dir, "rah_0.tif"))
+        print_stats(u200, "u200")
+        print_stats(ustar, "ustar_0")
+        print_stats(rah, "rah_0")
+        
+        # obtain reference values (hot and cold) for rah and rho variables
+        rah_hot         = DM.ref_pix_mean(rah, self.hot_shape_path, self.hot_pixel_table)
+        rah_cold        = DM.ref_pix_mean(rah, self.cold_shape_path, self.cold_pixel_table)
+        
+        rho_air_hot     = DM.ref_pix_mean(rho_air, self.hot_shape_path, self.hot_pixel_table)
+        rho_air_cold    = DM.ref_pix_mean(rho_air, self.cold_shape_path, self.cold_pixel_table)
 
-            a = DM.Num50(dT_hot, dT_cold, T_s_datum_hot, T_s_datum_cold)
-            b = DM.Num51(dT_hot, a, T_s_datum_hot)
+        print_stats(rah_hot, "rah hot")
+        print_stats(rah_cold, "rah cold")
+        print_stats(rho_air_hot, "air density hot")
+        print_stats(rho_air_cold, "air density cold")
+        
+        # calculate initial dT values for reference hot and cold pixels (eq 46 and 49)
+        dT_hot          = DM.Num46(Rn_hot, G_hot, rah_hot, rho_air_hot)             
+        dT_cold         = DM.Num49(Rn_cold, G_cold, LE_cold, rah_cold, rho_air_cold)
 
-            dT = DM.Num29(a, b, T_s_datum)
-            print "dT path=", dT
+        print_stats(dT_hot, "dT hot")
+        print_stats(dT_cold, "dT cold")
 
-            rhoair = DM.Num37(p, sfc_temp, dT)
+        # calculate coefficients "a" and "b" for use in equation 29 (equations 50 and 51)
+        a   = DM.Num50(dT_hot, dT_cold, T_s_datum_hot, T_s_datum_cold)
+        b   = DM.Num51(dT_hot, a, T_s_datum_hot)
 
-            self.sensible_heat_flux = DM.Num28(rhoair, dT, aero_res)
+        print_stats(a, "a value")
+        print_stats(b, "b value")
 
-            if self.check_saveflag("H"): 
-                self.sensible_heat_flux.save("H" + str(i) + ".tif")
+        # calculate initial sensible heat flux and first dT guess for entire scene
+        dT  = DM.Num29(a, b ,T_s_datum)
+        H   = DM.Num28(rho_air, dT, rah)
+        L   = DM.Num40(rho_air, ustar, surface_temp, H)
 
+        print_stats(dT, "temperature gradient dT_0")
+        print_stats(H , "sensible heat H_0")
+        print_stats(L , "Monin-Obukhov length L_0")
+
+    # subsequent iteration to solve for all above variables
+        i           = 1
+        converged   = False
+        
+        while not converged and i < 100:
+            
+            print("========================= Sensible heat calculation: iteration {0} =========================".format(i))
+            arcpy.AddMessage("========================= Sensible heat calculation: iteration {0} =========================".format(i))
+            
+            # calculate psi200, psi2, psi01 stable and unstable
+            psi200u = DM.Num41(L)
+            psi2u   = DM.Num42a(L)
+            psi01u  = DM.Num42b(L)
+
+            psi200s = DM.Num44(L)
+            psi2s   = DM.Num45a(L)
+            psi01s  = DM.Num45b(L)
+
+            # agregate the two (stable and unstable) with a Con statement for each height
+            if L.minimum < 0 and L.minimum != None:
+                psi200 = arcpy.sa.Con(L, psi200u, psi200s, "VALUE < 0")
+                psi2   = arcpy.sa.Con(L, psi2u, psi2s, "VALUE < 0")
+                psi01  = arcpy.sa.Con(L, psi01u, psi01s, "VALUE < 0")
+            else:
+                psi200 = psi200s
+                psi2   = psi2s
+                psi01  = psi01s
+
+            if self.check_saveflag("psi"):
+                psi200.save(os.path.join(self.middle_dir, "psi200_{0}.tif".format(i)))
+                psi2.save(os.path.join(self.middle_dir, "psi2_{0}.tif".format(i)))
+                psi01.save(os.path.join(self.middle_dir, "psi01_{0}.tif".format(i)))
+            print_stats(psi200, "psi200_" + str(i))
+            print_stats(psi2, "psi2_" + str(i))
+            print_stats(psi01, "psi01_" + str(i))
+
+            # calculate the new rah, and ustar, then propogate changes through entire equation set
+            ustar   = DM.Num38(u200, zom, psi200)
+            rah     = DM.Num39(psi2, psi01, ustar)
+            rho_air = DM.Num37(pressure, surface_temp, dT)
+
+            if self.check_saveflag("ustar"):
+                ustar.save(os.path.join(self.middle_dir, "ustar_{0}.tif".format(i)))
+            if self.check_saveflag("rah"):
+                rah.save(os.path.join(self.middle_dir, "rah_{0}.tif".format(i)))
+            if self.check_saveflag("rho_air"):
+                rho_air.save(os.path.join(self.middle_dir, "rho_air_{0}.tif".format(i)))
+            print_stats(ustar, "ustar_{0}".format(i))
+            print_stats(rah, "rah_{0}".format(i))
+            print_stats(rho_air, "rho_air_{0}".format(i))
+
+            # recalculate dT for reference pixels and adjust a and b accordingly.
+            rah_hot         = DM.ref_pix_mean(rah, self.hot_shape_path, self.hot_pixel_table)
+            rah_cold        = DM.ref_pix_mean(rah, self.cold_shape_path, self.cold_pixel_table)
+            rho_air_hot     = DM.ref_pix_mean(rho_air, self.hot_shape_path, self.hot_pixel_table)
+            rho_air_cold    = DM.ref_pix_mean(rho_air, self.cold_shape_path, self.cold_pixel_table)
+            
+            dT_hot          = DM.Num46(Rn_hot, G_hot, rah_hot, rho_air_hot)            
+            dT_cold         = DM.Num49(Rn_cold, G_cold, LE_cold, rah_cold, rho_air_cold)
+
+            # check for convergence, exit the loop early if convergence has been reached
+            a_new  = DM.Num50(dT_hot, dT_cold, T_s_datum_hot, T_s_datum_cold)  
+            b_new  = DM.Num51(dT_hot, a, T_s_datum_hot)
+
+            if round(a_new / a , 4) == 1.0000 and round(b_new / b , 4) == 1.0000:
+                converged = True
+
+            a = a_new
+            b = b_new
+                
+            print_stats(a, "a_{0}".format(i))
+            print_stats(b, "b_{0}".format(i))
+        
+            dT  = DM.Num29(a, b ,T_s_datum) 
+            H   = DM.Num28(rho_air, dT, rah)
+            L   = DM.Num40(rho_air, ustar, surface_temp, H)
+
+            print_stats(dT, "temperature gradient dT_{0}".format(i))
+            print_stats(H, "sensible heat, H_{0}".format(i))
+            print_stats(L, "Monin-Obukhov length L_{0}".format(i))
+            
+            if self.check_saveflag("dT") or converged:
+                dT.save(os.path.join(self.middle_dir, "dT_{0}.tif".format(i)))
+            if self.check_saveflag("H") or converged:
+                H.save(os.path.join(self.middle_dir, "H_{0}.tif".format(i)))
+            if self.check_saveflag("L") or converged:
+                L.save(os.path.join(self.middle_dir, "L_{0}.tif".format(i)))
+
+            # add to the iteration counter
+            i += 1
+
+        print("Converged on solution to sensible heat after {0} iterations!".format(i))
+        arcpy.AddMessage("Converged on solution to sensible heat after {0} iterations!".format(i))
+                
+        self.sensible_heat_flux = H
+        
+        print("=========================   Finished sensible heat calculation   =========================")
+        arcpy.AddMessage("=========================   Finished sensible heat calculation   =========================")
+        
         return self.sensible_heat_flux
+
 
     def get_latent_energy_consumed_by_ET(self):
         self.latent_energy = DM.Num1(self.net_radiation, self.soil_heat_flux, self.sensible_heat_flux)
@@ -1047,6 +1204,7 @@ class MetricModel:
             self.latent_energy.save("LE.tif")
         return self.latent_energy
 
+
     def get_latent_heat_vaporization(self, sfcTemp):
         self.latent_heat = DM.Num53(sfcTemp)
         
@@ -1054,194 +1212,178 @@ class MetricModel:
             self.latent_heat.save("LH_vapor_output.tif")
         return self.latent_heat
 
-# old functions, probably bad
-##    def get_instantaneous_evapotranspiration(self):
-##        self.evapotranspiration = self.latent_energy * 0.035 / 60 # jeff_flag should be 24
-##
-##        if self.check_saveflag("ET_inst"):
-##            self.evapotranspiration.save("ET_inst.tif")
-##        return self.evapotranspiration
-##    
-##    def get_ETrF(self, ET_ref_hr):
-##        self.ET_rf = self.evapotranspiration/ET_ref_hr
-##        
-##        if self.check_saveflag("ET_frac"):
-##            self.ET_rf.save("ET_frac.tif")
-##        return self.ET_rf
-##        
-##    def get_daily_evapotranspiration(self, ET_ref_day):
-##        self.daily_evapotranspiration = self.ET_rf * ET_ref_day
-##
-##        if self.check_saveflag("ET_24hr"):
-##            self.daily_evapotranspiration.save("ET_24hr.tif")
-##        return self.daily_evapotranspiration
-
 
     def get_evapotranspiration_instant(self):
         self.ETinstant = DM.Num52(self.latent_energy)
 
-        if self.check_saveflag("ET_inst2"):
-            self.ETinstant.save("ET_inst2.tif")
+        if self.check_saveflag("ET_inst"):
+            self.ETinstant.save("ET_inst.tif")
         return self.ETinstant
+
 
     def get_ET_fraction(self, ET_ref_hr):
         self.ET_fraction = DM.Num54(self.ETinstant, ET_ref_hr)
         
-        if self.check_saveflag("ET_frac2"):
-            self.ET_fraction.save("ET_frac2.tif")
+        if self.check_saveflag("ET_frac"):
+            self.ET_fraction.save("ET_frac.tif")
         return self.ET_fraction
+
     
     def get_evapotranspiration_day(self, ET_ref_day):
         self.evapotranspiration_daily = DM.Num55(self.ET_fraction,ET_ref_day)
 
-        if self.check_saveflag("ET_24hr2"):
-            self.evapotranspiration_daily.save("ET_24hr2.tif")
+        if self.check_saveflag("ET_24hr"):
+            self.evapotranspiration_daily.save("ET_24hr.tif")
         return self.evapotranspiration_daily
+
    
 def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,doy, solar_declination_angle, 
                           decimal_time, temp_C_min, temp_C_max, temp_C_mid, P_air, wind_speed, dewp_C, crop, timezone):
-    # REFERENCE - Refactor to Function ???
-#
-#
-#Set time zone offset for project
+
+    #Set time zone offset for project
     """TIME ZONE OFFSET VALUE!!!"""
-#    tzo = 6.0 ##Initial weather & biophysical reference calcs
     tzo = -timezone
-#reference crop height (m) & albedo (unitless) alfalfa
-#    crop_hgt = 0.5
-#    crop_a = 0.23
+    
+    #reference crop height (m) & albedo (unitless) alfalfa
     if crop == "grass":
         crop_hgt = 0.12
         crop_a = 0.23
     if crop == "alfalfa":
         crop_hgt = 0.5
         crop_a = 0.23
-        
-#wind speed measurement height, m
+
+    #wind speed measurement height, m
     z_m = 2
-#aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
+
+    #aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
     r_aero = DM.Aerodynamic_Resistance(wind_speed, z_m, crop_hgt)
-    print "Aerodynamic Resistance: ", r_aero, "s/m"
-#aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
+    print_stats(r_aero, "Aerodynamic Resistance (s/m)")
+
+    #aerodynamic resistance assuming 2m measure height, 0.12m crop height (grass)
     LAI_ref = 24 * crop_hgt
     r_surf = DM.Surface_Resistance(LAI_ref)
-    print "Surface Resistance: ", r_surf, "s/m"
+    print_stats(r_surf, "Surface Resistance (s/m)")
+
 #Hour Angle2
-#Hour angle2 requires longitude in positive degrees west
+    #Hour angle2 requires longitude in positive degrees west
     lon_alt = -longitude * 180 / math.pi
     dtime_alt = decimal_time * 24
     ltime = dtime_alt - tzo
-    print "Acquisition Time, Local: ", ltime, "Decimal Hours"
+    print_stats(ltime, "Acquisition Time (Local Decimal Hours)")
     ha_ref = DM.Hour_Angle2(lon_alt, dtime_alt, doy, tzo)
-    print "Hour Angle Alt: ", ha_ref, "rad"
-#hour angles bracketing one hour
+    print_stats( ha_ref, "Hour Angle Alt (rad)")
+    
+    #hour angles bracketing one hour
     ha1 = DM.Hour_Angle2(lon_alt, (dtime_alt - 0.5), doy, tzo)
     ha2 = DM.Hour_Angle2(lon_alt, (dtime_alt + 0.5), doy, tzo)
-## EDITED: Taken from paper, but gives oversized time-step
-##    ha1 = ha_ref - math.pi * ltime / 24
-##    ha2 = ha_ref + math.pi * ltime / 24
-    print "Hour Angle Start: ", ha1, "rad"
-    print "Hour Angle End: ", ha2, "rad"
-#Sunset Hour Angle
+    print_stats(ha1, "Hour Angle Start (rad)")
+    print_stats(ha2, "Hour Angle End (rad)")
+
+    #Sunset Hour Angle
     ha_ss = DM.Sunset_Hour_Angle(latitude, solar_declination_angle)
-    print "Sunset Hour Angle: ", ha_ss, "rad"
-#Daily Extraterrestrial Radiation, R_a_day
+    print_stats(ha_ss, "Sunset Hour Angle (rad)")
+
+    #Daily Extraterrestrial Radiation, R_a_day
     R_a_day = DM.XTerr_Radiation_Day(latitude, solar_declination_angle, ha_ss, earth_sun_distance)
-    print "**Daily Extraterrestrial Radiation: ", R_a_day, "MJ*m^-2*day^-1"
-#Hourly Extraterrestrial Radiation, R_a
+    print_stats(R_a_day, "**Daily Extraterrestrial Radiation (MJ*m^-2*day^-1)")
+
+    #Hourly Extraterrestrial Radiation, R_a
     R_a_hr = DM.XTerr_Radiation_Period(latitude, solar_declination_angle, ha1, ha2, earth_sun_distance)
-    print "**Hourly Extraterrestrial Radiation: ", R_a_hr, "MJ*m^-2*hour^-1"
-    '''
-    R_a_hr = R_a_short
-    print "**Period Extraterrestrial Radiation: ", R_a_hr, "MJ*m^-2*day^-1"
-    '''
-#Daylight Hours
+    print_stats(R_a_hr, "**Hourly Extraterrestrial Radiation (MJ*m^-2*hour^-1)")
+
+    #Daylight Hours
     Nhours = DM.Daylight_Hours(ha_ss)
-    print "Daylight Hours: ", Nhours, "hours"
-#Sunshine Hours
+    print_stats(Nhours, "Daylight Hours")
+
+    #Sunshine Hours
     nnhours = Nhours * (1 - (cloud_cover / 100))
-    print "Sunshine Hours: ", nnhours, "hours"
+    print_stats(nnhours, "Sunshine Hours") 
+    
 #Solar Radiation
-#assume Angstrom values, a_s & b_s
-#a_s, fraction of radiation reaching Earth on overcast days, assume 0.25
+    #assume Angstrom values, a_s & b_s
+
+    #a_s, fraction of radiation reaching Earth on overcast days, assume 0.25
     a_s = 0.25
-#b_s, additional fraction reaching Earth on clear days, assume 0.5
+
+    #b_s, additional fraction reaching Earth on clear days, assume 0.5
     b_s = 0.5
     R_s_day = DM.Solar_Radiation(a_s, b_s, nnhours, Nhours, R_a_day)
     R_s_hr = DM.Solar_Radiation(a_s, b_s, nnhours, Nhours, R_a_hr)
-    print "Solar Radiation, Day: ", R_s_day, "MJ*m^-2*day^-1"
-    print "Solar Radiation, 1030: ", R_s_hr, "MJ*m^-2*day^-1"
-#Clear Sky Solar Radiation
+    print_stats(R_s_day, "Solar Radiation, Day (MJ*m^-2*day^-1)")
+    print_stats(R_s_hr, "Solar Radiation, 1030 (MJ*m^-2*day^-1)")
+
+    #Clear Sky Solar Radiation
     R_so_day = DM.Solar_Radiation(a_s, b_s, Nhours, Nhours, R_a_day)
     R_so_hr = DM.Solar_Radiation(a_s, b_s, Nhours, Nhours, R_a_hr)
-    print "Clear-Sky Solar Radiation, Day: ", R_so_day, "MJ*m^-2*day^-1"
-    print "Clear-Sky Solar Radiation, 1030: ", R_so_hr, "MJ*m^-2*day^-1"
-#Net Solar Radiation
+    print_stats(R_so_day, "Clear-Sky Solar Radiation, Day (MJ*m^-2*day^-1)")
+    print_stats(R_so_hr, "Clear-Sky Solar Radiation, 1030 (MJ*m^-2*day^-1)")
+
+    #Net Solar Radiation
     R_ns_day = DM.Net_Solar_Radiation(crop_a, R_s_day)
     R_ns_hr = DM.Net_Solar_Radiation(crop_a, R_s_hr)
-    print "Net Solar Radiation, Day: ", R_ns_day, "MJ*m^-2*day^-1"
-    print "Net Solar Radiation, 1030: ", R_ns_hr, "MJ*m^-2*day^-1"
-#mean saturation vapor pressure, e_s
+    print_stats(R_ns_day, "Net Solar Radiation, Day: (MJ*m^-2*day^-1)")
+    print_stats(R_ns_hr,  "Net Solar Radiation, 1030: (MJ*m^-2*day^-1)")
+    
+    #mean saturation vapor pressure, e_s
     e_zero_max = DM.Saturation_Vapor_Pressure(temp_C_max)
     e_zero_min = DM.Saturation_Vapor_Pressure(temp_C_min)
     e_s = (e_zero_max + e_zero_min) / 2 #MAYBE A BETTER WAY FOR USA WX DATA
-    print "Mean Saturation Pressure, e_s: ", e_s, "kPa"
-## Removed from Run version, but put in Module as Saturation_Vapor_Pressure_Alt
-##    nsvp1 = 0.1 * ( 6.11 * 10 ** ( (7.5 * dewp_C) / (237.3 + dewp_C) ) )
-##    print "Near-Surface Vapor Pressure (1): ", nsvp1, "kPa"
-## Alternate Version from reference less preferred
-##    nsvp3 = (RH_mean / 100) * satvp_mean
-##    print "Near-Surface Vapor Pressure (3): ", nsvp3, "kPa"
-#get actual (near-surface) vapor pressure, e_a
+    print_stats(e_s, "Mean Saturation Pressure, e_s (kPa)")
+
+    #get actual (near-surface) vapor pressure, e_a
     e_a = DM.Saturation_Vapor_Pressure(dewp_C)
-    print "Near-Surface Vapor Pressure: ", e_a, "kPa"
-#Pyschometric constant
+    print_stats(e_a, "Near-Surface Vapor Pressure, (kPa)")
+
+    #Pyschometric constant
     gamma_pc = DM.Pyschometric_Constant(P_air)
-    print "Pychometric constant: ", gamma_pc, "kPa*C^-1"
-#Slope of saturation vapor pressure
+    print_stats(gamma_pc, "Pychometric constant (kPa*C^-1)")
+
+    #Slope of saturation vapor pressure
     Delta_svp = DM.Slope_Saturation_Vapor_Pressure(temp_C_mid)
-    print "Slope of saturation vapor pressure curve: ", Delta_svp, "kPa*C^-1"
-#Net Longwave Radiation
+    print_stats(Delta_svp, "Slope of saturation vapor pressure curve (kPa*C^-1)")
+
+    #Net Longwave Radiation
     R_nl_day = DM.Net_Longwave_Radiation(temp_C_max, temp_C_min, e_a, R_s_day, R_so_day)
     R_nl_hr = DM.Net_Longwave_Radiation(temp_C_max, temp_C_min, e_a, R_s_hr, R_so_hr)
-    print "Net Longwave Radiation: ", R_nl_day, "MJ*m^-2*day^-1"
-    print "**Net Longwave Radiation: ", R_nl_hr, "MJ*m^-2*day^-1"
-#Net Radiation
+    print_stats(R_nl_day, "Net Longwave Radiation (MJ*m^-2*day^-1)")
+    print_stats(R_nl_hr, "**Net Longwave Radiation (MJ*m^-2*day^-1)")
+
+    #Net Radiation
     R_n_day = R_ns_day - R_nl_day
     R_n_hr = R_ns_hr - R_nl_hr
-    print "Net Radiation, Day: ", R_n_day, "MJ*m^-2*day^-1"
-    print "Net Radiation, 1030: ", R_n_hr, "MJ*m^-2*day^-1"
+    print_stats(R_n_day, "Net Radiation, Day (MJ*m^-2*day^-1)")
+    print_stats(R_n_hr, "Net Radiation, 1030 (MJ*m^-2*day^-1)")
+
 #Soil Heat Flux
-#Daily assumption
+    #Daily assumption
     G_day = 0.0
-#Hourly assumptions
+
+    #Hourly assumptions
     G_hr = 0.1 * R_n_hr
-    print "Soil Heat Flux, Day: ", G_day, "MJ*m^-2*day^-1"
-    print "Soil Heat Flux, 1030: ", G_hr, "MJ*m^-2*day^-1"
-#Reference Evapotranspiration
+    print_stats(G_day, "Soil Heat Flux, Day (MJ*m^-2*day^-1)")
+    print_stats(G_hr, "Soil Heat Flux, 1030 (MJ*m^-2*day^-1)")
+
+    #Reference Evapotranspiration
     ET_ref_day = DM.Reference_ET_day(Delta_svp, R_n_day, G_day, gamma_pc, temp_C_mid, 
         wind_speed, e_s, e_a, crop)
     ET_ref_hr = DM.Reference_ET_hr(Delta_svp, R_n_hr, G_hr, gamma_pc, temp_C_mid, 
         wind_speed, e_s, e_a, crop)
-    print "Reference Evapotranspiration, Daily Rate: ", ET_ref_day, "mm*day^-1"
-    print "Reference Evapotranspiration, 1030 Rate: ", ET_ref_hr, "mm*hour^-1"
-#Air Density, Reference
+    print_stats(ET_ref_day, "Reference Evapotranspiration, Daily Rate (mm*day^-1)")
+    print_stats(ET_ref_hr, "Reference Evapotranspiration, 1030 Rate (mm*hour^-1)")
+
+    #Air Density, Reference
     rho_air_ref = DM.Num37(P_air, temp_C_mid, 0)
-    print "Air Density, Reference: ", rho_air_ref, "kg*m^-3"
-#Latent Heat Flux, Reference
-## Didn't seem quite right ... simple 28.4 conversion made sense, 7/31/2014
-##    LE_ref1a = DM.Latent_Heat_Flux_PM(Delta_svp, R_n_hr, G_hr, gamma_pc, e_s, e_a,
-##                                    rho_air_ref, r_surf, r_aero)
-##    print "Latent Heat Flux, LE, Penman Monteith Form, 1030: ", LE_ref1a, "MJ*m^-2*day^-1"
-##    LE_ref1 = LE_ref1a * 11.6
-##    print "Latent Heat Flux, LE, Penman Monteith Form, 1030: ", LE_ref1, "W*m^-2"
+    print_stats(rho_air_ref, "Air Density, Reference (kg*m^-3)")
+    
     LE_reference = ET_ref_hr * 28.4 #jeff flag
-    print "Latent Heat Flux, LE, Reference, 1030: ", LE_reference, "W*m^-2"
+    print_stats(LE_reference, "Latent Heat Flux, LE, Reference, 1030 (W*m^-2)")
+    
     return LE_reference, ET_ref_day, ET_ref_hr
 
 
 def run(workspace, landsat_filepath_list, landsat_metapath,
-                     dem_path, hot_shape_path, cold_shape_path, wx_filepath, saveflag, recalc, crop, timezone):
+                     dem_path, hot_shape_path, cold_shape_path, wx_filepath, saveflag, recalc, crop, timezone,
+                     wx_elev = 1, wx_zom = 0.010, LE_cold_cal_factor = 1.05, mountainous = False):
     """
     main function for calling and executing the metric model
 
@@ -1257,37 +1399,31 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     recalc:                 forces all calculations to be reperformed
     crop:                   reference crop type, either "alfalfa" or "corn"
     timezone:               hour offset from GMT (usually an integer, -5 or -4 for the east coast USA)
+    wx_elev                 the elevation of the weather station used
+    wx_zom                  estimate of the "zom" term at weather station (temporary)
+    LE_cold_cal_factor      used to calibrate LE terms. This should probably always be = 1.05
     """
     
     # take current system time
     start_time = datetime.now()
     
     # initialize MetricModel objecet named "mike"
-    mike = MetricModel(workspace, saveflag, recalc)
+    mike = MetricModel(workspace, saveflag, recalc, wx_elev, wx_zom, LE_cold_cal_factor, mountainous = False)
     mike.ingest_all_data(landsat_filepath_list, landsat_metapath, dem_path, hot_shape_path, cold_shape_path, wx_filepath)
         
     time = mike.get_time()
     longitude = mike.get_longitude()
     latitude = mike.get_lattitude()
     earth_sun_distance = mike.get_earth_sun_distance()
-    cloud_cover = mike.get_cloud_cover() # NEEDED FOR REFERENCE
+    cloud_cover = mike.get_cloud_cover() 
     doy = mike.get_date()
     solar_declination_angle = mike.get_solar_declination_angle(doy)
     decimal_time = time[3]
     hour_angle = DM.Hour_Angle(longitude, decimal_time)
 
-    # convert landsat sceen center time from Z to local, then extract weather data for that dat (UTC USED!)
-    # mike.landsat_meta.datetime_obj = mike.landsat_meta.datetime_obj + timedelta(seconds = timezone * 3600)
-
     # get ugly list of reference variables from weather data (legacy formating)
     temp_C_min, temp_C_max, temp_C_mid, P_air, wind_speed, dewp_C  =  Wx_Data_Extract(mike.landsat_meta.datetime_obj, mike.weather_path)
-
-##    temp_C_min = 24.4444    # NEEDED FOR REFERENCE
-##    temp_C_max = 32.7778    # NEEDED FOR REFERENCE
-##    temp_C_mid = 28.6111
-##    P_air = 1019.5
-##    wind_speed = 3.12928
-##    dewp_C = 21.6667
+    
 
     # get reference values 
     LE_reference, ET_ref_day, ET_ref_hr = reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover, doy, 
@@ -1298,30 +1434,12 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     slope = mike.get_slope()
     aspect = mike.get_aspect()
     solar_incidence_angle = mike.get_cosine_of_solar_incidence_angle(solar_declination_angle, latitude, slope, aspect, hour_angle)
-    del slope
     del aspect
     del latitude
     del solar_declination_angle
 
-    def print_stats(variable, name):
-        """ prints heads up stats for some variable, either raster or scalar"""
 
-        if isinstance(variable, list):
-            for i,var in enumerate(variable):
-                print_stats(var, name + str(i))
-                
-        if isinstance(variable, arcpy.Raster):
-            message = "{0} max({1:4.6f})  min({2:4.6f})  mean({3:4.6f})".format(name.ljust(70, "."), variable.maximum, variable.minimum, variable.mean)
-            print(message)
-            arcpy.AddMessage(str(message))
-
-        if isinstance(variable, float) or isinstance(variable, int):
-            message = "{0} val({1:4.6f})".format(name.ljust(70, "."), variable)
-            print(message)
-            arcpy.AddMessage(str(message))
-            
-        return
-    
+    # get vegetation indices
     reflectance_bands = mike.get_reflectance_band(solar_incidence_angle)
     ####### For Band # use reflectance_bands[#-2]
     SAVI = mike.get_SAVI(reflectance_bands[3], reflectance_bands[2])
@@ -1332,7 +1450,8 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     print_stats(NDVI, "NDVI")
     print_stats(LAI, "LAI")
     del SAVI
-    
+
+    # emissivitiies
     broad_band_surface_emissivity = mike.get_broadband_surface_emissivity(LAI)
     print_stats(broad_band_surface_emissivity, "broad band surface emissivity")
     
@@ -1345,12 +1464,10 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     vapor_pressure = mike.get_vapor_pressure(dewp_C)
     print_stats(vapor_pressure, "vapor pressure")
     print_stats(dewp_C, "dewpoint (C)")
-    
     del dewp_C
     
     water_in_atmosphere = mike.get_water_in_the_atmosphere(vapor_pressure, atmospheric_pressure, P_air)
     print_stats(water_in_atmosphere, "water in atmosphere")
-
     del vapor_pressure
     del P_air
     
@@ -1419,10 +1536,13 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     del soil_heat_flux
 
     # Calculate sensible heat flux
-    sensible_heat_flux  = mike.get_sensible_heat_flux(LAI, wind_speed, atmospheric_pressure, surface_temperature, LE_reference)
+    #sensible_heat_flux  = mike.get_sensible_heat_flux(LAI, wind_speed, atmospheric_pressure, surface_temperature, LE_reference)
+    sensible_heat_flux = mike.get_sensible_heat_flux2(LAI, wind_speed, atmospheric_pressure, surface_temperature, LE_reference, mike.dem_file, slope)
+    
     lhv                 = mike.get_latent_heat_vaporization(surface_temperature)
     print_stats(sensible_heat_flux, "sensible heat flux")
     print_stats(lhv, "latent heat of vaporization")
+    
     del surface_temperature
     del atmospheric_pressure
     del wind_speed
@@ -1433,17 +1553,8 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     # Calculate LE
     lecet = mike.get_latent_energy_consumed_by_ET()
     print_stats(lecet, "latent energy consumed by ET")
-
-#       old functions, probably bad
-##    # calculate ets
-##    iet  = mike.get_instantaneous_evapotranspiration()
-##    etrf = mike.get_ETrF(ET_ref_hr)
-##    det  = mike.get_daily_evapotranspiration(ET_ref_day)
-##    print_stats(iet, "instantaneous evapotranspiration")
-##    print_stats(etrf, "et reference hour")
-##    print_stats(det, "daily evapotranspiration")
     
-    # calculate ets
+    # calculate ETS
     eti = mike.get_evapotranspiration_instant()
     etf = mike.get_ET_fraction(ET_ref_hr)
     etd = mike.get_evapotranspiration_day(ET_ref_day)
@@ -1457,20 +1568,10 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     finish_time = datetime.now()
     elapsed_time = finish_time - start_time
     print("Finished in {0} minutes!".format(elapsed_time.total_seconds() / 60))
-    
+
+    print("To view the outputs and intermediates, please go to the workspace{0}".format(mike.work_dir))
+    arcpy.AddMessage("To view the outputs and intermediates, please go to the workspace{0}".format(mike.work_dir))
+
     return mike
 
-class Timer:
-    def __enter__(self):
-        self.start = time.clock()
-        return self
-
-    def __exit__(self, *args):
-        self.end = time.clock()
-        self.interval = self.end - self.start
-
-if __name__ == "__main__":
-    with Timer() as t:
-        run()
-
-    print('Time elapsed %0.3f sec' % t.interval)
+   
