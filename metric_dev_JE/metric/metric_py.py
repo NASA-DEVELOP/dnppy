@@ -98,23 +98,27 @@ class MetricModel:
         this function returns True, otherwise returns False.
         """
 
-        ETO =      [ "net_rad",     # net radiation from incoming and outgoing
-                     "H",           # sensible heat flux convected to the air
-                     "LE",          # latent energy
+        ETO =      [ "slope",       # slope of the dem
+                     "aspect",      # aspect of the dem
                      "LH_vapor",    # latent heat of vaporization
                      "ET_inst",     # instantaneous evapotranspiration
                      "ET_frac",     # reference evapotranspiration fraction
                      "ET_24hr",     # 24 hour ET estimate
                      "LS_ref"]      # landsat reflectance bands
 
-        LIM = ETO+ [ "savi",        # soil adjusted vegetation index
+        LIM = ETO+ [ "net_rad",     # net radiation from incoming and outgoing
+                     "savi",        # soil adjusted vegetation index
                      "ndvi",        # normalized difference vegetation index
-                     "lai"]         # leaf area index
-                     
-                                        
-        ALL = LIM+ [ "slope",       # slope of the dem
-                     "aspect",      # aspect of the dem
-                     "sia",         # cosine of solar incidence angle
+                     "lai",         # leaf area index
+                     "H",           # sensible heat flux convected to the air
+                     "LE",          # latent energy
+                     "L",           # Monin-Obukhov length (height at which buoyancy and mechanical mixing balance
+                     "dT",          # sensible heat flux
+                     "ustar",       # friction velocity
+                     "zom",         # momentum rougness length
+                     "rah"]         # aerodynamic transport
+        
+        ALL = LIM+ [ "sia",         # cosine of solar incidence angle
                      "bbse",        # broadband sufrace emissivity
                      "nbe",         # narrow band emissivity
                      "therm_rad10", # initial thermal radiance band 10
@@ -133,18 +137,13 @@ class MetricModel:
                      "bsa",         # broadband surface albedo
                      "eae",         # effective atmospheric transmissivity
                      "g_ratio",     # soil heat flux to net radiation ratio
-                     "zom",         # momentum rougness length
                      "ilwr",        # incoming long wave radiation
                      "olwr",        # outgoing long wave radiation
                      "soil_hf",     # soil heat flux.
                      "wcoeff",      # wind speed weighting coefficient
                      "T_s_datum",   # TS datum
                      "ws_200m",     # wind speed at assumed blending height of 200m
-                     "fric_vel",    # friction velocity
-                     "aero_res",    # aerodynamic resistance
-                     "L",           # Monin-Obukhov length (height at which buoyancy and mechanical mixing balance
-                     "psi",         # stability corrections for momentum transport at various atmospheric layers  
-                     "dT"]          # sensible heat flux         
+                     "psi"]         # stability corrections for momentum transport at various atmospheric layers        
         
         if self.saveflag == "ALL":
             save_list = ALL
@@ -363,15 +362,17 @@ class MetricModel:
 
     def get_slope(self):
         """ calculates a slope raster from the DEM"""
-        
+
         sfname = "slope.tif"
         sfpath = os.path.join(self.middle_dir, sfname)
         
         if os.path.isfile(sfpath) and not self.recalc:
             print "Reading previously estimated slopes... "
+            arcpy.AddMessage("Reading previously estimated slopes... ")
             slope = arcpy.Raster(sfpath)
         else:
             print "Calculating elevation derivatives... "
+            arcpy.AddMessage("Calculating elevation derivatives... ")
             slope = arcpy.sa.Slope(self.dem_file)
             
             # cap slopes at 30 degrees to reduce DEM artifacts
@@ -393,7 +394,6 @@ class MetricModel:
         afpath = os.path.join(self.middle_dir, afname)
         
         if os.path.isfile(afpath) and not self.recalc:
-            print "Reading previously estimated aspects... "
             aspect = arcpy.Raster(afpath)
         else:
             
@@ -1052,8 +1052,10 @@ class MetricModel:
         rah     = DM.Num30(ustar)                               # guess at aerodynamic trans (eq 30)
         rho_air = DM.Num37(pressure, surface_temp, 0)           # guess at air density (eq 37)
 
-        ustar.save(os.path.join(self.middle_dir, "ustar_0.tif"))
-        rah.save(os.path.join(self.middle_dir, "rah_0.tif"))
+        if self.check_saveflag("ustar"):
+            ustar.save(os.path.join(self.middle_dir, "ustar_0.tif"))
+        if self.check_saveflag("rah"):
+            rah.save(os.path.join(self.middle_dir, "rah_0.tif"))
         print_stats(u200, "u200")
         print_stats(ustar, "ustar_0")
         print_stats(rah, "rah_0")
@@ -1088,11 +1090,7 @@ class MetricModel:
         dT  = DM.Num29(a, b ,T_s_datum)
         H   = DM.Num28(rho_air, dT, rah)
         L   = DM.Num40(rho_air, ustar, surface_temp, H)
-        
 
-        #dT.save(os.path.join(self.middle_dir, "dT_0.tif"))
-        #H.save(os.path.join(self.middle_dir, "H_0.tif"))
-        #L.save(os.path.join(self.middle_dir, "L_0.tif"))
         print_stats(dT, "temperature gradient dT_0")
         print_stats(H , "sensible heat H_0")
         print_stats(L , "Monin-Obukhov length L_0")
@@ -1125,10 +1123,10 @@ class MetricModel:
                 psi2   = psi2s
                 psi01  = psi01s
 
-
-            psi200.save(os.path.join(self.middle_dir, "psi200_{0}.tif".format(i)))
-            psi2.save(os.path.join(self.middle_dir, "psi2_{0}.tif".format(i)))
-            psi01.save(os.path.join(self.middle_dir, "psi01_{0}.tif".format(i)))
+            if self.check_saveflag("psi"):
+                psi200.save(os.path.join(self.middle_dir, "psi200_{0}.tif".format(i)))
+                psi2.save(os.path.join(self.middle_dir, "psi2_{0}.tif".format(i)))
+                psi01.save(os.path.join(self.middle_dir, "psi01_{0}.tif".format(i)))
             print_stats(psi200, "psi200_" + str(i))
             print_stats(psi2, "psi2_" + str(i))
             print_stats(psi01, "psi01_" + str(i))
@@ -1138,9 +1136,12 @@ class MetricModel:
             rah     = DM.Num39(psi2, psi01, ustar)
             rho_air = DM.Num37(pressure, surface_temp, dT)
 
-            ustar.save(os.path.join(self.middle_dir, "ustar_{0}.tif".format(i)))
-            rah.save(os.path.join(self.middle_dir, "rah_{0}.tif".format(i)))
-            rho_air.save(os.path.join(self.middle_dir, "rho_air_{0}.tif".format(i)))
+            if self.check_saveflag("ustar"):
+                ustar.save(os.path.join(self.middle_dir, "ustar_{0}.tif".format(i)))
+            if self.check_saveflag("rah"):
+                rah.save(os.path.join(self.middle_dir, "rah_{0}.tif".format(i)))
+            if self.check_saveflag("rho_air"):
+                rho_air.save(os.path.join(self.middle_dir, "rho_air_{0}.tif".format(i)))
             print_stats(ustar, "ustar_{0}".format(i))
             print_stats(rah, "rah_{0}".format(i))
             print_stats(rho_air, "rho_air_{0}".format(i))
@@ -1159,8 +1160,6 @@ class MetricModel:
             b_new  = DM.Num51(dT_hot, a, T_s_datum_hot)
 
             if round(a_new / a , 4) == 1.0000 and round(b_new / b , 4) == 1.0000:
-                print("Converged on solution to sensible heat after {0} iterations!".format(i))
-                arcpy.AddMessage("Converged on solution to sensible heat after {0} iterations!".format(i))
                 converged = True
 
             a = a_new
@@ -1173,16 +1172,23 @@ class MetricModel:
             H   = DM.Num28(rho_air, dT, rah)
             L   = DM.Num40(rho_air, ustar, surface_temp, H)
 
-            dT.save(os.path.join(self.middle_dir, "dT_{0}.tif".format(i)))
-            H.save(os.path.join(self.middle_dir, "H_{0}.tif".format(i)))
-            L.save(os.path.join(self.middle_dir, "L_{0}.tif".format(i)))
             print_stats(dT, "temperature gradient dT_{0}".format(i))
             print_stats(H, "sensible heat, H_{0}".format(i))
             print_stats(L, "Monin-Obukhov length L_{0}".format(i))
+            
+            if self.check_saveflag("dT") or converged:
+                dT.save(os.path.join(self.middle_dir, "dT_{0}.tif".format(i)))
+            if self.check_saveflag("H") or converged:
+                H.save(os.path.join(self.middle_dir, "H_{0}.tif".format(i)))
+            if self.check_saveflag("L") or converged:
+                L.save(os.path.join(self.middle_dir, "L_{0}.tif".format(i)))
 
             # add to the iteration counter
             i += 1
 
+        print("Converged on solution to sensible heat after {0} iterations!".format(i))
+        arcpy.AddMessage("Converged on solution to sensible heat after {0} iterations!".format(i))
+                
         self.sensible_heat_flux = H
         
         print("=========================   Finished sensible heat calculation   =========================")

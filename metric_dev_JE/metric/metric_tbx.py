@@ -186,8 +186,24 @@ class METRIC_run(object):
             parameterType = "Optional",
             direction =     "Input")
         
+        param20 = arcpy.Parameter(
+            displayName =   "Save_flag (decides which variables to save to hard disk)",
+            name =          "saveflag",
+            datatype =      "GPString",
+            parameterType = "Required",
+            direction =     "Input")
+        param20.filter.list = ["ALL", "LIMITED", "ET-ONLY"]
+
+        param21 = arcpy.Parameter(
+            displayName =   "Force Recalculation",
+            name =          "recalc",
+            datatype =      "GPBoolean",
+            parameterType = "Required",
+            direction =     "Input")
+        
         params = [param0, param1, param2, param3, param4, param5, param6, param7, param8, param9,
-                  param10, param11, param12, param13, param14, param15, param16, param17, param18, param19]
+                  param10, param11, param12, param13, param14, param15, param16, param17, param18,
+                  param19, param20, param21]
         
         return params
     
@@ -234,9 +250,6 @@ class METRIC_run(object):
         crop            = str(parameters[13].value)
         timezone        = float(parameters[14].value)
 
-        testflag        = "ALL"
-        recalc          = True
-
         try:    wx_elev = float(parameters[16].value)
         except: wx_elev = None
         try:    wx_zom  = float(parameters[17].value)
@@ -245,6 +258,9 @@ class METRIC_run(object):
         except: LE_ref  = None
         try:    mounts  = bool(parameters[19].value)
         except: mounts  = None
+
+        testflag        = str(parameters[20].value)
+        recalc          = bool(parameters[21].value)
 
         # print parameters to screen
         for param in parameters:
@@ -263,7 +279,7 @@ class METRIC_run(object):
 ##    tbx = Toolbox()
 ##    tool = METRIC_run()
 ##
-##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\Test_NC_H_fix"
+##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\model_run_NC_manual"
 ##
 ##    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
 ##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
