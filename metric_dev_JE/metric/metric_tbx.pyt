@@ -34,6 +34,14 @@ class METRIC_run(object):
     def getParameterInfo(self):
         """Define parameter definitions"""
 
+        
+        param15 = arcpy.Parameter(
+            displayName =   "Workspace to store intermediates and outputs (full path to a NEW directory)",
+            name =          "workspace",
+            datatype =      "GPString",
+            parameterType = "Required",
+            direction =     "Input")
+        
         param0 = arcpy.Parameter(
             displayName =   "Landsat 8 Metadata filepath",
             name =          "l8_meta",
@@ -150,15 +158,36 @@ class METRIC_run(object):
             parameterType = "Required",
             direction =     "Input")        
 
-        param15 = arcpy.Parameter(
-            displayName =   "Workspace to store intermediates and outputs (full path to a NEW directory)",
-            name =          "workspace",
-            datatype =      "GPString",
-            parameterType = "Required",
+        param16 = arcpy.Parameter(
+            displayName =   "manual elevation of weather station (in meters)",
+            name =          "wx_elevation",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
             direction =     "Input")
-
-        params = [param0, param1, param2, param3, param4, param5, param6, param7, param8,
-                   param9, param10, param11, param12, param13, param14, param15]
+            
+        param17 = arcpy.Parameter(
+            displayName =   "manual roughness length (zom) estimate at weather station location ",
+            name =          "wx_zom",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
+            direction =     "Input")
+            
+        param18 = arcpy.Parameter(
+            displayName =   "manual LE_cold calibration factor Usually 1.05",
+            name =          "LE_cold_cal_factor",
+            datatype =      "GPDouble",
+            parameterType = "Optional",
+            direction =     "Input")
+        
+        param19 = arcpy.Parameter(
+            displayName =   "Mountainous terrain",
+            name =          "mounts",
+            datatype =      "GPBoolean",
+            parameterType = "Optional",
+            direction =     "Input")
+        
+        params = [param0, param1, param2, param3, param4, param5, param6, param7, param8, param9,
+                  param10, param11, param12, param13, param14, param15, param16, param17, param18, param19]
         
         return params
     
@@ -208,6 +237,15 @@ class METRIC_run(object):
         testflag        = "ALL"
         recalc          = True
 
+        try:    wx_elev = float(parameters[16].value)
+        except: wx_elev = None
+        try:    wx_zom  = float(parameters[17].value)
+        except: wx_zom  = None
+        try:    LE_ref  = float(parameters[18].value)
+        except: LE_ref  = None
+        try:    mounts  = bool(parameters[19].value)
+        except: mounts  = None
+
         # print parameters to screen
         for param in parameters:
             message = "{0} : {1}".format(str(param.name).ljust(12," "), param.value)
@@ -215,8 +253,8 @@ class METRIC_run(object):
             arcpy.AddMessage(message)
 
         metric_py.run(metric_workspace, landsat_files, landsat_meta, dem_path,
-                           hot_shp_path, cold_shp_path, weather_path, testflag,
-                           recalc, crop, timezone)
+                    hot_shp_path, cold_shp_path, weather_path, testflag,
+                    recalc, crop, timezone, wx_elev, wx_zom, LE_ref, mounts)
 
 
 ### Manually run the metric model here
@@ -248,6 +286,11 @@ class METRIC_run(object):
 ##    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa" 
 ##    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
 ##
+##    wx_elev         = 1.000         # elevation of the weather station
+##    wx_zom          = 0.010         # estimated zom at weather station (temporary)
+##    LE_cold_cal_fac = 1.050         # LE calibration factor, should probably always be 1.05
+##    mountains       = False         # set true for mountainous regions
+##
 ##    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
 ##                    hot_shp_path, cold_shp_path, weather_path, testflag,
-##                    recalc, crop, timezone)
+##                    recalc, crop, timezone, wx_elev, wx_zom, LE_cold_cal_fac, mountains)

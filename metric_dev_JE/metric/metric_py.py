@@ -25,7 +25,8 @@ __author__ = ["Kent Sparrow",
 class MetricModel:
 
 
-    def __init__(self, working_directory, saveflag, recalc):
+    def __init__(self, working_directory, saveflag, recalc,
+                            wx_elev = 1, wx_zom = 0.010, LE_cold_cal_factor = 1.05, mountainous = False):
         """
         Initializes the new metric model workspace
 
@@ -33,8 +34,29 @@ class MetricModel:
         created METRIC model folder.
         """ 
 
+        self.work_dir   = working_directory
         self.saveflag   = saveflag
         self.recalc     = recalc
+
+        # set up some scalar attributes
+        if not wx_elev == None:
+            self.wx_elev  = float(wx_elev)                  # elevation of weather station
+        else:
+            self.wx_elev  = 1.0
+            
+        if not mountainous == True:
+            self.mountainous_terrain = False                # set True for mountanous terrain
+        
+            
+        if not LE_cold_cal_factor == None:
+            self.LE_cold_cal_factor  = LE_cold_cal_factor   # reference cold calibration factor
+        else:
+            self.LE_cold_cal_factor  = 1.05
+            
+        if not wx_zom == None:
+            self.wx_zom = wx_zom                            # estimated zom at station location
+        else:
+            self.wx_zom = 0.100
         
         # copy the empty metric model template into the newly created working directory
         print("Initializing a fresh workspace for METRIC at {0}".format(working_directory))
@@ -906,7 +928,7 @@ class MetricModel:
 
 
     def get_wind_speed_weihting_coefficient(self):  
-        elev_wx = float(0) # jeff flag
+        elev_wx = self.wx_elev
         wcoeff = DM.Num36(self.dem_file, elev_wx)
 
         if self.check_saveflag("wcoeff"):
@@ -915,7 +937,7 @@ class MetricModel:
 
 
     def get_T_s_datum(self, sfc_temp):
-        elev_ts_datum = 0 # jeff_flag
+        elev_ts_datum = self.wx_elev
         T_s_datum_path = os.path.join(self.middle_dir, "T_s_datum.tif")
         T_s_datum = DM.Datum_Ref_Temp(sfc_temp, self.dem_file, elev_ts_datum)
 
@@ -976,18 +998,19 @@ class MetricModel:
     # Needed parameters
         T_s_datum   = self.get_T_s_datum(surface_temp) 
 
-        z_wx = 1                                # jeff_flag needs to be elevation of WX station
-        self.mountanous_terrain = False         # jeff_flag should be user input parameter
+        z_wx = self.wx_elev                     # grab elevation of WX station
+        if z_wx < 1:                            # prevents errors
+            z_wx = 1
         
-        if self.mountanous_terrain:
+        if self.mountainous_terrain:
             zom     = DM.Num33(lai)             # momentum roughness length (eq 33)
             zom     = DM.Num35(zom, slope)      # momentum roughness for mountainous terrain (eq 35)
             omega   = DM.Num36(dem, z_wx)       # correction for mountanous terrain
         else:
             zom     = DM.Num33(lai)             # momentum roughness length (eq 33)
 
-        LEr_factor              = 1.05          # jeff_flag should be user input parameter
-        zom_wx                  = 0.010         # jeff_flag needs to sample at WX station (grassy estimate
+        LEr_factor  = self.LE_cold_cal_factor   # grab reference cold calibration factor
+        zom_wx      = self.wx_zom               # grab guessed zom at station locationS
 
         print_stats(zom, "zom")
         
@@ -1020,7 +1043,7 @@ class MetricModel:
         print_stats(H_cold, "H cold")
         
     # initial guesses for iteration
-        if self.mountanous_terrain:
+        if self.mountainous_terrain:
             u200= omega * DM.Num32(wx_wind_speed, zom_wx, z_wx) # guess at assumed bending height
         else:
             u200= DM.Num32(wx_wind_speed, zom_wx, z_wx)         # guess at assumed bending height
@@ -1135,7 +1158,7 @@ class MetricModel:
             a_new  = DM.Num50(dT_hot, dT_cold, T_s_datum_hot, T_s_datum_cold)  
             b_new  = DM.Num51(dT_hot, a, T_s_datum_hot)
 
-            if round(a_new / a , 3) == 1.000 and round(b_new / b , 3) == 1.000:
+            if round(a_new / a , 4) == 1.0000 and round(b_new / b , 4) == 1.0000:
                 print("Converged on solution to sensible heat after {0} iterations!".format(i))
                 arcpy.AddMessage("Converged on solution to sensible heat after {0} iterations!".format(i))
                 converged = True
@@ -1165,103 +1188,6 @@ class MetricModel:
         print("=========================   Finished sensible heat calculation   =========================")
         arcpy.AddMessage("=========================   Finished sensible heat calculation   =========================")
         
-        return self.sensible_heat_flux
-        
-
-    def get_sensible_heat_flux(self, lai, wind_speed, p, sfc_temp, LEref): # jeff_flag
-        """ itteratively solves for sensible heat flux"""
-        
-        zom = self.get_momentum_roughness_length(lai)
-
-        ws_200m     = self.get_wind_speed_at_assumed_blending_height(wind_speed) ## ws_200m is a scalar float !!!
-        T_s_datum   = self.get_T_s_datum(sfc_temp)
-        fric_vel    = self.get_friction_velocity(wind_speed, zom)
-        aero_res    = self.get_aerodynamic_resistance(fric_vel)
-        dsc         = arcpy.Describe(zom)
-        ext         = dsc.Extent
-        dT          = aero_res * 0.0
-        dT_path     = os.path.join(self.middle_dir,"dT0.tif")
-        
-        if self.check_saveflag("dT"):
-            dT.save(dT_path)
-        
-        self.sensible_heat_flux = aero_res * 0.0
-        
-        rho_air = DM.Num37(p, sfc_temp, dT)
-        rho_air.save(os.path.join(self.middle_dir, "rho_air.tif"))
-
-        # we are assuming that 5 itterations is enough for convergence.
-        for i in xrange(5):
-            if i > 0:
-               
-               # equation 40-45b
-                L_path = os.path.join(self.middle_dir, "L{0}.tif".format(i))
-                L = DM.Num40(rho_air, fric_vel, sfc_temp, self.sensible_heat_flux)
-
-                if self.check_saveflag("L"):
-                    L.save(L_path)
-                    
-                # separate loop needed to filter L
-                psi_200_unstable_path   = os.path.join(self.middle_dir, "psi_200_unst{0}.tif".format(i))
-                psi_200_stable_path     = os.path.join(self.middle_dir, "psi_200_stab{0}.tif".format(i))
-                
-                psi_200_unstable = DM.Num41(L)
-                psi_200_stable = DM.Num44(L)
-
-                if self.check_saveflag("psi"):
-                    psi_200_unstable.save(psi_200_unstable_path)
-                    psi_200_stable.save(psi_200_stable_path)
-
-                psi_2_unstable = DM.Num42a(L)
-                psi_2_stable = DM.Num45a(L)
-
-                psi_1_unstable = DM.Num42b(L)
-                psi_1_stable = DM.Num45b(L)
-
-                print("psi200_unst mean ",psi_200_unstable.minimum)
-                print("L mean",L.minimum)
-                psi_200 = arcpy.sa.Con(L, psi_200_unstable, L, "VALUE < 0")
-                psi_2 = arcpy.sa.Con(L, psi_2_unstable, L, "VALUE < 0")
-                psi_1 = arcpy.sa.Con(L, psi_1_unstable, L, "VALUE < 0")
-
-                psi_200 = arcpy.sa.Con(L, psi_200_stable, 0, "VALUE > 0")
-                psi_2 = arcpy.sa.Con(L, psi_2_stable, 0, "VALUE > 0")
-                psi_1 = arcpy.sa.Con(L, psi_1_stable, 0, "VALUE > 0")
-
-                fric_vel = DM.Num38(ws_200m, zom, psi_200)
-                aero_res = DM.Num39(psi_2, psi_1, fric_vel)
-                
-                print "fric_vel path =", fric_vel
-                print "aero_res path = ", aero_res
-                
-            rho_air_hot = DM.meanFromRasterBySingleZone(rho_air, self.hot_shape_path, self.hot_pixel_table)
-            net_rad_hot = DM.meanFromRasterBySingleZone(self.net_radiation, self.hot_shape_path, self.hot_pixel_table)
-            
-            G_hot = DM.meanFromRasterBySingleZone(self.soil_heat_flux, self.hot_shape_path, self.hot_pixel_table)
-            aero_res_hot = DM.meanFromRasterBySingleZone(aero_res, self.hot_shape_path, self.hot_pixel_table)
-            T_s_datum_hot = DM.meanFromRasterBySingleZone(T_s_datum, self.hot_shape_path, self.hot_pixel_table)
-            dT_hot = DM.Num46(net_rad_hot, G_hot, aero_res_hot, rho_air_hot)
-
-            rho_air_cold = DM.meanFromRasterBySingleZone(rho_air, self.cold_shape_path, self.cold_pixel_table)
-            net_rad_cold = DM.meanFromRasterBySingleZone(self.net_radiation, self.cold_shape_path, self.cold_pixel_table)
-            G_cold = DM.meanFromRasterBySingleZone(self.soil_heat_flux, self.cold_shape_path, self.cold_pixel_table)
-            aero_res_cold = DM.meanFromRasterBySingleZone(aero_res, self.cold_shape_path, self.cold_pixel_table)
-            T_s_datum_cold = DM.meanFromRasterBySingleZone(T_s_datum, self.cold_shape_path, self.cold_pixel_table)
-            dT_cold = DM.Num49(net_rad_cold, G_cold, LEref, aero_res_cold, rho_air_cold)
-
-            a = DM.Num50(dT_hot, dT_cold, T_s_datum_hot, T_s_datum_cold)
-            b = DM.Num51(dT_hot, a, T_s_datum_hot)
-
-            dT = DM.Num29(a, b, T_s_datum)
-            print "dT path=", dT
-
-            rhoair = DM.Num37(p, sfc_temp, dT)
-
-            self.sensible_heat_flux = DM.Num28(rhoair, dT, aero_res)
-
-            if self.check_saveflag("H"): 
-                self.sensible_heat_flux.save("H" + str(i) + ".tif")
-
         return self.sensible_heat_flux
 
 
@@ -1319,7 +1245,6 @@ def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,d
     if crop == "alfalfa":
         crop_hgt = 0.5
         crop_a = 0.23
-        
 
     #wind speed measurement height, m
     z_m = 2
@@ -1451,7 +1376,8 @@ def reference_calculation(longitude, latitude, earth_sun_distance, cloud_cover,d
 
 
 def run(workspace, landsat_filepath_list, landsat_metapath,
-                     dem_path, hot_shape_path, cold_shape_path, wx_filepath, saveflag, recalc, crop, timezone):
+                     dem_path, hot_shape_path, cold_shape_path, wx_filepath, saveflag, recalc, crop, timezone,
+                     wx_elev = 1, wx_zom = 0.010, LE_cold_cal_factor = 1.05, mountainous = False):
     """
     main function for calling and executing the metric model
 
@@ -1467,13 +1393,16 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     recalc:                 forces all calculations to be reperformed
     crop:                   reference crop type, either "alfalfa" or "corn"
     timezone:               hour offset from GMT (usually an integer, -5 or -4 for the east coast USA)
+    wx_elev                 the elevation of the weather station used
+    wx_zom                  estimate of the "zom" term at weather station (temporary)
+    LE_cold_cal_factor      used to calibrate LE terms. This should probably always be = 1.05
     """
     
     # take current system time
     start_time = datetime.now()
     
     # initialize MetricModel objecet named "mike"
-    mike = MetricModel(workspace, saveflag, recalc)
+    mike = MetricModel(workspace, saveflag, recalc, wx_elev, wx_zom, LE_cold_cal_factor, mountainous = False)
     mike.ingest_all_data(landsat_filepath_list, landsat_metapath, dem_path, hot_shape_path, cold_shape_path, wx_filepath)
         
     time = mike.get_time()
@@ -1633,6 +1562,9 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     finish_time = datetime.now()
     elapsed_time = finish_time - start_time
     print("Finished in {0} minutes!".format(elapsed_time.total_seconds() / 60))
+
+    print("To view the outputs and intermediates, please go to the workspace{0}".format(mike.work_dir))
+    arcpy.AddMessage("To view the outputs and intermediates, please go to the workspace{0}".format(mike.work_dir))
 
     return mike
 
