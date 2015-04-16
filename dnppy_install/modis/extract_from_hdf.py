@@ -1,6 +1,6 @@
 # local imports
 from .mosaic import *
-from .projection import *
+from .define_projection import *
 
 
 def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):

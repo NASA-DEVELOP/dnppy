@@ -10,6 +10,9 @@ from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
 
+# dnppy imports
+from dnppy.textio import text_data_object
+
 
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
@@ -306,26 +309,17 @@ class time_series:
 
         return
 
-    
-    def from_csv(self, csv_path, has_headers = True, delim = ',', spec_format = False):
-        """
-        creates the time_series data from a csv.
 
-        This simply wraps the read_csv_rows function in csv_io module.
-        """
+    def from_tdo(self, tdo):
+        """ reads time series data from a dnppy.text_data_object"""
 
-        self.infilepath = os.path.abspath(csv_path)
+        self.headers  = tdo.headers
+        self.row_data = tdo.row_data
 
-        if not self.discretized:
-            self.row_data, self.headers = read_csv_rows(csv_path, has_headers, delim, spec_format)
-            self.build_col_data()
-
-        else:
-            raise Warning("You may not import new data into \
-                          an already discretized time series")
+        self.build_col_data()
         return
 
-
+ 
     def to_csv(self, csv_path):
         """ simply write the data to a csv file"""
 
@@ -336,7 +330,11 @@ class time_series:
         print("Saved time series '{0}' with {1} rows and {2} columns".format(
                                     self.name, len(self.row_data), len(self.col_data)))
 
-        write_csv_rows(self.row_data, self.headers, csv_path)
+        tdo = text_data_object(text_filepath = csv_path,
+                               headers = self.headers,
+                               row_data = self.row_data)
+
+        tdo.write_csv()
         return
 
 
