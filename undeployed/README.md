@@ -1,0 +1,3 @@
+This folder is a place to put undeployed code. Because of the quick turnaround time and workflow inherent to the DEVELOP program,
+a scenario in which code that does not meet deployability standards needs to be merged into the master branch is possible. Therefore we recomend project teams develop most of their code in this directory. This 
+directory is NOT included in the install package, but should NOT be referenced by any deployed module.
