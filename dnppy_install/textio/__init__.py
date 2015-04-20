@@ -9,7 +9,6 @@ a "text file object" or "tfo"
 
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
-# local imports
-from .text_file_object import *
+from .text_data_object import *
 from .read_csv import *
 from .read_DS3505 import *

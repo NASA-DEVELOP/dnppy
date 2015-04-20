@@ -1,6 +1,6 @@
 
 
-def text_data_object():
+class text_data_object():
     """
     a text data object is a very simple template structure
     for passing text type data (usually lists of data entries)
@@ -14,6 +14,12 @@ def text_data_object():
         self.row_data       = row_data          # data      (2d list)
         return
 
+
+    def __getitem__(self, index):
+        """ used to return row data when using __getitem__ on this object type """
+
+        return self.row_data[index]
+            
 
     def write_csv(self, text_filepath = None):
         """ writes the contents of this text file object as a CSV """
@@ -35,6 +41,5 @@ def text_data_object():
                 entry = ','.join(row) + '\n'
                 f.write(entry)
             f.close()
-            
-        print("Saved data to '{0}'".format(filepath))
+
         return

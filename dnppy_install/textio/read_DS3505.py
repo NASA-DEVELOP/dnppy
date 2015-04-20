@@ -6,7 +6,7 @@ def read_DS3505(filepath, has_headers = True):
     """
     text reader for DS3505 data (space delimited) with some fixes
     
-    Data downloaded from the following website has a peculiarity
+    Weather data downloaded from the following website has a peculiarity
     [http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&cfg=cdo&theme=hourly&layers=1&node=gi]
     in that it has some upercase T's that are rarely needed, but ruin otherwise
     uniform space formatting.
