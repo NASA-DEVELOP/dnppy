@@ -12,9 +12,9 @@ def read_csv(filepath, has_headers = True, delim = ','):
         data = []
 
         if has_headers:
-            headers = next(f).replace('\n','').split(delim)
+            heads = next(f).replace("\n","").split(delim)
         else:
-            headers = None
+            heads = None
 
         for line in f:
             entry = line.replace("\n","").split(delim)
@@ -26,7 +26,7 @@ def read_csv(filepath, has_headers = True, delim = ','):
 
     # assemble the text data object and return it
     tdo = text_data_object( text_filepath   = filepath
-                            headers         = headers
+                            headers         = heads
                             row_data        = data)
     
     return tdo

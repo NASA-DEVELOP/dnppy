@@ -36,24 +36,14 @@ class time_series:
     time series, where the steps of the method depend on weather the time
     series is at its smallest subset or not.
 
-    (it isn't quite finished yet)
-
     MEMORY WARNING. The entirety of the dataset is represented in every layer
     of discretization, so watch out for exploding memory consumption by
-    excessive subsetting.
+    excessive subsetting of gigantic datasets.
 
     PLANNED IMPROVEMENTS:
-    this needs to be expanded to allow the "data" attribute to be lists of
+    1) DONE. this needs to be expanded to allow the "data" attribute to be lists of
     filepaths. this will allow advanced time series operations to be performed
     on raster datasets.
-
-    this should allow far more elegant replacement of the follwing funtions
-    within the dnppy module:
-
-    "files_in_window"
-    "rolling_window"
-    "rolling_stats"
-    "group_stats"
     """
 
     def __init__(self, name = "name", units = None, discretized = False, disc_level = 0, parent = None):
