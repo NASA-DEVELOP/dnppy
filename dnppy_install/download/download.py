@@ -68,7 +68,7 @@ def filelist(ftptexts, filetypes = False, outdir = False):
     return (failed)
 
 
-def urls(url_list, filetypes, outdir):
+def urls(url_list, outdir, filetypes = False):
 
     """
     Downloads a list of files. Retries failed downloads
@@ -89,7 +89,7 @@ def urls(url_list, filetypes, outdir):
     """
 
     failed   = []
-    url_list = dnppy.core.enf_list(url_list)
+    url_list = core.enforce.enf_list(url_list)
 
     # creates output folder at desired path if it doesn't already exist
     if not os.path.exists(outdir):
