@@ -7,8 +7,16 @@ __all__=['GPM',               # halted development
          'Landsat_WELD',      # complete
          'MODIS']             # complete
 
+# standard imports
+import ftplib, urllib, os, time, sys
+from datetime import datetime
 
-def GPM(year, month, day, product, outdir, Quiet=False):
+# local imports
+from dnppy import core
+from .list_contents import *
+
+
+def GPM(year, month, day, product, outdir):
 
     """
     Fetches GPM data from an FTP server.
@@ -23,11 +31,6 @@ def GPM(year, month, day, product, outdir, Quiet=False):
        month       month of desired satellite observation (int)
        day         day of the month of desired satellite observation (int)
        outdir      output directory where files should be saved (str)
-
-     Output:
-       failed      list of files which failed download
-
-     Authors: Fall2014: Jeffry Ely
     """
 
     # import modules
@@ -45,13 +48,12 @@ def GPM(year, month, day, product, outdir, Quiet=False):
         workdir= '/'.join(['gpmdata',str(year),str(month).zfill(2),str(day).zfill(2),product])
         ftp.cwd(workdir)
     except:
-        print '{Fetch_GPM} location does not exist on server: '+ workdir
+        print 'location does not exist on server: '+ workdir
         sys.exit()
     
     # create a filelist of the directory.
     filenames = ftp.nlst()
-    if not Quiet:
-        print '{Fetch_GPM} Found '+ str(len(filenames)) + ' total files!'
+    print 'Found '+ str(len(filenames)) + ' total files!'
 
     # download all the GPM data in that folder (until we figure out the difference between
     # everything
@@ -62,8 +64,7 @@ def GPM(year, month, day, product, outdir, Quiet=False):
 
         # define local filename and write file to local hard drive
         try:
-            if not Quiet:
-                print '{Fetch_GPM} downloading ' + filename
+            print '{Fetch_GPM} downloading ' + filename
             local_filename = os.path.join(tempout,filename)
             file = open(local_filename,'wb')
             ftp.retrbinary('RETR '+ filename, file.write)
@@ -74,13 +75,12 @@ def GPM(year, month, day, product, outdir, Quiet=False):
 
     # close the fpt session, print status and finish up.
     ftp.quit()
-    if not Quiet:
-        print '{Fetch_GPM} Finished downloading all files!: '+ str(len(failed)) +' failures!'
+    print 'Finished downloading GPM files!: '+ str(len(failed)) +' failures!'
     
     return(failed)
 
 
-def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
+def TRMM_1(years, months, days, product_string, outdir):
 
     """
     Fetches TRMM data from an FTP server.
@@ -92,11 +92,6 @@ def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
        month       month of desired satellite observation (int)
        day         day of the month of desired satellite observation (int)
        outdir      output directory where files should be saved (str)
-
-     Output:
-       failed      list of files which failed download
-
-     Authors: Fall2014: Jeffry Ely
     """
 
     # import modules
@@ -124,12 +119,12 @@ def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
                     if not product_string in filename:
                         filenames.remove(filename)
                         
-                if not Quiet: print '{Fetch_TRMM} Found '+ str(len(filenames)) + ' total files!'
+                print 'Found '+ str(len(filenames)) + ' total files!'
 
                 for filename in filenames:
                     # define local filename and write file to local hard drive
                     try:
-                        if not Quiet: print '{Fetch_TRMM} downloading ' + filename
+                        print '{Fetch_TRMM} downloading ' + filename
                         local_filename = os.path.join(outdir,filename)
                         afile = open(local_filename,'wb')
                         ftp.retrbinary('RETR '+filename, file.write)
@@ -139,13 +134,12 @@ def TRMM_1(years, months, days, product_string, outdir, Quiet=False):
 
     # close the fpt session, print status and finish up.
     ftp.quit()
-    if not Quiet:
-        print '{Fetch_GPM} Finished downloading all files!: '+ str(len(failed)) +' failures!'
+    print 'Finished downloading TRMM files!: '+ str(len(failed)) +' failures!'
     
     return(failed)
 
 
-def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
+def Landsat_WELD(product, tiles, years, outdir):
 
     """
      Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD]
@@ -160,10 +154,6 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
        tiles       list of tiles to grab such as ['h11v12','h11v11']
        years       list of years to grab such as range(2001,2014)
        outdir      output directory to save downloaded files
-
-     Outputs: NONE
-
-     Authors: Fall2014: Jeffry Ely
     """
 
     # check formats
@@ -176,12 +166,14 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
         if not os.path.exists(os.path.join(outdir,tile)):
             os.makedirs(os.path.join(outdir,tile))
             
-    if not Quiet: print '{Fetch_Landsat_WELD} Connecting to servers!'
+    print '{Fetch_Landsat_WELD} Connecting to servers!'
     
     # Map the contents of the directory
     site= 'http://e4ftl01.cr.usgs.gov/WELD/WELD'+product+'.001'
-    try:    dates = list_contents.http(site)
-    except: print '{Fetch_Landsat_WELD} Could not connect to site! check inputs!'
+    try:
+        dates = list_http(site)
+    except:
+        print '{Fetch_Landsat_WELD} Could not connect to site! check inputs!'
     
     # find just the folders within the desired year range.
     good_dates=[]
@@ -192,13 +184,12 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
                 good_dates.append(date)
         except: pass
         
-    if not Quiet:
-        print '{Fetch_Landsat_WELD} Found ' + str(len(good_dates)) + ' days within year range'
+    print 'Found ' + str(len(good_dates)) + ' days within year range'
 
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
         
-        files=List_http_contents(site+'/'+good_date)
+        files = list_http(site+'/'+good_date)
 
         for afile in files:
             # only list files with desired tilenames and not preview jpgs
@@ -207,16 +198,16 @@ def Landsat_WELD(product, tiles, years, outdir, Quiet=False):
                     if tile in afile:
                         
                         # assemble the address
-                        address='/'.join([site,good_date,afile])
-                        if not Quiet: print '{Fetch_Landsat_WELD} Downloading' + address
+                        address = '/'.join([site,good_date,afile])
+                        print '{Fetch_Landsat_WELD} Downloading' + address
 
                         #download the file.
-                        outname=os.path.join(outdir,tile,afile)
+                        outname = os.path.join(outdir,tile,afile)
                         Url(address,outname)
     return
 
     
-def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
+def MODIS(product, version, tiles, outdir, years, j_days=False):
 
     """
     Fetch MODIS Land products from one of two servers
@@ -231,10 +222,6 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
        outdir      output directory to save downloaded files
        years       list of years to grab such as range(2001,2014)
        j_days      list of days to grab such as range(31:60). Defaults to all days in year
-
-     Outputs: NONE
-
-     Authors: Fall2014: Jeffry Ely
     """
 
     def Find_MODIS_Product(product,version):
@@ -258,8 +245,8 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
         sat_designation = product[0:3]
         prod_ID = product[3:]
 
-        site1='http://e4ftl01.cr.usgs.gov/'
-        site2='n5eil01u.ecs.nsidc.org'
+        site1 = 'http://e4ftl01.cr.usgs.gov/'
+        site2 = 'n5eil01u.ecs.nsidc.org'
 
         ftp=False
         Dir=False
@@ -280,8 +267,7 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
         elif sat_designation=='MCD':
             site = site1+'MOTA/' + product + '.' + version
             
-        else:
-            print '{Find_MODIS_Product} No such MODIS product is availble for download with this script!'
+        print 'No such MODIS product is availble for download with this script!'
         
         return site, ftp, Dir
 
@@ -302,14 +288,14 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
     # do a quick input tile check for 6 characters.
     for tile in tiles:
         if not len(tile) == 6:
-            print "{Fetch_MODIS} Warning! your tiles appear to be invalid!"
-            print "{Fetch_MODIS} Warning! make sure they are in format 'h##v##"
+            print "Warning! your tiles appear to be invalid!"
+            print "Warning! make sure they are in format 'h##v##"
 
     # create output directories
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    if not Quiet: print '{Fetch_MODIS} Connecting to servers!'
+    print 'Connecting to servers!'
     
     # obtain the web address, protocol information, and subdirectory where
     # this tpe of MODIS data can be found.
@@ -317,16 +303,16 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
 
     # Depending on the type of connection (ftp vs http) populate the file list
     try:
-        if ftp: dates,_ = list_contents.ftp(site, Dir)
-        else:   dates   = list_contents.http(site)
-    except: print '{Fetch_MODIS} Could not connect to site! check inputs!'
+        if ftp: dates,_ = list_ftp(site, Dir)
+        else:   dates   = list_http(site)
+    except:
+        print 'Could not connect to site! check inputs!'
     
     # refine contents down to just addresses of valid year and j_day
     good_dates=[]
     for date in dates:
         try:
-            y,m,d = date.split(".")
-            j_day = core.Date_to_Julian(y,m,d).zfill(3)
+            j_day = datetime.srptime(date, "%Y.%m.%d").strftime("%j").zfill(3)
             
             if y and y in years:
                 good_dates.append(date)
@@ -336,14 +322,13 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
                         good_dates.remove(date)
         except: pass
 
-    if not Quiet:
-        print '{Fetch_MODIS} Found ' + str(len(good_dates)) + ' days within range'
+    print 'Found ' + str(len(good_dates)) + ' days within range'
 
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
         
-        if ftp: files,_ = list_contents.ftp(site,Dir+'/'+good_date)
-        else:   files   = list_contents.http(site+'/'+good_date)
+        if ftp: files,_ = list_ftp(site,Dir+'/'+good_date)
+        else:   files   = list_http(site+'/'+good_date)
 
         for afile in files:
             # only list files with desired tilenames and not preview jpgs
@@ -353,13 +338,12 @@ def MODIS(product, version, tiles, outdir, years, j_days=False, Quiet=False):
                         # assemble the address
                         if ftp: address='/'.join(['ftp://'+site,Dir,good_date,afile])
                         else:   address='/'.join([site,good_date,afile])
-                        if not Quiet:
-                            print '{Fetch_MODIS} Downloading  ' + address
+                        print 'Downloading MODIS ' + address
 
                         #download the file
                         outname = os.path.join(outdir,afile)
                         Url(address,outname)
 
-    if not Quiet: print '{Fetch_MODIS} Finished! \n'
+    print 'Finished retrieving MOIDS data!'
     return
 

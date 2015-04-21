@@ -2,7 +2,14 @@
 Lists the contents of either an ftp or http download site and returns filenames/paths
 """
 
-def ftp(site, username = False , password = False, Dir = False):
+# local imports
+from dnppy import core
+
+# standard imports
+import ftplib, urllib, os, time, sys
+
+
+def list_ftp(site, username = False , password = False, Dir = False):
     """
     lists contents of typical FTP download site
 
@@ -34,7 +41,7 @@ def ftp(site, username = False , password = False, Dir = False):
     return(filenames,filepaths)
 
 
-def http(site):
+def list_http(site):
     """Lists contents of typical http download site at [http://e4ftl01.cr.usgs.gov]"""
     
     website = urllib.urlopen(site)

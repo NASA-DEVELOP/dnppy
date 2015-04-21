@@ -1,4 +1,9 @@
 
+from dnppy import core
+
+# standard imports
+import ftplib, urllib, os, time, sys
+
 
 
 def filelist(ftptexts, filetypes = False, outdir = False):
@@ -74,8 +79,9 @@ def urls(url_list, filetypes, outdir):
 
      Inputs:
        url_list         array of urls, probably as read from a text file
-       filetypes       list of filetypes to download. Usefull for excluding xmls or
-                       unwanted metadata. Usually 'hdf' for MODIS files
+       filetypes       list of filetypes to download. Usefull for excluding extraneous
+                       metadata by only downloding 'hdf' or 'tif' for example. Please note
+                       that often times, you actually NEED the metadata.
        outdir          folder where files are to be placed after download
 
      Output:

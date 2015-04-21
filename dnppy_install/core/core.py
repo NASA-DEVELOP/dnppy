@@ -3,30 +3,13 @@ from .enforce import *
 import os, datetime, sys, shutil
 
 
-__all__=['sample_function',     # complete
-         'del_empty_dirs',      # complete
+__all__=['del_empty_dirs',      # complete
          'rename',              # complete
          'list_files',          # complete
          'move',                # complete
          'exists',              # complete
          'create_outname',      # complete
          'check_module']        # complete
-
-
-def sample_function(inputs, Quiet=False):
-
-    """
-    this is an example docstring for our sample function
-
-    This is where additional information goes like inputs/outputs/authors
-    """
-
-    outputs=inputs
-    if not Quiet:
-        print('This is a sample function!')
-        print('try changing your statement to Sample_Function(str,True)')
-
-    return(outputs)
 
 
 def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
@@ -155,9 +138,6 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
     return(filelist)
 
 
-
-
-
 def del_empty_dirs(path):
     """Removes empty folders, used for cleaning up temporary workspace."""
 
@@ -200,10 +180,9 @@ def rename(filename, replacethis, withthis):
         # rename the file
         os.rename(filename,newfilename)
 
-        # tell the user about it.
         print("renamed" + filename + "to" + newfilename)
-        
         return newfilename
+    
     else:
         return filename
 
@@ -231,11 +210,10 @@ def exists(location):
     # if the object is neither a file or a location, return False.
     if not os.path.exists(location) and not os.path.isfile(location):
         print("{0} is not a valid file or folder!".format(location))
-        sys.exit()
         return(False)
     
-    #otherwise, return True.
-    return(True)
+    else:
+        return(True)
 
 
 
