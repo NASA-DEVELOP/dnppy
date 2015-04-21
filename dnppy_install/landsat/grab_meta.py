@@ -79,6 +79,6 @@ def grab_meta(filename):
     dto_string          = dto_string.split(".")[0]
     meta.datetime_obj   = datetime.strptime(dto_string, "%Y-%m-%d%H:%M:%S")
     
-    print("Sceen center time is {0}".format(meta.datetime_obj))
+    print("Scene center time is {0}".format(meta.datetime_obj))
     
     return(meta)

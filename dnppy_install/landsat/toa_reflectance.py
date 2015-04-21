@@ -55,7 +55,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
             TOA_ref.save(outname)
             print("Saved output at {0}".format(outname))
         else:
-            print("Can only perform reflectance conversion on OLI sensor bands!")
+            print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
     return
 

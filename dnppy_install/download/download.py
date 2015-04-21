@@ -78,8 +78,8 @@ def urls(url_list, filetypes, outdir):
      failed files until they are successful or a retry limit is reached.
 
      Inputs:
-       url_list         array of urls, probably as read from a text file
-       filetypes       list of filetypes to download. Usefull for excluding extraneous
+       url_list        array of urls, probably as read from a text file
+       filetypes       list of filetypes to download. Useful for excluding extraneous
                        metadata by only downloding 'hdf' or 'tif' for example. Please note
                        that often times, you actually NEED the metadata.
        outdir          folder where files are to be placed after download
@@ -89,7 +89,7 @@ def urls(url_list, filetypes, outdir):
     """
 
     failed   = []
-    url_list = core.enf_list(url_list)
+    url_list = dnppy.core.enf_list(url_list)
 
     # creates output folder at desired path if it doesn't already exist
     if not os.path.exists(outdir):

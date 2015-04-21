@@ -73,7 +73,7 @@ def GPM(year, month, day, product, outdir):
         except:
             failed.append(filename)
 
-    # close the fpt session, print status and finish up.
+    # close the ftp session, print status and finish up.
     ftp.quit()
     print 'Finished downloading GPM files!: '+ str(len(failed)) +' failures!'
     
