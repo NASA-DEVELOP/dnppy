@@ -30,8 +30,8 @@ def grab_meta(filename):
     fields = []
     values = []
 
-    class metadata_obj(object):pass
-    meta = metadata_obj()
+    class landsat_metadata_obj(object):pass
+    meta = landsat_metadata_obj()
 
     if filename:
         metafile = open(filename,'r')
@@ -42,12 +42,14 @@ def grab_meta(filename):
         # greater than 1000 characters. 1000 character limit works around an odd LC5
         # issue where the metadata has 40,000+ erroneous characters of whitespace
         bad_flags = ["END","GROUP"]                 
-        if not any(x in line for x in bad_flags) and len(line)<=1000:   
+        if not any(x in line for x in bad_flags) and len(line)<=1000:
+            try:
                 line = line.replace("  ","")
                 line = line.replace("\n","")
                 field_name , field_value = line.split(' = ')
                 fields.append(field_name)
                 values.append(field_value)
+            except: pass
 
     for i in range(len(fields)):
         
@@ -82,3 +84,7 @@ def grab_meta(filename):
     print("Sceen center time is {0}".format(meta.datetime_obj))
     
     return(meta)
+
+
+if __name__ == "__main__":
+    m = grab_meta(r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy_install\landsat\test_meta\LT50140342011307EDC00_MTL.txt")
