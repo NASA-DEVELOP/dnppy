@@ -34,8 +34,8 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
            filelist        An array of full filepaths meeting the criteria.
 
      Example Usage:
-           import ND
-           filelist=ND.list_files(True,r'E:\Landsat7','B1',['gz','xml','ovr'])
+           from dnppy import core
+           filelist = core.list_files(True,r'E:\Landsat7','B1',['gz','xml','ovr'])
 
            The above statement will find all the Band 1 tifs in a landsat data directory
            without including the associated metadata and uncompressed gz files.
