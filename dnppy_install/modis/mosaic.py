@@ -1,6 +1,7 @@
 # local imports
 from .define_projection import *
 from .extract_from_hdf import *
+from dnppy import raster
 
 
 
@@ -66,7 +67,7 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
 
     # grab info from all the files left in the filelist.
     for item in filelist:
-        info = core.grab_data_info(item,False,True)
+        info = raster.grab_info(item,False,True)
         yearlist.append(int(info.year))
         daylist.append(int(info.j_day))
 
