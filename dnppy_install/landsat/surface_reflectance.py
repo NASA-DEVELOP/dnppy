@@ -12,18 +12,11 @@ from dnppy import core
 arcpy.CheckOutExtension("Spatial")
 
 __all__=['surf_reflectance_8',      # planned development
-         'surf_reflectance_7',      # planned development
-         'surf_reflectance_45']     # planned development
+         'surf_reflectance_457']    # planned development
 
 def surf_reflectance_8():pass
 
-
-def surf_reflectance_7():pass
-
-
-def surf_reflectance_45():pass
-
-def surface_reflectance_dos_457(band_nums, meta_path, outdir):
+def surf_reflectance_457(band_nums, meta_path, outdir):
 
     """
     Converts Landsat 4, 5, and 7 band DNs to surface reflectance using dark object subtraction.

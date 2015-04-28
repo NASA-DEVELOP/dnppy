@@ -4,7 +4,8 @@ import arcpy
 from arcpy.sa import *
 import math
 
-__all__= ['uavsar_header']        # planned development
+__all__= ['create_header',      #completed
+          'decibel_convert']    #completed
 
 def create_header(folder):
     """
@@ -115,7 +116,7 @@ def decibel_convert(file):
         file:   the full file path string for the .grd data file
     """
 
-    arcpy.CheckOutExtension("Spatial")
+    #arcpy.CheckOutExtension("Spatial")
 
     inRaster = arcpy.Raster(file)
     dB_raster = 10 * Log10(inRaster)

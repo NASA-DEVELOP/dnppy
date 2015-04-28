@@ -2,10 +2,10 @@ import urllib
 import webbrowser
 from dnppy import download
 from dnppy import core
-from dnppy import landsat
 
-__all__=['test_data'             # completed
-         'landsat_8_series']        # planned development
+__all__=['test_data',           # completed
+         'landsat_8_scene',     # completed
+         'landsat_8_series']    # planned development
 
 def test_data(landsat_number):
     """
@@ -14,7 +14,7 @@ def test_data(landsat_number):
     *Note that you must be signed into earthexplorer.usgs.gov
     
     Inputs:
-      landsat_number   4, 5, 7, or 8 - the desired Landsat satellites to sample data from
+      landsat_number:   4, 5, 7, or 8 - the desired Landsat satellites to sample data from
 
     """
     
@@ -53,10 +53,10 @@ def landsat_8_scene(path, row, year, day, outdir):
     http://amsu.cira.colostate.edu/julian.html
     
     Inputs:
-        path: the Landsat path number for the desired dataset
-        row: the Landsat row number for the desired dataset
-        year: the four digit year number the desired dataset was created
-        day: the three digit Julian Day number the desired dataset was created (e.g. January 1 = 001)
+        path:   the Landsat path number for the desired dataset
+        row:    the Landsat row number for the desired dataset
+        year:   the four digit year number the desired dataset was created
+        day:    the three digit Julian Day number the desired dataset was created (e.g. January 1 = 001)
         outdir: the output location for the downloaded Landsat 8 dateset
         
     """
@@ -95,6 +95,8 @@ def landsat_8_scene(path, row, year, day, outdir):
     urls_dl.append(meta)
     outfolder = "{0}\{1}".format(outdir, name)
     download.urls(urls_dl, outfolder, ["TIF","txt"])
+    
+    return
 
 def landsat_8_series(path, row, start_year, start_day, end_year, end_day, outdir):
     """
@@ -103,12 +105,12 @@ def landsat_8_series(path, row, start_year, start_day, end_year, end_day, outdir
     a time series of OLI data. The code below downloads each band tiff on the given url.
     """
 
-    int_eday = int(end_day)
-    int_sday = int(start_day)
-    int_eyear = int(end_year)
-    int_syear = int(start_year)
-
-    for line in scene_list:
-        if 
-
-    landsat.landsat_8_scene("010", "117", "2015", "018", "C:\Users\dajensen\Documents\Programming\Landsat Data Samples\Out")
+##    int_eday = int(end_day)
+##    int_sday = int(start_day)
+##    int_eyear = int(end_year)
+##    int_syear = int(start_year)
+##
+##    for line in scene_list:
+##        if 
+##
+##    landsat.landsat_8_scene("010", "117", "2015", "018", "C:\Users\dajensen\Documents\Programming\Landsat Data Samples\Out")
