@@ -2,6 +2,7 @@ import urllib
 import webbrowser
 from dnppy import download
 from dnppy import core
+from dnppy import landsat
 
 __all__=['test_data'             # completed
          'landsat_8_series']        # planned development
@@ -101,3 +102,13 @@ def landsat_8_series(path, row, start_year, start_day, end_year, end_day, outdir
     This will allow a user to identify the path/row and year/day to automatically download
     a time series of OLI data. The code below downloads each band tiff on the given url.
     """
+
+    int_eday = int(end_day)
+    int_sday = int(start_day)
+    int_eyear = int(end_year)
+    int_syear = int(start_year)
+
+    for line in scene_list:
+        if 
+
+    landsat.landsat_8_scene("010", "117", "2015", "018", "C:\Users\dajensen\Documents\Programming\Landsat Data Samples\Out")
