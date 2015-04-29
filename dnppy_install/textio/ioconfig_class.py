@@ -109,6 +109,9 @@ class ioconfig(text_data):
         elif "complex" in in_type:
             return self.interp_complex(in_value)
 
+        elif "tuple" in in_type:
+            return self.interp_tuple(in_value)
+
         else:
             raise TypeError("could not interpret input type '{0}'".format(in_type))
         
@@ -122,15 +125,19 @@ class ioconfig(text_data):
         in_list = in_list.split(',')
         return in_list
 
+    def interp_tuple(self, in_tuple):
+        in_tuple = in_tuple.replace("(","").replace(")","").replace("'","").replace(" ","")
+        return tuple(in_tuple.split(","))
+
 
     def interp_dict(self, in_dict):
-        in_dict = in_dict.replace('[','').replace(']','').replace("'","")
+        in_dict = in_dict.replace('{','').replace('}','').replace("'","")
         in_dict = in_dict.split(',')
 
+        out_dict = {}
+        
         for item in in_dict:
             item = item.split(":")
-            
-            out_dict = {}
             out_dict[item[0]] = item[1]
             
         return out_dict
@@ -161,8 +168,9 @@ class ioconfig(text_data):
 if __name__ == "__main__":
 
 
-    test_names = ["path1",
-                  "path2",
+    test_names = ["str",
+                  "list",
+                  "tuple",
                   "dict",
                   "bool",
                   "float",
@@ -170,8 +178,9 @@ if __name__ == "__main__":
                   "long",
                   "complex"]
     
-    test_vals = ["C:/file1",
-                "C:/file2",
+    test_vals = ["test string",
+                ["item 1","item 2", "item 3"],
+                (1,2),
                 {"one": 1, "two": 2},
                 True,
                 1.12345,

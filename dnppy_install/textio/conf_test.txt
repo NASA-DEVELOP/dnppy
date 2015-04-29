@@ -1,6 +1,7 @@
 param_name                     ; param_type         ; param_value
-path1                          ; <type 'str'>       ; C:/file1
-path2                          ; <type 'str'>       ; C:/file2
+str                            ; <type 'str'>       ; test string
+list                           ; <type 'list'>      ; ['item 1', 'item 2', 'item 3']
+tuple                          ; <type 'tuple'>     ; (1, 2)
 dict                           ; <type 'dict'>      ; {'two': 2, 'one': 1}
 bool                           ; <type 'bool'>      ; True
 float                          ; <type 'float'>     ; 1.12345
