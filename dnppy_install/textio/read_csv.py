@@ -1,6 +1,6 @@
 
 # local imports
-from text_data_object import *
+from text_data_class import *
 
 
 

@@ -1,0 +1,10 @@
+param_name                     ; param_type         ; param_value
+path1                          ; <type 'str'>       ; C:/file1
+path2                          ; <type 'str'>       ; C:/file2
+dict                           ; <type 'dict'>      ; {'two': 2, 'one': 1}
+bool                           ; <type 'bool'>      ; True
+float                          ; <type 'float'>     ; 1.12345
+int                            ; <type 'int'>       ; 1
+long                           ; <type 'long'>      ; 1000000000000000000
+complex                        ; <type 'complex'>   ; (1+1j)
+outfilepath                    ; <type 'str'>       ; some filepath on my hard drive
