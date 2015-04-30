@@ -1,7 +1,21 @@
+###local imports
+##from .atsat_bright_temp import *
+##from .cloud_mask import *
+##from .grab_meta import *
+##from .ndvi import *
+##from .scene import *
+##from .surface_temp import *
+##from .toa_radiance import *
+##from .toa_reflectance import *
+
+#external imports
 import urllib
 import webbrowser
+import site
+import datetime
 from dnppy import download
 from dnppy import core
+from dnppy import landsat
 
 __all__=['test_data',           # completed
          'landsat_8_scene',     # completed
@@ -98,19 +112,49 @@ def landsat_8_scene(path, row, year, day, outdir):
     
     return
 
-def landsat_8_series(path, row, start_year, start_day, end_year, end_day, outdir):
+def landsat_8_series(path, row, start_date, end_date, outdir):
     """
     An idea for making use of the amazon web service hosted Landsat 8 OLI data.
     This will allow a user to identify the path/row and year/day to automatically download
     a time series of OLI data. The code below downloads each band tiff on the given url.
+
+    Inputs:
+    start_date:     year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
+    end_date:       year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
     """
 
-##    int_eday = int(end_day)
-##    int_sday = int(start_day)
-##    int_eyear = int(end_year)
-##    int_syear = int(start_year)
-##
-##    for line in scene_list:
-##        if 
-##
-##    landsat.landsat_8_scene("010", "117", "2015", "018", "C:\Users\dajensen\Documents\Programming\Landsat Data Samples\Out")
+    int_eday = int(end_date[8:10])
+    int_sday = int(start_date[8:10])
+    int_emonth = int(end_date[5:7])
+    int_smonth = int(start_date[5:7])
+    int_eyear = int(end_date[0:4])
+    int_syear = int(start_date[0:4])
+
+    path_str = str(path)
+    row_str = str(row)
+
+    directory = site.getsitepackages()[1]
+    scene_list = "{0}\\dnppy\\landsat\\metadata\\scene_list.txt".format(directory)
+
+    f = open(scene_list, 'r')
+    content = f.readlines()
+
+    start_dtdate = datetime.date(int_syear, int_smonth, int_sday)
+    end_dtdate = datetime.date(int_eyear, int_emonth, int_eday)
+
+    x = 1
+    for line in content:
+        year = int(content[x][22:26])
+        month = int(content[x][27:29])
+        day = int(content[x][30:32])
+        date = datetime.date(year, month, day)
+        pathrow_id = "LC8{0}{1}".format(path_str, row_str)
+        if pathrow_id in content[x]:
+            if date >= start_dtdate and date <= end_dtdate:
+                jday = content[x][13:16]
+                landsat.download.landsat_8_scene(path_str, row_str, year, jday, outdir)
+        x = x + 1
+        if date > end_dtdate:
+            break
+
+    return
