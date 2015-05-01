@@ -9,11 +9,11 @@ from .toa_radiance import *
 from .toa_reflectance import *
 
 from dnppy import core
+import arcpy
 
 
 __all__=['cloud_mask_8',            # complete
          'cloud_mask_457']          # planned development (to include slc-off band gaps)
-
 
 
 def cloud_mask_8(band_nums, BQA_path, outdir = False):
@@ -33,7 +33,8 @@ def cloud_mask_8(band_nums, BQA_path, outdir = False):
     band_nums = map(str, band_nums)
 
     #define the range of values in the BQA file to be reclassified as cloud (0) or not cloud (1)
-    outReclass = Reclassify(BQA_path, "Value", RemapRange([[50000,65000,0],[28670,32000,0],[2,28669,1],[32001,49999,1],[1,1,"NoData"]]))
+    remap = arcpy.sa.RemapRange([[50000,65000,0],[28670,32000,0],[2,28669,1],[32001,49999,1],[1,1,"NoData"]])
+    outReclass = arcpy.sa.Reclassify(BQA_path, "Value", remap)
 
     #set the name and save the binary cloud mask tiff file
     Mask_name = BQA_path.replace("_BQA", "")  
@@ -42,10 +43,10 @@ def cloud_mask_8(band_nums, BQA_path, outdir = False):
 
     #for each band listed in band_nums, apply the Con tool to erase cloud pixels and save each band as a new tiff
     for band_num in band_nums:      
-      band_path = BQA_path.replace("BQA.tif", "B{0}.tif".format(band_num))            
-      outname   = core.create_outname(outdir, band_path, "NoClds", "tif")
-      outCon    = Con(outReclass, band_path, "", "VALUE = 1")
-      outCon.save(outname)                 
+        band_path = BQA_path.replace("BQA.tif", "B{0}.tif".format(band_num))            
+        outname = core.create_outname(outdir, band_path, "NoClds", "tif")
+        outCon = arcpy.sa.Con(outReclass, band_path, "", "VALUE = 1")
+        outCon.save(outname)                 
 
     return
 
@@ -65,10 +66,10 @@ def cloud_mask_457(meta_path, outdir, Filter5Thresh=2.0, Filter6Thresh=2.0):
     """
     
     #if pixelvalue == "Digital Numbers":
-    landsat.toa_reflectance_457([2,3,4,5], meta_path, outdir)
-    landsat.atsat_bright_temp_457(meta_path, outdir)
+    toa_reflectance_457([2,3,4,5], meta_path, outdir)
+    atsat_bright_temp_457(meta_path, outdir)
     
-    metadata = landsat.grab_meta(meta_path)
+    metadata = grab_meta(meta_path)
     spacecraft = getattr(metadata, "SPACECRAFT_ID")
 
     if "4" in spacecraft or "5" in spacecraft:

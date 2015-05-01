@@ -1,12 +1,13 @@
-###local imports
-##from .atsat_bright_temp import *
-##from .cloud_mask import *
-##from .grab_meta import *
-##from .ndvi import *
-##from .scene import *
-##from .surface_temp import *
-##from .toa_radiance import *
-##from .toa_reflectance import *
+#local imports
+from .atsat_bright_temp import *
+from .cloud_mask import *
+from .grab_meta import *
+from .ndvi import *
+from .scene import *
+from .surface_temp import *
+from .toa_radiance import *
+from .toa_reflectance import *
+from .download import *
 
 #external imports
 import urllib
@@ -15,7 +16,6 @@ import site
 import datetime
 from dnppy import download
 from dnppy import core
-from dnppy import landsat
 
 __all__=['test_data',           # completed
          'landsat_8_scene',     # completed
@@ -100,7 +100,7 @@ def landsat_8_scene(path, row, year, day, outdir):
 
     i = 1
     while i <= 11:
-        filename = url + name + "_B{0}.TIF".format(i)
+        filename = "{0}{1}_B{2}.TIF".format(url,name,i)
         urls_dl.append(filename)
         i = i + 1
     BQA = url + name + "_BQA.TIF"
@@ -119,8 +119,13 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
     a time series of OLI data. The code below downloads each band tiff on the given url.
 
     Inputs:
-    start_date:     year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
-    end_date:       year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
+    path:       the path number for the desired scene series, entered preferably as a
+                    three-digit string, e.g. "xxx"
+    row:        the row number for the desired scene series, entered preferably as a
+                    three-digit string, e.g. "xxx"
+    start_date: year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
+    end_date:   year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
+    outdir:     the folder to save the output files in
     """
 
     int_eday = int(end_date[8:10])
@@ -132,6 +137,15 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
 
     path_str = str(path)
     row_str = str(row)
+
+    if len(path_str) == 2:
+        path_str = "0" + path_str
+    elif len(path_str) == 1:
+        path_str = "00" + path_str
+    if len(row_str) == 2:
+        row_str = "0" + row_str
+    elif len(row_str) == 1:
+        row_str = "00" + row_str
 
     directory = site.getsitepackages()[1]
     scene_list = "{0}\\dnppy\\landsat\\metadata\\scene_list.txt".format(directory)
@@ -152,7 +166,7 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
         if pathrow_id in content[x]:
             if date >= start_dtdate and date <= end_dtdate:
                 jday = content[x][13:16]
-                landsat.download.landsat_8_scene(path_str, row_str, year, jday, outdir)
+                landsat_8_scene(path_str, row_str, year, jday, outdir)
         x = x + 1
         if date > end_dtdate:
             break
