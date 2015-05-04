@@ -1,14 +1,8 @@
-# local imports
-from .atsat_bright_temp import *
-from .cloud_mask import *
-from .grab_meta import *
-from .ndvi import *
-from .scene import *
-from .surface_temp import *
-from .toa_radiance import *
-from .toa_reflectance import *
 
+#standard imports
+from .grab_meta import grab_meta
 from dnppy import core
+import arcpy
 arcpy.CheckOutExtension("Spatial")
 
 __all__=['surf_reflectance_8',      # planned development

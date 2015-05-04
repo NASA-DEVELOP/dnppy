@@ -1,17 +1,9 @@
-# local imports
-from .atsat_bright_temp import *
-from .cloud_mask import *
-from .grab_meta import *
-from .ndvi import *
-from .scene import *
-from .surface_reflectance import *
-from .surface_temp import *
-from .toa_radiance import *
 
+#standard imports
+from .grab_meta import grab_meta
 from dnppy import core
 import math
 import arcpy
-
 
 
 __all__=['toa_reflectance_8',       # complete       
@@ -161,7 +153,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
     
          #Calculating temperature for band 6 if present
          Refraster = (math.pi * Radraster * dSun2) / (ESun[int(band_num[0])-1] * math.cos(SZA*(math.pi/180)))
-         BandPath = "{0}\\{1}_B{2}_TOA-Ref.tif".format(outdir,TileName,band_num)
+         BandPath = "{0}\\{1}_B{2}_TOA-Ref.tif".format(outdir, TileName, band_num)
     
          Refraster.save(BandPath)
          OutList.append(arcpy.Raster(BandPath))
