@@ -10,7 +10,6 @@ from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from multiprocessing import Process         # used to show plots on a separate thread, avoids halting
 
 
 
@@ -29,7 +28,8 @@ class time_series:
     A time series object is comprised of a matrix of data, and may contain
     an object list of subset time_series objects. Potentially unlimited
     nesting of time series datasets is possible, for example: a years worth
-    of hourly data may be discretized into 1-month time series, while each    of those is in turn discretized into days. The highest level time series
+    of hourly data may be discretized into 1-month time series, while each
+    of those is in turn discretized into days. The highest level time series
     will still allow opperations to be performed upon it.
 
     All internal methods are built to handle this flexible definition of a
@@ -104,7 +104,6 @@ class time_series:
         self.infilepath     = []            # tracks filepath of input CSV. used to DISALLOW overwriting
                                             # source CSV with output CSV.
         
-
         # run some methods to build subset attributes
         if parent:
             self._get_atts_from(parent)
@@ -494,7 +493,7 @@ class time_series:
 
 
     def merge_cols(self, header1, header2):
-        """merges two columns together (string concatenation)"""
+        """merges two columns together (string concatenation) into a new column"""
 
         new_header  = "_".join([header1, header2])
 
@@ -883,6 +882,24 @@ class time_series:
                 subset.column_stats(col_header)
         
         return statistics
+
+
+    def subset_stats(self, col_header):
+        """
+        Creates a new time_series object, which is built from column statistics of this
+        time_series's subsets. For example:
+
+        Lets say we have a years worth of hourly temperature data, and we want to get
+        daily summaries of temperature statistics. To do this, the syntax would look
+        like this:
+
+            >>> temperature_ts.discretize(%d)
+            >>> daily_sum_ts = temperature_ts.subset_stats("Temp")
+        """
+
+        print("this function is unfinished") # flag
+        return
+        
     
 
     def column_plot(self, col_headers, title = "no title", ylabel = ""):
@@ -1020,50 +1037,6 @@ class time_series:
         if self.discretized:
             for subset in self.subsets:
                 subset.interogate()
-        return
-
-
-    def from_rastlist(self, filepaths, fmt):
-        """ loads up a list of filepaths as a time series """
-
-        self.headers = ['filepaths','filenames']
-        self.row_data = []
-
-        for filepath in filepaths:
-            head, filename = os.path.split(filepath)
-            self.row_data.append([filepath, filename])
-
-        self.build_col_data()
-        self.define_time('filenames', fmt)
-
-        # flags this time series as being comprised of is_rasterpath
-        self.is_rasterpath  = True
-        return
-    
-
-    def rast_stats(self, outdir, saves = ["AVG","STD","NUM"],
-                                        low_thresh = False, high_thresh = False):
-        """
-        wraper for the "many_stats" function in the raster module
-
-        performs the many_stats function on each of the lowest level
-        subsets of this time_series object
-        """
-
-        self.outdir = outdir
-        self.saves  = saves
-
-        if not self.is_rasterpath:
-            raise Exception("this method is only for rasterlist time_series!")
-        
-        # only at the lowest discretezation level should stats be taken.
-        if self.discretized:
-            for subset in self.subsets:
-                subset.rast_statistics(outdir, saves)
-
-        else:
-            raster.many_stats(self.col_data['filepaths'],
-                              outdir, self.name, saves, low_thresh, high_thresh)
         return
 
             
