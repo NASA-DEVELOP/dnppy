@@ -9,6 +9,8 @@ import os
 from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from multiprocessing import Process         # used to show plots on a separate thread, avoids halting
 
 
 
@@ -37,33 +39,60 @@ class time_series:
     MEMORY WARNING. The entirety of the dataset is represented in every layer
     of discretization, so watch out for exploding memory consumption by
     excessive subsetting of gigantic datasets.
-
-    PLANNED IMPROVEMENTS:
-    1) DONE. this needs to be expanded to allow the "data" attribute to be lists of
-    filepaths. this will allow advanced time series operations to be performed
-    on raster datasets.
     """
 
     def __init__(self, name = "name", units = None, discretized = False, disc_level = 0, parent = None):
-        """ initializes the time series """
+        """
+        initializes the time series
 
-        self.name           = name          # the name of this time series
-        self.units          = units         # unit of time represented by subset if discretized
-        self.discretized    = discretized   # does this time series have subsets?
-        self.disc_level     = disc_level    # the subset level of this time_series
+        Attributes:
+            self.name           # the name of this time series
+            self.units          # unit of time represented by subset if discretized
+            self.discretized    # does this time series have subsets?
+            self.disc_level     # the subset level of this time_series
 
-        self.rasterpaths    = False         # becomes true if time series is of raster data
+            self.is_rasterpath  # becomes true if time series is of raster data
 
-        self.fmt            = False         # for interpreting timestrings to time objs
-        self.headers        = []            # one header for each col in dataset
+            self.fmt            # for interpreting timestrings to time objs
+            self.headers        # one header for each col in dataset
 
-        self.time_col       = 0             # index of data column with time info
-        self.time           = []            # separate copy of data[time_col]
-        self.time_dom       = False         # self.time converted to list of datetime objs
-        self.time_dec_days  = []            # self.time converted to mono rising decimal days
-        self.time_seconds   = []            # self.time converted to mono rising seconds
-        self.center_time    = []            # time around which data in a subset it centered
-        self.start_dto      = []            # datetime_object that mono rising times start from
+            self.time_col       # index of data column with time info
+            self.time           # separate copy of data[time_col]
+            self.time_dom       # self.time converted to list of datetime objs
+            self.time_dec_days  # self.time converted to mono rising decimal days
+            self.time_seconds   # self.time converted to mono rising seconds
+            self.center_time    # time around which data in a subset it centered
+            self.start_dto      # datetime_object that mono rising times start from
+
+            self.subsets        # object list containing constituent time_seires
+
+            self.row_data       # row wise dataset
+            self.col_data       # column wise dataset, built as dict
+
+            self.bad_rows       # subset from data attribute with "bad rows"
+
+            self.infilepath     # tracks filepath of input CSV. used to DISALLOW overwriting
+                                # source CSV with output CSV.
+        """
+
+        self.name           = name          # the name of this time series (string)
+        self.units          = units         # unit of time represented by subset if discretized (string)
+        self.discretized    = discretized   # does this time series have subsets? (bool)
+        self.disc_level     = disc_level    # the subset level of this time_series (int)
+
+        self.is_rasterpath  = False         # becomes true if time series is of raster data (bool)
+
+        self.fmt            = False         # for interpreting timestrings to time objs (string)
+        self.headers        = []            # one header for each col in dataset (list of strings)
+
+        self.time_col       = 0             # index of data column with time info (int)
+        self.time           = []            # separate copy of data[time_col] (list of strings)
+        self.time_dom       = False         # self.time converted to (list of datetime objs)
+        self.time_dec_days  = []            # self.time converted to (mono rising decimal days floats)
+        self.time_seconds   = []            # self.time converted to (mono rising seconds floats)
+        self.center_time    = []            # time around which data in a subset it centered (dto)
+        self.start_dto      = []            # datetime_object that mono rising times start from (dto)
+        self.mean_interval  = 0             # average number of seconds between data points (float)
 
         self.subsets        = []            # object list containing constituent time_seires
 
@@ -74,6 +103,7 @@ class time_series:
 
         self.infilepath     = []            # tracks filepath of input CSV. used to DISALLOW overwriting
                                             # source CSV with output CSV.
+        
 
         # run some methods to build subset attributes
         if parent:
@@ -135,9 +165,13 @@ class time_series:
                     if subset.name == arg:
                         return subset
                     
-                else:   raise Exception("no subset with name {0}".format(arg))
-            else:       raise Exception("String input is allowed for discretized time_series only!")
-        else:           raise Exception("Unrecognized argument type! use int, slice, or string!")
+                    else:
+                        raise Exception("no subset with name {0}".format(arg))
+            else:
+                raise Exception("String input is allowed for discretized time_series only!")
+        else:
+            raise Exception("Unrecognized argument type! use int, slice, or string!")
+
 
 
     def _get_atts_from(self, parent_time_series):
@@ -211,7 +245,13 @@ class time_series:
 
 
     def _center_datetime(self, datetime_obj, units):
-        """ returns datetime obj that is centered on the "unit" of the input datetime obj"""
+        """
+        returns datetime obj that is centered on the "unit" of the input datetime obj
+
+        When grouping datetimes together, center times are important. This function allows
+        a center time with units equal to the users input (years, months, days , ...) to be
+        generated from the first datetime of the time series
+        """
 
         dto = datetime_obj
         
@@ -298,6 +338,18 @@ class time_series:
         return
 
 
+    def rename_header(self, header_name, new_header_name):
+        """ renames a header and updates data structures"""
+
+        if header_name in self.headers:
+            self.headers[self.headers.index(header_name)] = new_header_name
+            
+            self.col_data[new_header_name] = self.col_data[header_name]
+            del self.col_data[header_name]
+            
+        return
+
+            
     def from_tdo(self, tdo):
         """ reads time series data from a dnppy.text_data_class object"""
 
@@ -327,7 +379,10 @@ class time_series:
 
  
     def to_csv(self, csv_path):
-        """ simply write the data to a csv file"""
+        """
+        Writes the row data of this time_series to a csv file.
+
+        """
 
         # disallow overwriting the csv used as input. Added by request
         if os.path.abspath(self.infilepath) == os.path.abspath(csv_path):
@@ -397,8 +452,9 @@ class time_series:
                     continue
 
             if bad_count >0:
-                print("Removed {0} rows with invalid '{1}'".format(bad_count,col_header))
-                print("Dataset now has {0} rows".format(len(self.row_data)))
+                print("Removed {0} rows from '{1}' with invalid '{2}'".format(
+                    bad_count, self.name, col_header))
+                
 
             # since rows have been removed, we must redefine the time domain. (sloppy, but concise)
             self.define_time(self.time_header, self.fmt, self.start_dto)
@@ -406,13 +462,6 @@ class time_series:
             if self.discretized:
                 for subset in self.subsets:
                     subset.clean(col_header)
-        return
-
-
-    def add_row(self, row):
-        """ simply adds a row to the time_series data"""
-
-        self.row_data.append(list(row))
         return
 
 
@@ -504,6 +553,7 @@ class time_series:
         self.time_dom       = []
         self.time_dec_days  = []
         self.time_seconds   = []
+        self.mean_interval  = 0
 
         for i,datestamp in enumerate(datestamp_list):
 
@@ -521,24 +571,28 @@ class time_series:
             self.time_seconds.append(float(delta))
             self.time_dec_days.append(float(delta / 86400))
 
-        # If the data was not already in ascending time order, fix it here #unfinished
+        # calculate the mean_interval in seconds
+        span                = self.time_dom[-1] - self.time_dom[0]
+        self.mean_interval  = span.total_seconds()/len(self.time_dom)
+        
+        # sort data such that it is in ascending order by time.
+        sorted_rows = range(len(self.row_data))
+        indices     = range(len(self.row_data))
+        indices     = sorted(indices, key = self.time_seconds.__getitem__)
+        
+        for i,j in enumerate(indices):
+            sorted_rows[i] = self.row_data[j]
 
-    
+        self.row_data = sorted_rows
+        self.build_col_data()
+
+        # perform same operation on each subset
         if self.discretized:
             for subset in self.subsets:
                 subset.define_time(time_header, fmt)     
 
         return
 
-
-    def sort_ascending(self):
-        """ reorders the data in this time_series to be in ascending order by time"""
-
-        sorted_cols = sorted(zip(*self.col_data))
-
-        for i,header in enumerate(self.headers): pass
-            
-        return
 
         
     def discretize(self, subset_units, overlap_width = 0, cust_center_time = False):
@@ -755,10 +809,19 @@ class time_series:
         """
         takes statistics on a specific column of data
 
-        creates object attributes according to the column name
+        creates object attributes according to the column name. for example:
+
+        for col_header = "temperature", the following attribute are created
+
+        self.temperature_max_v      # maximum value
+        self.temperature_min_v      # minimum value
+        self.temperature_max_i      # index value where maximum occurs
+        self.temperature_min_i      # index value where minimum occurs
+        self.temperature_avg        # average
+        self.temperature_std        # standard deviation
         """
 
-        print("calculated stats for time_series '{0}', col '{1}'".format(self.name,col_header))
+        print("calculating stats for time_series '{0}', col '{1}'".format(self.name,col_header))
 
         # pull column data and find some stats
         import numpy as np
@@ -795,12 +858,48 @@ class time_series:
         return statistics
     
 
-    def column_plot(self, col_header):
-        """ plots a specific column """
+    def column_plot(self, col_headers, title = "no title", ylabel = ""):
+        """
+        plots a specific column or column(s) by header name
+        """
 
-        # clean columnar data of non-numeric elements
-        self.clean(col_header)
+        # figure out temporal resolution of data to appropiately label x-axis
+        if   self.mean_interval > 2592000:
+            fmt = "%Y %b"
+        elif self.mean_interval > 86400:
+            fmt = "%Y %b %d"
+        elif self.mean_interval > 3600:
+            fmt = "%Y %b %d %H"
+        elif self.mean_interval > 60:
+            fmt = "%Y %b %d %H:%M"
+        else:
+            fmt = "%Y %b %d %H:%M:%S"
 
+        self.plot_fmt = fmt
+
+        # set col_headers input to type "list"
+        if isinstance(col_headers, str):
+            col_headers = [col_headers]
+
+        # initialize plot
+        fig, ax = plt.subplots()
+
+        for col_header in col_headers:
+
+            stats = self.column_stats(col_header)
+            ax.plot(self.time_dom, self.col_data[col_header], label = col_header)
+        
+        # date formatting stuff
+        ax.fmt_xdata = mdates.DateFormatter(self.plot_fmt)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(self.plot_fmt))
+        plt.gcf().autofmt_xdate()
+
+        # legend and titling
+        ax.legend(loc = 2)
+        plt.ylabel(ylabel)
+        plt.title(title)
+        plt.grid()
+        plt.show()
         return
 
 
@@ -871,7 +970,7 @@ class time_series:
         print("Val in '{0}' at time '{1}' is '{2}'".format(col_header, time_obj, interp_y))
 
         return interp_y
-        
+
         
     def interogate(self):
         """ prints a heads up stats table of all subsets in this time_series """
@@ -909,8 +1008,8 @@ class time_series:
         self.build_col_data()
         self.define_time('filenames', fmt)
 
-        # flags this time series as being comprised of rasterpaths
-        self.rasterpaths  = True
+        # flags this time series as being comprised of is_rasterpath
+        self.is_rasterpath  = True
         return
     
 
@@ -926,7 +1025,7 @@ class time_series:
         self.outdir = outdir
         self.saves  = saves
 
-        if not self.rasterpaths:
+        if not self.is_rasterpath:
             raise Exception("this method is only for rasterlist time_series!")
         
         # only at the lowest discretezation level should stats be taken.
@@ -943,42 +1042,31 @@ class time_series:
 # testing code
 if __name__ == "__main__":
 
-    filepath = r"test_data\two_years_daily_hourly_variation.csv"
-    fmt = "%d/%m/%Y%H%M"
-    start = "01/01/20000000"
+    # create text data object
+    filepath    = r"test_data\weather_dat.txt"
+    tdo         = textio.read_DS3505(filepath)
 
-##    filepath = r"test_data\separate_date_time.csv"
-##    fmt = "%Y%m%d%H%M%S"
-##    start = "20000101000000"
-    # testing csv manipulations
-    print(" \n\n testing csv manipulations \n\n")
+    # declare time series and load our weather data as a text_data object
+    ts = time_series('weather_data')
+    ts.from_tdo(tdo)
 
-    ts = time_series('Master_TS')
-    ts.from_csv(filepath)
-    ts.merge_cols("date", "time")
-    ts.define_time("date_time", fmt, start)
-    ts.add_mono_time()
-
-    #ts.discretize('%Y')
-    ts.discretize('%b', overlap_width = 2)
+    # build the time data of the time series.
+    fmt     = "%Y%m%d%H%M"
+    
+    ts.define_time("YR--MODAHRMN", fmt)
+    ts.discretize("%d")
     ts.interogate()
-    
-    ts.to_csv(r"test_data\separate_date_time_disc.csv")
 
-    # testing bining
-    print(" \n\n testing bin function \n\n")
-    
-    ts = time_series('Master_TS')
-    ts.from_csv(filepath)
-    ts.merge_cols("date", "time")
-    ts.define_time("date_time", fmt, start)
-    ts.add_mono_time()
+    # plot some specific data of interest
+    ts.rename_header("TEMP","Temperature")
+    ts.rename_header("DEWP","Dewpoint")
+    ts.column_plot(["Temperature","Dewpoint"],
+                   title = "Temperature and Dewpoint",
+                   ylabel = "Degrees F")
 
-    #ts.discretize("%Y")
-    ts.group_bins("%b", overlap_width = 2)
-    ts.interogate()
-    
-    ts.to_csv(r"test_data\separate_date_time_bin.csv")
+    # add a monotonically increasing time column (decimal_days)
+    #ts.add_mono_time()
+    #ts.to_csv(r"test_data\weather_csv.txt")
 
 
 

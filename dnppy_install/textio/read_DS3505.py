@@ -18,12 +18,13 @@ def read_DS3505(filepath, has_headers = True):
 
         if has_headers:
             headers = next(f).replace('\n','').split(' ')
+            headers = [x for x in headers if x != ""]
         else:
             headers = None
 
         for line in f:
             entry = line.replace("T"," ").replace("\n","").split(' ')
-
+            entry = [x for x in entry if x!= ""] # remove emptys
             data.append(entry)
         f.close()
             
