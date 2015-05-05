@@ -165,8 +165,8 @@ class time_series:
                     if subset.name == arg:
                         return subset
                     
-                    else:
-                        raise Exception("no subset with name {0}".format(arg))
+                else:
+                    raise Exception("no subset with name {0}".format(arg))
             else:
                 raise Exception("String input is allowed for discretized time_series only!")
         else:
@@ -346,6 +346,10 @@ class time_series:
             
             self.col_data[new_header_name] = self.col_data[header_name]
             del self.col_data[header_name]
+
+        if self.discretized:
+            for subset in self.subsets:
+                subset.rename_header(header_name, new_header_name)
             
         return
 
@@ -508,10 +512,67 @@ class time_series:
         if self.discretized:
             for subset in self.subsets:
                 subset.merge_cols(header1, header2)
-
         return
 
 
+    def _build_time(self, time_header, fmt, start_date = False):
+        """
+        This internal use function is called twice by "define_time". Once two turn
+        all the datestamps into datetime objects, then a second time once the entire
+        dataset has been sorted in ascending time order by those datetime objects.
+
+        This is to ensure all time values are in terms of the correct start time,
+        which can be no later than the earliest entry in the dataset.
+        """
+        
+        # set format
+        self.fmt            = fmt
+
+        # extract time column
+        self._extract_time(time_header)
+
+        # allows column index integers as time_header inputs
+        if isinstance(time_header, int):
+            time_header = self.headers[time_header]
+
+        # use manual start date (str or dto) or set to begining of first day on record
+        if isinstance(start_date, str):
+            start = datetime.strptime(start_date, fmt)
+            
+        elif isinstance(start_date, datetime):
+            start = start_date
+
+        else:
+            earliest = datetime.strptime(self.time[0], fmt)
+            start = datetime(earliest.year, earliest.month, earliest.day, 0,0,0,0)
+
+        # convert datestamps into datetime objects
+        datestamp_list      = self.time
+        
+        self.time_dom       = []
+        self.time_dec_days  = []
+        self.time_seconds   = []
+
+        for i,datestamp in enumerate(datestamp_list):
+
+            # If error, give user information about the line on which the error occurs
+            try:
+                t = datetime.strptime(datestamp, fmt)
+            except:
+                raise Exception("Input '{0}' in line {1} is not of format {2}".format(
+                                datestamp, i+2 , fmt))
+            
+            # initial absolute time ordering to help with sorting.
+            self.time_dom.append(t)
+            delta = t - start
+            delta = float(delta.total_seconds())
+            self.time_seconds.append(float(delta))
+            self.time_dec_days.append(float(delta / 86400))
+
+        self.start_dto = start
+        return
+
+        
     def define_time(self, time_header, fmt, start_date = False):
         """
         Converts time strings into time objects for standardized processing
@@ -526,54 +587,8 @@ class time_series:
             a new list of monotonically increasing decimal days
         """
 
-        # allows column index integers as time_header inputs
-        if isinstance(time_header, int):
-            time_header = self.headers[time_header]
-
-        # populates self.time with time series  
-        self._extract_time(time_header)
-
-
-        # use manual start date (str or dto) or set to begining of first day on record
-        if isinstance(start_date, str):
-            start = datetime.strptime(start_date, fmt)
-            
-        elif isinstance(start_date, datetime):
-            start = start_date
-
-        else:
-            earliest = datetime.strptime(self.time[0], fmt)
-            start = datetime(earliest.year, earliest.month, earliest.day, 0,0,0,0)
-
-        self.start_dto = start
-
-        datestamp_list      = self.time
-        self.fmt            = fmt
-
-        self.time_dom       = []
-        self.time_dec_days  = []
-        self.time_seconds   = []
-        self.mean_interval  = 0
-
-        for i,datestamp in enumerate(datestamp_list):
-
-            # If error, give user information about the line on which the error occurs
-            try:
-                t = datetime.strptime(datestamp, fmt)
-            except:
-                raise Exception("Input '{0}' in line {1} is not of format {2}".format(
-                                datestamp, i+2 , fmt))
-
-            self.time_dom.append(t)
-
-            delta = t - start
-            delta = float(delta.total_seconds())
-            self.time_seconds.append(float(delta))
-            self.time_dec_days.append(float(delta / 86400))
-
-        # calculate the mean_interval in seconds
-        span                = self.time_dom[-1] - self.time_dom[0]
-        self.mean_interval  = span.total_seconds()/len(self.time_dom)
+        # build time vectors for the first time
+        self._build_time(time_header, fmt, start_date)
         
         # sort data such that it is in ascending order by time.
         sorted_rows = range(len(self.row_data))
@@ -585,7 +600,15 @@ class time_series:
 
         self.row_data = sorted_rows
         self.build_col_data()
+        
+        # recalculate time domain information now that rows are in proper order
+        if min(self.time_seconds) < 0:
+            self._build_time(time_header, fmt, start_date)
 
+        # calculate the mean_interval in seconds
+        self.span           = self.time_dom[-1] - self.time_dom[0]
+        self.mean_interval  = self.span.total_seconds()/len(self.time_dom)
+            
         # perform same operation on each subset
         if self.discretized:
             for subset in self.subsets:
@@ -638,8 +661,8 @@ class time_series:
         if used, "cust_center_time" must be a datetime object!
         """
 
+        
         if self.discretized:
-
             for subset in self.subsets:
                 subset.discretize(subset_units, overlap_width)
 
@@ -658,8 +681,8 @@ class time_series:
             # initial step width
             step_width = self._units_to_seconds(subset_units)
 
-            if subset_units not in ['year','month','day']:
-               raise Exception("Data is too high resolution! try the 'discretize()' fn")
+            if subset_units not in ['year','month','day','minute']:
+               raise Exception("Data is too high resolution to discretize by {0}".format(subset_units))
 
             print("Discretizing data by {0}".format(subset_units))
 
@@ -672,6 +695,9 @@ class time_series:
 
             # set up starttime with custom center times.
             if cust_center_time:
+                
+                print("using custom center time")
+                
                 if subset_units == "month":
                     ustart  = datetime(time_s.year, time_s.month,
                                        cust_center_time.day, cust_center_time.hour,
@@ -697,10 +723,11 @@ class time_series:
                 ustart  = self._center_datetime(time_s, subset_units)
                 uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
 
-            delta = uend - ustart
 
             # Iterate through entire dataset one time step unit at a time.
+            delta = uend - ustart
             center_time = ustart
+
             while center_time < uend:
                 
                 step_width   = self._units_to_seconds(subset_units, center_time)
@@ -897,10 +924,11 @@ class time_series:
         # legend and titling
         ax.legend(loc = 2)
         plt.ylabel(ylabel)
+        plt.suptitle(self.name)
         plt.title(title)
         plt.grid()
-        plt.show()
-        return
+        plt.show(block = True)
+        return fig, ax
 
 
     def normalize(self, col_header):
@@ -1054,19 +1082,19 @@ if __name__ == "__main__":
     fmt     = "%Y%m%d%H%M"
     
     ts.define_time("YR--MODAHRMN", fmt)
-    ts.discretize("%d")
+    ts.discretize("%d", overlap_width = 1)
     ts.interogate()
 
     # plot some specific data of interest
     ts.rename_header("TEMP","Temperature")
     ts.rename_header("DEWP","Dewpoint")
-    ts.column_plot(["Temperature","Dewpoint"],
-                   title = "Temperature and Dewpoint",
-                   ylabel = "Degrees F")
+    ts["2013-07-21"].column_plot(["Temperature","Dewpoint"],
+                                   title = "Temperature and Dewpoint",
+                                   ylabel = "Degrees F")
 
     # add a monotonically increasing time column (decimal_days)
-    #ts.add_mono_time()
-    #ts.to_csv(r"test_data\weather_csv.txt")
+    ts.add_mono_time()
+    ts.to_csv(r"test_data\weather_csv.txt")
 
 
 
