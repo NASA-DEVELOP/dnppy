@@ -30,8 +30,8 @@ def read_DS3505(filepath, has_headers = True):
     print("Loaded data from '{0}'".format(filepath))
 
     # assemble the text data object and return it
-    tdo = text_data_object( text_filepath   = filepath
-                            headers         = headers
+    tdo = text_data( text_filepath   = filepath,
+                            headers         = headers,
                             row_data        = data)
     
     return tdo

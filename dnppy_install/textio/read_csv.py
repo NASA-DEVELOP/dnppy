@@ -25,8 +25,8 @@ def read_csv(filepath, has_headers = True, delim = ','):
     print("Loaded data from '{0}'".format(filepath))
 
     # assemble the text data object and return it
-    tdo = text_data_object( text_filepath   = filepath
-                            headers         = heads
+    tdo = text_data( text_filepath   = filepath,
+                            headers         = heads,
                             row_data        = data)
     
     return tdo

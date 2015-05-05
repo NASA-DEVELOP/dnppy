@@ -1,7 +1,7 @@
 
 
 # local imports
-from csv_io import *
+from dnppy import textio
 
 # standard imports
 import numpy
@@ -10,8 +10,6 @@ from datetime import datetime, timedelta
 from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
 
-# dnppy imports
-from dnppy.textio import text_data_object
 
 
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
@@ -301,12 +299,30 @@ class time_series:
 
 
     def from_tdo(self, tdo):
-        """ reads time series data from a dnppy.text_data_object"""
+        """ reads time series data from a dnppy.text_data_class object"""
 
         self.headers  = tdo.headers
         self.row_data = tdo.row_data
 
         self.build_col_data()
+        return
+
+
+    def from_csv(self, filepath, delim = ','):
+        """
+        Simple reader of a delimited file. To read more complex text data
+        into a time series object, use a custom reader function to return
+        a text_data_class object and feed it into this time series with
+
+        time_series_object.from_tdo(text_data_object)
+
+        to read csvs straight to a time_series object, it must have headers.
+        """
+
+        tdo = textio.read_csv(filepath, True, delim)
+
+        self.from_tdo(tdo)
+
         return
 
  
@@ -320,9 +336,9 @@ class time_series:
         print("Saved time series '{0}' with {1} rows and {2} columns".format(
                                     self.name, len(self.row_data), len(self.col_data)))
 
-        tdo = text_data_object(text_filepath = csv_path,
-                               headers = self.headers,
-                               row_data = self.row_data)
+        tdo = textio.text_data( text_filepath   = csv_path,
+                                headers         = self.headers,
+                                row_data        = self.row_data)
 
         tdo.write_csv()
         return
