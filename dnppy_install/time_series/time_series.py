@@ -142,11 +142,13 @@ class time_series:
             b = arg.stop
 
             if self.subsetted:
-                if b > len(self.subsets): b = len(self.subsets)
+                if b > len(self.subsets):
+                    b = len(self.subsets)
                 return [self.subsets[x] for x in range(a,b)]
 
             else:
-                if b > len(self.row_data): b = len(self.row_data)
+                if b > len(self.row_data):
+                    b = len(self.row_data)
                 return [self.row_data[x] for x in range(a,b)]
 
         # allows finding subsets or rows by index.
@@ -1110,6 +1112,9 @@ if __name__ == "__main__":
     filepath    = r"test_data\weather_dat.txt"      # define filepath with text data
     tdo         = textio.read_DS3505(filepath)      # build a "text data object" (tdo)
 
+    print(tdo.headers)                              # print the headers
+    print(tdo.row_data[0])                          # print the first row
+
     ts = time_series('weather_data')                # initialize a time series named "weather_data"
     ts.from_tdo(tdo)                                # populate it with the contents of the tdo
 
@@ -1124,12 +1129,12 @@ if __name__ == "__main__":
     ts.make_subsets("%d")                           # subset the data into daily chunks, no overlap
     ts.interogate()                                 # print a heads up summary of the time series
 
+    ts.column_plot("TEMP")                          # no frills plot of temperature
+
     ts.rename_header("TEMP","Temperature")          # give header more descriptive name
     ts.rename_header("DEWP","Dewpoint")             # give header more descriptive name
     
     jul21 = ts["2013-07-21"]                        # lets pull out the subset time_series for july 21st
-    
-    jul21.column_plot(["Temperature","Dewpoint"])   # Plot temperature and dewpoint data for jul21
     
     jul21.column_plot(["Temperature","Dewpoint"],   # Add a few nice labels to the plot
             title = "Temperature and Dewpoint",
@@ -1138,6 +1143,7 @@ if __name__ == "__main__":
 
     ts.make_subsets("%d", overlap_width = 1,        # re-subset the time series with 1 day overlap width
                     discard_old = True)             #   and discard the old subsets
+    
     ts.interogate()                                 # print a heads up summary
     
     jul21 = ts["2013-07-21"]                        # pull out the new july 21st subset
