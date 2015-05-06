@@ -10,6 +10,8 @@ def read_DS3505(filepath, has_headers = True):
     [http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&cfg=cdo&theme=hourly&layers=1&node=gi]
     in that it has some upercase T's that are rarely needed, but ruin otherwise
     uniform space formatting.
+
+    This function returns a properly structured text_data object
     """
     
     with open(filepath,'r') as f:

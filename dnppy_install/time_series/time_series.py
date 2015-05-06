@@ -18,18 +18,18 @@ __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 class time_series:
     """
-    A subsetable and discretizable time series object
+    A subsettable time series object
 
     The primary motivation for creating this object was to allow
-    a time series to be discretized into any number of small chunks
+    a time series to be subsetted into any number of small chunks
     but retain the ability to process and interogate the time series
     at any level with the exact same external syntax.
 
     A time series object is comprised of a matrix of data, and may contain
     an object list of subset time_series objects. Potentially unlimited
     nesting of time series datasets is possible, for example: a years worth
-    of hourly data may be discretized into 1-month time series, while each
-    of those is in turn discretized into days. The highest level time series
+    of hourly data may be subsetted into 1-month time series, while each
+    of those is in turn subsetted into days. The highest level time series
     will still allow opperations to be performed upon it.
 
     All internal methods are built to handle this flexible definition of a
@@ -37,18 +37,18 @@ class time_series:
     series is at its smallest subset or not.
 
     MEMORY WARNING. The entirety of the dataset is represented in every layer
-    of discretization, so watch out for exploding memory consumption by
+    of subsetting, so watch out for exploding memory consumption by
     excessive subsetting of gigantic datasets.
     """
 
-    def __init__(self, name = "name", units = None, discretized = False, disc_level = 0, parent = None):
+    def __init__(self, name = "name", units = None, subsetted = False, disc_level = 0, parent = None):
         """
         initializes the time series
 
         Attributes:
             self.name           # the name of this time series
-            self.units          # unit of time represented by subset if discretized
-            self.discretized    # does this time series have subsets?
+            self.units          # unit of time represented by subset if subsetted
+            self.subsetted      # does this time series have subsets?
             self.disc_level     # the subset level of this time_series
 
             self.is_rasterpath  # becomes true if time series is of raster data
@@ -76,8 +76,8 @@ class time_series:
         """
 
         self.name           = name          # the name of this time series (string)
-        self.units          = units         # unit of time represented by subset if discretized (string)
-        self.discretized    = discretized   # does this time series have subsets? (bool)
+        self.units          = units         # unit of time represented by subset if subsetted (string)
+        self.subsetted      = subsetted     # does this time series have subsets? (bool)
         self.disc_level     = disc_level    # the subset level of this time_series (int)
 
         self.is_rasterpath  = False         # becomes true if time series is of raster data (bool)
@@ -141,7 +141,7 @@ class time_series:
             a = arg.start
             b = arg.stop
 
-            if self.discretized:
+            if self.subsetted:
                 if b > len(self.subsets): b = len(self.subsets)
                 return [self.subsets[x] for x in range(a,b)]
 
@@ -151,7 +151,7 @@ class time_series:
 
         # allows finding subsets or rows by index.
         elif isinstance(arg, int):
-            if self.discretized:
+            if self.subsetted:
                 return self.subsets[arg]
 
             else:
@@ -159,7 +159,7 @@ class time_series:
 
         # allows finding subsets by name.
         elif isinstance(arg, str):
-            if self.discretized:
+            if self.subsetted:
                 for subset in self.subsets:
                     if subset.name == arg:
                         return subset
@@ -167,7 +167,7 @@ class time_series:
                 else:
                     raise Exception("no subset with name {0}".format(arg))
             else:
-                raise Exception("String input is allowed for discretized time_series only!")
+                raise Exception("String input is allowed for subsetted time_series only!")
         else:
             raise Exception("Unrecognized argument type! use int, slice, or string!")
 
@@ -236,7 +236,7 @@ class time_series:
         else:
             raise LookupError("Time header not in dataset!")
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset._extract_time(time_header)
 
@@ -346,17 +346,38 @@ class time_series:
             self.col_data[new_header_name] = self.col_data[header_name]
             del self.col_data[header_name]
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.rename_header(header_name, new_header_name)
             
         return
 
+
+    def enf_unique_headers(self):
+        """appends digits to duplicate headers so each column has a unique name"""
+
+        # build list of duplicate values
+        duplicates = []
+        for i,header in enumerate(self.headers):
+            if i > 0  and header in self.headers[:(i-1)] and not header in duplicates:
+                duplicates.append(header)
+
+        # for each duplicate name, number each occurance
+        for dup in duplicates:
+            count = 0
+            for i,header in enumerate(self.headers):
+                if header == dup:
+                    self.headers[i] = header + (str(count))
+                    count += 1
+        return
+                    
             
     def from_tdo(self, tdo):
         """ reads time series data from a dnppy.text_data_class object"""
 
         self.headers  = tdo.headers
+        self.enf_unique_headers()
+        
         self.row_data = tdo.row_data
 
         self.build_col_data()
@@ -425,8 +446,10 @@ class time_series:
         return
 
 
-    def clean(self, col_header):
-        """ Removes rows where the specified column has an invalid number"""
+    def clean(self, col_header, high_thresh = False, low_thresh = False):
+        """
+        Removes rows where the specified column has an invalid number
+        or is outside the defined thresholds (above high_thresh or below low_thresh)"""
 
 
         # loop cleaning for multiple column header inputs
@@ -448,7 +471,22 @@ class time_series:
 
                 try:
                     test = float(row[col_index])
-                    self.row_data.append(row)
+                    
+                    if   high_thresh == False and low_thresh == False:
+                        self.row_data.append(row)
+                        
+                    elif high_thresh == False and low_thresh != False:
+                        if test >= low_thresh:
+                            self.row_data.append(row)
+
+                    elif high_thresh != False and low_thresh == False:
+                        if test <= high_thresh:
+                            self.row_data.append(row)
+                        
+                    elif high_thresh != False and low_thresh != False:
+                        if test >= low_tresh and test <= high_thresh:
+                            self.row_data.append(row)
+                            
                 except:
                     bad_count += 1
                     self.bad_rows.append(row)
@@ -462,7 +500,7 @@ class time_series:
             # since rows have been removed, we must redefine the time domain. (sloppy, but concise)
             self.define_time(self.time_header, self.fmt, self.start_dto)
 
-            if self.discretized:
+            if self.subsetted:
                 for subset in self.subsets:
                     subset.clean(col_header)
         return
@@ -472,12 +510,12 @@ class time_series:
         """ reconstructs the time series from its constituent subsets"""
 
         # handles time series with multiple levels of discretezation
-        while self.subsets[0].discretized:
+        while self.subsets[0].subsetted:
             for subset in self.subsets:
                 subset.rebuild(destroy_subsets)
 
         else:
-            if self.discretized:
+            if self.subsetted:
                 self.row_data = []
                 for subset in self.subsets:
                     for row in subset.row_data:
@@ -487,7 +525,7 @@ class time_series:
 
         if destroy_subsets:
             self.subsets = []
-            self.discretized = False
+            self.subsetted = False
 
         return
 
@@ -508,7 +546,7 @@ class time_series:
 
         print("merged '{0}' and '{1}' columns into new column '{2}'".format(header1, header2, new_header))
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.merge_cols(header1, header2)
         return
@@ -609,7 +647,7 @@ class time_series:
         self.mean_interval  = self.span.total_seconds()/len(self.time_dom)
             
         # perform same operation on each subset
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.define_time(time_header, fmt)     
 
@@ -617,7 +655,8 @@ class time_series:
 
 
         
-    def discretize(self, subset_units, overlap_width = 0, cust_center_time = False):
+    def make_subsets(self, subset_units, overlap_width = 0,
+                           cust_center_time = False, discard_old = False):
         """
         splits the time series into individual time chunks
 
@@ -626,49 +665,63 @@ class time_series:
         in a dataset for a variety of purposes including data
         sanitation, periodic curve fitting, etc.
 
-        fmt_units follows convention of fmt. For example:
-        %Y  groups files by year
-        %m  groups files by month
-        %j  groups file by julian day of year
+        subset_units
+            subset_units follows convention of fmt. For example:
+            %Y  groups files by year
+            %m  groups files by month
+            %j  groups file by julian day of year
 
-        the "overlap_width" variable can be set to greater than 0
-        to allow "window" type statistics, so each subset may contain 
-        data points from adjacent subsets.
-        
-        overlap_width = 1 is like a window size of 3
-        overlap_width = 2 is like a window size of 5
+        overlap_width
+            this variable can be set to greater than 0
+            to allow "window" type statistics, so each subset may contain 
+            data points from adjacent subsets.
+            
+            overlap_width = 1 is like a window size of 3
+            overlap_width = 2 is like a window size of 5
 
-        WARNING: this function is imperfect for discretizing by months.
-        the possible lengths of a month are extremely variant, so sometimes
-        data points at the ends of a month will get placed in the adjacent
-        month. If you absolutely require accurate month discretization,
-        you should use this function to discretize by year, then use the
-        "group_bins" function to bin each year by month. so,
+            WARNING: this function is imperfect for making subsets by months.
+            the possible lengths of a month are extremely variant, so sometimes
+            data points at the ends of a month will get placed in the adjacent
+            month. If you absolutely require accurate month subsetting,
+            you should use this function to subset by year, then use the
+            "group_bins" function to bin each year by month. so,
 
-        instead of
-            ts.discretize("%Y")
-            ts.discretize("%b")
+            instead of
+                ts.subset("%Y")
+                ts.subset("%b")
 
-        use
-            ts.discretize("%Y")
-            ts.group_bins("%b")
+            use
+                ts.subset("%Y")
+                ts.group_bins("%b")
 
-        Allows a custom center time to be used! This was added so that
-        days could be centered around a specific daily aquisition time.
-        for example, its often usefull to define a day as
-        satellite data aquisition time +/- 12 hours.
-        if used, "cust_center_time" must be a datetime object!
+        cust_center_time
+            Allows a custom center time to be used! This was added so that
+            days could be centered around a specific daily aquisition time.
+            for example, its often usefull to define a day as
+            satellite data aquisition time +/- 12 hours.
+            if used, "cust_center_time" must be a datetime object!
+
+        discard_old
+            By default, performing a subsetting on a time series that already
+            has subsets does not subset the master time series, but instead
+            the lowest level subsets. Setting "discard_old" to "True" will
+            discard all previous subsets of the time series and start subsetting
+            from scratch.
         """
 
+        if discard_old:
+            self.subsetted = False
+            self.subsets = []
         
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
-                subset.discretize(subset_units, overlap_width)
+                subset.make_subsets(subset_units, overlap_width)
 
         else:
             
-            self.discretized = True
-            
+            self.subsetted = True
+
+            # sanitize overlap
             if overlap_width < 0:
                 print("overlap_width must be 0 or more, setting it to 0!")
                 overlap_width = 0
@@ -681,12 +734,12 @@ class time_series:
             step_width = self._units_to_seconds(subset_units)
 
             if subset_units not in ['year','month','day','minute']:
-               raise Exception("Data is too high resolution to discretize by {0}".format(subset_units))
+               raise Exception("Data is too high resolution to subset by {0}".format(subset_units))
 
-            print("Discretizing data by {0}".format(subset_units))
+            print("Subsetting data by {0}".format(subset_units))
 
             if self.time_dom == False:
-                raise Exception("must call 'define_time' method before discretization!")
+                raise Exception("must call 'define_time' method before taking subsets!")
             
             # determine subset lists starting, end points and incriment
             time_s = self.time_dom[0]
@@ -768,7 +821,7 @@ class time_series:
         %m  groups files by month
         %j  groups file by julian day of year
 
-        similarly to "discretize" the "overlap_width" variable can be
+        similarly to "make_subsets" the "overlap_width" variable can be
         set to greater than 1 to allow "window" type statistics, so
         each subset may contain data points from adjacent subsets.
         However, for group_bins, overlap_width must be an integer.
@@ -780,13 +833,13 @@ class time_series:
 
         ow = int(overlap_width)
         
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.group_bins(fmt_units, overlap_width, cyclical)
 
         else:
 
-            self.discretized = True
+            self.subsetted = True
 
             # ensure proper unit format is present
             fmt     = self._units_to_fmt(fmt_units)
@@ -877,7 +930,7 @@ class time_series:
             setattr(self, names[i], stats[i])
             statistics[names[i]] = stats[i]
             
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.column_stats(col_header)
         
@@ -893,7 +946,7 @@ class time_series:
         daily summaries of temperature statistics. To do this, the syntax would look
         like this:
 
-            >>> temperature_ts.discretize(%d)
+            >>> temperature_ts.make_subsets(%d)
             >>> daily_sum_ts = temperature_ts.subset_stats("Temp")
         """
 
@@ -902,9 +955,12 @@ class time_series:
         
     
 
-    def column_plot(self, col_headers, title = "no title", ylabel = ""):
+    def column_plot(self, col_headers, title = "", xlabel = "", ylabel = "", save_path = None):
         """
         plots a specific column or column(s) by header name
+
+        Accepts custom title input and y-axis label. If a save_path is
+        specified, it will save the plot to that path and close it automatically.
         """
 
         # figure out temporal resolution of data to appropiately label x-axis
@@ -926,7 +982,7 @@ class time_series:
             col_headers = [col_headers]
 
         # initialize plot
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize = (16,10), dpi = 80)
 
         for col_header in col_headers:
 
@@ -940,11 +996,19 @@ class time_series:
 
         # legend and titling
         ax.legend(loc = 2)
-        plt.ylabel(ylabel)
+        plt.ylabel(ylabel, fontsize = 16)
+        plt.ylabel(xlabel, fontsize = 16)
         plt.suptitle(self.name)
-        plt.title(title)
+        plt.title(title, fontsize = 20)
         plt.grid()
-        plt.show(block = True)
+
+        if save_path:
+            plt.show(block = False)
+            plt.savefig(save_path)
+            plt.close()
+        else:
+            plt.show(block = True)
+            
         return fig, ax
 
 
@@ -966,7 +1030,7 @@ class time_series:
 
         print("data in column '{0}' has been normalized!".format(col_header))
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.normalize(col_header)
         return
@@ -984,7 +1048,7 @@ class time_series:
 
         self.build_col_data()
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.add_mono_time() 
 
@@ -1026,7 +1090,7 @@ class time_series:
             print("time_series name \t\t len \t start \t\t\t end")
             print("="*84)
 
-        # use leading and trailing spaces for visualizing discretization depth
+        # use leading and trailing spaces for visualizing subset depth
         padded_name = self.disc_level * "   " + self.name
         print("{0} \t {1} \t {2} \t {3}".format(
             padded_name.ljust(28, " "),
@@ -1034,7 +1098,7 @@ class time_series:
             self.time_dom[0],
             self.time_dom[-1]))
 
-        if self.discretized:
+        if self.subsetted:
             for subset in self.subsets:
                 subset.interogate()
         return
@@ -1043,31 +1107,50 @@ class time_series:
 # testing code
 if __name__ == "__main__":
 
-    # create text data object
-    filepath    = r"test_data\weather_dat.txt"
-    tdo         = textio.read_DS3505(filepath)
+    filepath    = r"test_data\weather_dat.txt"      # define filepath with text data
+    tdo         = textio.read_DS3505(filepath)      # build a "text data object" (tdo)
 
-    # declare time series and load our weather data as a text_data object
-    ts = time_series('weather_data')
-    ts.from_tdo(tdo)
+    ts = time_series('weather_data')                # initialize a time series named "weather_data"
+    ts.from_tdo(tdo)                                # populate it with the contents of the tdo
 
-    # build the time data of the time series.
-    fmt     = "%Y%m%d%H%M"
+    print ts.headers                                # view the headers of this time series
+
+    timecol = "YR--MODAHRMN"                        # identify the column with time information in it
+    fmt     = "%Y%m%d%H%M"                          # specify the format of strings in this column
     
-    ts.define_time("YR--MODAHRMN", fmt)
-    ts.discretize("%d", overlap_width = 1)
-    ts.interogate()
+    ts.define_time(timecol, fmt)                    # converts text data into datetimes
+    ts.interogate()                                 # print a heads up summary of the time series
+    
+    ts.make_subsets("%d")                           # subset the data into daily chunks, no overlap
+    ts.interogate()                                 # print a heads up summary of the time series
 
-    # plot some specific data of interest
-    ts.rename_header("TEMP","Temperature")
-    ts.rename_header("DEWP","Dewpoint")
-    ts["2013-07-21"].column_plot(["Temperature","Dewpoint"],
-                                   title = "Temperature and Dewpoint",
-                                   ylabel = "Degrees F")
+    ts.rename_header("TEMP","Temperature")          # give header more descriptive name
+    ts.rename_header("DEWP","Dewpoint")             # give header more descriptive name
+    
+    jul21 = ts["2013-07-21"]                        # lets pull out the subset time_series for july 21st
+    
+    jul21.column_plot(["Temperature","Dewpoint"])   # Plot temperature and dewpoint data for jul21
+    
+    jul21.column_plot(["Temperature","Dewpoint"],   # Add a few nice labels to the plot
+            title = "Temperature and Dewpoint",
+            xlabel = "Date and Time",
+            ylabel = "Degrees F")
 
-    # add a monotonically increasing time column (decimal_days)
-    ts.add_mono_time()
-    ts.to_csv(r"test_data\weather_csv.txt")
+    ts.make_subsets("%d", overlap_width = 1,        # re-subset the time series with 1 day overlap width
+                    discard_old = True)             #   and discard the old subsets
+    ts.interogate()                                 # print a heads up summary
+    
+    jul21 = ts["2013-07-21"]                        # pull out the new july 21st subset
+    jul21.column_plot(["Temperature","Dewpoint"],   # plot the data again, save it this time
+            title = "Temperature and Dewpoint",
+            ylabel = "Degrees F",
+            save_path = "test.png")
+    
+    ts.add_mono_time()                              # add monotonically increasing time value to each row
+    ts.to_csv(r"test_data\weather_csv.txt")         # save this time_series dataset to a CSV.
+    ts.from_csv(r"test_data\weather_csv.txt")       # reload this time_series from a CSV. note that the time
+                                                    #   series must be re-subsetted as before, this information
+                                                    #   was not preserved.
 
 
 
