@@ -184,7 +184,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
          OutList.append(arcpy.Raster(BandPath))
 
          del Refraster, Radraster
-    
          print("Reflectance Calculated for Band {0}".format(band_num))
+         
    f.close()
    return OutList

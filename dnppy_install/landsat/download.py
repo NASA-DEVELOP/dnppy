@@ -7,7 +7,7 @@ from dnppy import core
 
 __all__=['test_data',           # completed
          'landsat_8_scene',     # completed
-         'landsat_8_series']    # planned development
+         'landsat_8_series']    # completed
 
 def test_data(landsat_number):
     """
@@ -16,12 +16,14 @@ def test_data(landsat_number):
     *Note that you must be signed into earthexplorer.usgs.gov
     
     Inputs:
-      landsat_number:   4, 5, 7, or 8 - the desired Landsat satellites to sample data from
+      landsat_number   4, 5, 7, or 8 - the desired Landsat satellites to sample data from
 
     """
-    
+
+    #ensure the input landsat number is integer type
     landsat = int(landsat_number)
-    
+
+    #open the earthexplorer url for the given landsat number
     if landsat == 8:
         url = "http://earthexplorer.usgs.gov/download/4923/LC80410362014232LGN00/STANDARD"
         webbrowser.open(url)
@@ -55,14 +57,15 @@ def landsat_8_scene(path, row, year, day, outdir):
     http://amsu.cira.colostate.edu/julian.html
     
     Inputs:
-        path:   the Landsat path number for the desired dataset
-        row:    the Landsat row number for the desired dataset
-        year:   the four digit year number the desired dataset was created
-        day:    the three digit Julian Day number the desired dataset was created (e.g. January 1 = 001)
-        outdir: the output location for the downloaded Landsat 8 dateset
+        path        the Landsat path number for the desired dataset
+        row         the Landsat row number for the desired dataset
+        year        the four digit year number the desired dataset was created
+        day         the three digit Julian Day number the desired dataset was created (e.g. January 1 = 001)
+        outdir      the output location for the downloaded Landsat 8 dateset
         
     """
 
+    #create an empty list to append the band links to and ensure the input parameters are string types
     urls_dl = []
 
     path_str = str(path)
@@ -70,6 +73,8 @@ def landsat_8_scene(path, row, year, day, outdir):
     year_str = str(year)
     day_str = str(day)
 
+    #ensure that the path, row, and day parameters are preceded by the correct number of zeroes
+    #in case they were entered as integers
     if len(path_str) == 2:
         path_str = "0" + path_str
     elif len(path_str) == 1:
@@ -83,9 +88,11 @@ def landsat_8_scene(path, row, year, day, outdir):
     elif len(day_str) == 1:
         day_str = "00" + day_str
 
+    #create the scene name from the input parameters and use that to generate the scene's unique url
     name = "LC8{0}{1}{2}{3}LGN00".format(path_str, row_str, year_str, day_str)
     url = "https://s3-us-west-2.amazonaws.com/landsat-pds/L8/{0}/{1}/{2}/".format(path_str, row_str, name)
 
+    #append each unique url on the scene's page to the list to be downloaded
     i = 1
     while i <= 11:
         filename = "{0}{1}_B{2}.TIF".format(url,name,i)
@@ -95,27 +102,30 @@ def landsat_8_scene(path, row, year, day, outdir):
     urls_dl.append(BQA)
     meta = url + name + "_MTL.txt"
     urls_dl.append(meta)
+
+    #download urls to the output directory
     outfolder = "{0}\{1}".format(outdir, name)
     download.urls(urls_dl, outfolder, ["TIF","txt"])
     
     return
 
-def landsat_8_series(path, row, start_date, end_date, outdir):
+def landsat_8_series(path, row, start_yyyy_mm_dd, end_yyyy_mm_dd, outdir):
     """
     An idea for making use of the amazon web service hosted Landsat 8 OLI data.
     This will allow a user to identify the path/row and year/day to automatically download
     a time series of OLI data. The code below downloads each band tiff on the given url.
 
     Inputs:
-    path:       the path number for the desired scene series, entered preferably as a
-                    three-digit string, e.g. "xxx"
-    row:        the row number for the desired scene series, entered preferably as a
-                    three-digit string, e.g. "xxx"
-    start_date: year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
-    end_date:   year-month-day ("xxxx-xx-xx" or "xxxx/xx/xx")
-    outdir:     the folder to save the output files in
+        path               the path number for the desired scene series, entered preferably as a
+                                three-digit string, e.g. "xxx"
+        row                the row number for the desired scene series, entered preferably as a
+                                three-digit string, e.g. "xxx"
+        start_yyyy_mm_dd   year-month-day ("xxxx-xx-xx", "xxxx/xx/xx", or "xxxx_xx_xx")
+        end_yyyy_mm_dd     year-month-day ("xxxx-xx-xx", "xxxx/xx/xx", or "xxxx_xx_xx")
+        outdir             the folder to save the output files in
     """
 
+    #scrape the integer data for day/month/year from the given date
     int_eday = int(end_date[8:10])
     int_sday = int(start_date[8:10])
     int_emonth = int(end_date[5:7])
@@ -123,6 +133,8 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
     int_eyear = int(end_date[0:4])
     int_syear = int(start_date[0:4])
 
+    #ensure path/row parameters are strings and are preceded by the correct number of zeroes
+    #in case they were entered as integers
     path_str = str(path)
     row_str = str(row)
 
@@ -135,15 +147,19 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
     elif len(row_str) == 1:
         row_str = "00" + row_str
 
+    #read the scene list text file from the metadata folder in the installed dnppy package
     directory = site.getsitepackages()[1]
     scene_list = "{0}\\dnppy\\landsat\\metadata\\scene_list.txt".format(directory)
 
     f = open(scene_list, 'r')
     content = f.readlines()
 
+    #construct the start and end date objects from the year/month/day data
     start_dtdate = datetime.date(int_syear, int_smonth, int_sday)
     end_dtdate = datetime.date(int_eyear, int_emonth, int_eday)
 
+    #loop through the scene list
+    #if the date for the given path/row scene is within the date range, download it with landsat_8_scene
     x = 1
     for line in content:
         year = int(content[x][22:26])

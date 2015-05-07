@@ -8,7 +8,7 @@ __all__=['atsat_bright_temp_8',     # complete
          'atsat_bright_temp_457']   # complete
 
 
-def atsat_bright_temp_8(band_nums, meta_path, outdir = False):
+def atsat_bright_temp_8(meta_path, outdir = False):
 
     """
     Converts Landsat 8 TIRS bands to at satellite brightnes temperature in Kelvins
@@ -24,49 +24,50 @@ def atsat_bright_temp_8(band_nums, meta_path, outdir = False):
     """
     
     #enforce the list of band numbers and grab metadata from the MTL file
-    band_nums = core.enf_list(band_nums)
-    band_nums = map(str, band_nums)
+    band_nums = ["10", "11"]
+##    band_nums = core.enf_list(band_nums)
+##    band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
 
     #cycle through each band in the list for calculation, ensuring each is in the list of TIRS bands
     for band_num in band_nums:
-        if band_num in ["10","11"]:
+##        if band_num in ["10","11"]:
 
-            #scrape data from the given file path and attributes in the MTL file
-            band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
-            Qcal = arcpy.Raster(band_path)
-            
-            #get rid of the zero values that show as the black background to avoid skewing values
-            null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
+        #scrape data from the given file path and attributes in the MTL file
+        band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
+        Qcal = arcpy.Raster(band_path)
+        
+        #get rid of the zero values that show as the black background to avoid skewing values
+        null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
-            #requires first converting to radiance
-            Ml   = getattr(meta,"RADIANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
-            Al   = getattr(meta,"RADIANCE_ADD_BAND_" + band_num)  # additive rescaling factor
+        #requires first converting to radiance
+        Ml   = getattr(meta,"RADIANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
+        Al   = getattr(meta,"RADIANCE_ADD_BAND_" + band_num)  # additive rescaling factor
 
-            TOA_rad = (null_raster * Ml) + Al
-            
-            #now convert to at-sattelite brightness temperature
-            K1   = getattr(meta,"K1_CONSTANT_BAND_" + band_num)  # thermal conversion constant 1
-            K2   = getattr(meta,"K2_CONSTANT_BAND_" + band_num)  # thermal conversion constant 2
+        TOA_rad = (null_raster * Ml) + Al
+        
+        #now convert to at-sattelite brightness temperature
+        K1   = getattr(meta,"K1_CONSTANT_BAND_" + band_num)  # thermal conversion constant 1
+        K2   = getattr(meta,"K2_CONSTANT_BAND_" + band_num)  # thermal conversion constant 2
 
-            #calculate brightness temperature at the satellite
-            Bright_Temp = K2/(arcpy.sa.Ln((K1/TOA_rad) + 1))
+        #calculate brightness temperature at the satellite
+        Bright_Temp = K2/(arcpy.sa.Ln((K1/TOA_rad) + 1))
 
-            #save the data to the automated name if outdir is given or in the parent folder if not
-            if outdir:
-                outname = core.create_outname(outdir, band_path, "Temp", "tif")
-            else:
-                name = meta_path.split("\\")[-1]
-                folder = meta_path.replace(name, "")
-                outname = core.create_outname(folder, band_path, "Temp", "tif")
-                
-            Bright_Temp.save(outname)
-            print("Saved output at {0}".format(outname))
-            del TOA_rad
-            
+        #save the data to the automated name if outdir is given or in the parent folder if not
+        if outdir:
+            outname = core.create_outname(outdir, band_path, "ASBTemp", "tif")
         else:
-            print("Can only perform brightness temperature on TIRS sensor bands")
-            print("Skipping band {0}".format(outname))
+            name = meta_path.split("\\")[-1]
+            folder = meta_path.replace(name, "")
+            outname = core.create_outname(folder, band_path, "ASBTemp", "tif")
+            
+        Bright_Temp.save(outname)
+        print("Saved output at {0}".format(outname))
+        del TOA_rad
+            
+##        else:
+##            print("Can only perform brightness temperature on TIRS sensor bands")
+##            print("Skipping band {0}".format(outname))
     return
 
 
@@ -169,18 +170,17 @@ def atsat_bright_temp_457(meta_path, outdir = False):
       
       #save the data to the automated name if outdir is given or in the parent folder if not
       if outdir:
-          BandPath = core.create_outname(outdir, band_temp, "Temp", "tif")
+          BandPath = core.create_outname(outdir, band_temp, "ASBTemp", "tif")
       else:
           name = meta_path.split("\\")[-1]
           folder = meta_path.replace(name, "")
-          BandPath = core.create_outname(folder, band_temp, "Temp", "tif")
+          BandPath = core.create_outname(folder, band_temp, "ASBTemp", "tif")
 
       Refraster.save(BandPath)
       OutList.append(arcpy.Raster(BandPath))
 
       del Refraster,Radraster
 
-      arcpy.AddMessage("Temperature Calculated for Band {0}".format(band_num))
       print("Temperature Calculated for Band {0}".format(band_num))
         
    f.close()

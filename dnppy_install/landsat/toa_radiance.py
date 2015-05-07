@@ -22,26 +22,37 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     outdir      Output directory to save converted files.
     """
 
+    #enforce list of band numbers and grab the metadata from the MTL file
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
 
+    #loop through each band
     for band_num in band_nums:
-        
+
+        #create the band name
         band_path   = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
         Qcal        = arcpy.Raster(band_path)
 
+        null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
+
+        #scrape the attribute data
         Ml   = getattr(meta,"RADIANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
         Al   = getattr(meta,"RADIANCE_ADD_BAND_" + band_num)  # additive rescaling factor
 
-        TOA_rad = (Qcal * Ml) + Al
-
-        metaname = core.create_outname(outdir, meta_path, "TOA-Rad", "txt")
-        shutil.copyfile(meta_path,metaname)
-
-        outname = core.create_outname(outdir, band_path, "TOA-Rad", "tif")
+        #calculate Top-of-Atmosphere radiance
+        TOA_rad = (null_raster * Ml) + Al
+        del null_raster
+        
+        #create the output name and save the TOA radiance tiff
+        if outdir:
+            outname = core.create_outname(outdir, band_path, "TOA_Rad", "tif")
+        else:
+            name = meta_path.split("\\")[-1]
+            folder = meta_path.replace(name, "")
+            outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
+            
         TOA_rad.save(outname)
-
         print("Saved toa_radiance at {0}".format(outname))
 
     return
@@ -120,31 +131,41 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             pathname = meta_path.replace("MTL.txt", "B{0}.tif".format(band_num))
             Oraster = arcpy.Raster(pathname)
 
-         #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
-        if Meta == newMeta:
-            LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_" + band_num)
-            LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_" + band_num)  
-            QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_" + band_num)
-            QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_" + band_num)
+            null_raster = arcpy.sa.SetNull(Oraster, Oraster, "VALUE = 0")
+
+            #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
+            if Meta == newMeta:
+                LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_" + band_num)
+                LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_" + band_num)  
+                QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_" + band_num)
+                QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_" + band_num)
+                
+            elif Meta == oldMeta:
+                LMax    = getattr(metadata, "LMAX_BAND" + band_num)
+                LMin    = getattr(metadata, "LMIN_BAND" + band_num)  
+                QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
+                QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
+
+            Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
+            Oraster = 0
+            del null_raster
+
+            band_rad = "{0}_B{1}".format(TileName, band_num)
+
+            #create the output name and save the TOA radiance tiff
+            if outdir:
+                outname = core.create_outname(outdir, band_rad, "TOA_Rad", "tif")
+            else:
+                name = meta_path.split("\\")[-1]
+                folder = meta_path.replace(name, "")
+                outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
+                
+            Radraster.save(outname)
+            OutList.append(arcpy.Raster(outname))
             
-        elif Meta == oldMeta:
-            LMax    = getattr(metadata, "LMAX_BAND" + band_num)
-            LMin    = getattr(metadata, "LMIN_BAND" + band_num)  
-            QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
-            QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
+            del Radraster
 
-        Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (Oraster - QCalMin)) + LMin
-        Oraster = 0
-
-        #Calculating temperature for band 6 if present
-        BandPath = "{0}\\{1}_B{2}_TOA-Rad.tif".format(outdir,TileName,band_num)
-        Radraster.save(BandPath)
-        OutList.append(arcpy.Raster(BandPath))
-
-        del Radraster
-
-        arcpy.AddMessage("toa radiance saved for Band {0}".format(band_num))
-        print("toa radiance saved for Band {0}".format(band_num))
+            print("toa radiance saved for Band {0}".format(band_num))
          
     f.close()
     return OutList

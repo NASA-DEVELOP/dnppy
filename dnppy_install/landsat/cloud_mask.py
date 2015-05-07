@@ -41,9 +41,14 @@ def apply_mask_8(band_nums, BQA_path, outdir = False):
     outReclass.save(CloudMask_path)
 
     #for each band listed in band_nums, apply the Con tool to erase cloud pixels and save each band as a new tiff
-    for band_num in band_nums:      
-        band_path = BQA_path.replace("BQA.tif", "B{0}.tif".format(band_num))            
-        outname = core.create_outname(outdir, band_path, "NoClds", "tif")
+    for band_num in band_nums:
+        band_path = BQA_path.replace("BQA.tif", "B{0}.tif".format(band_num))
+        if outdir:
+            outname = core.create_outname(outdir, band_path, "NoClds", "tif")
+        else:
+            name = BQA_path.split("\\")[-1]
+            folder = BQA_path.replace(name, "")
+            outname = core.create_outname(folder, band_path, "NoClds", "tif")
         outCon = arcpy.sa.Con(outReclass, band_path, "", "VALUE = 1")
         outCon.save(outname)                 
 
@@ -51,7 +56,7 @@ def apply_mask_8(band_nums, BQA_path, outdir = False):
 
 
 
-def cloud_mask_457(B2_TOA_Ref, outdir, Filter5Thresh=2.0, Filter6Thresh=2.0):
+def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
     """
     Creates a binary mask raster for removal of cloud-covered pixels in raw Landsat 4, 5, and 7 bands.
 
@@ -82,7 +87,7 @@ def cloud_mask_457(B2_TOA_Ref, outdir, Filter5Thresh=2.0, Filter6Thresh=2.0):
     Band4 = arcpy.Raster(band_path4)
     band_path5 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B5_TOA_Ref.tif")
     Band5 = arcpy.Raster(band_path5)
-    band_path6 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B{0}_Temp.tif".format(band_6))
+    band_path6 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
     Band6 = arcpy.Raster(band_path6)
     del band_path3, band_path4, band_path5, band_path6
             
@@ -270,9 +275,18 @@ def cloud_mask_457(B2_TOA_Ref, outdir, Filter5Thresh=2.0, Filter6Thresh=2.0):
     #switch legend to 1=good data 0 = cloud pixel
     remap = arcpy.sa.RemapValue([[1,0],[0,1],["NODATA",1]])
     Cloud_Mask = arcpy.sa.Reclassify(Cloudmask, "Value", remap)
-    name_split = B2_TOA_Ref.split("\\")[-1]
-    mask_path = name_split.replace("_B2_TOA_Ref", "")
-    outname = core.create_outname(outdir, mask_path, "Mask", "tif")
+
+    mask_path = B2_TOA_Ref.replace("_B2_TOA_Ref.tif", "")
+    path = "{0}\\{1}".format(mask_path, file)
+    
+    if outdir:
+        mask_path = B2_TOA_Ref.replace("_B2_TOA_Ref.tif", "")
+        outname = core.create_outname(outdir, mask_path, "Mask", "tif")
+    else:
+        name = B2_TOA_Ref.split("\\")[-1]
+        folder = B2_TOA_Ref.replace(name, "")
+        outname = core.create_outname(folder, band_path, "Mask", "tif")
+
     print outname
     Cloud_Mask.save(outname)
 
@@ -293,13 +307,19 @@ def apply_mask_457(mask, folder, outdir = False):
       outdir   optional; the folder to output the masked data to.
     """
 
+    #scrape the name of the landsat scene from the mask tiff
     name = mask.split("\\")[-1][0:21]
 
+    #loop through each file in the input folder and only process the band tiffs
     for file in os.listdir(folder):
         if (name in file) and ("_B" in file) and (".tif" in file) and (".tif." not in file) and ("NoClds" not in file):
+
+            #create the output name for each tiff and apply the Con function to remove clouds
             band = "{0}\\{1}".format(folder, file)
+            
             if outdir:
                 outname = core.create_outname(outdir, file, "NoClds", "tif")
             else:
                 outname = core.create_outname(folder, file, "NoClds", "tif")
+                
             arcpy.gp.Con_sa(mask, band, outname, "", "\"VALUE\" = 1")
