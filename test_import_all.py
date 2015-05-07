@@ -1,7 +1,6 @@
 
 import dnppy
 
-from dnppy.calc import *
 from dnppy.convert import *
 from dnppy.core import *
 from dnppy.download import *

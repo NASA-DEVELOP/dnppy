@@ -1,15 +1,16 @@
 # local imports
-from .figures import *
-from .grab_data_info import *
-from .null_values import *
-from .project_resample import *
-from .raster_clipping import *
-from .raster_enforcement import *
-from .raster_numpy_inter import *
-from .raster_overlap import *
-from .raster_stack import *
-from .temporal_fill import *
+from dnppy import core
+import os
+import time
+from raster_enforcement import enf_rastlist
+from raster_enforcement import is_rast
+from to_numpy import to_numpy
+from from_numpy import from_numpy
+import figures
 
+# other imports
+import arcpy
+import numpy
 
 def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
                                    low_thresh = None, high_thresh = None):
@@ -44,7 +45,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     metadata.NoData_Value = 'nan'
 
     # open up the initial figure
-    fig, im = make_fig(temp_rast)
+    fig, im = figures.make_fig(temp_rast)
 
     # populate the 3d matrix with values from all rasters
     for i,raster in enumerate(rasterlist):
@@ -52,7 +53,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
         # print a status and open a figure
         print('working on file {0}'.format(raster))
         new_rast, new_meta  = to_numpy(raster, 'float32')
-        update_fig(new_rast, fig, im)
+        figures.update_fig(new_rast, fig, im)
 
         if not new_rast.shape == (xs,ys):
             print new_rast.shape
@@ -75,7 +76,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     if "AVG" in saves:
         avg_rast        = numpy.mean(rast_3d_masked, axis = 2)
         avg_rast        = numpy.array(avg_rast)
-        update_fig(avg_rast, fig, im, "Average")
+        figures.update_fig(avg_rast, fig, im, "Average")
         time.sleep(2)
 
         avg_name = core.create_outname(outdir, outname, 'AVG', 'tif')
@@ -85,7 +86,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     if "STD" in saves:
         std_rast        = numpy.std(rast_3d_masked, axis = 2)
         std_rast        = numpy.array(std_rast)
-        update_fig(std_rast, fig, im, "Standard Deviation")
+        figures.update_fig(std_rast, fig, im, "Standard Deviation")
         time.sleep(2)
 
         std_name = core.create_outname(outdir, outname, 'STD', 'tif')
@@ -95,7 +96,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     if "NUM" in saves:
         num_rast        = (numpy.zeros((xs,ys)) + zs) - numpy.sum(rast_3d_masked.mask, axis = 2)
         num_rast        = numpy.array(num_rast)
-        update_fig(num_rast, fig, im, "Good pixel count (NUM)")
+        figures.update_fig(num_rast, fig, im, "Good pixel count (NUM)")
         time.sleep(2)
 
         num_name = core.create_outname(outdir, outname, 'NUM', 'tif')
@@ -105,13 +106,13 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     if "SUM" in saves:
         sum_rast        = numpy.sum(rast_3d_masked, axis = 2)
         sum_rast        = numpy.array(sum_rast)
-        update_fig(sum_rast, fig, im, "Good pixel count (NUM)")
+        figures.update_fig(sum_rast, fig, im, "Good pixel count (NUM)")
         time.sleep(2)
 
         sum_name = core.create_outname(outdir, outname, 'SUM', 'tif')
         print("Saving NUMBER output raster as {0}".format(sum_name))
         from_numpy(sum_rast, metadata, sum_name) 
                    
-    close_fig(fig, im)
+    figures.close_fig(fig, im)
 
     return

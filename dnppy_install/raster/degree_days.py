@@ -1,5 +1,6 @@
 
 
+from dnppy import core
 
 
 def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, floor = False):
@@ -37,8 +38,10 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
 
     # format numerical inputs as floating point values
     T_base = float(T_base)
-    if roof:  roof  = float(roof)
-    if floor: floor = float(floor)
+    if roof:
+        roof  = float(roof)
+    if floor:
+        floor = float(floor)
 
     # Determine the type of input and convert to useful format for calculation
     # acceptable input formats are filepaths to rasters, numpy arrays, or lists.
@@ -71,11 +74,11 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
     if floor: lows[lows <=floor] = floor
 
     # find the shapes of high and low arrays
-    xsh,ysh=highs.shape
-    xsl,ysl=lows.shape
+    xsh, ysh = highs.shape
+    xsl, ysl = lows.shape
 
     # only continue if min and max arrays have the same shape
-    if xsh==xsl and ysh==ysl:
+    if xsh == xsl and ysh == ysl:
         
         # set empty degree day matrix
         degree_days = numpy.zeros((xsh,ysh))

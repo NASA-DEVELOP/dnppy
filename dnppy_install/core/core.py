@@ -47,7 +47,9 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
     templist=[]
 
     # ensure input directory actuallyexists
-    if not exists(Dir): return(False)
+    if not exists(Dir):
+        raise("{0} is not a valid file or folder!".format(Dir))
+        return(False)
 
     # Ensure single strings are in list format for the loops below
     if Contains:

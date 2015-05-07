@@ -51,8 +51,6 @@ class time_series:
             self.subsetted      # does this time series have subsets?
             self.disc_level     # the subset level of this time_series
 
-            self.is_rasterpath  # becomes true if time series is of raster data
-
             self.fmt            # for interpreting timestrings to time objs
             self.headers        # one header for each col in dataset
 
@@ -79,8 +77,6 @@ class time_series:
         self.units          = units         # unit of time represented by subset if subsetted (string)
         self.subsetted      = subsetted     # does this time series have subsets? (bool)
         self.disc_level     = disc_level    # the subset level of this time_series (int)
-
-        self.is_rasterpath  = False         # becomes true if time series is of raster data (bool)
 
         self.fmt            = False         # for interpreting timestrings to time objs (string)
         self.headers        = []            # one header for each col in dataset (list of strings)
@@ -172,7 +168,6 @@ class time_series:
                 raise Exception("String input is allowed for subsetted time_series only!")
         else:
             raise Exception("Unrecognized argument type! use int, slice, or string!")
-
 
 
     def _get_atts_from(self, parent_time_series):
