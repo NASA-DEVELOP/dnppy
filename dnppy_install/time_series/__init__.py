@@ -17,5 +17,5 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 # local imports
 from .time_series import *
-from .csv_io import *
+from .rast_series import *
 
