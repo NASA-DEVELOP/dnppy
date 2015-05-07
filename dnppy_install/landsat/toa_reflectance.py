@@ -22,30 +22,45 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
        band_nums   A list of desired band numbers such as [3,4,5]
        meta_path   The full filepath to the metadata file for those bands
        outdir      Output directory to save converted files. If left False it will save ouput
-                   files in the same directory as input files.
+                       files in the same directory as input files.
     """
 
+    #enforce the list of band numbers and grab metadata from the MTL file
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
     meta = grab_meta(meta_path)
 
+    #cycle through each band in the list for calculation, ensuring each is in the list of OLI bands
     for band_num in band_nums:
         if band_num in OLI_bands:
+
+            #scrape data from the given file path and attributes in the MTL file
             band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
             Qcal = arcpy.Raster(band_path)                        
             Mp   = getattr(meta,"REFLECTANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
             Ap   = getattr(meta,"REFLECTANCE_ADD_BAND_" + band_num)  # additive rescaling factor
             SEA  = getattr(meta,"SUN_ELEVATION")*(math.pi/180)       # sun elevation angle theta_se
 
-            TOA_ref = (((Qcal * Mp) + Ap)/(math.sin(SEA)))
-            
-            metaname = core.create_outname(outdir, meta_path, "TOA-Ref", "txt")
-            shutil.copyfile(meta_path,metaname)
-            
-            outname = core.create_outname(outdir, band_path, "TOA-Ref", "tif")
+            #get rid of the zero values that show as the black background to avoid skewing values
+            null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
+
+            #calculate top-of-atmosphere reflectance
+            TOA_ref = (((null_raster * Mp) + Ap)/(math.sin(SEA)))
+
+
+            #save the data to the automated name if outdir is given or in the parent folder if not
+            if outdir:
+                outname = core.create_outname(outdir, band_path, "TOA_Ref", "tif")
+            else:
+                name = meta_path.split("\\")[-1]
+                folder = meta_path.replace(name, "")
+                outname = core.create_outname(folder, band_path, "TOA_Ref", "tif")
+                
             TOA_ref.save(outname)
             print("Saved output at {0}".format(outname))
+
+        #if listed band is not an OLI sensor band, skip it and print message
         else:
             print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
@@ -63,7 +78,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
       band_nums   A list of desired band numbers such as [3,4,5]
       meta_path   The full filepath to the metadata file for those bands
       outdir      Output directory to save converted files. If left False it will save ouput
-                   files in the same directory as input files.
+                    files in the same directory as input files.
    """
    
    OutList = []
@@ -135,6 +150,8 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
          print("Processing Band {0}".format(band_num))
          pathname = meta_path.replace("MTL.txt", "B{0}.tif".format(band_num))
          Oraster = arcpy.Raster(pathname)
+         
+         null_raster = arcpy.sa.SetNull(Oraster, Oraster, "VALUE = 0")
 
          #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
          if Meta == newMeta:
@@ -148,19 +165,26 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
             QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
             QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
     
-         Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (Oraster - QCalMin)) + LMin
+         Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
          Oraster = 0
+         del null_raster
     
          #Calculating temperature for band 6 if present
          Refraster = (math.pi * Radraster * dSun2) / (ESun[int(band_num[0])-1] * math.cos(SZA*(math.pi/180)))
-         BandPath = "{0}\\{1}_B{2}_TOA-Ref.tif".format(outdir, TileName, band_num)
-    
+
+         #construc output names for each band based on whether outdir is set (default is False)
+         if outdir:
+             BandPath = core.create_outname(outdir, pathname, "TOA_Ref", "tif")
+         else:
+             name = meta_path.split("\\")[-1]
+             folder = meta_path.replace(name, "")
+             BandPath = core.create_outname(folder, pathname, "TOA_Ref", "tif")
+
          Refraster.save(BandPath)
          OutList.append(arcpy.Raster(BandPath))
+
+         del Refraster, Radraster
     
-         del Refraster,Radraster
-    
-         arcpy.AddMessage("Reflectance Calculated for Band {0}".format(band_num))
          print("Reflectance Calculated for Band {0}".format(band_num))
    f.close()
    return OutList
