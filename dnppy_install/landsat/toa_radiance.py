@@ -45,12 +45,14 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
         del null_raster
         
         #create the output name and save the TOA radiance tiff
+        name = meta_path.split("\\")[-1]
+        rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
+
         if outdir:
-            outname = core.create_outname(outdir, band_path, "TOA_Rad", "tif")
+            outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
         else:
-            name = meta_path.split("\\")[-1]
             folder = meta_path.replace(name, "")
-            outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
+            outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
             
         TOA_rad.save(outname)
         print("Saved toa_radiance at {0}".format(outname))

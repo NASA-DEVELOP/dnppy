@@ -28,14 +28,14 @@ def ndvi_8(Band5, Band4, outdir = False):
     L8_NDVI = (NIR - Red)/(NIR + Red)
 
     #Create the output name and save the NDVI tiff
-    band_path   = Band4.replace("_B4","")
-
+    name = Band4.split("\\")[-1]
+    ndvi_name = name.replace("_B4","")
+    
     if outdir:
-        outname = core.create_outname(outdir, band_path, "NDVI", "tif")
+        outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
     else:
-        name = Band4.split("\\")[-1]
         folder = Band4.replace(name, "")
-        outname = core.create_outname(folder, band_path, "NDVI", "tif")
+        outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
     
     L8_NDVI.save(outname)
         
@@ -62,14 +62,14 @@ def ndvi_457(Band4, Band3, outdir = False):
     L457_NDVI = (NIR - Red)/(NIR + Red)
 
     #Create the output name and save the NDVI tiff
-    band_path   = Band3.replace("_B3","")
+    name = Band3.split("\\")[-1]
+    ndvi_name = name.replace("_B3","")
 
     if outdir:
-        outname = core.create_outname(outdir, band_path, "NDVI", "tif")
+        outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
     else:
-        name = Band4.split("\\")[-1]
         folder = Band4.replace(name, "")
-        outname = core.create_outname(folder, band_path, "NDVI", "tif")
+        outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
     
     L457_NDVI.save(outname)
         

@@ -10,50 +10,80 @@ import arcpy
 import os
 
 
-__all__=['apply_mask_8',            # complete
+__all__=['cloud_mask_8',            # complete
+         'apply_mask_8',            # complete
          'cloud_mask_457',          # complete
          'apply_mask_457']          # complete
 
 
-def apply_mask_8(band_nums, BQA_path, outdir = False):
+def cloud_mask_8(BQA_path, outdir = False):
     """
-    Removal of cloud-covered pixels in raw Landsat 8 bands using the BQA file included.
-
+    Creates a cloud mask tiff file from the Landsat 8 BQA file.
     To be performed on raw Landsat 8 level 1 data.
 
-    Inputs:
-      band_nums   A list of desired band numbers such as [3 4 5]
-      BQA_path    The full filepath to the BQA file for the Landsat 8 dataset
+    Inputs:    
+      BQA_path    The full filepath to the BQA file for the raw Landsat 8 dataset
       outdir      Output directory to save cloudless band tifs and the cloud mask
     """
-
-    #enforce the input band numbers as a list of strings
-    band_nums = core.enf_list(band_nums)
-    band_nums = map(str, band_nums)
 
     #define the range of values in the BQA file to be reclassified as cloud (0) or not cloud (1)
     remap = arcpy.sa.RemapRange([[50000,65000,0],[28670,32000,0],[2,28669,1],[32001,49999,1],[1,1,"NoData"]])
     outReclass = arcpy.sa.Reclassify(BQA_path, "Value", remap)
 
     #set the name and save the binary cloud mask tiff file
-    Mask_name = BQA_path.replace("_BQA", "")  
-    CloudMask_path = core.create_outname(outdir, Mask_name, "Mask", "tif")   
-    outReclass.save(CloudMask_path)
+    BQA_split = BQA_path.split("\\")[-1]
+    TileName = BQA_split.replace("_BQA.tif", "")
 
-    #for each band listed in band_nums, apply the Con tool to erase cloud pixels and save each band as a new tiff
-    for band_num in band_nums:
-        band_path = BQA_path.replace("BQA.tif", "B{0}.tif".format(band_num))
-        if outdir:
-            outname = core.create_outname(outdir, band_path, "NoClds", "tif")
-        else:
-            name = BQA_path.split("\\")[-1]
-            folder = BQA_path.replace(name, "")
-            outname = core.create_outname(folder, band_path, "NoClds", "tif")
-        outCon = arcpy.sa.Con(outReclass, band_path, "", "VALUE = 1")
-        outCon.save(outname)                 
+    #create an output name and save the mask tiff
+    if outdir:
+        CloudMask_path = core.create_outname(outdir, TileName, "Mask", "tif")
+    else:
+        BQA_split = BQA_path.split("\\")[-1]
+        folder = BQA_path.replace(BQA_split, "")
+        CloudMask_path = core.create_outname(folder, TileName, "Mask", "tif")
+        
+    outReclass.save(CloudMask_path)
 
     return
 
+def apply_mask_8(folder, mask_path, outdir = False):
+    """
+    Removal of cloud-covered pixels in raw Landsat 8 bands using the BQA file included.
+
+    To be performed on raw Landsat 8 level 1 data.
+
+    Inputs:
+      folder        The folder containing the raw or processed band tiffs to remove clouds from  
+      mask_path     The full filepath to the mask file created by cloud_mask_8
+      outdir        Output directory to save cloudless band tiffs
+    """
+
+    #enforce the input band numbers as a list of strings
+    mask_split = mask_path.split("\\")[-1]
+    TileName = mask_split.replace("_Mask.tif", "")
+
+    #list each of the files in folder
+    x = 1
+    list_dir = os.listdir(folder)
+
+    #loop through each file in folder
+    while x <= 9:
+        band_name = "{0}_B{1}".format(TileName, x)
+        x = x + 1
+        for band in list_dir:
+
+            #if for each band tif whose id matches the mask's, create an output name
+            if (band_name in band) and (".tif" in band) and (".tif." not in band):
+                if outdir:
+                    outname = core.create_outname(outdir, band, "NoClds", "tif")
+                else:
+                    outname = core.create_outname(folder, band, "NoClds", "tif")
+
+                #for each band listed in folder, apply the Con tool to erase cloud pixels and save each band as a new tiff    
+                band_path = "{0}\\{1}".format(folder, band)
+                arcpy.gp.Con_sa(mask_path, band_path, outname, "", "\"VALUE\" = 1")
+
+    return
 
 
 def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
@@ -90,6 +120,10 @@ def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thres
     band_path6 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
     Band6 = arcpy.Raster(band_path6)
     del band_path3, band_path4, band_path5, band_path6
+
+    name = B2_TOA_Ref.split("\\")[-1]
+    if outdir == False:
+        outdir = B2_TOA_Ref.replace(name, "")
             
     #Establishing location of gaps in data. 0 = Gap, 1 = Data
     #This will be used multiple times in later steps
@@ -278,18 +312,20 @@ def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thres
 
     mask_path = B2_TOA_Ref.replace("_B2_TOA_Ref.tif", "")
     path = "{0}\\{1}".format(mask_path, file)
-    
+
+    #create output name
+    mask_path = name.replace("_B2_TOA_Ref.tif", "")
     if outdir:
-        mask_path = B2_TOA_Ref.replace("_B2_TOA_Ref.tif", "")
         outname = core.create_outname(outdir, mask_path, "Mask", "tif")
     else:
-        name = B2_TOA_Ref.split("\\")[-1]
         folder = B2_TOA_Ref.replace(name, "")
-        outname = core.create_outname(folder, band_path, "Mask", "tif")
+        outname = core.create_outname(folder, mask_path, "Mask", "tif")
 
-    print outname
+    print "Cloud mask saved at {0}".format(outname)
     Cloud_Mask.save(outname)
 
+    del name, mask_path, Cloud_Mask, path, remap
+    
     return
 
 
