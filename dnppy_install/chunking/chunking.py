@@ -2,8 +2,13 @@
 
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
+
+# local imports
+# from dnppy import raster (listed here for documentation)
+
 # standard imports
 import numpy
+
 
 
 class chunk_bundle():
@@ -62,10 +67,22 @@ class chunk_bundle():
 
         for chunk_obj in self.chunk_list:
             if chunk_obj.index == index:
-                return chunk_obj
+                return chunk_obj.data
             
         else: raise Exception("No chunk with chunk_id = {0}".format(index))
 
+
+
+    def __setitem__(self,index, item):
+        """ allows chunk data to be altered easily from the chunk bundle"""
+        
+        for chunk_obj in self.chunk_list:
+            if chunk_obj.index == index:
+                chunk_obj = item
+                return
+            
+        else: raise Exception("No chunk with chunk_id = {0}".format(index))
+        
         
     def read(self):
         """ loads a raster image and splits it into roughly equal width vertical slices"""
@@ -84,12 +101,12 @@ class chunk_bundle():
         
 
         # split the data and add new chunks to this raster
-        xs, ys = data.shape
+        ys, xs = data.shape
         width  = xs / float(self.num_chunks)
 
         for c in range(self.num_chunks):
             
-            chunk_data  = data[int(c * width):int((c+1) * width),:]
+            chunk_data  = data[:, int(c * width):int((c+1) * width)]
             new_chunk   = chunk(c, chunk_data)
             
             self.chunk_list.append(new_chunk)
@@ -98,20 +115,34 @@ class chunk_bundle():
         return
     
 
-    def write(self, rasterpath = None):
-        """ writes the chunk_bundle to its rasterpath (allows new filepath input) """
+    def write(self, rasterpath):
+        """ writes the chunk_bundle to its rasterpath  """
 
-        if not rasterpath:
-            rasterpath = self.rasterpath
             
         # write with metadata using dnppy and arcpy.
         if self.metadata and not self.force_scv:
-            raster.from_numpy()
 
+            # stitch chunks together
+            if self.num_chunks == 1:
+                bundle_data = self.chunk_list[0]
+            else:
+
+                # concatenate the first two chunks
+                bundle_data = numpy.concatenate((self[0], self[1]), axis = 1)
+
+                # concatenate the rest of them
+                for i in range(2,len(self.chunk_list)):
+                    bundle_data = numpy.concatenate((bundle_data, self[i]), axis = 1)
+
+
+            from dnppy import raster
+            raster.from_numpy(bundle_data, self.metadata, rasterpath)
+                
         # write without metadata using simple CV  
         else: pass
 
-        return
+
+        return bundle_data
 
 
     def ingest(self, new_chunk_obj):
@@ -147,14 +178,34 @@ class chunk():
         self.data   = data      # a numpy masked_array type
         
         return
-            
 
+    def __getitem__(self):
+        return self.data
+
+
+    def __setitem__(self, item):
+
+        con1 = isinstance(item, numpy.ma.core.MaskedArray)
+        con2 = isinstance(item, numpy.ndarray)
+        
+        if con1 or con2:
+            self.data = item
+            
+        return
     
+
+
+# testing area
 if __name__ == "__main__":
 
 
-    path = r"C:\Users\jwely\Desktop\troubleshooting\test_out_MODIS\2013-Feb_AVG.tif"
-    num  = 3
+    path = r"C:\Users\jwely\Desktop\troubleshooting\test_in_MODIS\MYD11A1.A2013001_day_clip_W05_C2014001_Avg_K_C_p_GSC.tif"
+    num  = 2
     
     c = chunk_bundle(path, num)
+    c.read()
+
+    c[0] += 10
     
+    test = c.write(r"C:\Users\jwely\Desktop\troubleshooting\chunk_test.tif")
+
