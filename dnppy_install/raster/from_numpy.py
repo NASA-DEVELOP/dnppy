@@ -2,6 +2,7 @@
 from dnppy import core
 
 import arcpy
+import numpy
 
 
 
@@ -39,8 +40,16 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
     llcorner = arcpy.Point(Metadata.Xmin, Metadata.Ymin)
     
     # save the output.
-    OUT = arcpy.NumPyArrayToRaster(numpy_rast, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
-    OUT.save(outpath)
+    if isinstance(numpy_rast, numpy.ma.core.MaskedArray):
+        mask = numpy.ma.getmask(numpy_rast)
+        data = numpy.ma.getdata(numpy_rast)
+
+        OUT = arcpy.NumPyArrayToRaster(data, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
+        OUT.save(outpath)
+
+    elif isinstance(numpy_rast, numpy.ndarray):
+        OUT = arcpy.NumPyArrayToRaster(numpy_rast, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
+        OUT.save(outpath)
 
     # define its projection
     try:
@@ -50,7 +59,8 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
 
     # reset the NoData_Values
     try:
-        arcpy.SetRasterProperties_management(outpath, data_type="#", nodata = "1 " + str(NoData_Value))
+        arcpy.SetRasterProperties_management(outpath, data_type="#", statistics="#",
+                    stats_file="#", nodata="1 " + str(NoData_Value))
     except:
         pass
     
