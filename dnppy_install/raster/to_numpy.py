@@ -3,6 +3,7 @@ from dnppy import core
 from raster_enforcement import is_rast
 
 import arcpy
+import numpy
 
 def to_numpy(raster, num_type = False):
 
@@ -70,9 +71,13 @@ def to_numpy(raster, num_type = False):
         numpy_rast  = arcpy.RasterToNumPyArray(raster)
         ys, xs      = numpy_rast.shape
         meta        = metadata(raster, xs, ys)
-        
+
         if num_type:
             numpy_rast = numpy_rast.astype(num_type)
+
+        # mask NoData values from the array
+        numpy_rast[numpy_rast == meta.NoData_Value] = 'nan'
+        numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast))
             
     else:  
         print("Raster '{0}'does not exist".format(raster))
