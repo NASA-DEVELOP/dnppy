@@ -83,7 +83,26 @@ class chunk_bundle():
             
         else: raise Exception("No chunk with chunk_id = {0}".format(index))
         
-        
+
+    def _assemble_chunks(self):
+        """ stitches constituent chunks back together into one numpy array """
+
+        # stitch chunks together
+        if self.num_chunks == 1:
+            bundle_data = self.chunk_list[0]
+        else:
+
+            # concatenate the first two chunks
+            bundle_data = numpy.concatenate((self[0], self[1]), axis = 1)
+
+            # concatenate the rest of them
+            for i in range(2,len(self.chunk_list)):
+                bundle_data = numpy.concatenate((bundle_data, self[i]), axis = 1)
+                
+        return bundle_data
+    
+                    
+    
     def read(self):
         """ loads a raster image and splits it into roughly equal width vertical slices"""
 
@@ -113,36 +132,23 @@ class chunk_bundle():
 
         del data
         return
-    
+
 
     def write(self, rasterpath):
-        """ writes the chunk_bundle to its rasterpath  """
+        """
+        writes the chunk_bundle to its rasterpath """
 
             
         # write with metadata using dnppy and arcpy.
         if self.metadata and not self.force_scv:
-
-            # stitch chunks together
-            if self.num_chunks == 1:
-                bundle_data = self.chunk_list[0]
-            else:
-
-                # concatenate the first two chunks
-                bundle_data = numpy.concatenate((self[0], self[1]), axis = 1)
-
-                # concatenate the rest of them
-                for i in range(2,len(self.chunk_list)):
-                    bundle_data = numpy.concatenate((bundle_data, self[i]), axis = 1)
-
-
             from dnppy import raster
-            raster.from_numpy(bundle_data, self.metadata, rasterpath)
+            raster.from_numpy(self._assemble_chunks(), self.metadata, rasterpath)
                 
         # write without metadata using simple CV  
         else: pass
 
 
-        return bundle_data
+        return 
 
 
     def ingest(self, new_chunk_obj):
