@@ -49,11 +49,11 @@ class solar:
     To process about one landsat tile (7300^2 matrix) requires 9GB of memory and takes
     45 seconds to process on a single 3.3GHz thread. It would be nice to get the same output
     to run on ~5GB of memory so a 8GB system could handle it. Further improvements could allow
-    the image to be split into chunks and either A) run in series to keep memory consumption low
-    or B) run in parallel to decrease processing time.
+    the image to be split into chunks.
     """
+    
 
-    def __init__(self, lat, lon, time_zone, date_time_obj,
+    def __init__(self, lat, lon, date_time_obj, time_zone = 0,
                          fmt = False, slope = None, aspect = None):
         """
         initializes critical spatial and temporal information
@@ -100,9 +100,6 @@ class solar:
             earth_distance      earths distance in meters                   (scalar)
             norm_irradiance     incident solar energy at earth distance     (scalar)
         """
-
-        # initialized attributes
-        self.tz = time_zone
         
         # Constants as attributes
         self.sun_surf_rad   = 63156942.6        # radiation at suns surface (W/m^2)
@@ -112,12 +109,11 @@ class solar:
 
 
         # sets up the object with some subfunctions
-        self.set_datetime(date_time_obj, fmt)
+        self.set_datetime(date_time_obj, fmt, GMT_hour_offset = time_zone)
         self.set_location(lat, lon)
-        self.set_timezone(time_zone)
 
 
-        # compute solar attributes
+        # specify if attributes are scalar floats or numpy arrays
         if isinstance(lat, ndarray) and isinstance(lon, ndarray):
             self.is_numpy   = True
         else:
@@ -126,7 +122,7 @@ class solar:
         return
     
 
-    def set_datetime(self, date_time_obj, fmt = False):
+    def set_datetime(self, date_time_obj, fmt = False, GMT_hour_offset = 0):
         """
         sets the critical time information
 
@@ -135,13 +131,16 @@ class solar:
 
         # if input is datetime_obj set it
         if isinstance(date_time_obj, datetime):
-            self.rdt = date_time_obj
+            self.rdt =      date_time_obj
+            self.rdt +=     timedelta(hours = -GMT_hour_offset)
 
         elif isinstance(date_time_obj, str) and isinstance(fmt, str):
-            self.rdt = datetime.strptime(date_time_obj,fmt)
+            self.rdt =      datetime.strptime(date_time_obj,fmt)
+            self.rdt +=     timedelta(hours = -GMT_hour_offset)
         else:
             raise Exception("bad datetime!")
 
+        self.tz = GMT_hour_offset
         self.abs_julian()
         
         return
@@ -171,19 +170,6 @@ class solar:
         self.lon    = lon           # longitude (N positive)- float
         self.lat_r  = radians(lat)  # lattitude in radians
         self.lon_r  = radians(lon)  # longitude in radians
-        return
-
-
-    def set_timezone(self, GMT_hour_offset):
-        """ amends the datetime object with time zone information"""
-
-        # sets time zone in a way to prevent accidental repeated offsetting
-        if self.tz != GMT_hour_offset:
-            time_del = timedelta(hours = (self.tz - GMT_hour_offset))
-            self.rdt = self.rdt + time_del
-            self.tz  = GMT_hour_offset
-
-        self.abs_julian()
         return
 
 
@@ -570,8 +556,9 @@ class solar:
             print("latitude, longitude \t{0}, {1}".format(self.lat.mean(), self.lon.mean()))
         else:
             print("latitude, longitude \t{0}, {1}".format(self.lat, self.lon))
-            
+
         print("datetime \t\t{0} (GMT)".format(self.rdt))
+        print("time zone \t\t{0} (GMT offset)".format(self.tz))
         print("")
         print("abs julian day \t\t{0}\t (day)".format(self.ajd))
         print("abs julian century \t{0}\t (cen)".format(self.ajc))
@@ -624,19 +611,21 @@ if __name__ == "__main__":
 
 
     # use the current time and my time zone
-    tz          = -4
+    tz          = -5
     datestamp   = datetime.now()
     
     # scalar test
-    lat         = 37
-    lon         = -76.4
-    sc = solar(lat, lon, tz, datestamp)
+    lat = 37
+    lon = -76.4
+    sc  = solar(lat, lon, datestamp, tz)
+    
     sc.compute_all()
 
     # numpy array test
-    lat         = array([[36, 36],[38,38]])
-    lon         = array([[-77.4,-75.4],[-77.4,-75.4]])
-    sm = solar(lat, lon, tz, datestamp)
+    lat = array([[36, 36],[38,38]])
+    lon = array([[-77.4,-75.4],[-77.4,-75.4]])
+    sm  = solar(lat, lon, datestamp, tz)
+    
     sm.compute_all()
 
 
