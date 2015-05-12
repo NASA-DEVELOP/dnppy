@@ -12,3 +12,4 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 from .text_data_class import *
 from .read_csv import *
 from .read_DS3505 import *
+from .log import *
