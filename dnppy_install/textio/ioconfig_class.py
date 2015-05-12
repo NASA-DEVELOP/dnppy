@@ -14,8 +14,9 @@ class ioconfig(text_data):
     by keeping a hard file with a summary of all inputs alongside any outputs that
     might have been generated.
 
-    be mindfull that "dict" and "list" type parameters will have each element assigned
-    type "string"
+    when a param has been added or imported, its value may be accessed with:
+        ioconfig_object['param_name']
+            
     """
 
     # overrides
@@ -26,12 +27,16 @@ class ioconfig(text_data):
         self.conf_dict  = {}        # config dict of {param_name: param_value}
 
         if input_filepath and os.path.exists(input_filepath):
-            self.load(input_filepath)
+            self.read(input_filepath)
             
         return
     
     def __getitem__(self, index):
-        return self.conf_dict[index]
+
+        if isinstance(index, str):
+            return self.conf_dict[index]
+        elif isinstance(index, int):
+            return self.row_data[index][2]
 
     
     def add_param(self, param_names, param_values):
@@ -39,7 +44,15 @@ class ioconfig(text_data):
         adds parameters to the ioconfig object
         
         param_name      A string, the name of the parameter
-        param_value     may be any built-in datatype
+        param_value     may be any built-in datatype*
+
+        when a param has been added or imported, its value may be accessed with:
+            ioconfig_object['param_name']
+
+        *lists, dicts, and tuples are supported "param_values" but
+        should NOT be used. Elements of lists, dicts, and tuples are
+        assumed to be of string type.
+
         """
 
         # avoid indexing errors by handling list inputs differently
@@ -54,14 +67,14 @@ class ioconfig(text_data):
         return
 
 
-    def save(self, filepath):
+    def write(self, filepath):
         """ saves the contents of ioconfig object as text_data_object"""
 
         self.write_csv(filepath, delim = " ; ")
         return
         
 
-    def load(self, filepath):
+    def read(self, filepath):
         """
         loads the contents of ioconfig object as a text data object
 
@@ -74,94 +87,49 @@ class ioconfig(text_data):
             self.row_data[i][2] = self.interp(row[1], row[2])
             self.conf_dict[row[0].strip()] = row[2]
 
-        print("imported config file '{0}'".format(filepath))
-        print("keys                           : values")
+        print("Imported config file '{0}'".format(filepath))
+        print("Keys                           : Values")
         print("---------------------------------------")
         for key, value in self.conf_dict.iteritems():
             print("{0} : {1}".format(key.ljust(30),value))
         
         return
 
+
+    def summary(self):
+        """ prints a summary of the ioconfig object """
+
+
     def interp(self, in_type, in_value):
         """ wraps other interp functions into one """
 
-        if "str" in in_type:
-            return self.interp_str(in_value)
-
-        elif "list" in in_type:
-            return self.interp_list(in_value)
-
-        elif "dict" in in_type:
-            return self.interp_dict(in_value)
+        in_type = in_type.strip()
+        
+        if  "str" in in_type:
+            return str(in_value)
         
         elif "bool" in in_type:
-            return self.interp_bool(in_value)
+            return bool(in_value)
 
         elif "float" in in_type:
-            return self.interp_float(in_value)
+            return float(in_value)
 
         elif "int" in in_type:
-            return self.interp_int(in_value)
+            return int(in_value)
         
         elif "long" in in_type:
-            return self.interp_long(in_value)
+            return long(in_value)
 
         elif "complex" in in_type:
-            return self.interp_complex(in_value)
+            return complex(in_value)
 
-        elif "tuple" in in_type:
-            return self.interp_tuple(in_value)
-
+        elif "list" in in_type or "dict" in in_type or "tuple" in in_type:
+            raise TypeError("values of {0} are not supported. To save these ".format(in_type) + \
+                            "values, please separate each entry and add the parameters individually")
         else:
-            raise TypeError("could not interpret input type '{0}'".format(in_type))
-        
-        
-    def interp_str(self, in_str):
-        return str(in_str)
-
-
-    def interp_list(self, in_list):
-        in_list = in_list.replace('[','').replace(']','').replace("'","")
-        in_list = in_list.split(',')
-        return in_list
-
-    def interp_tuple(self, in_tuple):
-        in_tuple = in_tuple.replace("(","").replace(")","").replace("'","").replace(" ","")
-        return tuple(in_tuple.split(","))
-
-
-    def interp_dict(self, in_dict):
-        in_dict = in_dict.replace('{','').replace('}','').replace("'","")
-        in_dict = in_dict.split(',')
-
-        out_dict = {}
-        
-        for item in in_dict:
-            item = item.split(":")
-            out_dict[item[0]] = item[1]
-            
-        return out_dict
-
-
-    def interp_bool(self, in_bool):
-        return bool(in_bool)
-
-
-    def interp_float(self, in_float):
-        return float(in_float)
-
-
-    def interp_int(self, in_int):
-        return int(in_int)
-
-
-    def interp_long(self, in_long):
-        return long(in_long)
-
-
-    def interp_complex(self, in_complex):
-        return complex(in_complex.replace("(","").replace(")",""))
-  
+            raise TypeError("could not interpret input'{0}'".format(in_type))
+        return
+    
 
 
 # testing area
@@ -169,9 +137,6 @@ if __name__ == "__main__":
 
 
     test_names = ["str",
-                  "list",
-                  "tuple",
-                  "dict",
                   "bool",
                   "float",
                   "int",
@@ -179,9 +144,6 @@ if __name__ == "__main__":
                   "complex"]
     
     test_vals = ["test string",
-                ["item 1","item 2", "item 3"],
-                (1,2),
-                {"one": 1, "two": 2},
                 True,
                 1.12345,
                 1,
@@ -191,7 +153,7 @@ if __name__ == "__main__":
     conf = ioconfig()
     conf.add_param(test_names, test_vals)
     conf.add_param("outfilepath","some filepath on my hard drive")
-    conf.save("conf_test.txt")
+    conf.write("conf_test.txt")
     del conf
     
     conf = ioconfig("conf_test.txt")

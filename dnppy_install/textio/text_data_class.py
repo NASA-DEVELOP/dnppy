@@ -5,8 +5,8 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 class text_data():
     """
-    a text data object is a very simple template structure
-    for passing text type data (usually lists of data entries)
+    a text data object is a very simple template structure for passing
+    text type data (usually lists of weather or climate data entries)
     between other functions in dnppy
     """
 
