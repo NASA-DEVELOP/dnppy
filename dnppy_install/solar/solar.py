@@ -11,7 +11,7 @@ __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 
 from datetime import datetime, timedelta
-from numpy import *
+from numpy import radians, ndarray, sin, cos, degrees, arctan2, arcsin, tan, arccos
 
 class solar:
     """
@@ -606,6 +606,7 @@ if __name__ == "__main__":
     # use the current time and my time zone
     tz          = -5
     datestamp   = datetime.now()
+    fmt         = 2
     
     # scalar test
     lat = 37
@@ -614,12 +615,12 @@ if __name__ == "__main__":
     
     sc.compute_all()
 
-    # numpy array test
-    lat = array([[36, 36],[38,38]])
-    lon = array([[-77.4,-75.4],[-77.4,-75.4]])
-    sm  = solar(lat, lon, datestamp, tz)
-    
-    sm.compute_all()
+##    # numpy array test
+##    lat = array([[36, 36],[38,38]])
+##    lon = array([[-77.4,-75.4],[-77.4,-75.4]])
+##    sm  = solar(lat, lon, datestamp, tz)
+##    
+##    sm.compute_all()
 
 
 
