@@ -20,7 +20,7 @@ class time_series:
 
     The primary motivation for creating this object was to allow
     a time series to be discretized into any number of small chunks
-    but retain the ability to process and interogate the time series
+    but retain the ability to process and interrogate the time series
     at any level with the exact same external syntax.
 
     A time series object is comprised of a matrix of data, and may contain
@@ -888,7 +888,7 @@ class time_series:
 
         if self.discretized:
             for subset in self.subsets:
-                subset.interogate()
+                subset.interrogate()
         return
 
 

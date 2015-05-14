@@ -341,5 +341,5 @@ if __name__ == "__main__":
     
     rs.from_directory(indir, fmt, range(9,16))
     rs.make_subsets("%m")
-    rs.interogate()
+    rs.interrogate()
     rs.series_stats(outdir, low_thresh = -10.0, high_thresh = 50.0)

@@ -11,8 +11,6 @@ from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-
-
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 
@@ -22,7 +20,7 @@ class time_series:
 
     The primary motivation for creating this object was to allow
     a time series to be subsetted into any number of small chunks
-    but retain the ability to process and interogate the time series
+    but retain the ability to process and interrogate the time series
     at any level with the exact same external syntax.
 
     A time series object is comprised of a matrix of data, and may contain
@@ -41,7 +39,8 @@ class time_series:
     excessive subsetting of gigantic datasets.
     """
 
-    def __init__(self, name = "name", units = None, subsetted = False, disc_level = 0, parent = None):
+    def __init__(self, name = "name", units = None, subsetted = False,
+                 disc_level = 0, parent = None):
         """
         initializes the time series
 
@@ -73,32 +72,32 @@ class time_series:
                                 # source CSV with output CSV.
         """
 
-        self.name           = name          # the name of this time series (string)
-        self.units          = units         # unit of time represented by subset if subsetted (string)
-        self.subsetted      = subsetted     # does this time series have subsets? (bool)
-        self.disc_level     = disc_level    # the subset level of this time_series (int)
+        self.name           = name        # the name of this time series (string)
+        self.units          = units       # unit of time represented by subset if subsetted (string)
+        self.subsetted      = subsetted   # does this time series have subsets? (bool)
+        self.disc_level     = disc_level  # the subset level of this time_series (int)
 
-        self.fmt            = False         # for interpreting timestrings to time objs (string)
-        self.headers        = []            # one header for each col in dataset (list of strings)
+        self.fmt            = False       # for interpreting timestrings to time objs (string)
+        self.headers        = []          # one header for each col in dataset (list of strings)
 
-        self.time_col       = 0             # index of data column with time info (int)
-        self.time           = []            # separate copy of data[time_col] (list of strings)
-        self.time_dom       = False         # self.time converted to (list of datetime objs)
-        self.time_dec_days  = []            # self.time converted to (mono rising decimal days floats)
-        self.time_seconds   = []            # self.time converted to (mono rising seconds floats)
-        self.center_time    = []            # time around which data in a subset it centered (dto)
-        self.start_dto      = []            # datetime_object that mono rising times start from (dto)
-        self.mean_interval  = 0             # average number of seconds between data points (float)
+        self.time_col       = 0           # index of data column with time info (int)
+        self.time           = []          # separate copy of data[time_col] (list of strings)
+        self.time_dom       = False       # self.time converted to (list of datetime objs)
+        self.time_dec_days  = []          # self.time converted to (mono rising decimal days floats)
+        self.time_seconds   = []          # self.time converted to (mono rising seconds floats)
+        self.center_time    = []          # time around which data in a subset it centered (dto)
+        self.start_dto      = []          # datetime_object that mono rising times start from (dto)
+        self.mean_interval  = 0           # average number of seconds between data points (float)
 
-        self.subsets        = []            # object list containing constituent time_seires
+        self.subsets        = []          # object list containing constituent time_seires
 
-        self.row_data       = []            # row wise dataset
-        self.col_data       = []            # column wise dataset, built as dict
+        self.row_data       = []          # row wise dataset
+        self.col_data       = []          # column wise dataset, built as dict
 
-        self.bad_rows       = []            # subset from data attribute with "bad rows"
+        self.bad_rows       = []          # subset from data attribute with "bad rows"
 
-        self.infilepath     = []            # tracks filepath of input CSV. used to DISALLOW overwriting
-                                            # source CSV with output CSV.
+        self.infilepath     = []          # tracks filepath of input CSV. used to DISALLOW overwriting
+                                          # source CSV with output CSV.
         
         # run some methods to build subset attributes
         if parent:
@@ -130,7 +129,6 @@ class time_series:
         ts[0][0][0]   : ['20010101', '045316', '1', '20010101045316', 366]
         ts[0][0][0][0]: 20010101
         """
-
 
         # allows finding a slice of subsets or rows from a subset.
         if isinstance(arg, slice):
@@ -186,23 +184,25 @@ class time_series:
         return
 
 
-    def _fmt_to_units(self, fmt):
+    @staticmethod
+    def _fmt_to_units(in_fmt):
         """ converts fmt strings to unit names of associated datetime attributes """
 
         fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
         unitlist = ["year","month","month","day","day","hour","minute","second"]
 
-        if fmt in fmtlist:
-            unit = unitlist[fmtlist.index(fmt)]
+        if in_fmt in fmtlist:
+            unit = unitlist[fmtlist.index(in_fmt)]
             return unit
 
-        if fmt in unitlist:
-            return fmt
+        if in_fmt in unitlist:
+            return in_fmt
         else:
-            raise Exception("'{0}' is an invalid unit or format!".format(fmt))
+            raise Exception("'{0}' is an invalid unit or format!".format(in_fmt))
 
 
-    def _units_to_fmt(self, units):
+    @staticmethod
+    def _units_to_fmt(units):
         """ converts unit names to fmt strings used by datetime.stftime. internal use"""
 
         fmtlist =  ["%Y", "%b", "%m", "%j", "%d", "%H", "%M", "%S"]
@@ -218,7 +218,7 @@ class time_series:
         if units in fmtlist:
             return units
         else:
-            raise Exception("'{0}' is an invalid unit or format!".format(fmt))
+            raise Exception("'{0}' is an invalid unit or format!".format(units))
 
 
     def _extract_time(self, time_header):
@@ -239,7 +239,7 @@ class time_series:
 
         return self.time
 
-
+    @staticmethod
     def _center_datetime(self, datetime_obj, units):
         """
         returns datetime obj that is centered on the "unit" of the input datetime obj
@@ -287,16 +287,22 @@ class time_series:
             else:
                 return 60.0 * 60.0 * 24.0 * 365.25
 
-
+    @staticmethod
     def _seconds_to_units(self, seconds, units):
         """ converts seconds to other time units. internal use only"""
 
-        if units == "second":   return 1.0
-        if units == "minute":   return seconds / (60.0)
-        if units == "hour":     return seconds / (60.0 * 60.0)
-        if units == "day":      return seconds / (60.0 * 60.0 * 24.0)
-        if units == "month":    return seconds / (60.0 * 60.0 * 24.0 * (365.25 / 12.0))
-        if units == "year":     return seconds / (60.0 * 60.0 * 24.0 * 365.25)
+        if units == "second":
+            return 1.0
+        if units == "minute":
+            return seconds / 60.0
+        if units == "hour":
+            return seconds / (60.0 * 60.0)
+        if units == "day":
+            return seconds / (60.0 * 60.0 * 24.0)
+        if units == "month":
+            return seconds / (60.0 * 60.0 * 24.0 * (365.25 / 12.0))
+        if units == "year":
+            return seconds / (60.0 * 60.0 * 24.0 * 365.25)
 
     
     def _name_as_subset(self, binned = False):
@@ -446,7 +452,9 @@ class time_series:
     def clean(self, col_header, high_thresh = False, low_thresh = False):
         """
         Removes rows where the specified column has an invalid number
-        or is outside the defined thresholds (above high_thresh or below low_thresh)"""
+        or is outside the defined thresholds (above high_thresh or below low_thresh)
+        :type self: time_series
+        """
 
 
         # loop cleaning for multiple column header inputs
@@ -481,7 +489,7 @@ class time_series:
                             self.row_data.append(row)
                         
                     elif high_thresh != False and low_thresh != False:
-                        if test >= low_tresh and test <= high_thresh:
+                        if test >= low_thresh and test <= high_thresh:
                             self.row_data.append(row)
                             
                 except:
@@ -724,7 +732,7 @@ class time_series:
                 overlap_width = 0
 
             # convert units into subset units and into terms of seconds
-            # timedelta objecs can only have units of days or seconds, so we use seconds
+            # timedelta objects can only have units of days or seconds, so we use seconds
             subset_units = self._fmt_to_units(subset_units)
 
             # initial step width
@@ -738,7 +746,7 @@ class time_series:
             if self.time_dom == False:
                 raise Exception("must call 'define_time' method before taking subsets!")
             
-            # determine subset lists starting, end points and incriment
+            # determine subset lists starting, end points and increment
             time_s = self.time_dom[0]
             time_f = self.time_dom[-1]
 
@@ -767,7 +775,7 @@ class time_series:
                 td      = time_f - time_s
                 uend    = cust_center_time + timedelta(seconds = td.total_seconds())
 
-            # otherwise, set the centers with no offest.
+            # otherwise, set the centers with no offset
             else:
                 ustart  = self._center_datetime(time_s, subset_units)
                 uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
@@ -958,6 +966,7 @@ class time_series:
 
         Accepts custom title input and y-axis label. If a save_path is
         specified, it will save the plot to that path and close it automatically.
+        :type self: time_series
         """
 
         # figure out temporal resolution of data to appropiately label x-axis
@@ -1078,7 +1087,7 @@ class time_series:
         return interp_y
 
         
-    def interogate(self):
+    def interrogate(self):
         """ prints a heads up stats table of all subsets in this time_series """
 
         if self.disc_level == 0:
@@ -1097,7 +1106,7 @@ class time_series:
 
         if self.subsetted:
             for subset in self.subsets:
-                subset.interogate()
+                subset.interrogate()
         return
 
             
@@ -1119,10 +1128,10 @@ if __name__ == "__main__":
     fmt     = "%Y%m%d%H%M"                          # specify the format of strings in this column
     
     ts.define_time(timecol, fmt)                    # converts text data into datetimes
-    ts.interogate()                                 # print a heads up summary of the time series
+    ts.interrogate()                                 # print a heads up summary of the time series
     
     ts.make_subsets("%d")                           # subset the data into daily chunks, no overlap
-    ts.interogate()                                 # print a heads up summary of the time series
+    ts.interrogate()                                 # print a heads up summary of the time series
 
     ts.column_plot("TEMP")                          # no frills plot of temperature
 
@@ -1139,7 +1148,7 @@ if __name__ == "__main__":
     ts.make_subsets("%d", overlap_width = 1,        # re-subset the time series with 1 day overlap width
                     discard_old = True)             #   and discard the old subsets
     
-    ts.interogate()                                 # print a heads up summary
+    ts.interrogate()                                 # print a heads up summary
     
     jul21 = ts["2013-07-21"]                        # pull out the new july 21st subset
     jul21.column_plot(["Temperature","Dewpoint"],   # plot the data again, save it this time
