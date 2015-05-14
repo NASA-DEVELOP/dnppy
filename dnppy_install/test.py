@@ -31,8 +31,6 @@ import os
 import dnppy
 import imp
 
-#===============================================================================
-
 def all_modules(test_dir = False):
     """
     Runs all the test scripts for all the modules in the dnppy/test
@@ -132,4 +130,6 @@ def test_dir():
     return test_dir
 
 
+if __name__ == "__main__":
+    all_modules()
     

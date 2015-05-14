@@ -1,5 +1,5 @@
 """
- the "download.py" module is part of the "dnppy" package (develop national program py)
+ the "download" module is part of the "dnppy" package (develop national program py)
  this module houses python functions for obtaining data from the internet in a systematic
  way.
 
@@ -11,14 +11,15 @@
 
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
-
 # local imports
-from .download      import *
-from .fetch         import *
-from .list_contents import *
+from .download_filelist import *
+from .download_url import *
+from .download_urls import *
 
-from dnppy import core
+from .fetch_GMP import *
+from .fetch_landsatWELD import *
+from .fetch_TRMM import *
+from .fetch_MODIS import *
 
-# standard imports
-import ftplib, urllib, os, time, sys
-
+from .list_http import *
+from .list_ftp import *
