@@ -1,7 +1,7 @@
 # standard imports
-import os, datetime, sys, shutil
+import os
 
-from .core import *
+from core import list_files
 
 __all__=['enf_list',            # complete
          'enf_filelist',        # complete
@@ -42,7 +42,7 @@ def enf_filelist(filelist):
     
     if isinstance(filelist,str):
         if os.path.exists(filelist):
-            new_filelist= list_files(False,filelist,False,False,True)
+            new_filelist = list_files(False,filelist,False,False,True)
             return(new_filelist)
         elif os.path.isfile(filelist):
             return([filelist])

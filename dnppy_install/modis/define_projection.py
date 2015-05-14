@@ -1,11 +1,13 @@
 # local imports
-from .mosaic import *
-from .extract_from_hdf import *
 
+# arcpy imports
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 
 def define_projection(filename):
-
     """Give raster proper MODIS sinusoidal projection metadata"""
     
     # custom text for MODIS sinusoidal projection
@@ -22,5 +24,4 @@ def define_projection(filename):
                 UNIT["Meter",1.0]]"""
 
     arcpy.DefineProjection_management(filename, proj)
-
     return

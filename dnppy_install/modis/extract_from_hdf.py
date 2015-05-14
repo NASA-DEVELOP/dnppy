@@ -1,6 +1,9 @@
 # local imports
-from .mosaic import *
-from .define_projection import *
+from dnppy import core
+from define_projection import define_projection
+
+import os
+import arcpy
 
 
 def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
@@ -53,15 +56,15 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
 
             # use the input output directory if the user input one, otherwise build one  
             if outdir:
-                if not os.path.exists(os.path.join(outdir,layername)):
-                    os.makedirs(os.path.join(outdir,layername))
+                if not os.path.exists(os.path.join(outdir, layername)):
+                    os.makedirs(os.path.join(outdir, layername))
                     
-                outname = os.path.join(outdir,layername,name[:-4] +'_'+ layername +'.tif')
+                outname = os.path.join(outdir, layername,name[:-4] +'_'+ layername +'.tif')
             else:
-                if not os.path.exists(os.path.join(path,layername)):
-                    os.makedirs(os.path.join(path,layername))
+                if not os.path.exists(os.path.join(path, layername)):
+                    os.makedirs(os.path.join(path, layername))
                     
-                outname = os.path.join(path,layername,name[:-4] +'_'+ layername +'.tif')
+                outname = os.path.join(path, layername,name[:-4] +'_'+ layername +'.tif')
 
             # perform the extracting and projection definition
             try:
@@ -77,4 +80,10 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
                 failed.append(infile)
                 
     print("Finished! \n") 
-    return(failed)
+    return failed
+
+if __name__ == "__main__":
+    extract_from_hdf(r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS",
+                     [0,4],
+                     ["day","night"],
+                     r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS\extracted")

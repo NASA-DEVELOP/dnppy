@@ -1,9 +1,14 @@
 # local imports
-from .define_projection import *
-from .extract_from_hdf import *
+
 from dnppy import raster
 
+import os
 
+# arcpy imports
+import arcpy
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 
 def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = "1",
@@ -54,7 +59,7 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
 
     # Set up initial arcpy modules, workspace, and parameters, and sanitize inputs.
     if outdir: OUT=outdir
-    filelist=core.Enforce_Rasterlist(filelist)
+    filelist = raster.enf_rastlist(filelist)
 
     # initialize empty lists for tracking
     mosaiclist  = []
@@ -122,10 +127,10 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
                             os.makedirs(OUT)
 
                         # grab suffix from input files for better naming of output files
-                        info = core.grab_data_info(mosaiclist[0],False,True)
+                        info = raster.grab_info(mosaiclist[0],False,True)
                         
                         # define the output name based on input criteria
-                        path,filename   = os.path.split(mosaiclist[0])
+                        path, filename   = os.path.split(mosaiclist[0])
                         outname         = filename.replace(info.tile,'mosaic')
                         
                         # perform the mosaic!
@@ -152,6 +157,6 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
 
                     
     print("Finished mosaicing all tiles! \n")
-    return(failed)
+    return failed
 
 

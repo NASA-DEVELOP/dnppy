@@ -14,8 +14,6 @@
 
  If you have knowledge of distutils and wish to make this installation more
  professional and cleaner, feel free to do so!
-
- Author: Jeffry Ely
 """
 
 # determine if the version being installed is newer than the current version

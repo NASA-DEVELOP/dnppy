@@ -1,10 +1,10 @@
 __author__ = 'jwely'
 
 from dnppy import core
-from .download_urls import download_urls
+from download_urls import download_urls
 import os, time
 
-def filelist(ftptexts, filetypes = False, outdir = False):
+def download_filelist(ftptexts, filetypes = False, outdir = False):
 
     """
     Reads text file of download links, downloads them.
@@ -42,7 +42,7 @@ def filelist(ftptexts, filetypes = False, outdir = False):
         print("Saving all files to {0}".format(outdir))
 
         # perform the first attempt
-        failed = download_urls(sites, filetypes, outdir)
+        failed = download_urls(sites, outdir, filetypes)
 
         # for 19 more times, if there are still items in the failed list, try again
         for i in range(1,19):
@@ -64,3 +64,8 @@ def filelist(ftptexts, filetypes = False, outdir = False):
         ftp.close()
 
     return failed
+
+if __name__ == "__main__":
+
+    download_filelist("reverb_filelist.txt",
+                      outdir = r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS")

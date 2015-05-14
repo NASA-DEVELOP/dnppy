@@ -1,10 +1,10 @@
 __author__ = 'jwely'
 
 from dnppy import core
-from .download_url import download_url
+from download_url import download_url
 import os, time
 
-def urls(url_list, outdir, filetypes = False):
+def download_urls(url_list, outdir, filetypes = False):
 
     """
     Downloads a list of files. Retries failed downloads

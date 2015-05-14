@@ -1,16 +1,7 @@
 # loacal imports
-from .enforce import *
-import os, datetime, sys, shutil
-
-
-__all__=['del_empty_dirs',      # complete
-         'rename',              # complete
-         'list_files',          # complete
-         'move',                # complete
-         'exists',              # complete
-         'create_outname',      # complete
-         'check_module']        # complete
-
+from enforce import enf_list
+import os
+import shutil
 
 def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
 
@@ -49,7 +40,7 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
     # ensure input directory actuallyexists
     if not exists(Dir):
         raise("{0} is not a valid file or folder!".format(Dir))
-        return(False)
+        return False
 
     # Ensure single strings are in list format for the loops below
     if Contains:
@@ -137,7 +128,7 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
     # Print a quick status summary before finishing up if Quiet is False
     print('Files found which meet all input criteria: {0}'.format(len(filelist)))
     
-    return(filelist)
+    return filelist
 
 
 def del_empty_dirs(path):
@@ -273,7 +264,7 @@ def create_outname(outdir, inname, suffix, ext = False):
         return(outname)
     else:
         outname = os.path.join(head,noext+suffix)
-        return(outname)
+        return outname
 
 
 
@@ -339,7 +330,7 @@ def check_module(module_name):
         time.sleep(3)
         webbrowser.open(url)
         sys.exit()
-        return(False)
+        return False
 
 
 
