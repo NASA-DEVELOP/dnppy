@@ -690,8 +690,8 @@ class MetricModel:
 
     def get_effective_narrowband_transmittance2(self, p, w):
         """
-        param p: found in get_atmospheric_pressure (ln344)
-        @param w: found in get_water_in_the_atmosphere (ln358)
+        @param p: found in get_atmospheric_pressure
+        @param w: found in get_water_in_the_atmosphere
         """
         
         kt = 1.0

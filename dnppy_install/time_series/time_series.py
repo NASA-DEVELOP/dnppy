@@ -1064,7 +1064,7 @@ class time_series:
     def interp_col(self, time_obj, col_header):
         """
         for input column, interpolate values to estimate value at input time_obj.
-        input time_obj may also be of datestring matching decared fmt
+        input time_obj may also be of datestring matching declared fmt
         """
 
         # start by cleaning data by input column
