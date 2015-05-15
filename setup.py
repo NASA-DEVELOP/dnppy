@@ -1,8 +1,8 @@
 """
  This is a barebones install script to install the dnppy module
  
- It simply checks the version numbers indiciated in __init__.py and
- coppies the dnppy_install folder contents into a new folder named
+ It simply checks the version numbers indicated in __init__.py and
+ copies the dnppy_install folder contents into a new folder named
  dnppy in the site-packages folder in the currently running python library.
 
  It duplicates this action for a version specific named folder so users can
@@ -36,8 +36,8 @@ import os, shutil, sys, dnppy_install,time
 
 up_vers = dnppy_install.__version__
 
-library_path,_  = os.path.split(os.__file__)
-source_path,_   = os.path.split(dnppy_install.__file__)
+library_path, _ = os.path.split(os.__file__)
+source_path, _  = os.path.split(dnppy_install.__file__)
 dest_path       = os.path.join(library_path,'site-packages','dnppy')
 dest_path2      = dest_path + up_vers
 
@@ -78,8 +78,8 @@ print('\nSource path       : ' + source_path)
 print('Destination path 1: ' + dest_path)
 print('Destination path 2: ' + dest_path2)
 
-time.sleep(0)  
-
 print "\nSetup finished!"
-raw_input("Press enter to exit:")
+print("Window will close in 10 seconds")
+time.sleep(10)
+sys.exit()
 

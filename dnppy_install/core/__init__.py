@@ -18,8 +18,8 @@ logical checks. It is commonly called by other modules in the dnppy package.
    core.function_name(args)
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
-              "Lauren Makely"]
+__author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
+              "Lauren Makely, lmakely, lmakely09@gmail.com"]
 
 # local imports
 from check_module import *

@@ -3,15 +3,15 @@ __author__ = 'jwely'
 
 from dnppy import core
 
-from .list_ftp import list_ftp
-from .list_http import list_http
-from .download_url import download_url
+from list_ftp import list_ftp
+from list_http import list_http
+from download_url import download_url
 
 import os
 from datetime import datetime
 
 
-def MODIS(product, version, tiles, outdir, years, j_days=False):
+def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
 
     """
     Fetch MODIS Land products from one of two servers
@@ -30,7 +30,8 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
 
     def Find_MODIS_Product(product, version):
         """
-        Subfunction to determine  server properties for MODIS data product. returns ftp handles
+        Subfunction to determine  server properties for MODIS data product.
+        returns http/ftp handles
 
         the two current servers where aqua/terra MODIS data can be downloaded are
             site1='http://e4ftl01.cr.usgs.gov'
@@ -53,7 +54,7 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
         site2 = 'n5eil01u.ecs.nsidc.org'
 
         isftp = False
-        Dir = False
+        Dir   = False
 
         # refine the address of the desired data product
         if '10' in prod_ID:
@@ -89,10 +90,10 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
 
     if isinstance(j_days, list):
         js = [str(j_day).zfill(3) for j_day in j_days]
-    elif isinstance(j_days, int):
+    elif isinstance(j_days, int) and j_days != False:
         js = [str(j_days)]
     else:
-        js = range(367)
+        js = [str(x).zfill(3) for x in range(367)]
 
     # do a quick input tile check for 6 characters.
     for tile in tiles:
@@ -108,7 +109,7 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
 
     # obtain the web address, protocol information, and subdirectory where
     # this tpe of MODIS data can be found.
-    site, ftp, Dir = Find_MODIS_Product(product,version)
+    site, ftp, Dir = Find_MODIS_Product(product, version)
 
     # Depending on the type of connection (ftp vs http) populate the file list
     try:
@@ -122,27 +123,34 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
     # refine contents down to just addresses of valid year and j_day
     good_dates=[]
     for date in dates:
-        try:
-            j_day = datetime.srptime(date, "%Y.%m.%d").strftime("%j").zfill(3)
-            year  = datetime.strptime(date, "%Y").strftime("%Y")
 
-            if year and year in years:
+        try:
+            dto   = datetime.strptime(date, "%Y.%m.%d")
+            j_day = dto.strftime("%j")
+            year  = dto.strftime("%Y")
+
+            if year in years:
                 good_dates.append(date)
 
                 if j_days:
                     if j_day not in js:
                         good_dates.remove(date)
-        except: pass
+        except ValueError:
+            print("skipping non date folder name {0}".format(date))
 
-    print 'Found ' + str(len(good_dates)) + ' days within range'
+
+    print('Found {0} days within range'.format(len(good_dates)))
 
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
 
-        if ftp: files,_ = list_ftp(site,Dir+'/'+good_date)
-        else:   files   = list_http(site+'/'+good_date)
+        if ftp:
+            files,_ = list_ftp(site,Dir+'/'+good_date)
+        else:
+            files   = list_http(site+'/'+good_date)
 
         for afile in files:
+
             # only list files with desired tilenames and not preview jpgs
             if not '.jpg' in afile:
                 for tile in tiles:
@@ -150,11 +158,23 @@ def MODIS(product, version, tiles, outdir, years, j_days=False):
                         # assemble the address
                         if ftp: address='/'.join(['ftp://'+site,Dir,good_date,afile])
                         else:   address='/'.join([site,good_date,afile])
-                        print 'Downloading MODIS ' + address
+                        print('Downloading {0}'.format(address))
 
                         #download the file
-                        outname = os.path.join(outdir,afile)
-                        download_url(address,outname)
+                        outname = os.path.join(outdir, afile)
+                        download_url(address, outname)
 
     print 'Finished retrieving MOIDS data!'
     return
+
+
+# testing area
+if __name__ == "__main__":
+
+    product = "MYD11A1"
+    version = "005"
+    tiles = ["h11v05", "h12v05"]
+    outdir = r"C:\Users\jwely\Desktop\troubleshooting\test"
+    years = ['2015']
+
+    fetch_MODIS(product, version, tiles, outdir, years)

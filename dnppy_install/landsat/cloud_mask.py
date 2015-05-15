@@ -1,8 +1,5 @@
 
-#standard imports
-from .atsat_bright_temp import atsat_bright_temp_457
-from .toa_reflectance import toa_reflectance_457
-from .grab_meta import grab_meta
+# imports
 from dnppy import core
 from scipy import stats
 import numpy
@@ -10,13 +7,13 @@ import arcpy
 import os
 
 
-__all__=['cloud_mask_8',            # complete
-         'apply_mask_8',            # complete
-         'cloud_mask_457',          # complete
-         'apply_mask_457']          # complete
+__all__=['make_cloud_mask_8',            # complete
+         'apply_cloud_mask_8',            # complete
+         'make_cloud_mask_457',          # complete
+         'apply_cloud_mask_457']          # complete
 
 
-def cloud_mask_8(BQA_path, outdir = False):
+def make_cloud_mask_8(BQA_path, outdir = False):
     """
     Creates a cloud mask tiff file from the Landsat 8 BQA file.
     To be performed on raw Landsat 8 level 1 data.
@@ -46,7 +43,7 @@ def cloud_mask_8(BQA_path, outdir = False):
 
     return
 
-def apply_mask_8(folder, mask_path, outdir = False):
+def apply_cloud_mask_8(folder, mask_path, outdir = False):
     """
     Removal of cloud-covered pixels in raw Landsat 8 bands using the BQA file included.
 
@@ -54,7 +51,7 @@ def apply_mask_8(folder, mask_path, outdir = False):
 
     Inputs:
       folder        The folder containing the raw or processed band tiffs to remove clouds from  
-      mask_path     The full filepath to the mask file created by cloud_mask_8
+      mask_path     The full filepath to the mask file created by make_cloud_mask_8
       outdir        Output directory to save cloudless band tiffs
     """
 
@@ -86,7 +83,7 @@ def apply_mask_8(folder, mask_path, outdir = False):
     return
 
 
-def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
+def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
     """
     Creates a binary mask raster for removal of cloud-covered pixels in raw Landsat 4, 5, and 7 bands.
 
@@ -329,9 +326,9 @@ def cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thres
     return
 
 
-def apply_mask_457(mask, folder, outdir = False):
+def apply_cloud_mask_457(mask, folder, outdir = False):
     """
-    Applies the cloud mask created by cloud_mask_457 to each band tiff with matching
+    Applies the cloud mask created by make_cloud_mask_457 to each band tiff with matching
     name in the given folder.
 
     Inputs:
