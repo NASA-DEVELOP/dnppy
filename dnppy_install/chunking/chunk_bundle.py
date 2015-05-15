@@ -1,15 +1,9 @@
+__author__ = 'jwely'
 
-
-__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
-
-
-# local imports
-# from dnppy import raster (listed here for documentation)
-
-# standard imports
 import numpy
-
-
+import os
+from chunk import chunk
+# from dnppy import raster      # please see chunk_bundle.read() for dnppy.raster import
 
 class chunk_bundle():
     """
@@ -43,7 +37,7 @@ class chunk_bundle():
             1) loading raster to split into smaller chunks with:
                 inchunks = chunk_bundle(rasterpath, num_chunks = #)
                 inchunks.read()
-                
+
             2) building new chunk_bundle with processed data, passing on old chunks metadata:
                 outchunks = chunk_bundle(rasterpath,
                                         chunk_list = [chunk1, chunk2,...],
@@ -68,21 +62,21 @@ class chunk_bundle():
         for chunk_obj in self.chunk_list:
             if chunk_obj.index == index:
                 return chunk_obj.data
-            
+
         else: raise Exception("No chunk with chunk_id = {0}".format(index))
 
 
 
     def __setitem__(self,index, item):
         """ allows chunk data to be altered easily from the chunk bundle"""
-        
+
         for chunk_obj in self.chunk_list:
             if chunk_obj.index == index:
                 chunk_obj = item
                 return
-            
+
         else: raise Exception("No chunk with chunk_id = {0}".format(index))
-        
+
 
     def _assemble_chunks(self):
         """ stitches constituent chunks back together into one numpy array """
@@ -98,36 +92,39 @@ class chunk_bundle():
             # concatenate the rest of them
             for i in range(2,len(self.chunk_list)):
                 bundle_data = numpy.concatenate((bundle_data, self[i]), axis = 1)
-                
+
         return bundle_data
-    
-                    
-    
+
+
+
     def read(self):
         """ loads a raster image and splits it into roughly equal width vertical slices"""
+
+        print("Loading input raster {0} and splitting into {1} chunks!".format(
+                                    os.path.basename(self.rasterpath), self.num_chunks))
 
         if self.num_chunks <1:
             raise Exception("Cannot split into any fewer than 1 chunk!")
 
         # loads entire raster as numpy array with metadata object
         if not self.force_scv:
-            
+
             from dnppy import raster
             data, self.metadata = raster.to_numpy(self.rasterpath)
 
-        # uses the simpleCV module to import raster without metadata  
+        # uses the simpleCV module to import raster without metadata
         else: pass
-        
+
 
         # split the data and add new chunks to this raster
         ys, xs = data.shape
         width  = xs / float(self.num_chunks)
 
         for c in range(self.num_chunks):
-            
+
             chunk_data  = data[:, int(c * width):int((c+1) * width)]
             new_chunk   = chunk(c, chunk_data)
-            
+
             self.chunk_list.append(new_chunk)
 
         del data
@@ -138,17 +135,17 @@ class chunk_bundle():
         """
         writes the chunk_bundle to its rasterpath """
 
-            
+
         # write with metadata using dnppy and arcpy.
         if self.metadata and not self.force_scv:
             from dnppy import raster
             raster.from_numpy(self._assemble_chunks(), self.metadata, rasterpath)
-                
-        # write without metadata using simple CV  
+
+        # write without metadata using simple CV
         else: pass
 
 
-        return 
+        return
 
 
     def ingest(self, new_chunk_obj):
@@ -160,7 +157,7 @@ class chunk_bundle():
 
         # delete any chunk already existing at the index location of the new chunk object
         for chunk_obj in self.chunk_list:
-            if chunk_obj.index == index:
+            if chunk_obj.index == new_chunk_obj.index:
                 self.chunk_list.remove(new_chunk_obj.index)
 
         self.chunk_list.append(new_chunk_obj)
@@ -168,38 +165,15 @@ class chunk_bundle():
 
 
 
-class chunk():
-    """
-    creates an individual chunk object (vertical slice of a 2 or 3d raster image).
+# testing area
+if __name__ == "__main__":
 
-    Individual chunks do NOT store metadata! Any metadata should be managed
-    at the chunk_bundle level. Object chunk_bundles are made of chunk lists,
-    ordered by index number.
-    """
+    path = r"C:\Users\jwely\Desktop\troubleshooting\test_in_MODIS\MYD11A1.A2013001_day_clip_W05_C2014001_Avg_K_C_p_GSC.tif"
+    num  = 2
 
-    def __init__(self, index, data = None):
-        """ initializes a chunk object. """
+    c = chunk_bundle(path, num)
+    c.read()
 
-        self.index  = index     # integer value denoting position within chunk_bundle
-        self.data   = data      # a numpy masked_array type
-        
-        return
+    c[0] += 10
 
-    def __getitem__(self):
-        return self.data
-
-
-    def __setitem__(self, item):
-
-        con1 = isinstance(item, numpy.ma.core.MaskedArray)
-        con2 = isinstance(item, numpy.ndarray)
-        
-        if con1 or con2:
-            self.data = item
-            
-        return
-    
-
-
-
-
+    test = c.write(r"C:\Users\jwely\Desktop\troubleshooting\chunk_test.tif")
