@@ -15,16 +15,20 @@ logical checks. It is commonly called by other modules in the dnppy package.
 
    Example:
    from dnppy import core
-   Sample_Function('test',False)
+   core.function_name(args)
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
-
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
+              "Lauren Makely"]
 
 # local imports
-from .core import *
-from .enforce import *
-
-
-# standard imports
-import os, datetime, sys, shutil
+from check_module import *
+from create_outname import *
+from del_empty_dirs import *
+from enf_featlist import *
+from enf_filelist import *
+from enf_list import *
+from exists import *
+from list_files import *
+from move import *
+from rename import *
