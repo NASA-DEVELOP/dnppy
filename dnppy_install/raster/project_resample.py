@@ -1,8 +1,13 @@
 
 # local imports
 from dnppy import core
+from enf_rastlist import enf_rastlist
+from is_rast import is_rast
 
-def project_resamp(filelist, reference_file, outdir = False,
+import os
+import arcpy
+
+def project_resample(filelist, reference_file, outdir = False,
                    resampling_type = False, cell_size = False):
 
     """
@@ -31,13 +36,13 @@ def project_resamp(filelist, reference_file, outdir = False,
     featurelist = core.enf_featlist(filelist)
     cleanlist   = rasterlist + featurelist
 
-    # ensure output directoryexists
+    # ensure output directory exists
     if not os.path.exists(outdir):
         os.makedirs(outdir)
         
     # grab data about the spatial reference of the reference file. (prj or otherwise)
     if reference_file[-3:]=='prj':
-        Spatial_Reference = arcpy.SpatialReference(Spatial_Reference)
+        Spatial_Reference = arcpy.SpatialReference(reference_file)
     else:
         Spatial_Reference = arcpy.Describe(reference_file).spatialReference
         
@@ -71,4 +76,4 @@ def project_resamp(filelist, reference_file, outdir = False,
             print('Wrote projected file to {0}'.format(outname))
 
     print("finished projecting!")
-    return(Spatial_Reference)
+    return Spatial_Reference

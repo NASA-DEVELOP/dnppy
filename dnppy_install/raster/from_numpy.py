@@ -1,6 +1,4 @@
 # local imports
-from dnppy import core
-
 import arcpy
 import numpy
 

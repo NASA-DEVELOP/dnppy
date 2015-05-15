@@ -1,7 +1,7 @@
 # local imports
-from dnppy import core
 
-def temporal_fill(filelist,Quiet=False):
+
+def temporal_fill(filelist):
 
     """
      This function is designed to input a time sequence of rasters with partial voids and

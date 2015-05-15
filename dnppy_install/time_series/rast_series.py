@@ -7,8 +7,6 @@ from time_series import time_series
 # standard imports
 import os
 from datetime import datetime, timedelta
-from calendar import monthrange, isleap
-import matplotlib.pyplot as plt
 
 
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]

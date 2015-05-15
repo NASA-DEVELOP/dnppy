@@ -1,7 +1,9 @@
 
 # local imports
 from dnppy import core
+from datetime import datetime
 
+import os
 
 
 def grab_info(filepath, data_type = False, CustGroupings = False):
@@ -105,17 +107,17 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
 
     elif data_type == 'AMSR_E':
         print '{Grab_Data_Info} no support for AMSR_E data yet! you could add it!'
-        return(False)
+        return False
 
     elif data_type == 'AIRS':
         print '{Grab_Data_Info} no support for AIRS data yet! you could add it!'
-        return(False)
+        return False
 
     # if data doesnt look like anything!
     else:
         print 'Data type for file ['+name+'] could not be identified as any supported type'
         print 'improve this function by adding info for this datatype!'
-        return(False)
+        return False
 
     # Create atributes and assign parameter names and values
     for i in range(len(params)):
@@ -161,12 +163,11 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
 
     # make sure the filepath input actually leads to a real file, then give user the info
     if core.exists(filepath):
-        if not Quiet:
-            print '{Grab_Data_Info} '+ info.type + ' File ['+ name +'] has attributes '
-            print vars(info)
-        return(info)
+        print('{Grab_Data_Info} '+ info.type + ' File ['+ name +'] has attributes:')
+        print(vars(info))
+        return info
     else:
-        return(False)
+        return False
 
 
 

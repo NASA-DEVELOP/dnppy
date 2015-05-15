@@ -1,6 +1,6 @@
 # local imports
-from dnppy import core
-from raster_enforcement import is_rast
+
+from is_rast import is_rast
 
 import arcpy
 import numpy

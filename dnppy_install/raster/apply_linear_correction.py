@@ -1,7 +1,7 @@
 
-from dnppy import core
-from .to_numpy import *
-from .from_numpy import *
+
+from to_numpy import *
+import os
 
 
 def apply_linear_correction(rasterlist, factor, offset, suffix = 'lc', outdir = False,
@@ -64,4 +64,4 @@ def apply_linear_correction(rasterlist, factor, offset, suffix = 'lc', outdir = 
             raster.from_numpy(output, metadata, outname, new_NoData ,"float32")
             
     print "Finished! \n "      
-    return(image,metadata)
+    return image, metadata
