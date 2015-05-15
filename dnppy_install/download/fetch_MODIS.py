@@ -12,9 +12,8 @@ from datetime import datetime
 
 
 def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
-
     """
-    Fetch MODIS Land products from one of two servers
+    Fetch MODIS Land products from one of two servers.
 
        http://e4ftl01.cr.usgs.gov
        ftp://n5eil01u.ecs.nsidc.org
@@ -61,9 +60,9 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
             isftp = True
             site  = site2
 
-        elif sat_designation == 'MOD':
+        if sat_designation == 'MOD':
             if isftp:
-                Dir = 'DP1/MOST/' + product + '.' + version
+                Dir = 'MOST/' + product + '.' + version
             else:
                 site = site1+'MOLT/' + product + '.' + version
 
@@ -106,20 +105,22 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
     if not os.path.exists(outdir):
         os.makedirs(outdir)
 
-    print 'Connecting to servers!'
+    print("Connecting to servers!")
 
     # obtain the web address, protocol information, and subdirectory where
     # this tpe of MODIS data can be found.
     site, isftp, Dir = Find_MODIS_Product(product, version)
 
+    print("Connected to {0}/{1}".format(site, Dir))
+
     # Depending on the type of connection (ftp vs http) populate the file list
     try:
         if isftp:
-            dates,_ = list_ftp(site, Dir)
+            dates,_ = list_ftp(site, False, False, Dir)
         else:
             dates   = list_http(site)
     except:
-        print 'Could not connect to site! check inputs!'
+        raise ValueError("Could not connect to {0}/{1}".format(site,Dir))
 
     # refine contents down to just addresses of valid year and j_day
     good_dates=[]
@@ -146,13 +147,14 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
     for good_date in good_dates:
 
         if isftp:
-            files,_ = list_ftp(site,Dir+'/'+good_date)
+            files,_ = list_ftp(site, False, False, Dir + '/' + good_date)
+
         else:
-            files   = list_http(site+'/'+good_date)
+            files   = list_http(site + '/' + good_date)
 
         for afile in files:
 
-            # only list files with desired tilenames and not preview jpgs
+            # only list files with desired tile names and not preview jpgs
             if not '.jpg' in afile:
                 for tile in tiles:
                     if tile in afile:
@@ -163,11 +165,10 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
                         else:
                             address='/'.join([site,good_date,afile])
 
-                        print('Downloading {0}'.format(address))
-
                         #download the file
                         outname = os.path.join(outdir, afile)
                         download_url(address, outname)
+                        print('Downloaded {0}'.format(address))
 
     print('Finished retrieving MOIDS data!')
     return
@@ -176,10 +177,11 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
 # testing area
 if __name__ == "__main__":
 
-    product = "MYD11A1"
+    product = "MOD10A1"
     version = "005"
     tiles = ["h11v05", "h12v05"]
-    outdir = r"C:\Users\jwely\Desktop\troubleshooting\test"
+    outdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1"
     years = ['2015']
+    j_days = range(90)
 
-    fetch_MODIS(product, version, tiles, outdir, years)
+    fetch_MODIS(product, version, tiles, outdir, years, j_days)
