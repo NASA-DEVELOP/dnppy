@@ -83,6 +83,7 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
         return site, isftp, Dir
 
 
+
     # check formats
     tiles = core.enf_list(tiles)
     years = core.enf_list(years)
@@ -109,11 +110,11 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
 
     # obtain the web address, protocol information, and subdirectory where
     # this tpe of MODIS data can be found.
-    site, ftp, Dir = Find_MODIS_Product(product, version)
+    site, isftp, Dir = Find_MODIS_Product(product, version)
 
     # Depending on the type of connection (ftp vs http) populate the file list
     try:
-        if ftp:
+        if isftp:
             dates,_ = list_ftp(site, Dir)
         else:
             dates   = list_http(site)
@@ -144,7 +145,7 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
 
-        if ftp:
+        if isftp:
             files,_ = list_ftp(site,Dir+'/'+good_date)
         else:
             files   = list_http(site+'/'+good_date)
@@ -155,16 +156,20 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
             if not '.jpg' in afile:
                 for tile in tiles:
                     if tile in afile:
+
                         # assemble the address
-                        if ftp: address='/'.join(['ftp://'+site,Dir,good_date,afile])
-                        else:   address='/'.join([site,good_date,afile])
+                        if isftp:
+                            address='/'.join(['ftp://'+site,Dir,good_date,afile])
+                        else:
+                            address='/'.join([site,good_date,afile])
+
                         print('Downloading {0}'.format(address))
 
                         #download the file
                         outname = os.path.join(outdir, afile)
                         download_url(address, outname)
 
-    print 'Finished retrieving MOIDS data!'
+    print('Finished retrieving MOIDS data!')
     return
 
 
