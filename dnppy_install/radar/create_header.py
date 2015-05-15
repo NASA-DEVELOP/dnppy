@@ -1,11 +1,9 @@
+
+__author__ = ["Daniel Jensen, danieljohnjensen@gmail.com",
+                "Scott Baron"]
+
 import os
 import re
-import arcpy
-from arcpy.sa import *
-import math
-
-__all__= ['create_header',      #completed
-          'decibel_convert']    #completed
 
 def create_header(folder):
     """
@@ -47,26 +45,26 @@ wavelength units = Unknown""")
             newfile.close()
             if files[0:18] not in Files_list:
                 Files_list.append(files[0:18])
-            
+
     #Variables used to recall indexed values.
     var1 = 0
 
     #Step 2: Look through the folder and locate the annotation file(s). These can be in either .txt or .ann file types.
     for files in os.listdir(folder):
         if Files_list[var1] and files[-4:] == ".txt" or files[-4:] == ".ann":
-            #Step 3: Once located, find the info we are interested in and append it to the appropriate list. We limit the variables to <=1 so that they only return two values (one for each polarization of 
+            #Step 3: Once located, find the info we are interested in and append it to the appropriate list. We limit the variables to <=1 so that they only return two values (one for each polarization of
             searchfile = open(files, "r")
             for line in searchfile:
                 if "GRD Lines" in line:
                     Lines = line[55:60]
                     if Lines not in Lines_list:
                         Lines_list.append(Lines)
-                                       
+
                 elif "GRD Samples" in line:
                     Samples = line[55:60]
                     if Samples not in Samples_list:
                         Samples_list.append(Samples)
-                        
+
                 elif "grd_mag.row_addr" in line:
                     Latitude = line.split()[3]
                     print Latitude
@@ -77,50 +75,31 @@ wavelength units = Unknown""")
                     Longitude = line.split()[3]
                     print Longitude
                     if Longitude not in Longitude_list:
-                        Longitude_list.append(Longitude)                   
+                        Longitude_list.append(Longitude)
             #Reset the variables to zero for each different flight date.
             var1 = 0
             searchfile.close()
 
-    var6 = 0                          
+    var6 = 0
     #Step 3: Open HDR file and replace data.
     for files in os.listdir(folder):
         if files[-4:] == ".hdr":
             with open(files, "r") as sources:
-                lines= sources.readlines()
-            with open(files, "w") as sources:  
+                lines = sources.readlines()
+            with open(files, "w") as sources:
                 for line in lines:
                     if "data type = DATTYPE" in line:
-                        sources.write(re.sub(line[12:19], "4", line))  
+                        sources.write(re.sub(line[12:19], "4", line))
                     elif "DESCFIELD" in line:
-                        sources.write(re.sub(line[2:11], "File Imported into ENVI.", line))   
+                        sources.write(re.sub(line[2:11], "File Imported into ENVI.", line))
                     elif "lines" in line:
-                        sources.write(re.sub(line[10:15], Lines_list[Files_list.index(files[0:18])], line))       
+                        sources.write(re.sub(line[10:15], Lines_list[Files_list.index(files[0:18])], line))
                     elif "samples" in line:
-                        sources.write(re.sub(line[10:15], Samples_list[Files_list.index(files[0:18])], line))     
+                        sources.write(re.sub(line[10:15], Samples_list[Files_list.index(files[0:18])], line))
                     elif "map info" in line:
-                        sources.write(re.sub(line[47:66], Longitude_list[Files_list.index(files[0:18])] + ", " + Latitude_list[Files_list.index(files[0:18])], line))   
+                        sources.write(re.sub(line[47:66], Longitude_list[Files_list.index(files[0:18])] + ", " + Latitude_list[Files_list.index(files[0:18])], line))
                     else:
                         sources.write(re.sub(line, line, line))
 
     print "Finished creating hdrs"
-    return
-
-def decibel_convert(file):
-    """
-    Converts the input UAVSAR .grd file into units of decibels.
-
-    *Note that a .hdr file must be created for teh .grd/.inc files for this to work
-
-    Inputs:
-        file:   the full file path string for the .grd data file
-    """
-
-    #arcpy.CheckOutExtension("Spatial")
-
-    inRaster = arcpy.Raster(file)
-    dB_raster = 10 * Log10(inRaster)
-    outname = file.replace(".grd", "_dB.tif")
-    dB_raster.save(outname)
-
     return

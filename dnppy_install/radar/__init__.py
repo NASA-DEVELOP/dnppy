@@ -16,14 +16,5 @@ __author__ = ["Daniel Jensen, danieljohnjensen@gmail.com",
               "Scott Baron"]
 
 # local imports
-from .uavsar import *
-
-# standard imports
-import os, sys, time, math, arcpy, shutil
-
-# arcpy imports
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
-    arcpy.env.overwriteOutput = True
+from decibel_convert import *
+from create_header import *
