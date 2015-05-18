@@ -9,13 +9,13 @@ import arcpy
 def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
 
     """
-    Extracts tifs from MODIS HDF files
+    Extracts tifs from MODIS HDF files, ensures proper projection.
 
      inputs:
        filelist    list of '.hdf' files from which data should be extracted
        layerlist   list of layer numbers to pull out as individual tifs should be integers
                    such as [0,4] for the 0th and 4th layer respectively.
-       layernames  list of layer names to put more descriptive names to each layer
+       layernames  list of layer names to put more descriptive file suffixes to each layer
        outdir      directory to which tif files should be saved
                    if outdir is left as 'False', files are saved in the same directory as
                    the input file was found.
@@ -23,24 +23,26 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
 
     # enforce lists for iteration purposes and sanitize inputs
     filelist = core.enf_filelist(filelist)
+    
     for filename in filelist:
-        if '.xml' in filename:
+        if '.xml' in filename or not '.hdf' in filename:
             filelist.remove(filename)
             
     layerlist  = core.enf_list(layerlist)
     layernames = core.enf_list(layernames)
     
     # ignore user input layernames if they are invalid, but print warnings
-    if layernames and not len(layernames)==len(layerlist):
-        print('layernames must be the same length as layerlist!')
-        print('ommiting user defined layernames!')
+    if layernames and not len(layernames) == len(layerlist):
+        Warning('Layernames must be the same length as layerlist!')
+        Warning('Ommiting user defined layernames!')
         layernames = False
 
     # create empty list to add failed file names into
-    failed=[]
+    failed = []
 
     # iterate through every file in the input filelist
     for infile in filelist:
+        
         # pull the filename and path apart 
         path,name           = os.path.split(infile)
         arcpy.env.workspace = path
@@ -74,13 +76,14 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
                 # define the projection as the MODIS Sinusoidal
                 define_projection(outname)
                 
-                print('Extracted ' + outname)
+                print("Extracted {0}".format(outname))
             except:
-                print('Failed extract '+ outname + ' from ' + infile)
+                print("Failed to extract {0}  from {1}".format(outname, infile))
                 failed.append(infile)
                 
-    print("Finished! \n") 
+    print("Finished extracting all hdfs! \n") 
     return failed
+
 
 if __name__ == "__main__":
     extract_from_hdf(r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS",
