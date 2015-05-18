@@ -13,7 +13,50 @@ arcpy.CheckOutExtension("Spatial")
 __all__=['surf_reflectance']      # planned development
 
 
-def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir, kt = 1):
+def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = False, kt = 1.0):
+        """
+        This function will calculate surface reflectance for Landsat 4 TM, 5 TM, 7 ETM+, or 8 OLI data.
+        
+        *Note this function will calculate surface reflectance for Landsat 4, 5, and 7
+         bands 1, 2, 3, 4, 5, and 7 or Landsat 8 bands 2, 3, 4, 5, 6, and 7 if they are in the toa_folder.
+         The Landsat 8 Coastal Aerosol band (1) and Cirrus band (9) will not be calculated as they do not
+         have a corresponding band in TM or ETM+.
+
+        To be performed on Top-of-Atmosphere Reflectance data processed with the landsat.toa_reflectance_457
+                or the landsat.toa_reflectance_8 function.
+
+        Resources:
+                DEM:
+                -NASA Shuttle Radar Topography Mission (SRTM):
+                        http://www2.jpl.nasa.gov/srtm/cbanddataproducts.html
+                        *SRTM version 2 has a 30m resolution, but contains some gaps
+                -NASA Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER)
+                 Global Digital Elevation Model (GDEM):
+                        http://asterweb.jpl.nasa.gov/gdem.asp
+                -USGS National Elevation Dataset (NED):
+                        http://nationalmap.gov/elevation.html
+                        *downloadable in 30 meter resolution through The National Map Viewer
+
+                Dew Point:
+                -NOAA Daily Observational Data: Global Summory of the Day (GSOD) - GIS Data Locator
+                        http://gis.ncdc.noaa.gov/map/viewer/#app=clim&cfg=cdo&theme=daily&layers=0001&node=gis
+                        *Select a weather station within the Landsat scene's extent, follow the link,
+                         and enter the scene's acquisition date. This will output a text file, with
+                         dew point under DEWP.
+                        *More NOAA climatic data available at https://www.climate.gov/data/maps-and-data
+                        
+        Inputs:
+                meta_path       The full filepath to the metadata file (ending in MTL.txt) for the dataset
+                toa_folder      The filepath to the folder containing the TOA_Ref tiffs to be processed
+                dem_path        The full filepath to a DEM tif that covers the desired Landsat scene
+                                  *Note that the DEM should be resampled to the Landsat bands' resolution (30m)
+                                   and pixel alignment. Also ensure there are no gaps in the dataset.
+                dew_point       The number (e.g. 57.7) for the dew point at the time and place of scene acquisition
+                outdir          Output directory to save converted files. If left False it will save
+                                   output files in the toa_folder directory.
+                kt              Unitless turbidity coefficient. Default set at 1.0 for clean air.
+                                  *Set at 0.5 for extremeley turbid, dusty, or polluted air
+        """
 
         #define the list of constants for effective narrowband transmissivity for incoming solar radiation 
         constants_enbt1 = [[0.987, -0.00071, 0.000036, 0.0880, 0.0789],
@@ -148,9 +191,12 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir, kt =
                 pr = pr_constants[i] * (1 - entisr_bands[i])
                 pr_bands.append(pr)
 
-        #At Surface Reflectance
+        #Calculate and save At-Surface Reflectance band tiffs
         for i in xrange(6):
-                asr_path = "{0}\\{1}".format(outdir, out_list[i])
+                if outdir:
+                        asr_path = "{0}\\{1}".format(outdir, out_list[i])
+                else:
+                        asr_path = "{0}\\{1}".format(toa_folder, out_list[i])
                 refl_surf = (toa_list[i] - pr_bands[i])/(entisr_bands[i] * entsrrs_bands[i])
                 refl_surf.save(asr_path)
 

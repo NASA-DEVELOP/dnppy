@@ -13,7 +13,7 @@ __all__=['toa_reflectance_8',       # complete
 def toa_reflectance_8(band_nums, meta_path, outdir = False):
 
     """
-    Converts Landsat 8 bands to Top of atmosphere reflectance.
+    Converts Landsat 8 bands to Top-of-Atmosphere reflectance.
 
      To be performed on raw Landsat 8 level 1 data. See link below for details
      see here [http://landsat.usgs.gov/Landsat8_Using_Product.php]
@@ -71,8 +71,10 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
 def toa_reflectance_457(band_nums, meta_path, outdir = False):
 
    """
-   This function is used to convert Landsat 4,5, or 7 pixel values from
-   digital numbers to Radiance, Reflectance, or Temperature (if using Band 6)
+   This function is used to convert Landsat 4, 5, or 7 pixel values from
+   digital numbers to Top-of-Atmosphere Reflectance.
+
+    To be performed on raw Landsat 4, 5, or 7 data.
 
    Inputs:
       band_nums   A list of desired band numbers such as [3,4,5]
