@@ -38,7 +38,7 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
     """
 
     # import modules and sanitize inputs
-    tempdir = os.path.join(outdir,'temp')
+    tempdir = os.path.join(outdir, 'temp')
 
     if not os.path.isdir(outdir):
         os.makedirs(outdir)
@@ -65,12 +65,15 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
         tempname    = os.path.join(tempdir,tail)
 
         if snap_meta.projection.projectionName != meta.projection.projectionName:
-            print 'The files are not the same projection!'
+            print('The files are not the same projection!')
             project_resample(rastname, snap_raster, tempname, resamp_type, snap_raster)
             usetemp = True
 
-        if round(float(snap_meta.cellHeight)/float(meta.cellHeight),5)!=1 and \
-        round(float(snap_meta.cellWidth)/float(meta.cellWidth),5)!=1:
+
+        con1 = round(float(snap_meta.cellHeight) / float(meta.cellHeight),5) !=1
+        con2 = round(float(snap_meta.cellWidth)/ float(meta.cellWidth),5) !=1
+        
+        if con1 and con2:
 
             if resamp_type:
                 cell_size = "{0} {1}".format(snap_meta.cellHeight,snap_meta.cellWidth)

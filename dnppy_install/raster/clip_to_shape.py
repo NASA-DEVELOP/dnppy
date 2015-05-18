@@ -31,8 +31,8 @@ def clip_to_shape(rasterlist, shapefile, outdir = False):
 
         # perform double clip , first using clip_management (preserves no data values)
         # then using arcpy.sa module which can actually do clipping geometry unlike the management tool.
-        arcpy.Clip_management(raster,"#",outname,shapefile,"ClippingGeometry")
-        out = ExtractByMask(outname,shapefile)
+        arcpy.Clip_management(raster, "#" outname,shapefile, "ClippingGeometry")
+        out = ExtractByMask(outname, shapefile)
         out.save(outname)
         print("Clipped and saved: {0}".format(outname))
 

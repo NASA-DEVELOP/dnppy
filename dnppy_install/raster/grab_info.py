@@ -69,28 +69,22 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
         data_type = identify(name)
 
     if data_type == 'MODIS':
-        params  =['product','year','j_day','tile','type','version','tag','suffix']
+        params  =['product', 'year', 'j_day', 'tile', 'type', 'version', 'tag', 'suffix']
         n       = name.split('.')
         end     = n[4]
-        string  =[n[0],name[9:13],name[13:16],n[2],'MODIS',n[3],end[:13],end[13:]]
-
-    if data_type == 'MODIS':
-        params  =['product','year','j_day','tile','type','version','tag','suffix']
-        n       = name.split('.')
-        end     = n[4]
-        string  =[n[0],name[9:13],name[13:16],n[2],'MODIS',n[3],end[:13],end[13:]]
+        string  =[n[0], name[9:13] ,name[13:16], n[2], 'MODIS', n[3], end[:13], end[13:]]
             
     elif data_type =='Landsat':
-        params  =['sensor','satellite','WRSpath','WRSrow','year','j_day','groundstationID',
-                                                        'Version','band','type','suffix']
+        params  =['sensor', 'satellite', 'WRSpath', 'WRSrow', 'year', 'j_day',
+                        'groundstationID', 'Version', 'band', 'type', 'suffix']
         n       = name.split('.')[0]
-        string  =[n[1],n[2],n[3:6],n[6:9],n[9:13],n[13:16],n[16:19],
-                n[19:21],n[23:].split('_')[0],'Landsat','_'.join(n[23:].split('_')[1:])]
+        string  =[n[1], n[2], n[3:6], n[6:9], n[9:13], n[13:16], n[16:19],
+                n[19:21], n[23:].split('_')[0], 'Landsat', '_'.join(n[23:].split('_')[1:])]
             
     elif data_type == 'WELD_CONUS' or data_type == 'WELD_AK':
-        params  = ['coverage','period','year','tile','start_day','end_day','type']
+        params  = ['coverage', 'period', 'year', 'tile', 'start_day', 'end_day', 'type']
         n       = name.split('.')
-        string  =[n[0],n[1],n[2],n[3],n[4][4:6],n[4][8:11],'WELD']
+        string  =[n[0], n[1], n[2] ,n[3], n[4][4:6], n[4][8:11], 'WELD']
         # take everything after the first underscore as a suffix if onecore.exists.
         if '_' in name:
             params.append('suffix')
@@ -115,8 +109,8 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
 
     # if data doesnt look like anything!
     else:
-        print 'Data type for file ['+name+'] could not be identified as any supported type'
-        print 'improve this function by adding info for this datatype!'
+        print('Data type for file [{0}] could not be identified as any supported type'.format(name))
+        print('improve this function by adding info for this datatype!')
         return False
 
     # Create atributes and assign parameter names and values
@@ -126,7 +120,9 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
     # ................................................................................
     # perform additional data gathering only if data has no info.period atribute. Images with
     # this attribute represent data that is produced from many dates, not just one day.
+    
     if not hasattr(info,'period'):
+        
     # fill in date format values and custom grouping and season information based on julian day
     # many files are named according to julian day. we want the date info for these files.
         try:
@@ -143,10 +139,13 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
     # fill in the seasons by checking the value of julian day
         if int(info.j_day) <=78 or int(info.j_day) >=355:
             info.season='Winter'
+            
         elif int(info.j_day) <=171:
             info.season='Spring'
+            
         elif int(info.j_day)<=265:
             info.season='Summer'
+            
         elif int(info.j_day)<=354:
             info.season='Autumn'
         
@@ -197,18 +196,25 @@ def identify(name):
 
     if  any( x==name[0:2] for x in ['LC','LO','LT','LE','LM']):
         return('Landsat')
+    
     elif any( x==name[0:3] for x in ['MCD','MOD','MYD']):
         return('MODIS')
+    
     elif any( x==name[0:4] for x in ['3A11','3A12','3A25','3A26','3B31','3A46','3B42','3B43']):
         return('TRMM')
+    
     elif name[0:5]=='CONUS':
         return('WELD_CONUS')
+    
     elif name[0:6]=='Alaska':
         return('WELD_AK')
+    
     elif name[0:6]=='AMSR_E':
         return('AMSR_E')
+    
     elif name[0:3]=='AST':
         return('ASTER')
+    
     elif name[0:3]=='AIR':
         return('AIRS')
 

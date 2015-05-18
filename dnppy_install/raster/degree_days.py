@@ -19,7 +19,7 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
                                    [(Max+Min)/2 + T_base]
 
      where values in Max which are greater than roof are set equal to roof
-     where values in Min which are lesser than floor are set equal to floor
+     where values in Min which are less than floor are set equal to floor
      consult [https://en.wikipedia.org/wiki/Growing_degree-day] for more information.
 
      Inputs:
@@ -31,7 +31,6 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
                        are raster filepaths with spatial referencing.
        roof            roof value above which Max temps do not mater
        floor           floor value below which Min temps do not mater
-       Quiet           Set True to suppress output
 
      Outputs:
        degree_days     numpy array of output values. This same data is saved if outpath is
@@ -97,7 +96,7 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
                 
     # print error if the arrays are not the same size
     else:
-        print 'Images are not the same size!, Check inputs!'
+        print('Images are not the same size!, Check inputs!')
         return(False)
 
     # if an output path was specified, save it with the spatial referencing information.
