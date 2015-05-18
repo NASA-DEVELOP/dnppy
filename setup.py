@@ -42,37 +42,44 @@ dest_path       = os.path.join(library_path,'site-packages','dnppy')
 dest_path2      = dest_path + up_vers
 
 if os.path.isdir(dest_path):
-    import dnppy
-    now_vers = dnppy.__version__
+    try:
+        import dnppy
+        now_vers = dnppy.__version__
 
-    if upgrading(now_vers , up_vers):
-        print("Updating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
-        
-        time.sleep(0)   # people seem to think an error has occured when it installs too quickly.
-                        # this gives people time to actually read the screen.
-        
-        shutil.rmtree(dest_path)
-        shutil.copytree(source_path,dest_path)
-        
-        try: shutil.rmtree(dest_path2)
-        except: pass
-        
-        shutil.copytree(source_path,dest_path2)
-    else:
-        print("you are trying to replace your dnppy with an older version!")
-        print("Are you sure you wish to downgrade")
-        downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
-        if downgrade == 'y' or downgrade == 'Y':
+        if upgrading(now_vers , up_vers):
+            print("Updating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
+            
+            time.sleep(0)   # people seem to think an error has occured when it installs too quickly.
+                            # this gives people time to actually read the screen.
+            
             shutil.rmtree(dest_path)
             shutil.copytree(source_path,dest_path)
-            shutil.rmtree(dest_path2)
+            
+            try: shutil.rmtree(dest_path2)
+            except: pass
+            
             shutil.copytree(source_path,dest_path2)
         else:
-            print("Setup aborted!")
+            print("you are trying to replace your dnppy with an older version!")
+            print("Are you sure you wish to downgrade")
+            downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
+            if downgrade == 'y' or downgrade == 'Y':
+                shutil.rmtree(dest_path)
+                shutil.copytree(source_path,dest_path)
+                shutil.rmtree(dest_path2)
+                shutil.copytree(source_path,dest_path2)
+            else:
+                print("Setup aborted!")
+                
+    except RuntimeError:
+        print("installing dnppy version [{0}]".format(up_vers))
+        shutil.copytree(source_path,dest_path)
+        shutil.copytree(source_path,dest_path2)
 else:
     print("installing dnppy version [{0}]".format(up_vers))
     shutil.copytree(source_path,dest_path)
     shutil.copytree(source_path,dest_path2)
+    
 
 print('\nSource path       : ' + source_path)
 print('Destination path 1: ' + dest_path)
