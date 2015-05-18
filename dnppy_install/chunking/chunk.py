@@ -32,4 +32,7 @@ class chunk():
         if con1 or con2:
             self.data = item
 
+        if hasattr(item, "index"):
+            self.index = item.index
+
         return
