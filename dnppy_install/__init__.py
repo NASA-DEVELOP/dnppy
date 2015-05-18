@@ -15,18 +15,22 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
               "Quinten Geddes",
               "Scott Baron"]
 
-##from R_dnppy import *
-##from chunking import *
-##from convert import *
-##from core import *
-##from download import *
-##from landsat import *
-##from modis import *
-##from radar import *
-##from raster import *
-##from solar import *
-##from textio import *
-##from time_series import *
+
+# prevents module import issues durring installation.
+if not __name__ == "dnppy_install":
+    
+    from R_dnppy import *
+    from chunking import *
+    from convert import *
+    from core import *
+    from download import *
+    from landsat import *
+    from modis import *
+    from radar import *
+    from raster import *
+    from solar import *
+    from textio import *
+    from time_series import *
 
 
 
