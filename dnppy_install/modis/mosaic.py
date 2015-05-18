@@ -11,8 +11,8 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 
-def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = "1",
-                                        m_method = "LAST", m_colormap = "FIRST"):
+def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
+                 bands = "1", m_method = "LAST", m_colormap = "FIRST"):
 
     """
     Automatically identify appropriate files and mosaic them.
@@ -58,7 +58,8 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
     cellsize        = "#"
 
     # Set up initial arcpy modules, workspace, and parameters, and sanitize inputs.
-    if outdir: OUT=outdir
+    if outdir:
+        OUT = outdir
     filelist = raster.enf_rastlist(filelist)
 
     # initialize empty lists for tracking
@@ -72,33 +73,34 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
 
     # grab info from all the files left in the filelist.
     for item in filelist:
-        info = raster.grab_info(item,False,True)
+        info = raster.grab_info(item, False, True)
         yearlist.append(int(info.year))
         daylist.append(int(info.j_day))
 
-        # find all tiles being represented
+        # find all tiles present
         if info.tile not in tilelist:
             tilelist.append(info.tile)
             
-        # find all MODIS products existing
+        # find all MODIS products present
         if info.product not in productlist:
             productlist.append(info.product)
 
-        # find all suffixes being represented
+        # find all suffixes present
         if info.suffix not in suffixlist:
             suffixlist.append(info.suffix)
             
     # define the range of years and days to look for
-    years = range(min(yearlist),max(yearlist)+1)
-    days  = range(min(daylist),max(daylist)+1)
+    years = range(min(yearlist), max(yearlist)+1)
+    days  = range(min(daylist), max(daylist)+1)
 
     # print some status updates to the screen
-    print('{mosaic_modis} Found tiles : ' + str(tilelist))
-    print('{mosaic_modis} Found tiles from years: ' + str(years))
-    print('{mosaic_modis} Found tiles from days:  ' + str(days))
-    print('{mosaic_modis} Found tiles from product: ' + str(productlist))
-    print('{mosaic_modis} Found tiles with suffixes: ' + str(suffixlist))
-    #.....................................................................................
+    print("mosaic_MODIS summary")
+    print("Found tiles : {0}".format(tilelist))
+    print("Found tiles from years: {0}".format(years))
+    print("Found tiles from days:  {0}".format(days))
+    print("Found tiles from product: {0}".format(productlist))
+    print("Found tiles with suffixes: {0}".format(suffixlist))
+
     # now that we know what to look for, lets go back through and mosaic everything
     for suffix in suffixlist:
         for product in productlist:
@@ -106,9 +108,9 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT", bands = 
                 for day in days:
 
                     # build the search criteria
-                    search=[(product +'.A'+ str(year)+str(day).zfill(3))]
+                    search = [(product +'.A'+ str(year)+str(day).zfill(3))]
                     
-                    # find files meeting the criteria and sanitize list from accidental metadata inclusions
+                    # find files meeting the criteria and sanitize list of metadata files
                     for filename in filelist:
                         if all(x in filename for x in ['.tif'] + search + [suffix]):
                             if not any(x in filename for x in ['.aux','.xml','.ovr','mosaic']):
