@@ -1,3 +1,8 @@
+
+
+import os, shutil, sys, dnppy_install,time
+
+
 """
  This is a barebones install script to install the dnppy module
  
@@ -32,8 +37,6 @@ print("====================================================================")
 print("   Setting up dnnpy! the DEVELOP National Program python package!")
 print("====================================================================\n")
 
-import os, shutil, sys, dnppy_install,time
-
 up_vers = dnppy_install.__version__
 
 library_path, _ = os.path.split(os.__file__)
@@ -42,8 +45,10 @@ dest_path       = os.path.join(library_path,'site-packages','dnppy')
 dest_path2      = dest_path + up_vers
 
 if os.path.isdir(dest_path):
+    
     try:
         import dnppy
+    
         now_vers = dnppy.__version__
 
         if upgrading(now_vers , up_vers):
@@ -72,6 +77,7 @@ if os.path.isdir(dest_path):
                 print("Setup aborted!")
                 
     except RuntimeError:
+        shutil.rmtree(dest_path)
         print("installing dnppy version [{0}]".format(up_vers))
         shutil.copytree(source_path,dest_path)
         shutil.copytree(source_path,dest_path2)
