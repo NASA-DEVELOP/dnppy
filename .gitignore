@@ -1,2 +1,2 @@
-dnppy_install/__init__.pyc
+*.pyc
 .idea/
