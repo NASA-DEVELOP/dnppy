@@ -72,12 +72,22 @@ def to_numpy(raster, num_type = False):
         ys, xs      = numpy_rast.shape
         meta        = metadata(raster, xs, ys)
 
-        if num_type:
-            numpy_rast = numpy_rast.astype(num_type)
+        if not num_type:
+            num_type = 'float32'
+
+        numpy_rast = numpy_rast.astype(num_type)
 
         # mask NoData values from the array
-        numpy_rast[numpy_rast == meta.NoData_Value] = 'nan'
-        numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast))
+        if 'float' in num_type:
+            numpy_rast[numpy_rast == meta.NoData_Value] = numpy.nan
+            numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast))
+
+        elif 'int' in num_type: # (numpy.nan not supported by ints)
+            mask = numpy_rast
+            mask[mask != meta.NoData_Value] == False
+            mask[mask == meta.NoData_Value] == True
+            numpy_rast = numpy.ma.masked_array(numpy_rast, mask)
+
             
     else:  
         print("Raster '{0}'does not exist".format(raster))

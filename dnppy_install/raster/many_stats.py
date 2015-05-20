@@ -41,7 +41,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     zs                  = len(rasterlist)
     rast_3d             = numpy.zeros((xs,ys,zs))
 
-    metadata.NoData_Value = 'nan'
+    metadata.NoData_Value = numpy.nan
 
     # open up the initial figure
     rastfig = raster_fig(temp_rast)

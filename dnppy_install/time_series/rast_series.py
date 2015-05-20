@@ -82,7 +82,7 @@ class raster_series(time_series):
         Applies the dnppy.raster.null_set_range() function to every raster in rast_series
         """
         raster.null_set_range(self.col_data['filepaths'],
-                                low_thresh, high_thresh, NoData_Value)
+                                high_thresh, low_thresh, NoData_Value)
         return
 
 

@@ -166,4 +166,4 @@ def mosaic(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
 if __name__ == "__main__":
 
     tifdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover"
-    mosaic(tifdir)
+    mosaic(tifdir, pixel_type = "8_BIT_UNSIGNED")
