@@ -6,13 +6,13 @@ import os
 import arcpy
 
 
-def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
+def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
 
     """
     Extracts tifs from MODIS HDF files, ensures proper projection.
 
      inputs:
-       filelist    list of '.hdf' files from which data should be extracted
+       filelist    list of '.hdf' files from which data should be extracted (or a directory)
        layerlist   list of layer numbers to pull out as individual tifs should be integers
                    such as [0,4] for the 0th and 4th layer respectively.
        layernames  list of layer names to put more descriptive file suffixes to each layer
@@ -47,8 +47,7 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
         path,name           = os.path.split(infile)
         arcpy.env.workspace = path
 
-        for i in range(len(layerlist)):
-            layer = layerlist[i]
+        for i,layer in enumerate(layerlist):
             
             # specify the layer names.
             if layernames:
@@ -61,32 +60,36 @@ def extract_from_hdf(filelist, layerlist, layernames=False, outdir=False):
                 if not os.path.exists(os.path.join(outdir, layername)):
                     os.makedirs(os.path.join(outdir, layername))
                     
-                outname = os.path.join(outdir, layername,name[:-4] +'_'+ layername +'.tif')
+                outname = os.path.join(outdir, layername,
+                                       "{0}_{1}.tif".format(name[:-4], layername))
             else:
                 if not os.path.exists(os.path.join(path, layername)):
                     os.makedirs(os.path.join(path, layername))
-                    
-                outname = os.path.join(path, layername,name[:-4] +'_'+ layername +'.tif')
+
+                outname = os.path.join(path, layername,
+                                       "{0}_{1}.tif".format(name[:-4], layername))
 
             # perform the extracting and projection definition
             try:
                 # extract the subdataset
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
-                
+
                 # define the projection as the MODIS Sinusoidal
                 define_projection(outname)
-                
-                print("Extracted {0}".format(outname))
+
+                print("Extracted {0}".format(os.path.basename(outname)))
+
             except:
-                print("Failed to extract {0}  from {1}".format(outname, infile))
-                failed.append(infile)
+                print("Failed to extract {0}  from {1}".format(os.path.basename(outname),
+                                                               os.path.basename(infile)))
+            failed.append(infile)
                 
     print("Finished extracting all hdfs! \n") 
     return failed
 
 
 if __name__ == "__main__":
-    extract_from_hdf(r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS",
-                     [0,4],
-                     ["day","night"],
-                     r"C:\Users\jwely\Desktop\troubleshooting\rawMODIS\extracted")
+    extract_from_hdf(r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1",
+                     [3],
+                     ["FracSnowCover"],
+                     r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow")

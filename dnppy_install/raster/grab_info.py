@@ -1,12 +1,12 @@
 
 # local imports
 from dnppy import core
-from datetime import datetime
+import datetime
 
 import os
 
 
-def grab_info(filepath, data_type = False, CustGroupings = False):
+def grab_info(filepath, data_type = False, CustGroupings = None):
 
     """
     Extracts in-filename metadata from common NASA data products
@@ -58,7 +58,7 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
 
     
     # pull the filename and path apart 
-    path,name = os.path.split(filepath)
+    path, name = os.path.split(filepath)
     
     # create an info object class instance
     class info_object(object):pass
@@ -150,20 +150,21 @@ def grab_info(filepath, data_type = False, CustGroupings = False):
             info.season='Autumn'
         
     # bin by julian day if integer group width was input
-    if CustGroupings:
-        CustGroupings=core.enf_list(CustGroupings)
+    if not CustGroupings == None:
+
+        CustGroupings = core.enf_list(CustGroupings)
         for grouping in CustGroupings:
-            if type(grouping)==int:
-                groupname='custom' + str(grouping)
-                setattr(info,groupname,1+(int(info.j_day)-1)/(grouping))
+            if isinstance(grouping,int):
+                groupname = 'custom' + str(grouping)
+                setattr(info, groupname, 1+(int(info.j_day)-1)/(grouping))
             else:
-                print('{Grab_Data_Info} invalid custom grouping entered!')
-                print('{Grab_Data_Info} [CustGrouping] must be one or more integers in a list')
+                print('invalid custom grouping entered!')
+                print('CustGrouping must be one or more integers in a list')
 
     # make sure the filepath input actually leads to a real file, then give user the info
     if core.exists(filepath):
-        print('{Grab_Data_Info} '+ info.type + ' File ['+ name +'] has attributes:')
-        print(vars(info))
+        #print('{0} file {1} has attributes:'.format(info.type, name))
+        #print(vars(info))
         return info
     else:
         return False

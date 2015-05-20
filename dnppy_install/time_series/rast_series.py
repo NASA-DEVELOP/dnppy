@@ -77,6 +77,15 @@ class raster_series(time_series):
         return
     
 
+    def null_set_range(self, high_thresh = None, low_thresh = None, NoData_Value = None):
+        """
+        Applies the dnppy.raster.null_set_range() function to every raster in rast_series
+        """
+        raster.null_set_range(self.col_data['filepaths'],
+                                low_thresh, high_thresh, NoData_Value)
+        return
+
+
     def series_stats(self, outdir, saves = ['AVG','NUM','STD','SUM'],
                                         low_thresh = None, high_thresh = None):
         """
@@ -217,8 +226,8 @@ class raster_series(time_series):
 
             # otherwise, set the centers with no offest.
             else:
-                ustart  = self._center_datetime(time_s, subset_units)
-                uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
+                ustart  = self._center_datetime(self, time_s, subset_units)
+                uend    = self._center_datetime(self, time_f, subset_units) + timedelta(seconds = step_width)
 
 
             # Iterate through entire dataset one time step unit at a time.
@@ -333,11 +342,13 @@ if __name__ == "__main__":
 
     rs = raster_series()
     
-    indir   = r"C:\Users\jwely\Desktop\troubleshooting\test_in_MODIS"
+    indir   = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
     fmt     = "%Y%j"
-    outdir  = r"C:\Users\jwely\Desktop\troubleshooting\test_out_MODIS"
+    outdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\statistics"
+    fmtmask = range(9,16)
     
-    rs.from_directory(indir, fmt, range(9,16))
-    rs.make_subsets("%m")
+    rs.from_directory(indir, fmt, fmtmask)
+    rs.null_set_range(high_thresh = 100, NoData_Value = 101)
+    rs.make_subsets("%d", overlap_width = 3)
     rs.interrogate()
-    rs.series_stats(outdir, low_thresh = -10.0, high_thresh = 50.0)
+    rs.series_stats(outdir, low_thresh = 0.0, high_thresh = 100.0)

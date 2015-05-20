@@ -5,7 +5,7 @@ import numpy
 
 
 
-def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = False):
+def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, num_type = False):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
@@ -16,7 +16,7 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
 
      inputs:
        numpy_rast          the numpy array version of the input raster
-       Metadata            The variable exactly as output from "to_numpy"
+       metadata            The variable exactly as output from "to_numpy"
        outpath             output filepath of the individual raster
        NoData_Value        the no data value of the output raster
        num_type            must be a string equal to any of the types listed at the following
@@ -24,34 +24,35 @@ def from_numpy(numpy_rast, Metadata, outpath, NoData_Value = False, num_type = F
                            for example: 'uint8' or 'int32' or 'float32'
 
      Usage example:
-       call to_numpy with  "rast,Metadata = to_numpy(Raster)"
+       call to_numpy with  "rast,metadata = to_numpy(Raster)"
        perform numpy manipulations as you please
-       then save the array with "raster.from_numpy(rast, Metadata, output)"
+       then save the array with "raster.from_numpy(rast, metadata, output)"
     """
 
     if num_type:
         numpy_rast = numpy_rast.astype(num_type)
 
     if not NoData_Value:
-        NoData_Value = Metadata.NoData_Value
+        NoData_Value = metadata.NoData_Value
             
-    llcorner = arcpy.Point(Metadata.Xmin, Metadata.Ymin)
+    llcorner = arcpy.Point(metadata.Xmin, metadata.Ymin)
     
     # save the output.
     if isinstance(numpy_rast, numpy.ma.core.MaskedArray):
         mask = numpy.ma.getmask(numpy_rast)
         data = numpy.ma.getdata(numpy_rast)
+        data[mask] = metadata.NoData_Value
 
-        OUT = arcpy.NumPyArrayToRaster(data, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
+        OUT = arcpy.NumPyArrayToRaster(data, llcorner, metadata.cellWidth ,metadata.cellHeight)
         OUT.save(outpath)
 
     elif isinstance(numpy_rast, numpy.ndarray):
-        OUT = arcpy.NumPyArrayToRaster(numpy_rast, llcorner, Metadata.cellWidth ,Metadata.cellHeight)
+        OUT = arcpy.NumPyArrayToRaster(numpy_rast, llcorner, metadata.cellWidth ,metadata.cellHeight)
         OUT.save(outpath)
 
     # define its projection
     try:
-        arcpy.DefineProjection_management(outpath, Metadata.projection)
+        arcpy.DefineProjection_management(outpath, metadata.projection)
     except:
         pass
 

@@ -1,6 +1,6 @@
 
 #standard imports
-from .grab_meta import *
+from grab_meta import grab_meta
 from dnppy import solar
 import arcpy
 import datetime
@@ -10,7 +10,7 @@ import os
 arcpy.CheckOutExtension("Spatial")
 
 
-__all__=['surf_reflectance']      # planned development
+__all__=['surface_reflectance']      # planned development
 
 
 def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = False, kt = 1.0):

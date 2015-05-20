@@ -71,7 +71,10 @@ if os.path.isdir(dest_path):
             else:
                 print("Setup aborted!")
                 
-    except RuntimeError:
+
+    except:
+        shutil.rmtree(dest_path)
+        shutil.rmtree(dest_path2)
         print("installing dnppy version [{0}]".format(up_vers))
         shutil.copytree(source_path,dest_path)
         shutil.copytree(source_path,dest_path2)

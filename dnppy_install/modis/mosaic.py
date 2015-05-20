@@ -11,7 +11,7 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 
-def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
+def mosaic(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
                  bands = "1", m_method = "LAST", m_colormap = "FIRST"):
 
     """
@@ -73,7 +73,7 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
 
     # grab info from all the files left in the filelist.
     for item in filelist:
-        info = raster.grab_info(item, False, True)
+        info = raster.grab_info(item, 'MODIS', 365)
         yearlist.append(int(info.year))
         daylist.append(int(info.j_day))
 
@@ -122,7 +122,7 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
                         # if user did not specify an outdir, make folder next to first mosaic file
                         if not outdir:
                             head, tail  = os.path.split(mosaiclist[0])
-                            OUT         = os.path.join(head,'Mosaicked')
+                            OUT         = os.path.join(head, 'Mosaic')
 
                         # make the output directory if it doesnt exist already    
                         if not os.path.isdir(OUT):
@@ -137,12 +137,12 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
                         
                         # perform the mosaic!
                         try:
-                            arcpy.MosaicToNewRaster_management(mosaiclist,OUT,\
-                                outname,coordinatesys,pixel_type,cellsize,bands,\
-                                m_method,m_colormap)
+                            arcpy.MosaicToNewRaster_management(mosaiclist, OUT,
+                                outname, coordinatesys, pixel_type, cellsize, bands,
+                                m_method, m_colormap)
                             
                             # make sure the mosaic list is empty!
-                            print("mosaciked " + outname)
+                            print("mosaiced " + outname)
                             
                         except:
                             print("Failed to mosaic files! " + outname)
@@ -162,3 +162,8 @@ def mosaic_modis(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
     return failed
 
 
+# testing area
+if __name__ == "__main__":
+
+    tifdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover"
+    mosaic(tifdir)
