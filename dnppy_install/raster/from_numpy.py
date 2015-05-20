@@ -5,7 +5,7 @@ import numpy
 
 
 
-def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, num_type = False):
+def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, numpy_datatype = False):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
@@ -19,7 +19,7 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, num_type = F
        metadata            The variable exactly as output from "to_numpy"
        outpath             output filepath of the individual raster
        NoData_Value        the no data value of the output raster
-       num_type            must be a string equal to any of the types listed at the following
+       numpy_datatype      must be a string equal to any of the types listed at the following
                            address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
                            for example: 'uint8' or 'int32' or 'float32'
 
@@ -29,8 +29,8 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, num_type = F
        then save the array with "raster.from_numpy(rast, metadata, output)"
     """
 
-    if num_type:
-        numpy_rast = numpy_rast.astype(num_type)
+    if numpy_datatype:
+        numpy_rast = numpy_rast.astype(numpy_datatype)
 
     if not NoData_Value:
         NoData_Value = metadata.NoData_Value
