@@ -10,7 +10,7 @@ import os
 arcpy.CheckOutExtension("Spatial")
 
 
-__all__=['surf_reflectance']      # planned development
+__all__=['surface_reflectance']      # complete
 
 
 def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = False, kt = 1.0):
@@ -23,7 +23,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
          have a corresponding band in TM or ETM+.
 
         To be performed on Top-of-Atmosphere Reflectance data processed with the landsat.toa_reflectance_457
-                or the landsat.toa_reflectance_8 function.
+        or the landsat.toa_reflectance_8 function.
 
         Resources:
                 DEM:
@@ -81,36 +81,39 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         TM_ETM_bands = ['1','2','3','4','5','7']
 
         #define the tile name for the landsat scene based on the metadata file's name
-        if "\\" in meta_path:
-                name = meta_path.split("\\")[-1]
-                tilename = name.replace("_MTL.txt", "")
-        elif "//" in meta_path:
-                name = meta_path.split("//")[-1]
-                tilename = name.replace("_MTL.txt", "")
+##        if "\\" in meta_path:
+##                name = meta_path.split("\\")[-1]
+##                tilename = name.replace("_MTL.txt", "")
+##        elif "//" in meta_path:
+##                name = meta_path.split("//")[-1]
+##                tilename = name.replace("_MTL.txt", "")
+        tilename = getattr(meta, "LANDSAT_SCENE_ID")
 
         #construct the list of TOA reflectance band tiffs and populate it based on the above definitions
         toa_list = []
         out_list = []
-        i = 1
+        n = 0
         for file in os.listdir(toa_folder):
                 if ("TOA_Ref" in file) and (".tif" in file) and (".tif." not in file):
                         if "LC8" in meta_path:
-                                tile = "{0}_B{1}".format(tilename, i)
-                                if tile in file and str(i) in OLI_bands:
+                                tile = "{0}_B{1}".format(tilename, OLI_bands[n])
+                                if tile in file and str(n) in OLI_bands:
                                         path = "{0}\\{1}".format(toa_folder, file)
                                         out_file = file.replace("TOA", "Surf")
                                         toa_list.append(path)
                                         out_list.append(out_file)
-                                i = i + 1
-                        elif ("LE7" in file) or ("LT5" in file) or ("LT4"in file):
-                                tile = "{0}_B{1}".format(tilename, j)
-                                if path in file and str(i) in TM_ETM_bands:
+                                        while n <= 5:
+                                                n = n + 1
+                        elif ("LE7" in file) or ("LT5" in file) or ("LT4" in file):
+                                tile = "{0}_B{1}".format(tilename, TM_ETM_bands[n])
+                                if tile in file and str(n) in TM_ETM_bands:
                                         path = "{0}\\{1}".format(toa_folder, file)
                                         out_file = file.replace("TOA", "Surf")
-                                        toa_list.append(file)
-                                        out_list.append(out_file)
-                                i = i + 1
-        
+                                        toa_list.append(path)
+                                        while n <= 5:
+                                                n = n + 1
+        print toa_list
+        print out_list
         #grab the corner lat/lon coordinates to calculate the approximate scene center lat/lon       
         ul_lat = getattr(meta, "CORNER_UL_LAT_PRODUCT")
         ul_lon = getattr(meta, "CORNER_UL_LON_PRODUCT")
@@ -153,7 +156,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
 
         #Atmospheric Pressure
         DEM = arcpy.sa.Raster(dem_path)
-        ap = 101.3 * ((( 293 - (0.0065 * DEM))/293 ) ** 5.26)
+        ap = 101.3 * ((( 293 - (0.0065 * DEM))/ 293) ** 5.26)
         
         #Water in Atmosphere
         wia = (0.14 * svp * ap) + 2.1
@@ -187,17 +190,17 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         #Per Band Path Reflectance
         pr_bands = []
         pr_constants = [0.254, 0.149, 0.147, 0.311, 0.103, 0.036]
-        for i in xrange(6):
-                pr = pr_constants[i] * (1 - entisr_bands[i])
+        for j in xrange(6):
+                pr = pr_constants[j] * (1 - entisr_bands[j])
                 pr_bands.append(pr)
 
         #Calculate and save At-Surface Reflectance band tiffs
-        for i in xrange(6):
+        for k in xrange(6):
                 if outdir:
-                        asr_path = "{0}\\{1}".format(outdir, out_list[i])
+                        asr_path = "{0}\\{1}".format(outdir, out_list[k])
                 else:
-                        asr_path = "{0}\\{1}".format(toa_folder, out_list[i])
-                refl_surf = (toa_list[i] - pr_bands[i])/(entisr_bands[i] * entsrrs_bands[i])
+                        asr_path = "{0}\\{1}".format(toa_folder, out_list[k])
+                refl_surf = (toa_list[k] - pr_bands[k])/(entisr_bands[k] * entsrrs_bands[k])
                 refl_surf.save(asr_path)
 
         return
