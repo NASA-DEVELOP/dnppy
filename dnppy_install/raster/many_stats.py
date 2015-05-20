@@ -39,7 +39,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
     temp_rast, metadata = to_numpy(rasterlist[0])
     xs, ys              = temp_rast.shape
     zs                  = len(rasterlist)
-    rast_3d             = numpy.ma.masked_array(numpy.zeros((xs,ys,zs)))
+    rast_3d             = numpy.zeros((xs,ys,zs))
 
     metadata.NoData_Value = 'nan'
 
@@ -52,6 +52,8 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
         # print a status and open a figure
         print('working on file {0}'.format(os.path.basename(raster)))
         new_rast, new_meta  = to_numpy(raster, numtype)
+
+        new_rast = new_rast.data
 
         if not new_rast.shape == (xs, ys):
             print new_rast.shape

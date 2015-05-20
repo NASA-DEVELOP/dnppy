@@ -348,7 +348,7 @@ if __name__ == "__main__":
     fmtmask = range(9,16)
     
     rs.from_directory(indir, fmt, fmtmask)
-    #rs.null_set_range(high_thresh = 100, NoData_Value = 101)
+    rs.null_set_range(high_thresh = 100, NoData_Value = 101)
     rs.make_subsets("%d", overlap_width = 3)
     rs.interrogate()
     rs.series_stats(outdir, low_thresh = 0.0, high_thresh = 100.0)
