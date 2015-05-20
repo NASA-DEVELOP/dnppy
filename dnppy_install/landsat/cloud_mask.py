@@ -1,6 +1,7 @@
 
 # imports
 from dnppy import core
+from scipy import stats
 import numpy
 import arcpy
 import os
@@ -248,9 +249,9 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     TempMean = numpy.mean(list)
     TempStd = numpy.std(list)
     TempSkew = stats.skew(list)
-    Temp98perc = numpy.percentile(list, 98.75)
-    Temp97perc = numpy.percentile(list, 97.50)
-    Temp82perc = numpy.percentile(list, 82.50)
+    Temp98perc = stats.scoreatpercentile(list, 98.75)
+    Temp97perc = stats.scoreatpercentile(list, 97.50)
+    Temp82perc = stats.scoreatpercentile(list, 82.50)
     del list
 
     #delete all intermediary files in the output directory
