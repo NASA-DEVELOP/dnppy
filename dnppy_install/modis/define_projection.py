@@ -32,6 +32,6 @@ def define_projection(filenames):
                 UNIT["Meter",1.0]]"""
 
     for filename in filenames:
-        arcpy.DefineProjection_management(filenames, proj)
+        arcpy.DefineProjection_management(filename, proj)
         
     return

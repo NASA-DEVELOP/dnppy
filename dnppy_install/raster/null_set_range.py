@@ -2,11 +2,12 @@ __author__ = 'jwely'
 
 from enf_rastlist import enf_rastlist
 from to_numpy import to_numpy
+from from_numpy import from_numpy
 
 import arcpy
+import os
 
-
-def null_set_range(rastlist, above, below, NoData_Value = False):
+def null_set_range(rastlist, high_thresh = None, low_thresh = None, NoData_Value = None):
     """
     Changes values within a certain range to NoData
 
@@ -14,12 +15,10 @@ def null_set_range(rastlist, above, below, NoData_Value = False):
      useful in filtering obviously erroneous high or low values from a raster dataset.
 
      inputs:
-       rastlist    list of files for which to set NoData values. easily created with
-                       "core.list_files" function
-       above       will set all values above this, but below "below" to NoData
-                       set to 'False' if now upper bound exists
-       below       will set all values below this, but above "above" to NoData
-                       set to 'False' if no lower bound exists
+       rastlist     list of files for which to set NoData values. easily created with
+                    "core.list_files" function
+       high_thresh  will set all values above this to  NoData
+       low_thresh   will set all values below this to NoData
     """
 
     # sanitize filelist input
@@ -28,22 +27,18 @@ def null_set_range(rastlist, above, below, NoData_Value = False):
     # iterate through each file in the filelist and set nodata values
     for rastname in rastlist:
         #load raster as numpy array and save spatial referencing.
-        raster, meta = to_numpy(rastname)
+        rast, meta = to_numpy(rastname)
 
-        if not NoData_Value:
+        if not NoData_Value == None:
             NoData_Value = meta.NoData_Value
 
-        if above and below:
-            raster[below >= raster >= above] = NoData_Value
-        elif above:
-            raster[raster >= above] = NoData_Value
-        elif below:
-            raster[raster <= below] = NoData_Value
+        if not high_thresh == None:
+            rast[rast >= high_thresh] = NoData_Value
+        if not low_thresh == None:
+            rast[rast <= low_thresh] = NoData_Value
 
-        raster.from_numpy(raster, meta, rastname)
+        from_numpy(rast, meta, rastname)
         arcpy.SetRasterProperties_management(rastname, data_type="#",statistics="#",
-                    stats_file = "#",nodata = "1 " + str(NoData_Value))
-
-        print("Set NoData values in {0}".format(rastname))
+                    stats_file = "#", nodata = "1 " + str(NoData_Value))
 
     return

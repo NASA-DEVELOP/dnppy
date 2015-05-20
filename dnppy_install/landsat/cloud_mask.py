@@ -1,7 +1,7 @@
 
 # imports
 from dnppy import core
-from scipy import stats
+# from scipy import stats
 import numpy
 import arcpy
 import os

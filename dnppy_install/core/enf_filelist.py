@@ -13,14 +13,15 @@ def enf_filelist(filelist):
      all functions which input filelists to be more flexible by accepting directories instead.
     """
 
-    if isinstance(filelist,str):
-        if os.path.exists(filelist):
-            new_filelist = list_files(False,filelist,False,False)
+    if isinstance(filelist, str):
+        if os.path.isdir(filelist):
+            new_filelist = list_files(False, filelist, False, False)
             return new_filelist
+
         elif os.path.isfile(filelist):
             return [filelist]
 
-    elif isinstance(filelist,bool):
+    elif isinstance(filelist, bool):
         print 'Expected file list or directory but recieved boolean or None type input!'
         return False
     else:

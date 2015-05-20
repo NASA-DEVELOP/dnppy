@@ -8,7 +8,7 @@ import os
 def enf_rastlist(filelist):
 
     """
-    ensures a list of inputs filepaths contains only valid raster tyeps
+    ensures a list of inputs filepaths contains only valid raster types
     """
 
     # first place the input through the same requirements of any filelist
@@ -16,7 +16,6 @@ def enf_rastlist(filelist):
     new_filelist    = []
 
     for filename in filelist:
-        ext=filename[-3:]
 
         if os.path.isfile(filename):
             if is_rast(filename):

@@ -9,7 +9,6 @@
  If you wrote a function you think should be added to this module, or have an idea for one
  you wish was available, please email the Geoinformatics YP class or code it up yourself
  for future DEVELOP participants to use!
-
 """
 
 __author__ = ["Daniel Jensen, danieljohnjensen@gmail.com",
@@ -27,16 +26,3 @@ from surface_temp import *
 from toa_radiance import *
 from toa_reflectance import *
 from download import *
-
-from dnppy import core
-
-# standard imports
-import os, sys, time, math, arcpy, shutil
-if core.check_module("numpy"): import numpy
-
-# arcpy imports
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
-    arcpy.env.overwriteOutput = True
