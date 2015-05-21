@@ -252,7 +252,8 @@ class time_series:
         dto = datetime_obj
         
         if units == "day":
-            return datetime(dto.year, dto.month, dto.day, 12)
+            # noon minus 1 millisecond. (better handles daily data with no hour info)
+            return datetime(dto.year, dto.month, dto.day, 11, 59, 59, 999)
 
         if units == "month":
             # we need to find the middle day of the month which could be 14 or 15

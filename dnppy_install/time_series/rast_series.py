@@ -25,7 +25,7 @@ class raster_series(time_series):
     will not apply to raster_series
     """
         
-    def from_directory(self, directory, fmt, fmt_unmask = False):
+    def from_directory(self, directory, fmt, fmt_unmask = None):
         """
         creates a list of all rasters in a directory, then
         passes this list to self.from_rastlist
@@ -38,7 +38,7 @@ class raster_series(time_series):
         return
 
     
-    def from_rastlist(self, filepaths, fmt, fmt_unmask = False):
+    def from_rastlist(self, filepaths, fmt, fmt_unmask = None):
         """
         loads up a list of filepaths as a time series
         if filenames contain variant characters that are not related
@@ -61,7 +61,7 @@ class raster_series(time_series):
         for filepath in filepaths:
             head, filename = os.path.split(filepath)
 
-            if fmt_unmask:
+            if fmt_unmask is not None:
                 fmt_name = ""
                 for char_index in fmt_unmask:
                     fmt_name = fmt_name + filename[char_index]
@@ -216,6 +216,7 @@ class raster_series(time_series):
                 elif subset_units == "minute":
                     ustart  = datetime(time_s.year, time_s.month, time_s.day, time_s.hour, time_s.minute,
                                        cust_center_time.second, cust_center_time.microsecond)
+
                 else: #subset_units == "day":
                     ustart  = datetime(time_s.year, time_s.month, time_s.day,
                                        cust_center_time.hour, cust_center_time.minute,
@@ -342,13 +343,14 @@ if __name__ == "__main__":
 
     rs = raster_series()
     
-    indir   = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
-    fmt     = "%Y%j"
-    outdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\statistics"
-    fmtmask = range(9,16)
-    
-    rs.from_directory(indir, fmt, fmtmask)
+    rastdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
+    fmt      = "%Y%j"
+    fmtmask  = range(9,16)
+
+    rs.from_directory(rastdir, fmt, fmtmask)
+
+    statsdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\statistics"
     rs.null_set_range(high_thresh = 100, NoData_Value = 101)
     rs.make_subsets("%d", overlap_width = 3)
     rs.interrogate()
-    rs.series_stats(outdir, low_thresh = 0.0, high_thresh = 100.0)
+    rs.series_stats(statsdir, low_thresh = 0.0, high_thresh = 100.0)
