@@ -37,20 +37,28 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
         null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
         #scrape the attribute data
-        Ml   = getattr(meta,"RADIANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
-        Al   = getattr(meta,"RADIANCE_ADD_BAND_" + band_num)  # additive rescaling factor
+        Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".fromat(band_num)) # multiplicative scaling factor
+        Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".fromat(band_num))  # additive rescaling factor
 
         #calculate Top-of-Atmosphere radiance
         TOA_rad = (null_raster * Ml) + Al
         del null_raster
         
         #create the output name and save the TOA radiance tiff
-        name = meta_path.split("\\")[-1]
+        if "\\" in meta_path:
+            name = meta_path.split("\\")[-1]
+        elif "//" in meta_path:
+            name = meta_path.split("//")[-1]
+            
         rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
 
         if outdir:
             outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
         else:
+            if "\\" in meta_path:
+                name = meta_path.split("\\")[-1]
+            elif "//" in meta_path:
+                name = meta_path.split("//")[-1]
             folder = meta_path.replace(name, "")
             outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
             
@@ -137,16 +145,16 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
 
             #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
             if Meta == newMeta:
-                LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_" + band_num)
-                LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_" + band_num)  
-                QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_" + band_num)
-                QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_" + band_num)
+                LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".fromat(band_num))
+                LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".fromat(band_num))  
+                QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".fromat(band_num))
+                QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".fromat(band_num))
                 
             elif Meta == oldMeta:
-                LMax    = getattr(metadata, "LMAX_BAND" + band_num)
-                LMin    = getattr(metadata, "LMIN_BAND" + band_num)  
-                QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
-                QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
+                LMax    = getattr(metadata, "LMAX_BAND{0}".fromat(band_num))
+                LMin    = getattr(metadata, "LMIN_BAND{0}".fromat(band_num))  
+                QCalMax = getattr(metadata, "QCALMAX_BAND{0}".fromat(band_num))
+                QCalMin = getattr(metadata, "QCALMIN_BAND{0}".fromat(band_num))
 
             Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
             Oraster = 0
@@ -158,7 +166,10 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             if outdir:
                 outname = core.create_outname(outdir, band_rad, "TOA_Rad", "tif")
             else:
-                name = meta_path.split("\\")[-1]
+                if "\\" in meta_path:
+                    name = meta_path.split("\\")[-1]
+                elif "//" in meta_path:
+                    name = meta_path.split("//")[-1]
                 folder = meta_path.replace(name, "")
                 outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
                 

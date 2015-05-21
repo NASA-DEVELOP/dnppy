@@ -1,16 +1,15 @@
 
 # imports
 from dnppy import core
-# from scipy import stats
 import numpy
 import arcpy
 import os
 
 
-__all__=['make_cloud_mask_8',            # complete
-         'apply_cloud_mask_8',            # complete
-         'make_cloud_mask_457',          # complete
-         'apply_cloud_mask_457']          # complete
+__all__=['make_cloud_mask_8',            # in progress
+         'apply_cloud_mask_8',           # in progress
+         'make_cloud_mask_457',          # in progress
+         'apply_cloud_mask_457']         # in progress
 
 
 def make_cloud_mask_8(BQA_path, outdir = False):

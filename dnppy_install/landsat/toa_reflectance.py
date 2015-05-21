@@ -38,8 +38,8 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
             #scrape data from the given file path and attributes in the MTL file
             band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
             Qcal = arcpy.Raster(band_path)                        
-            Mp   = getattr(meta,"REFLECTANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
-            Ap   = getattr(meta,"REFLECTANCE_ADD_BAND_" + band_num)  # additive rescaling factor
+            Mp   = getattr(meta,"REFLECTANCE_MULT_BAND_{0}".format(band_num)) # multiplicative scaling factor
+            Ap   = getattr(meta,"REFLECTANCE_ADD_BAND_{0}".format(band_num))  # additive rescaling factor
             SEA  = getattr(meta,"SUN_ELEVATION")*(math.pi/180)       # sun elevation angle theta_se
 
             #get rid of the zero values that show as the black background to avoid skewing values
@@ -53,7 +53,10 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
             if outdir:
                 outname = core.create_outname(outdir, band_path, "TOA_Ref", "tif")
             else:
-                name = meta_path.split("\\")[-1]
+                if "\\" in meta_path:
+                    name = meta_path.split("\\")[-1]
+                elif "//" in meta_path:
+                    name = meta_path.split("//")[-1]
                 folder = meta_path.replace(name, "")
                 outname = core.create_outname(folder, band_path, "TOA_Ref", "tif")
                 
@@ -157,15 +160,15 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
 
          #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
          if Meta == newMeta:
-            LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_" + band_num)
-            LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_" + band_num)  
-            QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_" + band_num)
-            QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_" + band_num)
+            LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".format(band_num))
+            LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".format(band_num))  
+            QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".format(band_num))
+            QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".format(band_num))
          elif Meta == oldMeta:
-            LMax    = getattr(metadata, "LMAX_BAND" + band_num)
-            LMin    = getattr(metadata, "LMIN_BAND" + band_num)  
-            QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
-            QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
+            LMax    = getattr(metadata, "LMAX_BAND{0}".format(band_num))
+            LMin    = getattr(metadata, "LMIN_BAND{0}".format(band_num))  
+            QCalMax = getattr(metadata, "QCALMAX_BAND{0}".format(band_num))
+            QCalMin = getattr(metadata, "QCALMIN_BAND{0}".format(band_num))
     
          Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
          Oraster = 0
@@ -178,7 +181,10 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
          if outdir:
              BandPath = core.create_outname(outdir, pathname, "TOA_Ref", "tif")
          else:
-             name = meta_path.split("\\")[-1]
+             if "\\" in meta_path:
+                 name = meta_path.split("\\")[-1]
+             elif "//" in meta_path:
+                 name = meta_path.split("//")[-1]
              folder = meta_path.replace(name, "")
              BandPath = core.create_outname(folder, pathname, "TOA_Ref", "tif")
 

@@ -25,13 +25,10 @@ def atsat_bright_temp_8(meta_path, outdir = False):
     
     #enforce the list of band numbers and grab metadata from the MTL file
     band_nums = ["10", "11"]
-##    band_nums = core.enf_list(band_nums)
-##    band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
 
     #cycle through each band in the list for calculation, ensuring each is in the list of TIRS bands
     for band_num in band_nums:
-##        if band_num in ["10","11"]:
 
         #scrape data from the given file path and attributes in the MTL file
         band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
@@ -41,14 +38,14 @@ def atsat_bright_temp_8(meta_path, outdir = False):
         null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
         #requires first converting to radiance
-        Ml   = getattr(meta,"RADIANCE_MULT_BAND_" + band_num) # multiplicative scaling factor
-        Al   = getattr(meta,"RADIANCE_ADD_BAND_" + band_num)  # additive rescaling factor
+        Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".format(band_num)) # multiplicative scaling factor
+        Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".format(band_num))  # additive rescaling factor
 
         TOA_rad = (null_raster * Ml) + Al
         
         #now convert to at-sattelite brightness temperature
-        K1   = getattr(meta,"K1_CONSTANT_BAND_" + band_num)  # thermal conversion constant 1
-        K2   = getattr(meta,"K2_CONSTANT_BAND_" + band_num)  # thermal conversion constant 2
+        K1   = getattr(meta,"K1_CONSTANT_BAND_{0}".format(band_num))  # thermal conversion constant 1
+        K2   = getattr(meta,"K2_CONSTANT_BAND_{0}".format(band_num))  # thermal conversion constant 2
 
         #calculate brightness temperature at the satellite
         Bright_Temp = K2/(arcpy.sa.Ln((K1/TOA_rad) + 1))
@@ -57,17 +54,19 @@ def atsat_bright_temp_8(meta_path, outdir = False):
         if outdir:
             outname = core.create_outname(outdir, band_path, "ASBTemp", "tif")
         else:
-            name = meta_path.split("\\")[-1]
-            folder = meta_path.replace(name, "")
+            if "\\" in meta_path:
+                name = meta_path.split("\\")[-1]
+                folder = meta_path.replace(name, "")
+            elif "//" in meta_path:
+                name = meta_path.split("//")[-1]
+                folder = meta_path.replace(name, "")
             outname = core.create_outname(folder, band_path, "ASBTemp", "tif")
             
         Bright_Temp.save(outname)
+        
         print("Saved output at {0}".format(outname))
-        del TOA_rad
+        del TOA_rad, null_raster
             
-##        else:
-##            print("Can only perform brightness temperature on TIRS sensor bands")
-##            print("Skipping band {0}".format(outname))
     return
 
 
@@ -99,23 +98,16 @@ def atsat_bright_temp_457(meta_path, outdir = False):
 
    #These lists will be used to parse the meta data text file and locate relevant information
    #metadata format was changed August 29, 2012. This tool can process either the new or old format
-
    f = open(meta_path)
    MText = f.read()
-
-   metadata = grab_meta(meta_path)
-   oldMeta  = []
-   newMeta  = []
     
    #the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
    #if this is not present, the meta data is considered new.
    #Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer
    if "PRODUCT_CREATION_TIME" in MText:
       Meta = oldMeta
-      Band6length = 2
    else:
       Meta = newMeta
-      Band6length = 8
 
    #The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded
    if Meta == newMeta:
@@ -145,16 +137,16 @@ def atsat_bright_temp_457(meta_path, outdir = False):
 
       #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
       if Meta == newMeta:
-         LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_" + band_num)
-         LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_" + band_num)  
-         QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_" + band_num)
-         QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_" + band_num)
+         LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".format(band_num))
+         LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".format(band_num))  
+         QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".format(band_num))
+         QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".format(band_num))
          
       elif Meta == oldMeta:
-         LMax    = getattr(metadata, "LMAX_BAND" + band_num)
-         LMin    = getattr(metadata, "LMIN_BAND" + band_num)  
-         QCalMax = getattr(metadata, "QCALMAX_BAND" + band_num)
-         QCalMin = getattr(metadata, "QCALMIN_BAND" + band_num)
+         LMax    = getattr(metadata, "LMAX_BAND{0}".format(band_num))
+         LMin    = getattr(metadata, "LMIN_BAND{0}".format(band_num))  
+         QCalMax = getattr(metadata, "QCALMAX_BAND{0}".format(band_num))
+         QCalMin = getattr(metadata, "QCALMIN_BAND{0}".format(band_num))
 
       Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
       Oraster = 0
@@ -172,14 +164,18 @@ def atsat_bright_temp_457(meta_path, outdir = False):
       if outdir:
           BandPath = core.create_outname(outdir, band_temp, "ASBTemp", "tif")
       else:
-          name = meta_path.split("\\")[-1]
-          folder = meta_path.replace(name, "")
+          if "\\" in meta_path:
+              name = meta_path.split("\\")[-1]
+              folder = meta_path.replace(name, "")
+          elif "//" in meta_path:
+              name = meta_path.split("//")[-1]
+              folder = meta_path.replace(name, "")
           BandPath = core.create_outname(folder, band_temp, "ASBTemp", "tif")
 
       Refraster.save(BandPath)
       OutList.append(arcpy.Raster(BandPath))
 
-      del Refraster,Radraster
+      del Refraster, Radraster, null_raster
 
       print("Temperature Calculated for Band {0}".format(band_num))
         
