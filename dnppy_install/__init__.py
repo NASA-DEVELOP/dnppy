@@ -20,7 +20,7 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
 if not __name__ == "dnppy_install":
     
     from R_dnppy import *
-    from chunking import *
+    # from chunking import *
     from convert import *
     from core import *
     from download import *
