@@ -1,6 +1,6 @@
 
 # local imports
-from text_data_class import *
+from text_data import *
 
 def read_DS3505(filepath, has_headers = True):
     """
@@ -34,7 +34,7 @@ def read_DS3505(filepath, has_headers = True):
 
     # assemble the text data object and return it
     tdo = text_data( text_filepath   = filepath,
-                            headers         = headers,
-                            row_data        = data)
+                    headers         = headers,
+                    row_data        = data)
     
     return tdo

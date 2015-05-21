@@ -1,7 +1,6 @@
 
 # local imports
-from text_data_class import *
-
+from text_data import *
 
 
 def read_csv(filepath, has_headers = True, delim = ','):

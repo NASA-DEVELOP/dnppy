@@ -1,4 +1,4 @@
-from text_data_class import text_data
+from text_data import text_data
 import os
 
 
