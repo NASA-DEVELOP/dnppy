@@ -3,7 +3,6 @@ import webbrowser
 import site
 import datetime
 from dnppy import download
-from dnppy import core
 
 __all__=['test_data',           # completed
          'landsat_8_scene',     # completed
@@ -109,7 +108,7 @@ def landsat_8_scene(path, row, year, day, outdir):
     
     return
 
-def landsat_8_series(path, row, start_yyyy_mm_dd, end_yyyy_mm_dd, outdir):
+def landsat_8_series(path, row, start_date, end_date, outdir):
     """
     An idea for making use of the amazon web service hosted Landsat 8 OLI data.
     This will allow a user to identify the path/row and year/day to automatically download
@@ -149,7 +148,7 @@ def landsat_8_series(path, row, start_yyyy_mm_dd, end_yyyy_mm_dd, outdir):
 
     #read the scene list text file from the metadata folder in the installed dnppy package
     directory = site.getsitepackages()[1]
-    scene_list = "{0}\\dnppy\\landsat\\metadata\\scene_list.txt".format(directory)
+    scene_list = "{0}/dnppy/landsat/metadata/scene_list.txt".format(directory)
 
     f = open(scene_list, 'r')
     content = f.readlines()
