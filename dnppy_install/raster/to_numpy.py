@@ -1,11 +1,12 @@
 # local imports
 
 from is_rast import is_rast
+from metadata import metadata
 
 import arcpy
 import numpy
 
-def to_numpy(raster, num_type = False):
+def to_numpy(raster, numpy_datatype = False):
 
     """
     Wrapper for arcpy.RasterToNumpyArray with better metadata handling
@@ -16,8 +17,8 @@ def to_numpy(raster, num_type = False):
      also see raster.from_numpy function in this module.
 
      inputs:
-       Raster              Any raster suported by the arcpy.RasterToNumPyArray function
-       num_type            must be a string equal to any of the types listed at the following
+       Raster              Any raster supported by the arcpy.RasterToNumPyArray function
+       numpy_datatype      must be a string equal to any of the types listed at the following
                            address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
                            for example: 'uint8' or 'int32' or 'float32'
      outputs:
@@ -41,29 +42,7 @@ def to_numpy(raster, num_type = False):
     """
 
     # create a metadata object and assign attributes to it
-    class metadata:
 
-        def __init__(self, raster, xs, ys):
-
-            self.Xsize          = xs
-            self.Ysize          = ys
-            
-            self.cellWidth      = arcpy.Describe(raster).meanCellWidth
-            self.cellHeight     = arcpy.Describe(raster).meanCellHeight
-            
-            self.Xmin           = arcpy.Describe(raster).Extent.XMin
-            self.Ymin           = arcpy.Describe(raster).Extent.YMin
-            self.Xmax           = self.Xmin + (xs * self.cellWidth)
-            self.Ymax           = self.Ymin + (ys * self.cellHeight)
-
-            self.rectangle      = ' '.join([str(self.Xmin),
-                                            str(self.Ymin),
-                                            str(self.Xmax),
-                                            str(self.Ymax)])
-            
-            self.projection     = arcpy.Describe(raster).spatialReference
-            self.NoData_Value   = arcpy.Describe(raster).noDataValue
-            return
 
     # read in the raster as an array
     if is_rast(raster):
@@ -72,17 +51,17 @@ def to_numpy(raster, num_type = False):
         ys, xs      = numpy_rast.shape
         meta        = metadata(raster, xs, ys)
 
-        if not num_type:
-            num_type = 'float32'
+        if not numpy_datatype:
+            numpy_datatype = meta.numpy_datatype
 
-        numpy_rast = numpy_rast.astype(num_type)
+        numpy_rast = numpy_rast.astype(numpy_datatype)
 
         # mask NoData values from the array
-        if 'float' in num_type:
+        if 'float' in numpy_datatype:
             numpy_rast[numpy_rast == meta.NoData_Value] = numpy.nan
             numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast))
 
-        elif 'int' in num_type: # (numpy.nan not supported by ints)
+        elif 'int' in numpy_datatype: # (numpy.nan not supported by ints)
             mask = numpy_rast
             mask[mask != meta.NoData_Value] == False
             mask[mask == meta.NoData_Value] == True
@@ -93,3 +72,13 @@ def to_numpy(raster, num_type = False):
         print("Raster '{0}'does not exist".format(raster))
 
     return numpy_rast, meta
+
+
+if __name__ == "__main__":
+
+    path = "C:/test.tif"
+    rast, meta = to_numpy(path)
+
+    print meta.desc_pixelType
+    print meta.pixel_type
+    print meta.numpy_datatype
