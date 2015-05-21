@@ -17,8 +17,10 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         This function will calculate surface reflectance for Landsat 4 TM, 5 TM, 7 ETM+, or 8 OLI data.
         
         *Note this function will calculate surface reflectance for Landsat 4, 5, and 7
-         bands 1, 2, 3, 4, 5, and 7 or Landsat 8 bands 2, 3, 4, 5, 6, and 7 if they are in the toa_folder.
-         The Landsat 8 Coastal Aerosol band (1) and Cirrus band (9) will not be calculated as they do not
+         bands 1, 2, 3, 4, 5, and 7 or Landsat 8 bands 2, 3, 4, 5, 6, and 7. All 6 bands should be in the
+         toa_folder and have "TOA_Ref" in their filenames as per the landsat.toa_reflectance convention.
+         
+        *The Landsat 8 Coastal Aerosol band (1) and Cirrus band (9) will not be calculated as they do not
          have a corresponding band in TM or ETM+.
 
         To be performed on Top-of-Atmosphere Reflectance data processed with the landsat.toa_reflectance_457
@@ -80,13 +82,15 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         TM_ETM_bands = ['1','2','3','4','5','7']
 
         #define the tile name for the landsat scene based on the metadata file's name
-##        if "\\" in meta_path:
-##                name = meta_path.split("\\")[-1]
-##                tilename = name.replace("_MTL.txt", "")
-##        elif "//" in meta_path:
-##                name = meta_path.split("//")[-1]
-##                tilename = name.replace("_MTL.txt", "")
-        tilename = getattr(meta, "LANDSAT_SCENE_ID")
+
+        #Open the metadata text file and read to set the scene's tilename
+        f = open(meta_path)
+        MText = f.read()
+
+        if "PRODUCT_CREATION_TIME" in MText:
+                tilename = getattr(meta, "BAND1_FILE_NAME")
+        else:
+                tilename = getattr(meta, "LANDSAT_SCENE_ID")
 
         #construct the list of TOA reflectance band tiffs and populate it based on the above definitions
         toa_list = []
@@ -96,23 +100,25 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                 if ("TOA_Ref" in file) and (".tif" in file) and (".tif." not in file):
                         if "LC8" in meta_path:
                                 tile = "{0}_B{1}".format(tilename, OLI_bands[n])
-                                if tile in file and str(n) in OLI_bands:
+                                if tile in file:
                                         path = "{0}\\{1}".format(toa_folder, file)
                                         out_file = file.replace("TOA", "Surf")
                                         toa_list.append(path)
                                         out_list.append(out_file)
-                                        while n <= 5:
-                                                n = n + 1
+                                        n = n + 1
+                                        if n > 5:
+                                                break
                         elif ("LE7" in file) or ("LT5" in file) or ("LT4" in file):
                                 tile = "{0}_B{1}".format(tilename, TM_ETM_bands[n])
-                                if tile in file and str(n) in TM_ETM_bands:
+                                if tile in file:
                                         path = "{0}\\{1}".format(toa_folder, file)
                                         out_file = file.replace("TOA", "Surf")
                                         toa_list.append(path)
-                                        while n <= 5:
-                                                n = n + 1
-        print toa_list
-        print out_list
+                                        out_list.append(out_file)
+                                        n = n + 1
+                                        if n > 5:
+                                                break
+
         #grab the corner lat/lon coordinates to calculate the approximate scene center lat/lon       
         ul_lat = getattr(meta, "CORNER_UL_LAT_PRODUCT")
         ul_lon = getattr(meta, "CORNER_UL_LON_PRODUCT")
