@@ -21,8 +21,9 @@ def fetch_test_landsat(test_dir):
     username = raw_input("please type in your USGS username:")
     password = raw_input("please type in your USGS password:")
 
-    if not os.path.exists(test_dir):
-        os.makedirs(os.path.join(test_dir, "raw", "Landsat"))
+    subdir = os.path.join(test_dir, "raw","Landsat")
+    if not os.path.exists(subdir):
+        os.makedirs(subdir)
 
     # build a cookie jar.
     cookies = cookielib.CookieJar()
@@ -60,20 +61,21 @@ def fetch_test_landsat(test_dir):
         filename = attachments[1].replace('"',"").replace("'","")
 
         print("Downloading {0}".format(filename))
-        outname = os.path.join(test_dir, 'raw', filename)
+        outname = os.path.join(subdir, filename)
 
         try:
             urllib.urlretrieve(resp.url, outname)
 
         except urllib2.HTTPError:
-            time.sleep(10)
+            time.sleep(10) # helps server overload erors
             print("Working...")
             urllib.urlretrieve(resp.url, outname)
 
         # extract the archives and delete tar.gz files.
         print("Extracting tifs from tar.gz")
+        time.sleep(3)
         tfile  = tarfile.open(outname, 'r:gz')
-        outdir = os.path.join(test_dir, "raw", "Landsat", outname.replace(".tar.gz",""))
+        outdir = os.path.join(subdir, outname.replace(".tar.gz",""))
         tfile.extractall(outdir)
         tfile.close()
         os.remove(outname)
