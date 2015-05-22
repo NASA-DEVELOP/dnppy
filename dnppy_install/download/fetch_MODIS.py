@@ -11,20 +11,23 @@ import os
 from datetime import datetime
 
 
-def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
+def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
+                                                force_overwrite = False):
     """
     Fetch MODIS Land products from one of two servers.
 
        http://e4ftl01.cr.usgs.gov
        ftp://n5eil01u.ecs.nsidc.org
 
-     Inputs:
-       product     MODIS product to download such as 'MOD10A1' or 'MYD11A1'
-       version     version number, usually '004' or '041' or '005'
-       tiles       list of tiles to grab such as ['h11v12','h11v11']
-       outdir      output directory to save downloaded files
-       years       list of years to grab such as range(2001,2014)
-       j_days      list of days to grab such as range(31:60). Defaults to all days in year
+    Inputs:
+        product         MODIS product to download such as 'MOD10A1' or 'MYD11A1'
+        version         version number, usually '004' or '041' or '005'
+        tiles           list of tiles to grab such as ['h11v12','h11v11']
+        outdir          output directory to save downloaded files
+        years           list of years to grab such as range(2001,2014)
+        j_days          list of days to grab such as range(31:60).
+                        Defaults to all days in year
+        force_overwrite will re-download files even if they already exist
     """
 
     def Find_MODIS_Product(product, version):
@@ -161,16 +164,18 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False):
 
                         # assemble the address
                         if isftp:
-                            address='/'.join(['ftp://'+site,Dir,good_date,afile])
+                            address='/'.join(['ftp://'+site, Dir, good_date, afile])
                         else:
-                            address='/'.join([site,good_date,afile])
+                            address='/'.join([site, good_date, afile])
 
                         #download the file
                         outname = os.path.join(outdir, afile)
-                        download_url(address, outname)
+                        if not os.path.isfile(outname) and not force_overwrite:
+                            download_url(address, outname)
+
                         print('Downloaded {0}'.format(address))
 
-    print('Finished retrieving MOIDS data!')
+    print('Finished retrieving MODIS - {0} data!'.format(product))
     return
 
 

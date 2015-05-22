@@ -16,6 +16,9 @@
  professional and cleaner, feel free to do so!
 """
 
+import os, shutil, sys, dnppy_install,time
+
+
 # determine if the version being installed is newer than the current version
 def upgrading(now_vers,up_vers):
     now = now_vers.split('.')
@@ -32,7 +35,6 @@ print("====================================================================")
 print("   Setting up dnnpy! the DEVELOP National Program python package!")
 print("====================================================================\n")
 
-import os, shutil, sys, dnppy_install,time
 
 up_vers = dnppy_install.__version__
 
@@ -48,9 +50,6 @@ if os.path.isdir(dest_path):
 
         if upgrading(now_vers , up_vers):
             print("Updating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
-            
-            time.sleep(0)   # people seem to think an error has occured when it installs too quickly.
-                            # this gives people time to actually read the screen.
             
             shutil.rmtree(dest_path)
             shutil.copytree(source_path,dest_path)
@@ -71,11 +70,11 @@ if os.path.isdir(dest_path):
             else:
                 print("Setup aborted!")
                 
-
+    # handles the case where dnppy is installed, but cannot import for some reason.
     except:
+        print("installing dnppy version [{0}]".format(up_vers))
         shutil.rmtree(dest_path)
         shutil.rmtree(dest_path2)
-        print("installing dnppy version [{0}]".format(up_vers))
         shutil.copytree(source_path, dest_path)
         shutil.copytree(source_path, dest_path2)
 else:
@@ -85,8 +84,8 @@ else:
     
 
 print('\nSource path       : ' + source_path)
-print('Destination path 1: ' + dest_path)
-print('Destination path 2: ' + dest_path2)
+print('Destination path 1: '   + dest_path)
+print('Destination path 2: '   + dest_path2)
 
 print "\nSetup finished!"
 print("Window will close in 10 seconds")

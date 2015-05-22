@@ -12,14 +12,14 @@
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 # local imports
-from .download_filelist import *
-from .download_url import *
-from .download_urls import *
+from download_filelist import *
+from download_url import *
+from download_urls import *
 
-from .fetch_GPM import *
-from .fetch_landsatWELD import *
-from .fetch_TRMM import *
-from .fetch_MODIS import *
+from fetch_GPM import *
+from fetch_landsatWELD import *
+from fetch_TRMM import *
+from fetch_MODIS import *
 
-from .list_http import *
-from .list_ftp import *
+from list_http import *
+from list_ftp import *
