@@ -18,7 +18,8 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
 
 # prevents module import issues durring installation.
 if not __name__ == "dnppy_install":
-    
+
+    from test import *
     from R_dnppy import *
     # from chunking import *
     from convert import *
