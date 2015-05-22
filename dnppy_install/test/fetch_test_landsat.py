@@ -8,12 +8,19 @@ import tarfile
 
 def fetch_test_landsat(test_dir):
     """
-    downloading data from earth exploerer requires that users are logged in.
+    downloading data from earth explorer requires that users are logged in.
     This function opens a session and stores the required cookies to
     make automated download from earthexplorer.usgs possible.
 
     https://earthexplorer.usgs.gov/login/
     """
+
+    # list of tiles that will be downloaded by this function
+    tiles = ["http://earthexplorer.usgs.gov/download/3119/LT40410361990014XXX01/STANDARD",
+             "http://earthexplorer.usgs.gov/download/3119/LT50410362011208PAC01/STANDARD",
+             "http://earthexplorer.usgs.gov/download/3372/LE70410362003114EDC00/STANDARD",
+             "http://earthexplorer.usgs.gov/download/4923/LC80410362014232LGN00/STANDARD"]
+
 
     print("This script downloads data from earth explorer by USGS")
     print("This server requires authentication to retrieve data")
@@ -38,23 +45,20 @@ def fetch_test_landsat(test_dir):
 
     logdata = urllib.urlencode(payload)
 
-    # send the request and recieve the response
+    # send the request and receive the response
     opener.open(url, logdata)
     resp = opener.open("https://earthexplorer.usgs.gov/login/")
     text =  resp.read()
 
+
     if username in text:
         print("Logged into USGS Earth Explorer!")
-        print("Begining downloads, please be patient!")
+        print("Beginning downloads, please be patient!")
     else:
         print("Could not Log in!")
 
-    # now lets download the data
-    tiles = ["http://earthexplorer.usgs.gov/download/3119/LT40410361990014XXX01/STANDARD",
-             "http://earthexplorer.usgs.gov/download/3119/LT50410362011208PAC01/STANDARD",
-             "http://earthexplorer.usgs.gov/download/3372/LE70410362003114EDC00/STANDARD",
-             "http://earthexplorer.usgs.gov/download/4923/LC80410362014232LGN00/STANDARD"]
 
+    # now lets download the data
     for tile in tiles:
         resp = opener.open(tile)
         attachments = resp.headers["Content-Disposition"].split('=')
@@ -67,7 +71,7 @@ def fetch_test_landsat(test_dir):
             urllib.urlretrieve(resp.url, outname)
 
         except urllib2.HTTPError:
-            time.sleep(10) # helps server overload erors
+            time.sleep(10) # helps server overload errors
             print("Working...")
             urllib.urlretrieve(resp.url, outname)
 
