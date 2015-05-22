@@ -5,7 +5,7 @@ import numpy
 
 
 
-def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, numpy_datatype = False):
+def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
@@ -19,9 +19,6 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, numpy_dataty
        metadata            The variable exactly as output from "to_numpy"
        outpath             output filepath of the individual raster
        NoData_Value        the no data value of the output raster
-       numpy_datatype      must be a string equal to any of the types listed at the following
-                           address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
-                           for example: 'uint8' or 'int32' or 'float32'
 
      Usage example:
        call to_numpy with  "rast,metadata = to_numpy(Raster)"
@@ -29,8 +26,7 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, numpy_dataty
        then save the array with "raster.from_numpy(rast, metadata, output)"
     """
 
-    if numpy_datatype:
-        numpy_rast = numpy_rast.astype(numpy_datatype)
+    numpy_rast = numpy_rast.astype(metadata.numpy_datatype)
 
     if not NoData_Value:
         NoData_Value = metadata.NoData_Value
@@ -58,10 +54,14 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False, numpy_dataty
 
     # reset the NoData_Values
     try:
-        arcpy.SetRasterProperties_management(outpath, data_type="#", statistics="#",
-                    stats_file="#", nodata="1 " + str(NoData_Value))
-    except:
-        pass
+        arcpy.SetRasterProperties_management(
+            outpath,
+            data_type="#",
+            statistics="#",
+            stats_file="#",
+            nodata="1 " + str(NoData_Value))
+
+    except: pass
     
     # do statistics and pyramids
     arcpy.CalculateStatistics_management(outpath)

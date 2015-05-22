@@ -8,6 +8,10 @@ import os
 def download_url(url, outname, username = False, password = False):
     """Download a single file. input source url and output filename"""
 
+    head, tail = os.path.split(outname)
+    if not os.path.exists(head) and head is not "":
+        os.makedirs(head)
+
     if "http:" in url[:5]:
         writefile   = open(outname,'wb+')
         connection  = urllib.urlopen(url)

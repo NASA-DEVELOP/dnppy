@@ -16,6 +16,7 @@ from download_filelist import *
 from download_url import *
 from download_urls import *
 
+from fetch_SRTM import *
 from fetch_GPM import *
 from fetch_landsatWELD import *
 from fetch_TRMM import *

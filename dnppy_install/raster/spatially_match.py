@@ -18,9 +18,9 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
     Prepares input rasters for further numerical processing
 
      This function simply ensures all rasters in "rasterlist" are identically projected
-     and have the same cell size, then calls the raster.clip_and_snaps function to ensure
+     and have the same cell size, then calls the raster.clip_and_snap function to ensure
      that the cells are perfectly coincident and that the total spatial extents of the images
-     are identical, even when NoData values are considered. This is usefull because it allows
+     are identical, even when NoData values are considered. This is useful because it allows
      the two images to be passed on for numerical processing as nothing more than matrices
      of values, and the user can be sure that any index in any matrix is exactly coincident
      with the same index in any other matrix. This is especially important to use when
@@ -35,6 +35,10 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
        outdir          the output directory to save newly created spatially matched tifs.
        resamp_type     The resampling type to use if images are not identical cell sizes.
                            "NEAREST","BILINEAR",and "CUBIC" are the most common.
+
+    this function automatically invokes
+        clip_and_snap
+        project_resample
     """
 
     # import modules and sanitize inputs
@@ -84,8 +88,8 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
                 raise Exception("images are NOT the same resolution! {0} vs {1} input a resample type!".format(
                     (snap_meta.cellHeight,snap_meta.cellWidth),(meta.cellHeight,meta.cellWidth)))
 
-        # define an output name and run the Clip_ans_Snap_Raster function on formatted tifs.
-        outname      = core.create_outname(outdir, rastname,'matched')
+        # define an output name and run the Clip_ans_Snap_Raster function on formatted tifs
+        outname      = core.create_outname(outdir, rastname, 'matched')
 
         # if a temporary file was created in previous steps, use that one for clip and snap
         if usetemp:

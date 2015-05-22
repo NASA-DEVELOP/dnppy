@@ -14,7 +14,7 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
     """
     Finds overlaping area between two raster images.
      
-    this function examines two images and outputs a raster raster.identifying pixels where both
+    this function examines two images and outputs a raster identifying pixels where both
     rasters have non-NoData values. Output raster has 1's where both images have data and
     0's where one or both images are missing data.
 
@@ -24,6 +24,10 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
         outpath     the output filename for the desired output. must end in ".tif"
         NoData_A    the NoData value of file A
         NoData_B    the NoData value of file B
+
+    This function automatically invokes
+        clip_and_snap
+        null_define
     """
     
     if not is_rast(file_A) or not is_rast(file_B):
@@ -35,10 +39,10 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
     b, metaB = to_numpy(file_B)
 
     # set no_datas
-    if NoData_A == None:
-        NoData_A == metaA.NoData_Value
-    if NoData_B == None:
-        NoData_B == metaB.NoData_Value
+    if NoData_A is None:
+        NoData_A = metaA.NoData_Value
+    if NoData_B is None:
+        NoData_B = metaB.NoData_Value
 
     # spatially match the rasters
     print('preparing input rasters!')
