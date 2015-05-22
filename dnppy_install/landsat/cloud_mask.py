@@ -4,18 +4,19 @@ from dnppy import core
 import numpy
 import arcpy
 import os
+arcpy.CheckOutExtension("spatial")
 
 
-__all__=['make_cloud_mask_8',            # in progress
-         'apply_cloud_mask_8',           # in progress
-         'make_cloud_mask_457',          # in progress
+__all__=['make_cloud_mask_8',            # complete
+         'apply_cloud_mask_8',           # complete
+         'make_cloud_mask_457',          # complete
          'apply_cloud_mask_457']         # in progress
 
 
 def make_cloud_mask_8(BQA_path, outdir = False):
     """
-    Creates a cloud mask tiff file from the Landsat 8 BQA file.
-    To be performed on raw Landsat 8 level 1 data.
+    Creates a cloud mask tiff file from the Landsat 8 Quality Assessment Band (BQA) file.
+    Requires only the BQA tiff file included in the dataset.
 
     Inputs:    
       BQA_path    The full filepath to the BQA file for the raw Landsat 8 dataset
@@ -27,14 +28,16 @@ def make_cloud_mask_8(BQA_path, outdir = False):
     outReclass = arcpy.sa.Reclassify(BQA_path, "Value", remap)
 
     #set the name and save the binary cloud mask tiff file
-    BQA_split = BQA_path.split("\\")[-1]
+    if "\\" in BQA_path:
+        BQA_split = BQA_path.split("\\")[-1]
+    elif "//" in BQA_path:
+        BQA_split = BQA_path.split("//")[-1]
     TileName = BQA_split.replace("_BQA.tif", "")
 
     #create an output name and save the mask tiff
     if outdir:
         CloudMask_path = core.create_outname(outdir, TileName, "Mask", "tif")
     else:
-        BQA_split = BQA_path.split("\\")[-1]
         folder = BQA_path.replace(BQA_split, "")
         CloudMask_path = core.create_outname(folder, TileName, "Mask", "tif")
         
@@ -42,9 +45,10 @@ def make_cloud_mask_8(BQA_path, outdir = False):
 
     return
 
-def apply_cloud_mask_8(folder, mask_path, outdir = False):
+def apply_cloud_mask_8(mask_path, folder, outdir = False):
     """
-    Removal of cloud-covered pixels in raw Landsat 8 bands using the BQA file included.
+    Removal of cloud-covered pixels in raw Landsat 8 bands using the mask created with
+    landsat.make_cloud_mask_8.
 
     To be performed on raw Landsat 8 level 1 data.
 
@@ -55,29 +59,38 @@ def apply_cloud_mask_8(folder, mask_path, outdir = False):
     """
 
     #enforce the input band numbers as a list of strings
-    mask_split = mask_path.split("\\")[-1]
-    TileName = mask_split.replace("_Mask.tif", "")
-
-    #list each of the files in folder
-    x = 1
-    list_dir = os.listdir(folder)
+    if "\\" in mask_path:
+        mask_split = mask_path.split("\\")[-1]
+    elif "//" in mask_path:
+        mask_split = mask_path.split("//")[-1]
+    tilename = mask_split.replace("_Mask.tif", "")
 
     #loop through each file in folder
-    while x <= 9:
-        band_name = "{0}_B{1}".format(TileName, x)
+    bandlist = []
+    inlist = []
+    outlist = []
+    x = 1
+    for band in os.listdir(folder):
+        band_name = "{0}_B{1}".format(tilename, x)
+        
+        #if for each band tif whose id matches the mask's, create an output name
+        if (band_name in band) and (".TIF" or ".tif" in band) and (".tif." and ".TIF." not in band):
+            if outdir:
+                outname = core.create_outname(outdir, band_name, "NoClds", "tif")
+            else:
+                outname = core.create_outname(folder, band_name, "NoClds", "tif")
+            inlist.append("{0}\\{1}".format(folder, band))
+            outlist.append(outname)
         x = x + 1
-        for band in list_dir:
 
-            #if for each band tif whose id matches the mask's, create an output name
-            if (band_name in band) and (".tif" in band) and (".tif." not in band):
-                if outdir:
-                    outname = core.create_outname(outdir, band, "NoClds", "tif")
-                else:
-                    outname = core.create_outname(folder, band, "NoClds", "tif")
-
-                #for each band listed in folder, apply the Con tool to erase cloud pixels and save each band as a new tiff    
-                band_path = "{0}\\{1}".format(folder, band)
-                arcpy.gp.Con_sa(mask_path, band_path, outname, "", "\"VALUE\" = 1")
+    #loop through each item in the list, execute the Con tool on them, and save the output tiffs.
+    y = 0
+    for file in inlist:
+        outcon = arcpy.sa.Con(mask_path, file, "", "VALUE = 1")
+        outcon.save(outlist[y])
+        y = y + 1
+        if y > (len(inlist) - 1):
+            break
 
     return
 
@@ -117,7 +130,11 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     Band6 = arcpy.Raster(band_path6)
     del band_path3, band_path4, band_path5, band_path6
 
-    name = B2_TOA_Ref.split("\\")[-1]
+    if "\\" in B2_TOA_Ref:
+        name = B2_TOA_Ref.split("\\")[-1]
+    elif "//" in B2_TOA_Ref:
+        name = B2_TOA_Ref.split("//")[-1]
+        
     if outdir == False:
         outdir = B2_TOA_Ref.replace(name, "")
             
@@ -325,7 +342,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     return
 
 
-def apply_cloud_mask_457(mask, folder, outdir = False):
+def apply_cloud_mask_457(mask_path, folder, outdir = False):
     """
     Applies the cloud mask created by make_cloud_mask_457 to each band tiff with matching
     name in the given folder.
@@ -340,6 +357,12 @@ def apply_cloud_mask_457(mask, folder, outdir = False):
     """
 
     #scrape the name of the landsat scene from the mask tiff
+    if "\\" in mask_path:
+        mask_split = mask_path.split("\\")[-1]
+    elif "//" in mask_path:
+        mask_split = mask_path.split("//")[-1]
+    tilename = mask_split.replace("_Mask.tif", "")
+    
     name = mask.split("\\")[-1][0:21]
 
     #loop through each file in the input folder and only process the band tiffs
@@ -354,4 +377,4 @@ def apply_cloud_mask_457(mask, folder, outdir = False):
             else:
                 outname = core.create_outname(folder, file, "NoClds", "tif")
                 
-            arcpy.gp.Con_sa(mask, band, outname, "", "\"VALUE\" = 1")
+            arcpy.gp.Con_sa(mask_path, band, outname, "", "\"VALUE\" = 1")
