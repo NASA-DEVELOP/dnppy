@@ -39,7 +39,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                         *downloadable in 30 meter resolution through The National Map Viewer
 
                 Dew Point:
-                -NOAA Daily Observational Data: Global Summory of the Day (GSOD) - GIS Data Locator
+                -NOAA Daily Observational Data: Global Summary of the Day (GSOD) - GIS Data Locator
                         http://gis.ncdc.noaa.gov/map/viewer/#app=clim&cfg=cdo&theme=daily&layers=0001&node=gis
                         *Select a weather station within the Landsat scene's extent, follow the link,
                          and enter the scene's acquisition date. This will output a text file, with

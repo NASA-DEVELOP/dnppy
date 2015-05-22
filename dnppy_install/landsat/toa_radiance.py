@@ -17,7 +17,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     see here http://landsat.usgs.gov/Landsat8_Using_Product.php
 
     Inputs:
-    band_nums   A list of desired band numbers such as [3 4 5]
+    band_nums   A list of desired band numbers such as [3, 4, 5]
     meta_path   The full filepath to the metadata file for those bands
     outdir      Output directory to save converted files.
     """
@@ -26,44 +26,47 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
-
+    
+    OLI_bands = ['1','2','3','4','5','6','7','9']
+    
     #loop through each band
     for band_num in band_nums:
+        if band_num in OLI_bands:
 
-        #create the band name
-        band_path   = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
-        Qcal        = arcpy.Raster(band_path)
+            #create the band name
+            band_path   = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
+            Qcal        = arcpy.Raster(band_path)
 
-        null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
+            null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
-        #scrape the attribute data
-        Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".fromat(band_num)) # multiplicative scaling factor
-        Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".fromat(band_num))  # additive rescaling factor
+            #scrape the attribute data
+            Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".fromat(band_num)) # multiplicative scaling factor
+            Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".fromat(band_num))  # additive rescaling factor
 
-        #calculate Top-of-Atmosphere radiance
-        TOA_rad = (null_raster * Ml) + Al
-        del null_raster
-        
-        #create the output name and save the TOA radiance tiff
-        if "\\" in meta_path:
-            name = meta_path.split("\\")[-1]
-        elif "//" in meta_path:
-            name = meta_path.split("//")[-1]
+            #calculate Top-of-Atmosphere radiance
+            TOA_rad = (null_raster * Ml) + Al
+            del null_raster
             
-        rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
-
-        if outdir:
-            outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
-        else:
+            #create the output name and save the TOA radiance tiff
             if "\\" in meta_path:
                 name = meta_path.split("\\")[-1]
             elif "//" in meta_path:
                 name = meta_path.split("//")[-1]
-            folder = meta_path.replace(name, "")
-            outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
-            
-        TOA_rad.save(outname)
-        print("Saved toa_radiance at {0}".format(outname))
+                
+            rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
+
+            if outdir:
+                outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
+            else:
+                if "\\" in meta_path:
+                    name = meta_path.split("\\")[-1]
+                elif "//" in meta_path:
+                    name = meta_path.split("//")[-1]
+                folder = meta_path.replace(name, "")
+                outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
+                
+            TOA_rad.save(outname)
+            print("Saved toa_radiance at {0}".format(outname))
 
     return
 
@@ -75,7 +78,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     for Landsat 4, 5, and 7 data. To be performed on raw Landsat 4, 5, or 7 level 1 data. 
 
      Inputs:
-       band_nums   A list of desired band numbers such as [3 4 5]
+       band_nums   A list of desired band numbers such as [3, 4, 5]
        meta_path   The full filepath to the metadata file for those bands
        outdir      Output directory to save converted files.
     """
@@ -83,34 +86,32 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     OutList = []
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
-    TM_ETM_bands = ['1','2','3','4','5','7','8']
+    TM_ETM_bands = ['1','2','3','4','5','7']
 
     #metadata format was changed August 29, 2012. This tool can process either the new or old format
     f = open(meta_path)
     MText = f.read()
 
     metadata = grab_meta(meta_path)
-    oldMeta = []
-    newMeta = []
 
     #the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
     #if this is not present, the meta data is considered new.
     #Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer
     if "PRODUCT_CREATION_TIME" in MText:
-        Meta = oldMeta
+        Meta = "oldMeta"
         Band6length = 2
     else:
-        Meta = newMeta
+        Meta = "newMeta"
         Band6length = 8
 
     #The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded
-    if Meta == newMeta:
+    if Meta == "newMeta":
         TileName    = getattr(metadata, "LANDSAT_SCENE_ID")
         year        = TileName[9:13]
         jday        = TileName[13:16]
         date        = getattr(metadata, "DATE_ACQUIRED")
         
-    elif Meta == oldMeta:
+    elif Meta == "oldMeta":
         TileName    = getattr(metadata, "BAND1_FILE_NAME")
         year        = TileName[13:17]
         jday        = TileName[17:20]
@@ -144,13 +145,13 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             null_raster = arcpy.sa.SetNull(Oraster, Oraster, "VALUE = 0")
 
             #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
-            if Meta == newMeta:
+            if Meta == "newMeta":
                 LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".fromat(band_num))
                 LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".fromat(band_num))  
                 QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".fromat(band_num))
                 QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".fromat(band_num))
                 
-            elif Meta == oldMeta:
+            elif Meta == "oldMeta":
                 LMax    = getattr(metadata, "LMAX_BAND{0}".fromat(band_num))
                 LMin    = getattr(metadata, "LMIN_BAND{0}".fromat(band_num))  
                 QCalMax = getattr(metadata, "QCALMAX_BAND{0}".fromat(band_num))

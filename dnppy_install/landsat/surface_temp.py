@@ -20,18 +20,18 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
         band4_toa       Filepath to the Band 4 Top-of-Atmosphere Reflectance tiff
                         *use landsat.toa_reflectance_457
         meta_path       Filepath to the metadata file (ending in _MTL.txt)
-        outdir          Path to the desired output folder
-                        *if left False the output tiff will be place in band4_toa's folder
-        L               Soil brightness correction factor, between 0 and 1
-                        *used to calculate Soil Adjusted Vegetation Index
-                        *default L = 0.5 works well in most situations
-                        *when L = 0, SAVI = NDVI
         path_rad        Path Radiance constant
                         *default 0
         nbt             Narrowband Transmissivity constant
                         *default 1
         sky_rad         Sky Radiance constant
                         *default 0
+        outdir          Path to the desired output folder
+                        *if left False the output tiff will be place in band4_toa's folder
+        L               Soil brightness correction factor, between 0 and 1
+                        *used to calculate Soil Adjusted Vegetation Index
+                        *default L = 0.5 works well in most situations
+                        *when L = 0, SAVI = NDVI
     """
 
     #Grab metadata from the MTL file and set the pathnames for Band 5 TOA Reflectance and the raw Band 11 tiffs
@@ -118,18 +118,18 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
         band4_toa       Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff
                         *use landsat.toa_reflectance_457
         meta_path       Filepath to the metadata file (ending in _MTL.txt)
-        outdir          Path to the desired output folder
-                        *if left False the output tiff will be place in band4_toa's folder
-        L               Soil brightness correction factor, between 0 and 1
-                        *used to calculate Soil Adjusted Vegetation Index
-                        *default L = 0.5 works well in most situations
-                        *when L = 0, SAVI = NDVI
         path_rad        Path Radiance constant
                         *default 0
         nbt             Narrowband Transmissivity constant
                         *default 1
         sky_rad         Sky Radiance constant
                         *default 0
+        outdir          Path to the desired output folder
+                        *if left False the output tiff will be place in band4_toa's folder
+        L               Soil brightness correction factor, between 0 and 1
+                        *used to calculate Soil Adjusted Vegetation Index
+                        *default L = 0.5 works well in most situations
+                        *when L = 0, SAVI = NDVI
     """
 
     #Set the pathname for band 4
