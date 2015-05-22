@@ -15,3 +15,7 @@ def build_test_env(test_dir):
     fetch_test_MODIS(test_dir)
 
     return
+
+if __name__ == "__main__":
+
+    build_test_env(r"C:\Users\jwely\Desktop\dnppytest")

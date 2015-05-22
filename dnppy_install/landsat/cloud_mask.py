@@ -2,7 +2,10 @@
 # imports
 from dnppy import core
 import numpy
-from scipy import stats
+
+try: from scipy import stats
+except: pass
+
 import arcpy
 import os
 arcpy.CheckOutExtension("spatial")

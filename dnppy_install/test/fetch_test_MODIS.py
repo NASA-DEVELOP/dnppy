@@ -12,7 +12,7 @@ def fetch_test_MODIS(test_dir):
     """
 
     if not os.path.exists(test_dir):
-        os.makedirs(test_dir)
+        os.makedirs(os.path.join(test_dir, "raw"))
 
     print("Downloading MODIS test data!")
     # set up universal MODIS parameters
