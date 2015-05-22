@@ -105,18 +105,18 @@ def atsat_bright_temp_457(meta_path, outdir = False):
    #if this is not present, the meta data is considered new.
    #Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer
    if "PRODUCT_CREATION_TIME" in MText:
-      Meta = oldMeta
+      Meta = "oldMeta"
    else:
-      Meta = newMeta
+      Meta = "newMeta"
 
    #The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded
-   if Meta == newMeta:
+   if Meta == "newMeta":
       TileName  = getattr(metadata, "LANDSAT_SCENE_ID")
       year      = TileName[9:13]
       jday      = TileName[13:16]
       date      = getattr(metadata, "DATE_ACQUIRED")
       
-   elif Meta == oldMeta:
+   elif Meta == "oldMeta":
       TileName  = getattr(metadata, "BAND1_FILE_NAME")
       year      = TileName[13:17]
       jday      = TileName[17:20]
@@ -136,13 +136,13 @@ def atsat_bright_temp_457(meta_path, outdir = False):
       null_raster = arcpy.sa.SetNull(Oraster, Oraster, "VALUE = 0")
 
       #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
-      if Meta == newMeta:
+      if Meta == "newMeta":
          LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".format(band_num))
          LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".format(band_num))  
          QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".format(band_num))
          QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".format(band_num))
          
-      elif Meta == oldMeta:
+      elif Meta == "oldMeta":
          LMax    = getattr(metadata, "LMAX_BAND{0}".format(band_num))
          LMin    = getattr(metadata, "LMIN_BAND{0}".format(band_num))  
          QCalMax = getattr(metadata, "QCALMAX_BAND{0}".format(band_num))

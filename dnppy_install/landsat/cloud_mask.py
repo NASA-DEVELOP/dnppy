@@ -2,15 +2,15 @@
 # imports
 from dnppy import core
 import numpy
+from scipy import stats
 import arcpy
 import os
 arcpy.CheckOutExtension("spatial")
 
 
-__all__=['make_cloud_mask_8',            # complete
-         'apply_cloud_mask_8',           # complete
-         'make_cloud_mask_457',          # complete
-         'apply_cloud_mask_457']         # in progress
+__all__=['make_cloud_mask_457',     # complete
+         'make_cloud_mask_8',       # complete
+         'apply_cloud_mask']        # complete
 
 
 def make_cloud_mask_8(BQA_path, outdir = False):
@@ -45,54 +45,6 @@ def make_cloud_mask_8(BQA_path, outdir = False):
 
     return
 
-def apply_cloud_mask_8(mask_path, folder, outdir = False):
-    """
-    Removal of cloud-covered pixels in raw Landsat 8 bands using the mask created with
-    landsat.make_cloud_mask_8.
-
-    To be performed on raw Landsat 8 level 1 data.
-
-    Inputs:
-      folder        The folder containing the raw or processed band tiffs to remove clouds from  
-      mask_path     The full filepath to the mask file created by make_cloud_mask_8
-      outdir        Output directory to save cloudless band tiffs
-    """
-
-    #enforce the input band numbers as a list of strings
-    if "\\" in mask_path:
-        mask_split = mask_path.split("\\")[-1]
-    elif "//" in mask_path:
-        mask_split = mask_path.split("//")[-1]
-    tilename = mask_split.replace("_Mask.tif", "")
-
-    #loop through each file in folder
-    bandlist = []
-    inlist = []
-    outlist = []
-    x = 1
-    for band in os.listdir(folder):
-        band_name = "{0}_B{1}".format(tilename, x)
-        
-        #if for each band tif whose id matches the mask's, create an output name
-        if (band_name in band) and (".TIF" or ".tif" in band) and (".tif." and ".TIF." not in band):
-            if outdir:
-                outname = core.create_outname(outdir, band_name, "NoClds", "tif")
-            else:
-                outname = core.create_outname(folder, band_name, "NoClds", "tif")
-            inlist.append("{0}\\{1}".format(folder, band))
-            outlist.append(outname)
-        x = x + 1
-
-    #loop through each item in the list, execute the Con tool on them, and save the output tiffs.
-    y = 0
-    for file in inlist:
-        outcon = arcpy.sa.Con(mask_path, file, "", "VALUE = 1")
-        outcon.save(outlist[y])
-        y = y + 1
-        if y > (len(inlist) - 1):
-            break
-
-    return
 
 
 def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
@@ -264,7 +216,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     TempMax = max(list)
     TempMean = numpy.mean(list)
     TempStd = numpy.std(list)
-    TempSkew = numpy.skew(list)
+    TempSkew = stats.skew(list)
     Temp98perc = numpy.percentile(list, 98.75)
     Temp97perc = numpy.percentile(list, 97.50)
     Temp82perc = numpy.percentile(list, 82.50)
@@ -342,39 +294,64 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     return
 
 
-def apply_cloud_mask_457(mask_path, folder, outdir = False):
+
+def apply_cloud_mask(mask_path, folder, outdir = False):
     """
-    Applies the cloud mask created by make_cloud_mask_457 to each band tiff with matching
-    name in the given folder.
+    Removal of cloud-covered pixels in Landsat 4, 5, 7, or 8 bands using the mask created with
+    landsat.make_cloud_mask_8 or landsat.make_cloud_mask_457.
 
     Inputs:
-      mask     the full file path for the cloud mask tiff file
-      folder   the folder containing the tiffs to apply the cloud mask to. The tiffs
-                    may be raw dat or processed (e.g. TOA reflectance) as long as the
-                    original name still exists in the filepath string
-                    (e.g. LE70410362002335EDC00_B1_TOA_Ref.tif)
-      outdir   optional; the folder to output the masked data to.
+      folder        The folder containing the raw or processed band tiffs to remove clouds from  
+      mask_path     The full filepath to the mask file created by make_cloud_mask_8 or make_cloud_mask_457
+      outdir        Output directory to save cloudless band tiffs
+                    *If left False the output tiffs will be saved in "folder"
     """
 
-    #scrape the name of the landsat scene from the mask tiff
+    #enforce the input band numbers as a list of strings
     if "\\" in mask_path:
         mask_split = mask_path.split("\\")[-1]
     elif "//" in mask_path:
         mask_split = mask_path.split("//")[-1]
     tilename = mask_split.replace("_Mask.tif", "")
-    
-    name = mask.split("\\")[-1][0:21]
 
-    #loop through each file in the input folder and only process the band tiffs
-    for file in os.listdir(folder):
-        if (name in file) and ("_B" in file) and (".tif" in file) and (".tif." not in file) and ("NoClds" not in file):
-
-            #create the output name for each tiff and apply the Con function to remove clouds
-            band = "{0}\\{1}".format(folder, file)
-            
+    #loop through each file in folder
+    inlist = []
+    outlist = []
+    x = 1
+    for band in os.listdir(folder):
+        band_name1 = "{0}_B{1}_".format(tilename, x)
+        band_name2 = "{0}_B{1}.".format(tilename, x)
+        
+        #for each band (number 1-9) tif whose id matches the mask's, create an output name and append to the in and output lists
+        if (band_name1 in band or band_name2 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band):
+            name = band.replace(".tif", "")
             if outdir:
-                outname = core.create_outname(outdir, file, "NoClds", "tif")
+                outname = core.create_outname(outdir, name, "NoClds", "tif")
             else:
-                outname = core.create_outname(folder, file, "NoClds", "tif")
-                
-            arcpy.gp.Con_sa(mask_path, band, outname, "", "\"VALUE\" = 1")
+                outname = core.create_outname(folder, name, "NoClds", "tif")
+            inlist.append("{0}\\{1}".format(folder, band))
+            outlist.append(outname)
+            x = x + 1
+
+        #create separate names for Landsat 8 TIRS bands 10 and 11 if present and append to the lists
+        tirs10 = "{0}_B10".format(tilename)
+        tirs11 = "{0}_B11".format(tilename)
+        if (tirs10 in band or tirs11 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band):
+            name = band.replace(".tif", "")
+            if outdir:
+                outname = core.create_outname(outdir, name, "NoClds", "tif")
+            else:
+                outname = core.create_outname(folder, name, "NoClds", "tif")
+            inlist.append("{0}\\{1}".format(folder, band))
+            outlist.append(outname)
+
+    #loop through the input list and apply the con to each file, saving to the corresponding path in the output list
+    y = 0
+    for file in inlist:
+        outcon = arcpy.sa.Con(mask_path, file, "", "VALUE = 1")
+        outcon.save(outlist[y])
+        y = y + 1
+        if y > (len(inlist) - 1):
+            break
+
+    return
