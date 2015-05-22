@@ -22,7 +22,7 @@ def fetch_test_landsat(test_dir):
     password = raw_input("please type in your USGS password:")
 
     if not os.path.exists(test_dir):
-        os.makedirs(test_dir)
+        os.makedirs(os.path.join(test_dir, "raw", "Landsat"))
 
     # build a cookie jar.
     cookies = cookielib.CookieJar()
