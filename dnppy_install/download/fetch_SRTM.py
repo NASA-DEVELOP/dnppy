@@ -26,21 +26,27 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
         download.fetch_SRTM(lat_lons, prod)
 
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
-    turns out the way arcmap determines these are SRTM files is a cheap hack.
+    turns out arcmap does some funky things when interpreting these files.
     """
     # sanitize input list
     lat_lon_pairs = core.enf_list(lat_lon_pairs)
 
     # determine product version
     if product is "SRTMGL30":
-        raise Exception("This product is not yet supported, download it directly")
+        print("Download of product SRTMGL30 is supported, but arcmap does not support this filetype")
+        format_string = "{2}{3}{0}{1}.{4}.dem.zip"
+        version = "002"
+
     else:
+        format_string = "{0}{1}{2}{3}.{4}.hgt.zip"
         version = "003"
+
 
     host = "http://e4ftl01.cr.usgs.gov/SRTM"
     subhost = "{0}/{1}.{2}/2000.02.11/".format(host, product, version)
 
     print("Connecting to host at {0}".format(subhost))
+
 
     for lat_lon_pair in lat_lon_pairs:
         lat, lon = lat_lon_pair
@@ -56,12 +62,32 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
         else:
             EW = "W"
 
+        if product is "SRTMGL30":
+
+            if abs(lon) <= 20:
+                lon = 20
+            elif abs(lon) <=60:
+                lon = 60
+            elif abs(lon) <= 100:
+                lon = 100
+            else:
+                lon = 140
+
+            if abs(lat) <= 10:
+                lat = 10
+            elif abs(lat) <=40:
+                lat = 40
+            else:
+                lat = 90
+
+            NS = NS.lower()
+            EW = EW.lower()
+
         # build up the filename and file link
-        filename = "{0}{1}{2}{3}.{4}.hgt.zip".format(NS,
-                                                     str(abs(lat)).zfill(2),
-                                                     EW,
-                                                     str(abs(lon)).zfill(3),
-                                                     product)
+        filename = format_string.format(NS, str(abs(lat)).zfill(2),
+                                        EW, str(abs(lon)).zfill(3),
+                                        product)
+
         filelink = "{0}/{1}".format(subhost, filename)
 
         # decide where to put the file, then download it
@@ -86,7 +112,7 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
 if __name__ == "__main__":
 
     testdir = r"C:\Users\jwely\Desktop\troubleshooting"
-    fetch_SRTM((37, -77), "SRTMGL1", testdir)
+    fetch_SRTM((37, -77), "SRTMGL30", testdir)
 
 
 

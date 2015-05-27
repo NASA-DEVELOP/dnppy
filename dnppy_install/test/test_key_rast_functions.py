@@ -21,7 +21,7 @@ def test_key_rast_functions(test_dir):
         null_define
         null_set_range
 
-    And, by necessity, calls the following functions from MODIS
+    And, by necessity, calls the following functions from...
     """
 
 
