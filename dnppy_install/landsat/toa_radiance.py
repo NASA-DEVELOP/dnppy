@@ -27,7 +27,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     band_nums = map(str, band_nums)
     meta = grab_meta(meta_path)
     
-    OLI_bands = ['1','2','3','4','5','6','7','9']
+    OLI_bands = ['1','2','3','4','5','6','7','8','9']
     
     #loop through each band
     for band_num in band_nums:
@@ -40,8 +40,8 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
             null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
             #scrape the attribute data
-            Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".fromat(band_num)) # multiplicative scaling factor
-            Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".fromat(band_num))  # additive rescaling factor
+            Ml   = getattr(meta,"RADIANCE_MULT_BAND_{0}".format(band_num)) # multiplicative scaling factor
+            Al   = getattr(meta,"RADIANCE_ADD_BAND_{0}".format(band_num))  # additive rescaling factor
 
             #calculate Top-of-Atmosphere radiance
             TOA_rad = (null_raster * Ml) + Al
@@ -68,6 +68,11 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
             TOA_rad.save(outname)
             print("Saved toa_radiance at {0}".format(outname))
 
+        #if listed band is not a OLI sensor band, skip it and print message
+        else:
+            print("Can only perform reflectance conversion on OLI sensor bands")
+            print("Skipping band {0}".format(band_num))
+
     return
 
 
@@ -86,7 +91,6 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     OutList = []
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
-    TM_ETM_bands = ['1','2','3','4','5','7']
 
     #metadata format was changed August 29, 2012. This tool can process either the new or old format
     f = open(meta_path)
@@ -123,12 +127,15 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
 
     if   "7" in spacecraft:
         ESun = (1969.0, 1840.0, 1551.0, 1044.0, 255.700, 0., 82.07, 1368.00)
+        TM_ETM_bands = ['1','2','3','4','5','7','8']
         
     elif "5" in spacecraft:
         ESun = (1957.0, 1826.0, 1554.0, 1036.0, 215.0, 0. ,80.67)
+        TM_ETM_bands = ['1','2','3','4','5','7']
         
     elif "4" in spacecraft:
         ESun = (1957.0, 1825.0, 1557.0, 1033.0, 214.9, 0. ,80.72)
+        TM_ETM_bands = ['1','2','3','4','5','7']
         
     else:
         arcpy.AddError("This tool only works for Landsat 4, 5, or 7")
@@ -146,16 +153,16 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
 
             #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
             if Meta == "newMeta":
-                LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".fromat(band_num))
-                LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".fromat(band_num))  
-                QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".fromat(band_num))
-                QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".fromat(band_num))
+                LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".format(band_num))
+                LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".format(band_num))  
+                QCalMax = getattr(metadata, "QUANTIZE_CAL_MAX_BAND_{0}".format(band_num))
+                QCalMin = getattr(metadata, "QUANTIZE_CAL_MIN_BAND_{0}".format(band_num))
                 
             elif Meta == "oldMeta":
-                LMax    = getattr(metadata, "LMAX_BAND{0}".fromat(band_num))
-                LMin    = getattr(metadata, "LMIN_BAND{0}".fromat(band_num))  
-                QCalMax = getattr(metadata, "QCALMAX_BAND{0}".fromat(band_num))
-                QCalMin = getattr(metadata, "QCALMIN_BAND{0}".fromat(band_num))
+                LMax    = getattr(metadata, "LMAX_BAND{0}".format(band_num))
+                LMin    = getattr(metadata, "LMIN_BAND{0}".format(band_num))  
+                QCalMax = getattr(metadata, "QCALMAX_BAND{0}".format(band_num))
+                QCalMin = getattr(metadata, "QCALMIN_BAND{0}".format(band_num))
 
             Radraster = (((LMax - LMin)/(QCalMax-QCalMin)) * (null_raster - QCalMin)) + LMin
             Oraster = 0
@@ -180,6 +187,11 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             del Radraster
 
             print("toa radiance saved for Band {0}".format(band_num))
+
+        #if listed band is not a TM/ETM+ sensor band, skip it and print message
+        else:
+            print("Can only perform reflectance conversion on TM/ETM+ sensor bands")
+            print("Skipping band {0}".format(band_num))
          
     f.close()
     return OutList
