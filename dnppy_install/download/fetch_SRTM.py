@@ -4,8 +4,9 @@ from dnppy import core
 from download_url import download_url
 import os
 import zipfile
+import arcpy
 
-def fetch_SRTM(lat_lon_pairs, product, outdir = None):
+def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = False):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)
     [http://e4ftl01.cr.usgs.gov/SRTM/]
@@ -18,6 +19,8 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
         product         short name of product you want. See link below
                         https://lpdaac.usgs.gov/products/measures_products_table
         outdir          local directory to save downloaded files
+        mosaic          set to "TRUE" and all downloaded tiles will be
+                        automatically mosaiced together.
 
     Example:
         lat_lons = [(37,-76), (37,-77)]    # Two tiles
@@ -92,7 +95,7 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
 
         # decide where to put the file, then download it
         if outdir is not None:
-            outpath  = os.path.join(outdir,filename)
+            outpath  = os.path.join(outdir, filename)
         else:
             outpath = filename
 
@@ -101,11 +104,14 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
 
         # unzip the file and reassemble descriptive name
         with zipfile.ZipFile(outpath, "r") as z:
-            layername = filename[:7] + '.hgt'
             z.extractall(outdir)
             z.close()
-
         os.remove(outpath)
+
+    if mosaic:
+        arcpy.MosaicToNewRaster_management(mosaiclist, OUT,
+                outname, coordinatesys, pixel_type, cellsize, bands,
+                m_method, m_colormap)
 
     return
 

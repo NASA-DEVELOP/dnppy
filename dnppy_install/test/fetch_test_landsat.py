@@ -22,7 +22,7 @@ def fetch_test_landsat(test_dir):
              "http://earthexplorer.usgs.gov/download/4923/LC80410362014232LGN00/STANDARD"]
 
 
-    print("This script downloads data from earth explorer by USGS")
+    print("This script downloads landsat data from earth explorer by USGS")
     print("This server requires authentication to retrieve data")
     print("This script immediately discards this info after download is complete\n")
     username = raw_input("please type in your USGS username:")

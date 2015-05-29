@@ -21,6 +21,7 @@ from fetch_GPM import *
 from fetch_landsatWELD import *
 from fetch_TRMM import *
 from fetch_MODIS import *
+from fetch_SRTM import *
 
 from list_http import *
 from list_ftp import *

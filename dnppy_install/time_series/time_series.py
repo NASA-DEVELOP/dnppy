@@ -445,7 +445,7 @@ class time_series:
         temp_col = zip(*self.row_data)
 
         self.col_data = {}
-        for i,col in enumerate(temp_col):
+        for i, col in enumerate(temp_col):
             self.col_data[self.headers[i]] = list(col)
         return
 

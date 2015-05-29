@@ -15,6 +15,9 @@ class text_data():
         self.headers        = headers           # headers   (1d list)
         self.row_data       = row_data          # data      (2d list)
         self.text_filepath  = text_filepath     # filepath  (string)
+        self.col_data       = {}                # columnwise data (dict)
+
+        self.build_col_data()
         return
 
 
@@ -22,7 +25,18 @@ class text_data():
         """ used to return row data when using __getitem__ on this object type """
 
         return self.row_data[index]
-            
+
+
+    def build_col_data(self):
+        """ builds column wise data matrix with an actual dict """
+
+        temp_col = zip(*self.row_data)
+
+        self.col_data = {}
+        for i, col in enumerate(temp_col):
+            self.col_data[self.headers[i]] = list(col)
+        return
+
 
     def write_csv(self, text_filepath = None, delim = ','):
         """ writes the contents of this text file object as a CSV """
