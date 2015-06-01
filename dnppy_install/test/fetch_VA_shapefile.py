@@ -7,7 +7,7 @@ import zipfile
 
 def fetch_VA_shapefile(test_dir):
     """
-    downloads and unzips a shape file of VA and unzips it
+    downloads and unzips a shape file of VA for testing purposes
     """
 
     # set up path names

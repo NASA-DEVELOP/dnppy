@@ -21,8 +21,12 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
                    the input file was found.
     """
 
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+
     # enforce lists for iteration purposes and sanitize inputs
     filelist = core.enf_filelist(filelist)
+
     
     for filename in filelist:
         if '.xml' in filename or not '.hdf' in filename:
@@ -57,17 +61,10 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
 
             # use the input output directory if the user input one, otherwise build one  
             if outdir:
-                if not os.path.exists(os.path.join(outdir, layername)):
-                    os.makedirs(os.path.join(outdir, layername))
-                    
-                outname = os.path.join(outdir, layername,
-                                       "{0}_{1}.tif".format(name[:-4], layername))
-            else:
-                if not os.path.exists(os.path.join(path, layername)):
-                    os.makedirs(os.path.join(path, layername))
+                outname = os.path.join(outdir, "{0}_{1}.tif".format(name[:-4], layername))
 
-                outname = os.path.join(path, layername,
-                                       "{0}_{1}.tif".format(name[:-4], layername))
+            else:
+                outname = os.path.join(path, "{0}_{1}.tif".format(name[:-4], layername))
 
             # perform the extracting and projection definition
             try:

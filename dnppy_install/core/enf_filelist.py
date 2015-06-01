@@ -24,8 +24,9 @@ def enf_filelist(filelist, extension = None):
     elif isinstance(filelist, bool):
         print 'Expected file list or directory but received boolean or None type input!'
         return False
-    else:
+    elif isinstance(filelist, list):
         new_filelist = filelist
+
 
     if extension is not None:
 
@@ -34,7 +35,8 @@ def enf_filelist(filelist, extension = None):
             if extension not in new_file:
                 new_filelist.remove(new_file)
 
-        return new_filelist
+        else:
+            return new_filelist
 
     else:
         return new_filelist

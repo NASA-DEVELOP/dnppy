@@ -11,7 +11,7 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 
-def mosaic(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
+def mosaic(filelist, outdir = None, pixel_type = "32_BIT_FLOAT",
                  bands = "1", m_method = "LAST", m_colormap = "FIRST"):
 
     """
@@ -58,8 +58,9 @@ def mosaic(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
     cellsize        = "#"
 
     # Set up initial arcpy modules, workspace, and parameters, and sanitize inputs.
-    if outdir:
+    if outdir is not None:
         OUT = outdir
+
     filelist = raster.enf_rastlist(filelist)
 
     # initialize empty lists for tracking
@@ -94,7 +95,7 @@ def mosaic(filelist, outdir = False, pixel_type = "32_BIT_FLOAT",
     days  = range(min(daylist), max(daylist)+1)
 
     # print some status updates to the screen
-    print("mosaic_MODIS summary")
+    print("=== modis.mosaic summary ===")
     print("Found tiles : {0}".format(tilelist))
     print("Found tiles from years: {0}".format(years))
     print("Found tiles from days:  {0}".format(days))

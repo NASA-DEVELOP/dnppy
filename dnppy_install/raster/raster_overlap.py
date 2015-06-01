@@ -31,7 +31,7 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
     """
     
     if not is_rast(file_A) or not is_rast(file_B):
-        print '{raster.raster_overlap} both inputs must be rasters!'
+        raise Exception(' both inputs must be rasters!')
 
 
     # load the rasters as numpy arays.
@@ -46,27 +46,23 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
 
     # spatially match the rasters
     print('preparing input rasters!')
-    clip_and_snap(file_A, file_B, file_B, False, NoData_B)
+    clip_and_snap(file_A, file_B, outpath.replace(".shp",".tif"), NoData_B)
 
     # reload the rasters as numpy arrays now that spatial matching is done
     a, metaA = to_numpy(file_A)
     b, metaB = to_numpy(file_B)
 
     # create work matrix and find the overlap
-    Workmatrix = numpy.zeros((metaA.Ysize, metaA.Xsize))
-    Workmatrix = Workmatrix.astype('uint8')
-
-    a[(a >= NoData_A * 0.99999) & (a <= NoData_A * 1.00001)] = int(1)
-    b[(b >= NoData_B * 0.99999) & (b <= NoData_B * 1.00001)] = int(1)
-
     print('Finding overlaping pixels!')
-    Workmatrix = a + b
-    Workmatrix[Workmatrix <  2] = int(0)
-    Workmatrix[Workmatrix >= 2] = int(1)
+    Workmatrix = a.mask + b.mask
+    Workmatrix = Workmatrix.astype('uint8')
+    Workmatrix[Workmatrix == 1] = 2
                 
-    print('Saving overlap file!') 
-    from_numpy(Workmatrix, metaA, outpath,'0','uint8')
-    null_define(outpath, 0)
-    arcpy.RasterToPolygon_conversion(outpath, outpath[:-4]+'.shp', 'NO_SIMPLIFY')
+    print('Saving overlap file!')
+    metaA.numpy_datatype = 'uint8'
+    from_numpy(Workmatrix, metaA, outpath.replace(".shp",".tif"), NoData_Value = 2)
+    arcpy.RasterToPolygon_conversion(outpath.replace(".shp",".tif"),
+                                     outpath.replace(".tif",".shp"),
+                                     'NO_SIMPLIFY')
     
     return metaA, metaB

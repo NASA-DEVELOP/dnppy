@@ -3,9 +3,7 @@ import arcpy
 import numpy
 
 
-
-
-def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False):
+def from_numpy(numpy_rast, metadata, outpath, NoData_Value = None):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
@@ -28,7 +26,7 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False):
 
     numpy_rast = numpy_rast.astype(metadata.numpy_datatype)
 
-    if not NoData_Value:
+    if NoData_Value is None:
         NoData_Value = metadata.NoData_Value
             
     llcorner = arcpy.Point(metadata.Xmin, metadata.Ymin)
@@ -50,20 +48,21 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = False):
     try:
         arcpy.DefineProjection_management(outpath, metadata.projection)
     except:
-        pass
+        Warning("Unable to define the projection on {0}".format(outpath))
 
     # reset the NoData_Values
     try:
         arcpy.SetRasterProperties_management(
             outpath,
-            data_type="#",
-            statistics="#",
-            stats_file="#",
-            nodata="1 " + str(NoData_Value))
+            data_type = "#",
+            statistics = "#",
+            stats_file = "#",
+            nodata = "1 " + str(NoData_Value))
 
-    except: pass
+    except:
+        Warning("Unable to establish NoData profile on {0}".format(outpath))
     
-    # do statistics and pyramids
+    # calculate statistics and pyramids
     arcpy.CalculateStatistics_management(outpath)
     arcpy.BuildPyramids_management(outpath)
     

@@ -18,7 +18,7 @@ def fetch_test_MODIS(test_dir):
     # set up universal MODIS parameters
     modis_dir = os.path.join(test_dir,"raw","MODIS")
     years = [2015]
-    days  = range(31, 60)
+    days  = range(31, 90)
     tiles = ['h11v05','h12v05']
 
     # download some test products

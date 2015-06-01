@@ -6,7 +6,7 @@ from metadata import metadata
 import arcpy
 import numpy
 
-def to_numpy(raster, numpy_datatype = False):
+def to_numpy(raster, numpy_datatype = None):
 
     """
     Wrapper for arcpy.RasterToNumpyArray with better metadata handling
@@ -51,7 +51,7 @@ def to_numpy(raster, numpy_datatype = False):
         ys, xs      = numpy_rast.shape
         meta        = metadata(raster, xs, ys)
 
-        if not numpy_datatype:
+        if numpy_datatype is None:
             numpy_datatype = meta.numpy_datatype
 
         numpy_rast = numpy_rast.astype(numpy_datatype)
@@ -59,20 +59,20 @@ def to_numpy(raster, numpy_datatype = False):
         # mask NoData values from the array
         if 'float' in numpy_datatype:
             numpy_rast[numpy_rast == meta.NoData_Value] = numpy.nan
-            numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast))
+            numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast),
+                                               dtype = numpy_datatype)
 
         elif 'int' in numpy_datatype: # (numpy.nan not supported by ints)
-            mask = numpy_rast
-            mask[mask != meta.NoData_Value] == False
-            mask[mask == meta.NoData_Value] == True
-            numpy_rast = numpy.ma.masked_array(numpy_rast, mask)
+            mask = numpy.zeros(numpy_rast.shape)
+            mask[numpy_rast != meta.NoData_Value] = False    # do not mask
+            mask[numpy_rast == meta.NoData_Value] = True     # mask
+            numpy_rast = numpy.ma.masked_array(numpy_rast, mask,
+                                               dtype = numpy_datatype)
 
-            
     else:  
-        print("Raster '{0}'does not exist".format(raster))
+        raise Exception("Raster '{0}'does not exist".format(raster))
 
     return numpy_rast, meta
-
 
 if __name__ == "__main__":
 

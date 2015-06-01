@@ -64,9 +64,9 @@ if os.path.isdir(dest_path):
             downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
             if downgrade == 'y' or downgrade == 'Y':
                 shutil.rmtree(dest_path)
-                shutil.copytree(source_path,dest_path)
+                shutil.copytree(source_path, dest_path)
                 shutil.rmtree(dest_path2)
-                shutil.copytree(source_path,dest_path2)
+                shutil.copytree(source_path, dest_path2)
             else:
                 print("Setup aborted!")
                 

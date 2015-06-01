@@ -9,11 +9,9 @@ from project_resample import project_resample
 
 import os
 import arcpy
-import shutil
 
-
-def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Value = False,
-                            resamp_type = False):
+def spatially_match(snap_raster, rasterlist, outdir,
+                    NoData_Value = False, resamp_type = False):
     """
     Prepares input rasters for further numerical processing
 
@@ -66,38 +64,22 @@ def spatially_match(snap_raster, rasterlist, outdir, numtype = False, NoData_Val
 
         _,meta      = to_numpy(rastname)
         head,tail   = os.path.split(rastname)
-        tempname    = os.path.join(tempdir,tail)
 
         if snap_meta.projection.projectionName != meta.projection.projectionName:
-            print('The files are not the same projection!')
-            project_resample(rastname, snap_raster, tempname, resamp_type, snap_raster)
-            usetemp = True
-
-
-        con1 = round(float(snap_meta.cellHeight) / float(meta.cellHeight),5) !=1
-        con2 = round(float(snap_meta.cellWidth)/ float(meta.cellWidth),5) !=1
-        
-        if con1 and con2:
-
-            if resamp_type:
-                cell_size = "{0} {1}".format(snap_meta.cellHeight,snap_meta.cellWidth)
-                arcpy.Resample_management(rastname, tempname, cell_size, resamp_type)
-                usetemp = True
-
-            else:
-                raise Exception("images are NOT the same resolution! {0} vs {1} input a resample type!".format(
-                    (snap_meta.cellHeight,snap_meta.cellWidth),(meta.cellHeight,meta.cellWidth)))
+            print('Projection discrepancy found. Reprojecting...')
+            project_resample(rastname, snap_raster, tempdir, resamp_type)
+            tempname    = core.create_outname(tempdir,tail,"p")
+            usetemp     = True
 
         # define an output name and run the Clip_ans_Snap_Raster function on formatted tifs
-        outname      = core.create_outname(outdir, rastname, 'matched')
+        outname      = core.create_outname(outdir, rastname, "sm")
 
         # if a temporary file was created in previous steps, use that one for clip and snap
         if usetemp:
-            clip_and_snap(snap_raster, tempname, outname, numtype, NoData_Value)
+            clip_and_snap(snap_raster, tempname, outname, NoData_Value)
         else:
-            clip_and_snap(snap_raster, rastname, outname, numtype, NoData_Value)
+            clip_and_snap(snap_raster, rastname, outname, NoData_Value)
 
-        print('Finished matching raster!')
+        print('Finished matching raster {0}'.format(rastname))
 
-    shutil.rmtree(tempdir)
     return
