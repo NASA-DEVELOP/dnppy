@@ -18,15 +18,10 @@ def fetch_test_MODIS(test_dir):
     # set up universal MODIS parameters
     modis_dir = os.path.join(test_dir,"raw","MODIS")
     years = [2015]
-    days  = range(31,60)
+    days  = range(31, 60)
     tiles = ['h11v05','h12v05']
 
     # download some test products
-
-    prod = "MCD12Q1"    # yearly land cover type
-    vers = "051"
-    outdir = os.path.join(modis_dir, prod)
-    download.fetch_MODIS(prod, vers, tiles, outdir, years)
 
     prod = "MOD13A1"    # 16 day vegetation indices
     vers = "005"
@@ -37,7 +32,6 @@ def fetch_test_MODIS(test_dir):
     vers = "005"
     outdir = os.path.join(modis_dir, prod)
     download.fetch_MODIS(prod, vers, tiles, outdir, years, days)
-
 
     prod = "MYD11A1"    # daily surface temperature
     vers = "041"
@@ -59,3 +53,7 @@ def fetch_test_MODIS(test_dir):
     outdir = os.path.join(modis_dir, prod)
     download.fetch_MODIS(prod, vers, tiles, outdir, years, days)
     return
+
+
+if __name__ == "__main__":
+    fetch_test_MODIS(r"C:\Users\jwely\Desktop\dnppytest")

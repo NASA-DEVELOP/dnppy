@@ -4,9 +4,8 @@ from dnppy import core
 from download_url import download_url
 import os
 import zipfile
-import arcpy
 
-def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = False):
+def fetch_SRTM(lat_lon_pairs, product, outdir = None):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)
     [http://e4ftl01.cr.usgs.gov/SRTM/]
@@ -19,8 +18,10 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = False):
         product         short name of product you want. See link below
                         https://lpdaac.usgs.gov/products/measures_products_table
         outdir          local directory to save downloaded files
-        mosaic          set to "TRUE" and all downloaded tiles will be
-                        automatically mosaiced together.
+
+    Returns:
+        tif_list        a list of all successfully downloaded tif filepaths
+                        for further manipulation
 
     Example:
         lat_lons = [(37,-76), (37,-77)]    # Two tiles
@@ -31,6 +32,10 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = False):
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
     turns out arcmap does some funky things when interpreting these files.
     """
+
+    # build empty return list
+    tif_list = []
+
     # sanitize input list
     lat_lon_pairs = core.enf_list(lat_lon_pairs)
 
@@ -104,21 +109,25 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = False):
 
         # unzip the file and reassemble descriptive name
         with zipfile.ZipFile(outpath, "r") as z:
-            z.extractall(outdir)
+
+            itemname = "{0}{1}{2}{3}.hgt".format(NS, str(abs(lat)).zfill(2),
+                                                 EW, str(abs(lon)).zfill(3))
+            z.extract(itemname, outdir)
             z.close()
+
+        # clean up and add this file to output list
         os.remove(outpath)
+        tif_list.append(os.path.join(outdir,itemname))
 
-    if mosaic:
-        arcpy.MosaicToNewRaster_management(mosaiclist, OUT,
-                outname, coordinatesys, pixel_type, cellsize, bands,
-                m_method, m_colormap)
+    return tif_list
 
-    return
+
+
 
 if __name__ == "__main__":
 
     testdir = r"C:\Users\jwely\Desktop\troubleshooting"
-    fetch_SRTM((37, -77), "SRTMGL30", testdir)
+    fetch_SRTM((37, -77), "SRTMGL3", testdir)
 
 
 

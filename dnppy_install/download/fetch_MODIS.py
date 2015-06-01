@@ -114,7 +114,10 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
     # this tpe of MODIS data can be found.
     site, isftp, Dir = Find_MODIS_Product(product, version)
 
-    print("Connected to {0}/{1}".format(site, Dir))
+    if Dir:
+        print("Connected to {0}/{1}".format(site, Dir))
+    else:
+        print("Connected to {0}".format(site))
 
     # Depending on the type of connection (ftp vs http) populate the file list
     try:

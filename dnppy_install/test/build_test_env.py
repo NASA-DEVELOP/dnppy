@@ -5,6 +5,9 @@ from fetch_test_MODIS import fetch_test_MODIS
 from fetch_VA_shapefile import fetch_VA_shapefile
 from fetch_test_SRTM import fetch_test_SRTM
 
+import arcpy
+import os
+
 def build_test_env(test_dir):
     """
     wraps each of the "fetch" functions for building a common

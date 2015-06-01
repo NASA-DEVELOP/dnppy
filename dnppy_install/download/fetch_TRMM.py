@@ -19,7 +19,7 @@ def fetch_TRMM(years, months, days, product_string, outdir):
     """
 
     # set up connection and empty structure
-    failed=[]
+    failed = []
     ftp = FTP('trmmopen.gsfc.nasa.gov')
     ftp.login('anonymous')
 
