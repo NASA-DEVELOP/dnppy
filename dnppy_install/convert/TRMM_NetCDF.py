@@ -35,6 +35,6 @@ def TRMM_NetCDF(filelist, outdir):
         # use arcpy module to make raster layer from netcdf
         arcpy.MakeNetCDFRasterLayer_md(infile, "r", "longitude", "latitude", "r", "", "", "BY_VALUE")
         arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
-        print('{NetCDF} Converted netCDF file ' + infile + ' to Raster')
+        print('Converted netCDF file ' + infile + ' to Raster')
 
     return
