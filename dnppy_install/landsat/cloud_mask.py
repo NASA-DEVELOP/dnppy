@@ -64,8 +64,8 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     Inputs:
       B2_TOA-Ref.tif    The full filepath to the band 2 top-of-atmosphere reflectance tiff file
       outdir            Output directory to the cloud mask and TOA band tiffs
-      Filter5Thresh     Optional threshhold value for Filter #5, default set at 2
-      Filter6Thresh     Optional threshhold value for Filter #6, default set at 2
+      Filter5Thresh     Optional threshold value for Filter #5, default set at 2
+      Filter6Thresh     Optional threshold value for Filter #6, default set at 2
     """
 
     #discern if Landsat 4/5 or 7 for band 6 and designate rasters for bands 2, 3, 4, 5, and 6
@@ -75,14 +75,17 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
         band_6 = "6_VCID_1"
 
     Band2 = arcpy.Raster(B2_TOA_Ref)
+
     band_path3 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B3_TOA_Ref.tif")
-    Band3 = arcpy.Raster(band_path3)
     band_path4 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B4_TOA_Ref.tif")
-    Band4 = arcpy.Raster(band_path4)
     band_path5 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B5_TOA_Ref.tif")
-    Band5 = arcpy.Raster(band_path5)
     band_path6 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
+
+    Band3 = arcpy.Raster(band_path3)
+    Band4 = arcpy.Raster(band_path4)
+    Band5 = arcpy.Raster(band_path5)
     Band6 = arcpy.Raster(band_path6)
+    
     del band_path3, band_path4, band_path5, band_path6
 
     if "\\" in B2_TOA_Ref:
@@ -320,26 +323,12 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
     #loop through each file in folder
     inlist = []
     outlist = []
-    x = 1
+
     for band in os.listdir(folder):
-        band_name1 = "{0}_B{1}_".format(tilename, x)
-        band_name2 = "{0}_B{1}.".format(tilename, x)
+        band_name = "{0}_B".format(tilename)
         
         #for each band (number 1-9) tif whose id matches the mask's, create an output name and append to the in and output lists
-        if (band_name1 in band or band_name2 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band):
-            name = band.replace(".tif", "")
-            if outdir:
-                outname = core.create_outname(outdir, name, "NoClds", "tif")
-            else:
-                outname = core.create_outname(folder, name, "NoClds", "tif")
-            inlist.append("{0}\\{1}".format(folder, band))
-            outlist.append(outname)
-            x = x + 1
-
-        #create separate names for Landsat 8 TIRS bands 10 and 11 if present and append to the lists
-        tirs10 = "{0}_B10".format(tilename)
-        tirs11 = "{0}_B11".format(tilename)
-        if (tirs10 in band or tirs11 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band):
+        if (band_name1 in band or band_name2 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band) and ("NoClds" not in band):
             name = band.replace(".tif", "")
             if outdir:
                 outname = core.create_outname(outdir, name, "NoClds", "tif")

@@ -18,7 +18,7 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
 
     Inputs:
         band4_toa       Filepath to the Band 4 Top-of-Atmosphere Reflectance tiff
-                        *use landsat.toa_reflectance_457
+                        *use landsat.toa_reflectance_8
         meta_path       Filepath to the metadata file (ending in _MTL.txt)
         path_rad        Path Radiance constant
                         *default 0
@@ -115,7 +115,7 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
     Requires band 3 and 4 Top-of-Atmosphere Reflectance tiffs and the unprocessed band 6 (or 6_VCID_1 for Landsat 7) tiff.
 
     Inputs:
-        band4_toa       Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff
+        band3_toa       Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff
                         *use landsat.toa_reflectance_457
         meta_path       Filepath to the metadata file (ending in _MTL.txt)
         path_rad        Path Radiance constant
