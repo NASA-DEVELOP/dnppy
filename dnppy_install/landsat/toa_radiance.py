@@ -1,6 +1,6 @@
 
 #standard imports
-from .grab_meta import grab_meta
+from grab_meta import grab_meta
 from dnppy import core
 import arcpy
 

@@ -2,8 +2,8 @@ __author__ = 'jwely'
 
 
 from dnppy import core
-from .list_http import list_http
-from .download_url import download_url
+from list_http import list_http
+from download_url import download_url
 import os
 
 

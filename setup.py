@@ -87,8 +87,25 @@ print('\nSource path       : ' + source_path)
 print('Destination path 1: '   + dest_path)
 print('Destination path 2: '   + dest_path2)
 
-print "\nSetup finished!"
-print("Window will close in 10 seconds")
+try:
+    from dnppy import convert
+    from dnppy import core
+    from dnppy import download
+    from dnppy import landsat
+    from dnppy import modis
+    from dnppy import radar
+    from dnppy import raster
+    from dnppy import solar
+    from dnppy import test
+    from dnppy import textio
+    from dnppy import time_series
+
+    print "\nSetup validated and finished!"
+    print("Window will close in 10 seconds")
+
+except:
+    raise ImportError("Something went wrong!")
+
 time.sleep(10)
 sys.exit()
 

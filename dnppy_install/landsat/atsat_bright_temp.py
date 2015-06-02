@@ -2,7 +2,7 @@
 #standard imports
 import arcpy
 from dnppy import core
-from .grab_meta import grab_meta
+from grab_meta import grab_meta
 
 __all__=['atsat_bright_temp_8',     # complete
          'atsat_bright_temp_457']   # complete
