@@ -2,19 +2,23 @@ __author__ = ['djjensen','jwely']
 
 from dnppy import textio
 from dnppy import core
+
 from download_url import download_url
+
 import datetime
 import urllib
 import site
 import os
+import gzip
 
 
 def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
                    max_cloud_cover = 100, bands = [1,2,3,4,5,6,7,8,9,10,11,"QA"]):
     """
-    An idea for making use of the amazon web service hosted Landsat 8 OLI data.
-    This will allow a user to identify the path/row and year/day to automatically download
-    a time series of OLI data. The code below downloads each band tiff on the given url.
+    This function downloads all landsat 8 tiles for the input path_row_pairs and
+    within the bounds of the start_dto and the end_dto, and saves them to the output directory.
+    It uses the amazon web service at
+    [https://aws.amazon.com/public-data-sets/landsat/]
 
     Inputs:
         path_row_pairs    tupled integer values of path,row coordinates of tile.
@@ -33,9 +37,8 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
         path_str  = str(path).zfill(3)
         row_str   = str(row).zfill(3)
 
-        #read the scene list text file from the metadata folder in the installed dnppy package
-        directory  = site.getsitepackages()[1]
-        scene_list = textio.text_data(text_filepath = "{0}/dnppy/landsat/metadata/scene_list.txt".format(directory))
+        # fetch an updated scene list with custom function.
+        scene_list = fetch_Landsat8_scene_list()
 
         #loop through the scene list
         #if the date for the given path/row scene is within the date range, download it with landsat_8_scene
@@ -75,6 +78,7 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = [1,2,3,4,5,6,7,8,9
     page       = connection.read().split("\n")
 
     print("Downloading landsat tile {0}".format(tilename))
+
     for line in page:
         if "<li><a href=" in line:
 
@@ -93,6 +97,33 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = [1,2,3,4,5,6,7,8,9
                 download_url(link, savename)
                 print("\tDownloaded {0}".format(filename))
     return
+
+
+def fetch_Landsat8_scene_list():
+    """
+    Simple downloads the most recent version of the scene_list textfile for reference
+
+    http://landsat-pds.s3.amazonaws.com/scene_list.gz
+    """
+
+    print("Updating scene list")
+    # define save path for new scene list
+    directory  = site.getsitepackages()[1]
+    gz_path    = "{0}/dnppy/landsat/metadata/scene_list.gz".format(directory)
+    txt_path   = "{0}/dnppy/landsat/metadata/scene_list.txt".format(directory)
+
+    #download then extract the gz file to a txt file.
+    download_url("http://landsat-pds.s3.amazonaws.com/scene_list.gz", gz_path)
+    with gzip.open(gz_path,'rb') as gz:
+        content = gz.read()
+        with open(txt_path, 'wb+') as f:
+            f.writelines(content)
+
+    # build a new text data object from the fresh scene list
+    scene_list_text_data = textio.text_data()
+    scene_list_text_data.read_csv(txt_path, delim = ",", has_headers = True)
+
+    return scene_list_text_data
 
 
 if __name__ == "__main__":
