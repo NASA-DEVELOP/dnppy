@@ -24,7 +24,8 @@ class text_data():
             except:
                 pass
 
-        self.build_col_data()
+        if row_data is not None:
+            self.build_col_data()
         return
 
 
