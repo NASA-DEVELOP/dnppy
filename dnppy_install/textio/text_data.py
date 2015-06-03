@@ -17,6 +17,13 @@ class text_data():
         self.text_filepath  = text_filepath     # filepath  (string)
         self.col_data       = {}                # columnwise data (dict)
 
+        # if only a text filepath is defined, try reading from it.
+        if text_filepath is not None and headers is None and row_data is None:
+            try:
+                self.read_csv(text_filepath)
+            except:
+                pass
+
         self.build_col_data()
         return
 

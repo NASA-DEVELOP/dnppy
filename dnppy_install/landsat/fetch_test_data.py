@@ -37,8 +37,8 @@ def test_data(landsat_number):
         webbrowser.open(url)
     else:
         print "Please enter 4, 5, 7, or 8"
-    
     return
+
 
 def landsat_8_scene(path, row, year, day, outdir):
     """
@@ -104,7 +104,7 @@ def landsat_8_scene(path, row, year, day, outdir):
 
     #download urls to the output directory
     outfolder = "{0}\{1}".format(outdir, name)
-    download.urls(urls_dl, outfolder, ["TIF","txt"])
+    download.download_urls(urls_dl, outfolder, ["TIF","txt"])
     
     return
 

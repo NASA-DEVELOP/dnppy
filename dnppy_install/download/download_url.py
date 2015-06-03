@@ -12,7 +12,7 @@ def download_url(url, outname, username = False, password = False):
     if not os.path.exists(head) and head is not "":
         os.makedirs(head)
 
-    if "http:" in url[:5]:
+    if "http" in url[:4]:
         writefile   = open(outname,'wb+')
         connection  = urllib.urlopen(url)
         page        = connection.read()
@@ -39,5 +39,9 @@ def download_url(url, outname, username = False, password = False):
         ftp.cwd(path)
         ftp.retrbinary("RETR " + filename, open(outname, 'wb').write)
         ftp.quit()
+
+    else:
+        print("Unknown url protocol type, must be http or ftp")
+
 
     return
