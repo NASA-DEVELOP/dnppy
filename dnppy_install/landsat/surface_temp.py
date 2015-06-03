@@ -105,7 +105,7 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
         
     st.save(outname)
 
-    return
+    return outname
 
 
 def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = False, L = 0.5):
@@ -213,4 +213,4 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
         
     st.save(outname)
 
-    return
+    return outname

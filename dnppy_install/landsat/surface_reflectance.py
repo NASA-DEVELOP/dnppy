@@ -7,9 +7,13 @@ import datetime
 import numpy as np
 import math
 import os
-arcpy.CheckOutExtension("Spatial")
+if arcpy.CheckExtension("Spatial") == "Available":
+        arcpy.CheckOutExtension("Spatial")
+else:
+        raise LicenseError
 
-__all__=['surface_reflectance']      # complete
+
+__all__ = ['surface_reflectance']      # complete
 
 
 def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = False, kt = 1.0):
@@ -58,6 +62,8 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                 kt              Unitless turbidity coefficient. Default set at 1.0 for clean air.
                                   *Set at 0.5 for extremeley turbid, dusty, or polluted air
         """
+
+        outlist = []
 
         #define the list of constants for effective narrowband transmissivity for incoming solar radiation 
         constants_enbt1 = [[0.987, -0.00071, 0.000036, 0.0880, 0.0789],
@@ -207,5 +213,6 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                         asr_path = "{0}\\{1}".format(toa_folder, out_list[k])
                 refl_surf = (toa_list[k] - pr_bands[k])/(entisr_bands[k] * entsrrs_bands[k])
                 refl_surf.save(asr_path)
+                outlist.append(asr_path)
 
-        return
+        return outlist

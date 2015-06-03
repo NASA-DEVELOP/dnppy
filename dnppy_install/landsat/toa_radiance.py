@@ -22,6 +22,8 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     outdir      Output directory to save converted files.
     """
 
+    outlist = []
+
     #enforce list of band numbers and grab the metadata from the MTL file
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
@@ -66,6 +68,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
                 outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
                 
             TOA_rad.save(outname)
+            outlist.append(outname)
             print("Saved toa_radiance at {0}".format(outname))
 
         #if listed band is not a OLI sensor band, skip it and print message
@@ -73,7 +76,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
             print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
 
-    return
+    return outlist
 
 
 
@@ -88,7 +91,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
        outdir      Output directory to save converted files.
     """
 
-    OutList = []
+    outlist = []
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
 
@@ -182,7 +185,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
                 outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
                 
             Radraster.save(outname)
-            OutList.append(arcpy.Raster(outname))
+            outlist.append(outname)
             
             del Radraster
 
@@ -194,4 +197,4 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             print("Skipping band {0}".format(band_num))
          
     f.close()
-    return OutList
+    return outlist

@@ -27,6 +27,8 @@ def atsat_bright_temp_8(meta_path, outdir = False):
     band_nums = ["10", "11"]
     meta = grab_meta(meta_path)
 
+    outlist = []
+
     #cycle through each band in the list for calculation, ensuring each is in the list of TIRS bands
     for band_num in band_nums:
 
@@ -63,11 +65,12 @@ def atsat_bright_temp_8(meta_path, outdir = False):
             outname = core.create_outname(folder, band_path, "ASBTemp", "tif")
             
         Bright_Temp.save(outname)
-        
+        outlist.append(outname)
+
         print("Saved output at {0}".format(outname))
         del TOA_rad, null_raster
             
-    return
+    return outlist
 
 
 
@@ -85,7 +88,7 @@ def atsat_bright_temp_457(meta_path, outdir = False):
                    files in the same directory as input files.
     """
     
-   OutList      = []
+   outlist      = []
    metadata     = grab_meta(meta_path)
    spacecraft   = getattr(metadata, "SPACECRAFT_ID")
 
@@ -173,11 +176,11 @@ def atsat_bright_temp_457(meta_path, outdir = False):
           BandPath = core.create_outname(folder, band_temp, "ASBTemp", "tif")
 
       Refraster.save(BandPath)
-      OutList.append(arcpy.Raster(BandPath))
+      outlist.append(BandPath)
 
       del Refraster, Radraster, null_raster
 
       print("Temperature Calculated for Band {0}".format(band_num))
         
    f.close()
-   return OutList
+   return outlist

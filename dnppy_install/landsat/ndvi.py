@@ -40,7 +40,7 @@ def ndvi_8(Band5, Band4, outdir = False):
     L8_NDVI.save(outname)
         
     print("saved ndvi_8 at {0}".format(outname))
-    return
+    return outname
 
 def ndvi_457(Band4, Band3, outdir = False):
     """
@@ -74,4 +74,4 @@ def ndvi_457(Band4, Band3, outdir = False):
     L457_NDVI.save(outname)
         
     print("saved ndvi_457 at {0}".format(outname))
-    return 
+    return outname

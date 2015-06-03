@@ -46,7 +46,7 @@ def make_cloud_mask_8(BQA_path, outdir = False):
         
     outReclass.save(CloudMask_path)
 
-    return
+    return CloudMask_path
 
 
 
@@ -294,10 +294,11 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
 
     print "Cloud mask saved at {0}".format(outname)
     Cloud_Mask.save(outname)
+    cloudmask457 = arcpy.Raster(outname)
 
     del name, mask_path, Cloud_Mask, path, remap
     
-    return
+    return cloudmask457
 
 
 
@@ -312,6 +313,8 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
       outdir        Output directory to save cloudless band tiffs
                     *If left False the output tiffs will be saved in "folder"
     """
+
+    noclds_list = []
 
     #enforce the input band numbers as a list of strings
     if "\\" in mask_path:
@@ -342,8 +345,9 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
     for file in inlist:
         outcon = arcpy.sa.Con(mask_path, file, "", "VALUE = 1")
         outcon.save(outlist[y])
+        noclds_list.append(outlist[y])
         y = y + 1
         if y > (len(inlist) - 1):
             break
 
-    return
+    return noclds_list
