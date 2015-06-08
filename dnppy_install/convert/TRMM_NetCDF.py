@@ -27,7 +27,7 @@ def TRMM_NetCDF(filelist, outdir):
 
     # Set up initial parameters.
     arcpy.env.workspace = outdir
-    filelist    = core.enforce_list(filelist)
+    filelist    = core.enf_list(filelist)
 
     # convert every file in the list "filelist"
     for infile in filelist:

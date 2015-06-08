@@ -37,9 +37,9 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
     arcpy.env.overwriteOutput = True
 
     # enforce lists for iteration purposes
-    filelist = core.enforce_list(filelist)
-    layerlist = core.enforce_list(layerlist)
-    layernames = core.enforce_list(layernames)
+    filelist = core.enf_list(filelist)
+    layerlist = core.enf_list(layerlist)
+    layernames = core.enf_list(layernames)
     
     # ignore user input layernames if they are invalid, but print warnings
     if layernames and not len(layernames) == len(layerlist):
