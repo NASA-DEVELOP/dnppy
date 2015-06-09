@@ -2,16 +2,12 @@
 # standard imports
 import sys
 import os
-
-# dnppy imports
 from dnppy import core
 
 # arcpy imports
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
     arcpy.env.overwriteOutput = True
 
 def HDF(filelist, layerlist, layernames = False, outdir = False):
@@ -33,7 +29,6 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
 
 
     # Set up initial arcpy modules, workspace, and parameters, and sanitize inputs.
-    core.Check_Spatial_Extension()
     arcpy.env.overwriteOutput = True
 
     # enforce lists for iteration purposes
