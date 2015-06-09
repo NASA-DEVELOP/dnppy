@@ -9,7 +9,7 @@ import arcpy
 def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
 
     """
-    Extracts tifs from MODIS HDF files, ensures proper projection.
+    Extracts tifs from MODIS extract_HDF_layer files, ensures proper projection.
 
      inputs:
        filelist    list of '.hdf' files from which data should be extracted (or a directory)

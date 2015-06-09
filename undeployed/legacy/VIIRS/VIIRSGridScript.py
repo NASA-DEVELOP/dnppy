@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        VIIRS Grid Tool
-# Purpose:     This tool grids and georeferences VIIRS HDF data files from
+# Purpose:     This tool grids and georeferences VIIRS extract_HDF_layer data files from
 #              the NOAA CLASS website
 # Author:     Quinten Geddes Quinten.A.Geddes@nasa.gov
 #               NASA DEVELOP Program
@@ -23,8 +23,8 @@ arcpy.env.overwriteOutput = True
 #Variables-------------------------------------------------------------Variables
 
 
-HDFfile      = arcpy.GetParameterAsText(0) #HDF file including
-ArrayName    = arcpy.GetParameterAsText(1) #Data array in the HDF file that the user wishes to interpolate
+HDFfile      = arcpy.GetParameterAsText(0) #extract_HDF_layer file including
+ArrayName    = arcpy.GetParameterAsText(1) #Data array in the extract_HDF_layer file that the user wishes to interpolate
 psize        = float(arcpy.GetParameterAsText(2)) #Desired pixel size in degrees or meters if Project to UTM is True
 Extent       = arcpy.GetParameterAsText(3)
 SampleMethodInput = arcpy.GetParameterAsText(4)
@@ -125,7 +125,7 @@ if ProjectToUTM =="false" and psize>10:
     raise arcpy.ExecuteError
 
 
-#Navigating the HDF file and marking the Geolocation band
+#Navigating the extract_HDF_layer file and marking the Geolocation band
 Date=HDFfile.split("pp_")[1][0:18]
 f=h5py.File(HDFfile, 'r')
 hdfind1=list(f)[0]
@@ -242,7 +242,7 @@ NeedForInterp=sampledict[SampleMethod]
 #For each band an output array is created
 #The output array is written by blocks of size "blockSize" by "blockSize".
 #The extent of these blocks correspond output grid coordinates.
-#Data points are retreived from the input HDF that have lat longs that
+#Data points are retreived from the input extract_HDF_layer that have lat longs that
 #fall within the extent of these blocks plus some slop.
 #These collected data points are then used to interpolate and
 #fill a block of the output array

@@ -1,16 +1,13 @@
 
 # standard imports
-import sys
 import os
 from dnppy import core
-
-# arcpy imports
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
 
-def HDF(filelist, layerlist, layernames = False, outdir = False):
+def extract_HDF_layers(filelist, layerlist, layernames = None, outdir = None):
 
     """
      Function extracts tifs from HDFs.
@@ -42,8 +39,8 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
         print('ommiting user defined layernames!')
         layernames=False
 
-    # create empty list to add failed file names into
-    failed=[]
+    # create empty list to add filenames into
+    produced_files = []
 
     # iterate through every file in the input filelist
     for infile in filelist:
@@ -55,13 +52,13 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
             layer=layerlist[i]
             
             # specify the layer names.
-            if layernames:
+            if layernames is not None:
                 layername = layernames[i]
             else:
                 layername = str(layer).zfill(3)
 
             # use the input output directory if the user input one, otherwise build one  
-            if outdir:
+            if outdir is not None:
                 if not os.path.exists(os.path.join(outdir,layername)):
                     os.makedirs(os.path.join(outdir,layername))
                 outname=os.path.join(outdir,layername,name[:-4] +'_'+ layername +'.tif')
@@ -74,11 +71,14 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
             try:
                 # extract the subdataset
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
-                
                 print('Extracted ' + outname)
+                produced_files.append(outname)
             except:
                 print('Failed extract '+ outname + ' from ' + infile)
-                
-                failed.append(infile)
-    return(failed)
 
+    return produced_files
+
+
+# testing area
+if __name__ == "__main__":
+    pass
