@@ -1575,3 +1575,5 @@ def run(workspace, landsat_filepath_list, landsat_metapath,
     return mike
 
    
+
+if __name__ == "__main__":

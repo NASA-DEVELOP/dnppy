@@ -13,7 +13,7 @@ import gzip
 
 
 def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
-                   max_cloud_cover = 100, bands = [1,2,3,4,5,6,7,8,9,10,11,"QA"]):
+                   max_cloud_cover = 100, bands = None):
     """
     This function downloads all landsat 8 tiles for the input path_row_pairs and
     within the bounds of the start_dto and the end_dto, and saves them to the output directory.
@@ -40,8 +40,8 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
         # fetch an updated scene list with custom function.
         scene_list = fetch_Landsat8_scene_list()
 
-        #loop through the scene list
-        #if the date for the given path/row scene is within the date range, download it with landsat_8_scene
+        # loop through the scene list
+        # if the date for the given path/row scene is within the date range, download it with landsat_8_scene
 
         for row in scene_list:
             tilename    = row[0]
@@ -61,7 +61,7 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
 
 
 
-def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = [1,2,3,4,5,6,7,8,9,10,11,"QA"]):
+def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
     """
     This function makes use of the amazon web service hosted Landsat 8 OLI data.
     It recieves an amazon web url for a single landsat tile, and downloads the desired files
@@ -71,9 +71,12 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = [1,2,3,4,5,6,7,8,9
         The MTL file is ALWAYS downloaded.
     """
 
-    bands = map(str,core.enf_list(bands))
+    if bands is None:
+        bands = map(str,[1,2,3,4,5,6,7,8,9,10,11,"QA"])
+    else:
+        bands = core.enf_list(bands)
 
-    #create the scene name from the input parameters and use that to generate the scene's unique url
+    # create the scene name from the input parameters and use that to generate the scene's unique url
     connection = urllib.urlopen(amazon_url)
     page       = connection.read().split("\n")
 
@@ -112,7 +115,7 @@ def fetch_Landsat8_scene_list():
     gz_path    = "{0}/dnppy/landsat/metadata/scene_list.gz".format(directory)
     txt_path   = "{0}/dnppy/landsat/metadata/scene_list.txt".format(directory)
 
-    #download then extract the gz file to a txt file.
+    # download then extract the gz file to a txt file.
     download_url("http://landsat-pds.s3.amazonaws.com/scene_list.gz", gz_path)
     with gzip.open(gz_path,'rb') as gz:
         content = gz.read()
@@ -128,9 +131,9 @@ def fetch_Landsat8_scene_list():
 
 if __name__ == "__main__":
 
-    outdir = r"C:\Users\jwely\Desktop\troubleshooting\2015-summer\alaskdisasters"
-    start = datetime.datetime(2015,1,1)
-    end   = datetime.datetime(2015,6,3)
-    path_row_pairs = [(56,21),(56,22)]
+    outdir = r"C:\Users\jeff\Desktop\metric_testing"
+    start = datetime.datetime(2015,5,22)
+    end   = datetime.datetime(2015,5,26)
+    path_row_pairs = (44,28)
 
-    fetch_Landsat8(path_row_pairs, start, end, outdir, bands = 1)
+    fetch_Landsat8(path_row_pairs, start, end, outdir)

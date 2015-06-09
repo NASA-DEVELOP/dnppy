@@ -273,40 +273,40 @@ class METRIC_run(object):
                     recalc, crop, timezone, wx_elev, wx_zom, LE_ref, mounts)
 
 
-### Manually run the metric model here
-##if __name__ == "__main__":
-##
-##    tbx = Toolbox()
-##    tool = METRIC_run()
-##
-##    workspace =     r"C:\Users\jwely\Desktop\metric_trub\model_run_NC_manual"
-##
-##    landsat_files =[r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip2.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip3.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip4.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip5.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip6.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip7.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip10.tif",
-##                    r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\final_clip11.tif"]
-##
-##    landsat_meta    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_landsat\NC_metadata.txt"
-##    dem_path        = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_dem\grdn37ww78_13_UTM_Subset.tif"
-##    hot_shp_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\nonirrigated_hot.shp"
-##    cold_shp_path   = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\irrigated_cool.shp"
-##    weather_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_weather\6564006671082dat.txt"    
-##
-##    testflag        = "ALL"         # valid inputs are "ALL", "LIMITED", "ET-ONLY" (ET-ONLY 25% less time than ALL)
-##    recalc          = True          # recalc = True will prevent all 
-##
-##    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa" 
-##    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
-##
-##    wx_elev         = 1.000         # elevation of the weather station
-##    wx_zom          = 0.010         # estimated zom at weather station (temporary)
-##    LE_cold_cal_fac = 1.050         # LE calibration factor, should probably always be 1.05
-##    mountains       = False         # set true for mountainous regions
-##
-##    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
-##                    hot_shp_path, cold_shp_path, weather_path, testflag,
-##                    recalc, crop, timezone, wx_elev, wx_zom, LE_cold_cal_fac, mountains)
+# Manually run the metric model here
+if __name__ == "__main__":
+
+    tbx = Toolbox()
+    tool = METRIC_run()
+
+    workspace =     r"C:\Users\jwely\Desktop\metric_trub\model_run_NC_manual"
+
+    landsat_files =[r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B2.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B3.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B4.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B5.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B6.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B7.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B10.TIF",
+                    r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_B11.TIF.tif"]
+
+    landsat_meta    = r"C:\Users\Jeff\Desktop\metric_testing\LC80440282015144LGN00\LC80440282015144LGN00_MTL.txt"
+    dem_path        = r"C:\Users\Jeff\Desktop\metric_testing\SRTM_mosaic.tif"
+    hot_shp_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\nonirrigated_hot.shp"
+    cold_shp_path   = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_ref_pixels\irrigated_cool.shp"''
+    weather_path    = r"C:\Users\jwely\Desktop\metric_trub\test_inputs_NC\input_weather\6564006671082dat.txt"
+
+    testflag        = "ALL"         # valid inputs are "ALL", "LIMITED", "ET-ONLY" (ET-ONLY 25% less time than ALL)
+    recalc          = True          # recalc = True will prevent all
+
+    crop            = "alfalfa"     # reference crop. possible values are "grass" , "alfalfa"
+    timezone        = -5.0          #  -5 or -4 for Eeastern time depending on daylight savings
+
+    wx_elev         = 1.000         # elevation of the weather station
+    wx_zom          = 0.010         # estimated zom at weather station (temporary)
+    LE_cold_cal_fac = 1.050         # LE calibration factor, should probably always be 1.05
+    mountains       = True         # set true for mountainous regions
+
+    metric_py.run(workspace, landsat_files, landsat_meta, dem_path,
+                    hot_shp_path, cold_shp_path, weather_path, testflag,
+                    recalc, crop, timezone, wx_elev, wx_zom, LE_cold_cal_fac, mountains)

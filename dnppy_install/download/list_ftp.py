@@ -1,7 +1,6 @@
 __author__ = 'jwely'
 
 import ftplib
-import time
 import socket
 
 def list_ftp(site, username = False , password = False, Dir = False):

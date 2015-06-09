@@ -5,7 +5,11 @@ from download_url import download_url
 import os
 import zipfile
 
-def fetch_SRTM(lat_lon_pairs, product, outdir = None):
+try: import arcpy
+except: pass
+
+
+def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)
     [http://e4ftl01.cr.usgs.gov/SRTM/]
@@ -18,6 +22,7 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
         product         short name of product you want. See link below
                         https://lpdaac.usgs.gov/products/measures_products_table
         outdir          local directory to save downloaded files
+        mosaic          Set to TRUE to mosaic all downloaded DEM tiles.
 
     Returns:
         tif_list        a list of all successfully downloaded tif filepaths
@@ -119,6 +124,13 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
         os.remove(outpath)
         tif_list.append(os.path.join(outdir,itemname))
 
+    if mosaic is True:
+
+        arcpy.MosaicToNewRaster_management(tif_list, outdir, "SRTM_mosaic.tif",
+                                       number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
+
+    print("Finished download and extraction of SRTM data")
+
     return tif_list
 
 
@@ -126,8 +138,13 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None):
 
 if __name__ == "__main__":
 
-    testdir = r"C:\Users\jwely\Desktop\troubleshooting"
-    fetch_SRTM((37, -77), "SRTMGL3", testdir)
+    testdir = r"C:\Users\Jeff\Desktop\metric_testing"
+    tiles = [(44, -118),(45, -118),(46, -118),(47, -118),
+             (44, -119),(45, -119),(46, -119),(47, -119),
+             (44, -120),(45, -120),(46, -120),(47, -120),
+             (44, -121),(45, -121),(46, -121),(47, -121),]
+
+    fetch_SRTM(tiles, "SRTMGL3", testdir, mosaic = True)
 
 
 
