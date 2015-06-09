@@ -33,7 +33,7 @@ def HDF(filelist, layerlist, layernames = False, outdir = False):
 
 
     # Set up initial arcpy modules, workspace, and parameters, and sanitize inputs.
-    core.Check_Spatial_Extension()
+    ##core.Check_Spatial_Extension()
     arcpy.env.overwriteOutput = True
 
     # enforce lists for iteration purposes
