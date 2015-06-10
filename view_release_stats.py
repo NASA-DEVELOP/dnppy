@@ -1,4 +1,8 @@
 
+"""
+this script was built to track downloads of dnppy assets.
+since dnppy doesn't really have assets yet, it isn't as usefull as imagined.
+"""
 
 import requests
 import datetime

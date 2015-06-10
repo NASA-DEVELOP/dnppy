@@ -12,12 +12,11 @@
    from dnppy0.0.2     import core as old_core
    from dnppy1.15.1    import core as new_core
 
- If you have knowledge of distutils and wish to make this installation more
- professional and cleaner, feel free to do so!
+ If you have knowledge of setuptools and time to make this setuptools compatible,
+ please do so!
 """
 
-import os, shutil, sys, dnppy_install,time
-
+import os, shutil, sys, dnppy_install, time
 
 # determine if the version being installed is newer than the current version
 def upgrading(now_vers,up_vers):
