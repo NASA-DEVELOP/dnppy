@@ -29,7 +29,7 @@ def extract_HDF_layers(filelist, layerlist, layernames = None, outdir = None):
     arcpy.env.overwriteOutput = True
 
     # enforce lists for iteration purposes
-    filelist = core.enf_list(filelist)
+    filelist = core.enf_filelist(filelist)
     layerlist = core.enf_list(layerlist)
     layernames = core.enf_list(layernames)
     
@@ -59,26 +59,33 @@ def extract_HDF_layers(filelist, layerlist, layernames = None, outdir = None):
 
             # use the input output directory if the user input one, otherwise build one  
             if outdir is not None:
-                if not os.path.exists(os.path.join(outdir,layername)):
-                    os.makedirs(os.path.join(outdir,layername))
-                outname=os.path.join(outdir,layername,name[:-4] +'_'+ layername +'.tif')
+                if not os.path.exists(os.path.join(outdir)):
+                    os.makedirs(outdir)
             else:
-                if not os.path.exists(os.path.join(path,layername)):
-                    os.makedirs(os.path.join(path,layername))
-                outname = os.path.join(path,layername,name[:-4] +'_'+ layername +'.tif')
+                outdir  = os.path.dirname(infile)
+
+            outname = core.create_outname(outdir, infile, layername, ext = "tif")
 
             # perform the extracting and projection definition
             try:
                 # extract the subdataset
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
+
                 print('Extracted ' + outname)
                 produced_files.append(outname)
+
             except:
-                print('Failed extract '+ outname + ' from ' + infile)
+                print('Failed to extract '+ outname + ' from ' + infile)
 
     return produced_files
 
 
+
 # testing area
 if __name__ == "__main__":
-    pass
+
+
+    filelist = r"C:\Users\Jeff\Desktop\GPM_testing\2015-04-01"
+    layerlist = [0,1,2,3,4,5,6,7]
+
+    extract_HDF_layers(filelist, layerlist)

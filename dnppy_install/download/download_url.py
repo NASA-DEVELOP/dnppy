@@ -13,7 +13,7 @@ def download_url(url, outname, username = False, password = False):
         os.makedirs(head)
 
     if "http" in url[:4]:
-        writefile   = open(outname,'wb+')
+        writefile   = open(outname, 'wb+')
         connection  = urllib.urlopen(url)
         page        = connection.read()
 

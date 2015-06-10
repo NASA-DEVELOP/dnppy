@@ -1,12 +1,13 @@
 __author__ = ['jeff.ely.08@gmail.com']
 
+
+from dnppy import core
 from list_ftp import list_ftp
 from download_url import download_url
 
-
 from datetime import datetime, timedelta
-
 import os
+import arcpy
 
 def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1day"):
 
@@ -49,7 +50,6 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
         else:
             ok_minutes = "0000"
 
-
     # assemble address information
     pps_server  = r"ftp://jsimpson.pps.eosdis.nasa.gov"
 
@@ -68,8 +68,6 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
             int(foldname)
         except:
             foldnames.remove(foldname)
-
-
 
     for foldname in foldnames:
         print("exploring directory '{0}'".format(foldname))
@@ -104,16 +102,30 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
             if good_date and good_time and good_minutes:
                 outname = os.path.join(outdir, date.strftime("%Y-%m-%d"), filename)
                 download_url(filepath, outname, username = un, password = pw)
-                download_list.append(outname)
                 print("saved '{0}' in '{1}'".format(filename, outdir))
+
+                extractname = extract_GPM_precip(outname)
+                download_list.append(extractname)
+
 
     return download_list
 
 
+def extract_GPM_precip(gpmfilepath):
+    """
+    subfunction to extract only the calibrated precipitation estimate layer from GPM IMERG HDF5 files.
+    """
+
+    outdir = os.path.dirname(gpmfilepath)
+    outname = core.create_outname(outdir, gpmfilepath, "precip", "tif")
+    arcpy.ExtractSubDataset_management(gpmfilepath, outname, "5")
+    return outname
+
+
 if __name__ == "__main__":
 
-    start_dto = datetime(2015,4,2)
-    end_dto   = datetime(2015,4,3)
+    start_dto = datetime(2015, 4, 2)
+    end_dto   = datetime(2015, 4, 3)
     testdir   = r"C:\Users\Jeff\Desktop\GPM_testing"
 
     prod = "late"
