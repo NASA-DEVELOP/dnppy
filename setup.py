@@ -17,6 +17,7 @@
 """
 
 import os, shutil, sys, dnppy_install, time
+from install_dependencies import get_dependencies
 
 # determine if the version being installed is newer than the current version
 def upgrading(now_vers,up_vers):
@@ -86,7 +87,18 @@ print('\nSource path       : ' + source_path)
 print('Destination path 1: '   + dest_path)
 print('Destination path 2: '   + dest_path2)
 
+print("\ndnppy is installed, setup will now fetch some required libraries")
+
+get_dependencies([("requests", None),
+                      ("wheel", None),
+                      #("Cython", None),        # requires C++ visual studio 9.0 libraries
+                      #("scipy", "0.9.0"),      # fails for some numpy compiling problem
+                      #("h5py", None),          # HDF5 binaries dont seem to install properly
+                      ])
+print("\nFinished retrieving dependencies!")
+
 try:
+    # ensure every module imports OK
     from dnppy import convert
     from dnppy import core
     from dnppy import download
@@ -99,11 +111,11 @@ try:
     from dnppy import textio
     from dnppy import time_series
 
-    print "\nSetup validated and finished!"
+    print("\nSetup validated and finished!")
     print("Window will close in 10 seconds")
 
 except:
-    raise ImportError("Something went wrong!")
+    raise Exception("Something went wrong!")
 
 time.sleep(10)
 sys.exit()

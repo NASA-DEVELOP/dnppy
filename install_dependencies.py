@@ -72,10 +72,9 @@ def get_dependencies(dependencies):
 
 
 if __name__ == "__main__":
-    get_dependencies([("pydap", None),
-                      ("requests", None)
+    get_dependencies([("requests", None),
+                      ("wheel", None),
                       #("Cython", None),            # requires C++ visual studio 9.0 libraries
                       #("scipy", "0.9.0"),          # fails for some numpy compiling problem
                       #("h5py", None),              # HDF5 binaries dont seem to install properly
                       ])
-
