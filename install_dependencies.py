@@ -1,4 +1,4 @@
-__author__ = 'Jwely'
+__author__ = 'jwely'
 
 """
 This script fetches and installs pip, then uses pip to install
@@ -59,9 +59,11 @@ def get_dependencies(dependencies):
             print("Using pip to install " + package)
 
             if package == "Cython":
-                # avoids special error with Cython
+                # avoids specific error with Cython
                 pip.main(["install", "--no-use-wheel", package])
+
             else:
+
                 if version is not None:
                     pip.main(["install", package + "==" + version])
                 else:
@@ -70,6 +72,10 @@ def get_dependencies(dependencies):
 
 
 if __name__ == "__main__":
-    get_dependencies([("requests", None),
-                      ("Cython", None)])
+    get_dependencies([("pydap", None),
+                      ("requests", None)
+                      #("Cython", None),            # requires C++ visual studio 9.0 libraries
+                      #("scipy", "0.9.0"),          # fails for some numpy compiling problem
+                      #("h5py", None),              # HDF5 binaries dont seem to install properly
+                      ])
 
