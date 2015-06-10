@@ -7,7 +7,7 @@ from dnppy import core
 
 def extract_targz(filepaths):
     """
-    Input list of filepaths or a directory with tar.gz files in it
+    Input list of filepaths OR a directory path with tar.gz files in it
 
     Simple batch extractor of files with tar.gz compression
     creates a folder for each input tar.gz file with its extracted
