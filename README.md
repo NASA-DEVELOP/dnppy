@@ -10,6 +10,7 @@ For more information about the NASA DEVELOP program and the projects teams condu
 utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
 
 #####Instalation
+Run `install_dependencies.ppy`
 Run `setup.py`
 
 #####Dependencies
