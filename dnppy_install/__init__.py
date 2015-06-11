@@ -21,7 +21,6 @@ if not __name__ == "dnppy_install":
 
     from test import *
     from R_dnppy import *
-    # from chunking import *
     from convert import *
     from core import *
     from download import *
