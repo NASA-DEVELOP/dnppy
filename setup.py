@@ -18,6 +18,7 @@
 
 import os, shutil, sys, dnppy_install, time
 from install_dependencies import get_dependencies
+from install_dependencies import get_gdal
 
 # determine if the version being installed is newer than the current version
 def upgrading(now_vers,up_vers):
@@ -87,14 +88,13 @@ print('\nSource path       : ' + source_path)
 print('Destination path 1: '   + dest_path)
 print('Destination path 2: '   + dest_path2)
 
-print("\ndnppy is installed, setup will now fetch some required libraries")
 
+print("\ndnppy is installed, setup will now fetch some required libraries")
 get_dependencies([("requests", None),
-                      ("wheel", None),
-                      #("Cython", None),        # requires C++ visual studio 9.0 libraries
-                      #("scipy", "0.9.0"),      # fails for some numpy compiling problem
-                      #("h5py", None),          # HDF5 binaries dont seem to install properly
-                      ])
+                  ("wheel", None)])
+get_gdal()
+
+
 print("\nFinished retrieving dependencies!")
 
 try:

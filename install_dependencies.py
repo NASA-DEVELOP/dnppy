@@ -17,13 +17,15 @@ challenging modules include scipy, and h5py.
 import urllib
 import importlib
 import os
+import platform
+#import pip               installs pip, then imports it
 
 def get_pip():
     """ ensures pip is installed"""
 
     try:
         import pip
-        print("pip loaded!")
+        print("imported pip")
 
     except ImportError:
         with open("install_pip.py", 'wb+') as f:
@@ -37,6 +39,46 @@ def get_pip():
         import install_pip
         install_pip.main()
         os.remove("install_pip.py")
+    return
+
+
+def get_gdal():
+    """
+    easy installation of gdal is a little different than other packages, but
+    a pretty reliable method of arcmap compatible installation has been discovered
+    with the use of a wheel file. This function grabs that wheel file from
+    the assets of dnppys first beta release, and installs gdal on any system
+    """
+
+    try:
+        import gdal
+        print("imported gdal")
+
+    except ImportError:
+        print("gathering gdal assets")
+
+        bit64py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl"
+        bit32py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"
+
+        # determine if python running is 32 or 64 bit
+        if platform.architecture()[0] == "64bit":
+            dlurl = bit64py27
+        else:
+            dlurl = bit32py27
+
+        # write the file right next to this setupfile
+        with open(os.path.basename(dlurl),"wb+") as f:
+            connection = urllib.urlopen(dlurl)
+            page = connection.read()
+            f.write(page)
+            f.close()
+            del connection
+
+        # now use pip to install the gdal wheel file
+        import pip
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
+        pip.main(["install", path])
+        os.remove(path)
     return
 
 
@@ -58,23 +100,13 @@ def get_dependencies(dependencies):
         except ImportError:
             print("Using pip to install " + package)
 
-            if package == "Cython":
-                # avoids specific error with Cython
-                pip.main(["install", "--no-use-wheel", package])
-
+            if version is not None:
+                pip.main(["install", package + "==" + version])
             else:
-
-                if version is not None:
-                    pip.main(["install", package + "==" + version])
-                else:
-                    pip.main(["install", package])
+                pip.main(["install", package])
     return
 
 
 if __name__ == "__main__":
-    get_dependencies([("requests", None),
-                      ("wheel", None),
-                      #("Cython", None),            # requires C++ visual studio 9.0 libraries
-                      #("scipy", "0.9.0"),          # fails for some numpy compiling problem
-                      #("h5py", None),              # HDF5 binaries dont seem to install properly
-                      ])
+    get_dependencies([("requests", None), ("wheel", None)])
+    get_gdal()
