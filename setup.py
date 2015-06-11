@@ -37,6 +37,12 @@ print("   Setting up dnnpy! the DEVELOP National Program python package!")
 print("====================================================================\n")
 
 
+print("\nsetup will fetch some required libraries")
+get_dependencies([("requests", None),
+                  ("wheel", None)])
+get_gdal()
+
+
 up_vers = dnppy_install.__version__
 
 library_path, _ = os.path.split(os.__file__)
@@ -87,12 +93,6 @@ else:
 print('\nSource path       : ' + source_path)
 print('Destination path 1: '   + dest_path)
 print('Destination path 2: '   + dest_path2)
-
-
-print("\ndnppy is installed, setup will now fetch some required libraries")
-get_dependencies([("requests", None),
-                  ("wheel", None)])
-get_gdal()
 
 
 print("\nFinished retrieving dependencies!")
