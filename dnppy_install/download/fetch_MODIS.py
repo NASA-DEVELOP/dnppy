@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 
-def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
+def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
                                                 force_overwrite = False):
     """
     Fetch MODIS Land products from one of two servers.
@@ -24,79 +24,18 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
         version         version number, usually '004' or '041' or '005'
         tiles           list of tiles to grab such as ['h11v12','h11v11']
         outdir          output directory to save downloaded files
-        years           list of years to grab such as range(2001,2014)
-        j_days          list of days to grab such as range(31:60).
-                        Defaults to all days in year
+        start_dto       datetime object, the starting date of the range of data to download
+        end_dto         datetime object, the ending date of the range of data to download
         force_overwrite will re-download files even if they already exist
+
+    outputs:
+        out_filepaths   list of filepaths to all files created by this function
     """
 
-    def Find_MODIS_Product(product, version):
-        """
-        Subfunction to determine  server properties for MODIS data product.
-        returns http/ftp handles
-
-        the two current servers where aqua/terra MODIS data can be downloaded are
-            site1='http://e4ftl01.cr.usgs.gov'
-            site2='n5eil01u.ecs.nsidc.org'
-
-        Inputs:
-           product     modis product such as 'MOD10A1'
-           versions    modis version, usually '005', '004', or '041'
-
-        Outputs:
-           site        server address where data can be found
-           ftp         ftp handle for open ftp session
-           Dir         subdirectory of server to further search for files of input product.
-        """
-
-        sat_designation = product[0:3]
-        prod_ID = product[3:]
-
-        site1 = 'http://e4ftl01.cr.usgs.gov/'
-        site2 = 'n5eil01u.ecs.nsidc.org'
-
-        isftp = False
-        Dir   = False
-
-        # refine the address of the desired data product
-        if '10' in prod_ID:
-            isftp = True
-            site  = site2
-
-        if sat_designation == 'MOD':
-            if isftp:
-                Dir = 'MOST/' + product + '.' + version
-            else:
-                site = site1+'MOLT/' + product + '.' + version
-
-        elif sat_designation == 'MYD':
-            if isftp:
-                Dir = 'DP1/MOSA/' + product + '.' + version
-            else:
-                site = site1+'MOLA/' + product+'.' + version
-
-        elif sat_designation == 'MCD':
-            site = site1+'MOTA/' + product + '.' + version
-
-        else:
-            print('No such MODIS product is available for download with this script!')
-            site = "None"
-
-        return site, isftp, Dir
-
-
+    out_filepaths = []
 
     # check formats
     tiles = core.enf_list(tiles)
-    years = core.enf_list(years)
-    years = [str(year) for year in years]
-
-    if isinstance(j_days, list):
-        js = [str(j_day).zfill(3) for j_day in j_days]
-    elif isinstance(j_days, int) and j_days != False:
-        js = [str(j_days)]
-    else:
-        js = [str(x).zfill(3) for x in range(367)]
 
     # do a quick input tile check for 6 characters.
     for tile in tiles:
@@ -128,22 +67,16 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
     except:
         raise ValueError("Could not connect to {0}/{1}".format(site,Dir))
 
+    print dates
     # refine contents down to just addresses of valid year and j_day
-    good_dates=[]
+    good_dates = []
     for date in dates:
-
         try:
-            dto   = datetime.strptime(date, "%Y.%m.%d")
-            j_day = dto.strftime("%j")
-            year  = dto.strftime("%Y")
-
-            if year in years:
+            date_dto = datetime.strptime(date, "%Y.%m.%d")
+            if start_dto <= date_dto <= end_dto:
                 good_dates.append(date)
 
-                if j_days:
-                    if j_day not in js:
-                        good_dates.remove(date)
-        except ValueError:
+        except:
             print("skipping non date folder name {0}".format(date))
 
 
@@ -173,23 +106,83 @@ def fetch_MODIS(product, version, tiles, outdir, years, j_days = False,
 
                         #download the file
                         outname = os.path.join(outdir, afile)
+                        out_filepaths.append(outname)
                         if not os.path.isfile(outname) and not force_overwrite:
                             download_url(address, outname)
 
                         print('Downloaded {0}'.format(address))
 
     print('Finished retrieving MODIS - {0} data!'.format(product))
-    return
+
+    return out_filepaths
+
+
+
+def Find_MODIS_Product(product, version):
+    """
+    Subfunction to determine  server properties for MODIS data product.
+    returns http/ftp handles
+
+    the two current servers where aqua/terra MODIS data can be downloaded are
+        site1='http://e4ftl01.cr.usgs.gov'
+        site2='n5eil01u.ecs.nsidc.org'
+
+    Inputs:
+       product     modis product such as 'MOD10A1'
+       versions    modis version, usually '005', '004', or '041'
+
+    Outputs:
+       site        server address where data can be found
+       ftp         ftp handle for open ftp session
+       Dir         subdirectory of server to further search for files of input product.
+    """
+
+    sat_designation = product[0:3]
+    prod_ID = product[3:]
+
+    site1 = 'http://e4ftl01.cr.usgs.gov/'
+    site2 = 'n5eil01u.ecs.nsidc.org'
+
+    isftp = False
+    Dir   = False
+
+    # refine the address of the desired data product
+    if '10' in prod_ID:
+        isftp = True
+        site  = site2
+
+    if sat_designation == 'MOD':
+        if isftp:
+            Dir = 'MOST/' + product + '.' + version
+        else:
+            site = site1+'MOLT/' + product + '.' + version
+
+    elif sat_designation == 'MYD':
+        if isftp:
+            Dir = 'DP1/MOSA/' + product + '.' + version
+        else:
+            site = site1+'MOLA/' + product+'.' + version
+
+    elif sat_designation == 'MCD':
+        site = site1+'MOTA/' + product + '.' + version
+
+    else:
+        print('No such MODIS product is available for download with this script!')
+        site = "None"
+
+    return site, isftp, Dir
+
 
 
 # testing area
 if __name__ == "__main__":
 
-    product = "MOD10A1"
-    version = "005"
-    tiles = ["h11v05", "h12v05"]
-    outdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1"
-    years = ['2015']
-    j_days = range(90)
+    from datetime import datetime
+    prod = "MOD10A1"
+    vers = "005"
+    tile = ["h11v05", "h12v05"]
+    outd = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1"
+    star  = datetime(2015,1,1)
+    end    = datetime(2015,12,31)
 
-    fetch_MODIS(product, version, tiles, outdir, years, j_days)
+    fetch_MODIS(prod, vers, tile, outd, star, end)
