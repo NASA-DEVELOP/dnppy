@@ -5,7 +5,7 @@ import ftplib
 import os
 
 
-def download_url(url, outname, username = False, password = False):
+def download_url(url, outname, username = None, password = None):
     """Download a single file. input source url and output filename"""
 
     head, tail = os.path.split(outname)
@@ -29,9 +29,9 @@ def download_url(url, outname, username = False, password = False):
         ftp = ftplib.FTP(server)
 
         # log in to the server with user specified username and password
-        if username and password:
+        if username is not None and password is not None:
             ftp.login(username, password)
-        elif username:
+        elif username is not None:
             ftp.login(username)
         else:
             ftp.login()

@@ -3,7 +3,7 @@ __author__ = 'jwely'
 import ftplib
 import socket
 
-def list_ftp(site, username = False , password = False, dir = None):
+def list_ftp(site, username = None , password = None, dir = None):
     """
     lists contents of typical FTP download site
 
@@ -17,7 +17,6 @@ def list_ftp(site, username = False , password = False, dir = None):
     if "ftp://" in site:
         site = site.replace("ftp://", "")
 
-
     try:
         ftp = ftplib.FTP(site)
     except EOFError:
@@ -27,9 +26,9 @@ def list_ftp(site, username = False , password = False, dir = None):
         raise Exception("Socket.gaierror indicates this ftp address '{0}' does not exist".format(site))
 
 
-    if username and password:
+    if username is not None and password is not None:
         ftp.login(username, password)
-    elif username:
+    elif username is not None:
         ftp.login(username)
     else:
         ftp.login()
