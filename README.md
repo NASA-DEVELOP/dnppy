@@ -18,6 +18,7 @@ Run `setup.py`
 2. arcpy  (see ESRI's ArcMap software)
 
 At present, the following dependencies are automatically installed with the setup file in the ArcGIS python directory.
+
 3. pip
 4. wheel
 5. requests
