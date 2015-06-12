@@ -62,7 +62,6 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
             # use the input output directory if the user input one, otherwise build one  
             if outdir:
                 outname = os.path.join(outdir, "{0}_{1}.tif".format(name[:-4], layername))
-
             else:
                 outname = os.path.join(path, "{0}_{1}.tif".format(name[:-4], layername))
 
