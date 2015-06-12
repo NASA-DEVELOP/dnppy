@@ -10,14 +10,15 @@ For more information about the NASA DEVELOP program and the projects teams condu
 utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
 
 #####Instalation
-Run `install_dependencies.ppy`
-
 Run `setup.py`
 
 #####Dependencies
 
-Most dependenices come natively with Arcmap 10.2+ . Expect future dependencies from the SciPy stack, which ships with Arcmap 10.3+
-
 1. Python 2.7
 2. arcpy  (see ESRI's ArcMap software)
-3. numpy
+
+At present, the following dependencies are automatically installed with the setup file in the ArcGIS python directory.
+3. pip
+4. wheel
+5. requests
+5. gdal
