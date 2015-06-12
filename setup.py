@@ -12,16 +12,19 @@
    from dnppy0.0.2     import core as old_core
    from dnppy1.15.1    import core as new_core
 
- If you have knowledge of setuptools and time to make this setuptools compatible,
- please do so!
+ If you have knowledge of setuptools and time to make this setuptools compatible and
+ can allow dnppy installation with pip directly, please do so.
 """
 
 import os, shutil, sys, dnppy_install, time
-from install_dependencies import get_dependencies
-from install_dependencies import get_gdal
+import install_dependencies
 
-# determine if the version being installed is newer than the current version
+
 def upgrading(now_vers,up_vers):
+    """
+    compares two version strings and returns True if up_vers is more recent than
+    now_vers
+    """
     now = now_vers.split('.')
     up  = up_vers.split('.')
     length = min([len(now),len(up)])
@@ -32,91 +35,105 @@ def upgrading(now_vers,up_vers):
         return True
     return False
 
-print("====================================================================")
-print("   Setting up dnnpy! the DEVELOP National Program python package!")
-print("====================================================================\n")
 
+def setup():
+    """performs setup of dnppy by copying files to site-packages """
 
-print("\nsetup will fetch some required libraries")
-get_dependencies([("requests", None),
-                  ("wheel", None)])
-get_gdal()
+    up_vers = dnppy_install.__version__
 
+    library_path, _ = os.path.split(os.__file__)
+    source_path, _  = os.path.split(dnppy_install.__file__)
+    dest_path       = os.path.join(library_path,'site-packages','dnppy')
+    dest_path2      = dest_path + up_vers
 
-up_vers = dnppy_install.__version__
+    if os.path.isdir(dest_path):
+        try:
+            import dnppy
+            now_vers = dnppy.__version__
 
-library_path, _ = os.path.split(os.__file__)
-source_path, _  = os.path.split(dnppy_install.__file__)
-dest_path       = os.path.join(library_path,'site-packages','dnppy')
-dest_path2      = dest_path + up_vers
+            if upgrading(now_vers , up_vers):
+                print("\nUpdating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
 
-if os.path.isdir(dest_path):
-    try:
-        import dnppy
-        now_vers = dnppy.__version__
-
-        if upgrading(now_vers , up_vers):
-            print("Updating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
-            
-            shutil.rmtree(dest_path)
-            shutil.copytree(source_path,dest_path)
-            
-            try: shutil.rmtree(dest_path2)
-            except: pass
-            
-            shutil.copytree(source_path,dest_path2)
-        else:
-            print("you are trying to replace your dnppy with an older version!")
-            print("Are you sure you wish to downgrade")
-            downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
-            if downgrade == 'y' or downgrade == 'Y':
                 shutil.rmtree(dest_path)
-                shutil.copytree(source_path, dest_path)
-                shutil.rmtree(dest_path2)
-                shutil.copytree(source_path, dest_path2)
+                shutil.copytree(source_path,dest_path)
+
+                try: shutil.rmtree(dest_path2)
+                except: pass
+
+                shutil.copytree(source_path,dest_path2)
             else:
-                print("Setup aborted!")
-                
-    # handles the case where dnppy is installed, but cannot import for some reason.
-    except:
+                print("you are trying to replace your dnppy with an older version!")
+                print("Are you sure you wish to downgrade")
+                downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
+                if downgrade == 'y' or downgrade == 'Y':
+                    shutil.rmtree(dest_path)
+                    shutil.copytree(source_path, dest_path)
+                    shutil.rmtree(dest_path2)
+                    shutil.copytree(source_path, dest_path2)
+                else:
+                    print("Setup aborted!")
+
+        # handles the case where dnppy is installed, but cannot import for some reason.
+        except:
+            print("installing dnppy version [{0}]".format(up_vers))
+            shutil.rmtree(dest_path)
+            shutil.rmtree(dest_path2)
+            shutil.copytree(source_path, dest_path)
+            shutil.copytree(source_path, dest_path2)
+    else:
         print("installing dnppy version [{0}]".format(up_vers))
-        shutil.rmtree(dest_path)
-        shutil.rmtree(dest_path2)
-        shutil.copytree(source_path, dest_path)
-        shutil.copytree(source_path, dest_path2)
-else:
-    print("installing dnppy version [{0}]".format(up_vers))
-    shutil.copytree(source_path,dest_path)
-    shutil.copytree(source_path,dest_path2)
-    
-
-print('\nSource path       : ' + source_path)
-print('Destination path 1: '   + dest_path)
-print('Destination path 2: '   + dest_path2)
+        shutil.copytree(source_path,dest_path)
+        shutil.copytree(source_path,dest_path2)
 
 
-print("\nFinished retrieving dependencies!")
+    print('\nSource path       : ' + source_path)
+    print('Destination path 1: '   + dest_path)
+    print('Destination path 2: '   + dest_path2)
 
-try:
-    # ensure every module imports OK
-    from dnppy import convert
-    from dnppy import core
-    from dnppy import download
-    from dnppy import landsat
-    from dnppy import modis
-    from dnppy import radar
-    from dnppy import raster
-    from dnppy import solar
-    from dnppy import test
-    from dnppy import textio
-    from dnppy import time_series
 
-    print("\nSetup validated and finished!")
-    print("Window will close in 10 seconds")
+def test_setup():
+    """ returns True if all modules of dnppy import properly"""
 
-except:
-    raise Exception("Something went wrong!")
+    try:
+        # ensure every module imports OK
+        from dnppy import convert
+        from dnppy import core
+        from dnppy import download
+        from dnppy import landsat
+        from dnppy import modis
+        from dnppy import radar
+        from dnppy import raster
+        from dnppy import solar
+        from dnppy import test
+        from dnppy import textio
+        from dnppy import time_series
+        return True
 
-time.sleep(10)
-sys.exit()
+    except ImportError:
+        return False
 
+
+def main():
+    """ main function for installing dnppy """
+
+    print("====================================================================")
+    print("   Setting up dnnpy! the DEVELOP National Program python package!")
+    print("====================================================================")
+
+    print("\nsetup will fetch some required libraries")
+    install_dependencies.main()
+    setup()
+    success = test_setup()
+
+    if success:
+        print("\nSetup was successful!")
+    else:
+        print("\nSetup has failed!")
+
+
+    print("window will close in 10 seconds")
+    time.sleep(10)
+    sys.exit()
+
+if __name__ == "__main__":
+    main()

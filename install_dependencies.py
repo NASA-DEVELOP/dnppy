@@ -89,7 +89,6 @@ def get_dependencies(dependencies):
     use "None" to leave version unspecified.
     """
 
-    get_pip()
     import pip
 
     for package, version in dependencies:
@@ -107,6 +106,11 @@ def get_dependencies(dependencies):
     return
 
 
-if __name__ == "__main__":
+def main():
+    get_pip()
     get_dependencies([("requests", None), ("wheel", None)])
     get_gdal()
+    print("dependencies fetched!")
+
+if __name__ == "__main__":
+    main()
