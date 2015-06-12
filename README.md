@@ -28,5 +28,5 @@ At present, the following dependencies are automatically installed with the setu
 
 The version of `GDAL` that is installed on setup is version 1.11.1 for python 2.7. The 32 bit version is installed unless the user has the 64 bit background geoprocessing packages installed, in which case the 64 bit GDAL is installed.
 
-GDAL‑1.11.2‑cp27‑none‑win32.whl
-GDAL‑1.11.2‑cp27‑none‑win_amd64.whl
+* GDAL‑1.11.2‑cp27‑none‑win32.whl
+* GDAL‑1.11.2‑cp27‑none‑win_amd64.whl
