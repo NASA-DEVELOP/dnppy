@@ -19,9 +19,14 @@ Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be instal
 1. Python 2.7
 2. `arcpy`  (see ESRI's ArcMap software)
 
-At present, the following dependencies are automatically installed with the setup file in the pre-existing ArcGIS python directory. `GDAL` is among them, and `dnppy` functions will become increasingly `GDAL` dependent in the future.
+At present, the following dependencies are automatically installed with the setup file in the pre-existing ArcGIS python directory. 
 
 3. `pip`
 4. `wheel`
 5. `requests`
 5. `gdal`
+
+The version of `GDAL` that is installed on setup is version 1.11.1 for python 2.7. The 32 bit version is installed unless the user has the 64 bit background geoprocessing packages installed, in which case the 64 bit GDAL is installed.
+
+GDAL‑1.11.2‑cp27‑none‑win32.whl
+GDAL‑1.11.2‑cp27‑none‑win_amd64.whl
