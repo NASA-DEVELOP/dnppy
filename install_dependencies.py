@@ -37,9 +37,18 @@ def get_pip():
 
         # run pip and clean up.
         import install_pip
-        install_pip.main()
+        os.system("install_pip.py")
         os.remove("install_pip.py")
     return
+
+
+def check_pip():
+    """checks that pip imports OK"""
+    try:
+        import pip
+        return True
+    except ImportError:
+        return False
 
 
 def get_gdal():
@@ -82,7 +91,16 @@ def get_gdal():
     return
 
 
-def get_dependencies(dependencies):
+def check_gdal():
+    """ checks that gdal imports OK """
+    try:
+        import gdal
+        return True
+    except ImportError:
+        return False
+
+
+def get_modules(dependencies):
     """
     attempts pip install of all dependencies in the input list of
     tupled package names and version numbers (package, version).
@@ -107,10 +125,23 @@ def get_dependencies(dependencies):
 
 
 def main():
+    """
+    setup commonly had to be run twice to succeeed, the reason wasn't determined,
+    as an immediate hack fix, each of these functions is simply called twice
+    """
     get_pip()
-    get_dependencies([("requests", None), ("wheel", None)])
+    get_pip()
+    get_modules([("wheel", None)])
+    get_modules([("wheel", None)])
+    get_modules([("requests", None)])
+    get_modules([("requests", None)])
     get_gdal()
-    print("dependencies fetched!")
+    get_gdal()
+
+    if check_pip() and check_gdal():
+        print("dependencies fetched!")
+    else:
+        raise Exception("Dependencies could not be installed!")
 
 if __name__ == "__main__":
     main()

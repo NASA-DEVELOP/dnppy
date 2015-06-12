@@ -25,15 +25,18 @@ def upgrading(now_vers,up_vers):
     compares two version strings and returns True if up_vers is more recent than
     now_vers
     """
-    now = now_vers.split('.')
-    up  = up_vers.split('.')
+    now    = now_vers.split('.')
+    up     = up_vers.split('.')
     length = min([len(now),len(up)])
+
     for i in range(length):
         now[i] = now[i].ljust(5,'0')
         up[i]  = up[i].ljust(5,'0')
+
     if int(''.join(up)) >= int(''.join(now)):
         return True
-    return False
+    else:
+        return False
 
 
 def setup():
@@ -43,7 +46,7 @@ def setup():
 
     library_path, _ = os.path.split(os.__file__)
     source_path, _  = os.path.split(dnppy_install.__file__)
-    dest_path       = os.path.join(library_path,'site-packages','dnppy')
+    dest_path       = os.path.join(library_path, 'site-packages', 'dnppy')
     dest_path2      = dest_path + up_vers
 
     if os.path.isdir(dest_path):
@@ -51,16 +54,16 @@ def setup():
             import dnppy
             now_vers = dnppy.__version__
 
-            if upgrading(now_vers , up_vers):
+            if upgrading(now_vers, up_vers):
                 print("\nUpdating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
 
                 shutil.rmtree(dest_path)
-                shutil.copytree(source_path,dest_path)
+                shutil.copytree(source_path, dest_path)
 
                 try: shutil.rmtree(dest_path2)
                 except: pass
 
-                shutil.copytree(source_path,dest_path2)
+                shutil.copytree(source_path, dest_path2)
             else:
                 print("you are trying to replace your dnppy with an older version!")
                 print("Are you sure you wish to downgrade")
@@ -82,9 +85,8 @@ def setup():
             shutil.copytree(source_path, dest_path2)
     else:
         print("installing dnppy version [{0}]".format(up_vers))
-        shutil.copytree(source_path,dest_path)
-        shutil.copytree(source_path,dest_path2)
-
+        shutil.copytree(source_path, dest_path)
+        shutil.copytree(source_path, dest_path2)
 
     print('\nSource path       : ' + source_path)
     print('Destination path 1: '   + dest_path)
@@ -120,9 +122,11 @@ def main():
     print("   Setting up dnnpy! the DEVELOP National Program python package!")
     print("====================================================================")
 
-    print("\nsetup will fetch some required libraries")
+    print("\nsetup will check some required libraries")
     install_dependencies.main()
     setup()
+
+    print("\nValidating setup...")
     success = test_setup()
 
     if success:
