@@ -3,7 +3,9 @@
 import arcpy
 from dnppy import core
 from dnppy.landsat import grab_meta
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['surface_temp_8',          # complete
          'surface_temp_457']        # complete

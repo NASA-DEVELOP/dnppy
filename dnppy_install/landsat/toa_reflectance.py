@@ -4,7 +4,9 @@ from grab_meta import grab_meta
 from dnppy import core
 import math
 import arcpy
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['toa_reflectance_8',       # complete       
          'toa_reflectance_457']     # complete
