@@ -65,6 +65,8 @@ def download_filelist(ftptexts, filetypes = False, outdir = False):
 
     return failed
 
+
+# testing area
 if __name__ == "__main__":
 
     download_filelist("reverb_filelist.txt",

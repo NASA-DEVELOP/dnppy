@@ -14,8 +14,8 @@ This drastically reduces the utility of this script.
 challenging modules include scipy, and h5py.
 """
 
+
 import urllib
-import importlib
 import os
 import platform
 #import pip               installs pip, then imports it
@@ -110,17 +110,10 @@ def get_modules(dependencies):
     import pip
 
     for package, version in dependencies:
-        try:
-            importlib.import_module(package)
-            print("imported " + package)
-
-        except ImportError:
-            print("Using pip to install " + package)
-
-            if version is not None:
-                pip.main(["install", package + "==" + version])
-            else:
-                pip.main(["install", package])
+        if version is not None:
+            pip.main(["install", package + "==" + version])
+        else:
+            pip.main(["install", package])
     return
 
 

@@ -84,9 +84,4 @@ def extract_HDF_layers(filelist, layerlist, layernames = None, outdir = None):
 
 # testing area
 if __name__ == "__main__":
-
-
-    filelist = r"C:\Users\Jeff\Desktop\GPM_testing\2015-04-01"
-    layerlist = [0,1,2,3,4,5,6,7]
-
-    extract_HDF_layers(filelist, layerlist)
+    pass
