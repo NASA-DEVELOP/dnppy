@@ -9,10 +9,14 @@ class metadata:
         arrays for data manipulation.
         """
 
-        def __init__(self, raster, xs, ys):
+        def __init__(self, raster, xs, ys, zs = None):
+
+            if zs is None:
+                zs = 1
 
             self.Xsize          = xs
             self.Ysize          = ys
+            self.Zsize          = zs
 
             desc = arcpy.Describe(raster)
             self.cellWidth      = desc.meanCellWidth
@@ -34,6 +38,7 @@ class metadata:
             self.projection     = arcpy.Describe(raster).spatialReference
             self.NoData_Value   = arcpy.Describe(raster).noDataValue
             return
+
 
         @property
         def _get_pixel_type(self):
