@@ -14,7 +14,9 @@ from datetime import datetime
 def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
                                                 force_overwrite = False):
     """
-    Fetch MODIS Land products from one of two servers.
+    Fetch MODIS Land products from one of two servers. If this function
+    runs and downloads 0 files, check that your inputs are consistent
+    with the naming convention at the appropriate server address.
 
        http://e4ftl01.cr.usgs.gov
        ftp://n5eil01u.ecs.nsidc.org
@@ -106,7 +108,8 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
 
                         print('Downloaded {0}'.format(address))
 
-    print('Finished retrieving MODIS - {0} data!'.format(product))
+    print("Finished retrieving MODIS - {0} data!".format(product))
+    print("Downloaded {0} files".format(len(out_filepaths)))
 
     return out_filepaths
 
