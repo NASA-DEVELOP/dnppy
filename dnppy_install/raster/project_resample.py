@@ -29,6 +29,7 @@ def project_resample(filelist, reference_file, outdir = False,
        Spatial reference   spatial referencing information for further checking.
     """
 
+    output_filelist = []
     # sanitize inputs
     core.exists(reference_file)
            
@@ -64,6 +65,7 @@ def project_resample(filelist, reference_file, outdir = False,
         
         # create the output filename
         outname = core.create_outname(outdir, filename, 'p')
+        output_filelist.append(Spatial_Reference)
 
         # use ProjectRaster_management for rast files
         if is_rast(filename):
@@ -77,4 +79,4 @@ def project_resample(filelist, reference_file, outdir = False,
             print('Wrote projected file to {0}'.format(outname))
 
     print("finished projecting!")
-    return Spatial_Reference
+    return output_filelist
