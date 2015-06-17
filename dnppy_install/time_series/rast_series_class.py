@@ -249,7 +249,7 @@ class rast_series_class(time_series_class):
 
                 # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
-                    new_subset = raster_series(units = subset_units, parent = self)
+                    new_subset = rast_series_class(units = subset_units, parent = self)
                     new_subset.center_time = center_time
                     new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
@@ -312,7 +312,7 @@ class rast_series_class(time_series_class):
             for i in xrange(min(grouping),max(grouping) + 1):
 
                 subset_units    = self._fmt_to_units(fmt)
-                new_subset      = raster_series( units = subset_units, parent = self)
+                new_subset      = rast_series_class( units = subset_units, parent = self)
 
                 # only take rows whos grouping is within ow of i
                 subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
@@ -341,7 +341,7 @@ class rast_series_class(time_series_class):
 
 if __name__ == "__main__":
 
-    rs = raster_series()
+    rs = rast_series_class()
     
     rastdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
     fmt      = "%Y%j"
