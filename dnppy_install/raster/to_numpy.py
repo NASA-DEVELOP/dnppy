@@ -48,7 +48,7 @@ def to_numpy(raster, numpy_datatype = None):
     # perform some checks to convert to supported data format
     if not is_rast(raster):
         try:
-            print("Raster '{0}' may not be supported, attempting to convert to tif".format(raster))
+            print("Raster '{0}' may not be supported, converting to tif".format(raster))
             tifraster = raster + ".tif"
             if not os.path.exists(raster + ".tif"):
                 arcpy.CompositeBands_management(raster, tifraster)
@@ -104,10 +104,6 @@ def to_numpy(raster, numpy_datatype = None):
 # testing area
 if __name__ == "__main__":
 
-    path = r"C:\Users\jwely\Desktop\Team_Projects\2015_summer_CO_water\Raster_convert\255_r"
+    path = r"C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\365.asc"
 
     rast, meta = to_numpy(path)
-
-    print meta.desc_pixelType
-    print meta.pixel_type
-    print meta.numpy_datatype

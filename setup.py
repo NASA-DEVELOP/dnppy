@@ -20,7 +20,7 @@ import os, shutil, sys, dnppy_install, time
 import install_dependencies
 
 
-def upgrading(now_vers,up_vers):
+def upgrading(now_vers, up_vers):
     """
     compares two version strings and returns True if up_vers is more recent than
     now_vers
