@@ -2,7 +2,7 @@
 # local imports
 from dnppy import core
 from dnppy import raster
-from time_series import time_series
+from time_series_class import time_series_class
 
 # standard imports
 import os
@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 
-class raster_series(time_series):
+class rast_series_class(time_series_class):
     """
     This is an extension of the time_series class
 

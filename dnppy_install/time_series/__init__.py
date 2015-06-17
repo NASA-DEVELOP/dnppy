@@ -16,6 +16,6 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 
 # local imports
-from .time_series import *
-from .rast_series import *
+from time_series_class import *
+from rast_series_class import *
 
