@@ -2,7 +2,7 @@
 #standard imports
 import arcpy
 from dnppy import core
-from grab_meta import grab_meta
+from dnppy.landsat import grab_meta
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True

@@ -1,6 +1,6 @@
 
 #standard imports
-from grab_meta import grab_meta
+from dnppy.landsat import grab_meta
 from dnppy import core
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
