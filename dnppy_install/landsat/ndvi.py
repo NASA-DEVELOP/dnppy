@@ -2,7 +2,9 @@
 #standard imports
 from dnppy import core
 import arcpy
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['ndvi_8',                  # complete
          'ndvi_457']                # complete

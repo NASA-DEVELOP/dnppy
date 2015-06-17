@@ -8,7 +8,9 @@ except: pass
 
 import arcpy
 import os
-arcpy.CheckOutExtension("spatial")
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 
 __all__=['make_cloud_mask_457',     # complete

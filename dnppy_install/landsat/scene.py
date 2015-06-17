@@ -3,7 +3,9 @@ from grab_meta import *
 
 import os
 import arcpy
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 

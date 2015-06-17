@@ -3,7 +3,9 @@
 import arcpy
 from dnppy import core
 from dnppy.landsat import grab_meta
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['surface_temp_8',          # complete
          'surface_temp_457']        # complete
@@ -13,8 +15,10 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
     
     """
     Calculates surface temperature from Landsat 8 OLI and TIRS data.
-
     Requires band 4 and 5 Top-of-Atmosphere Reflectance tiffs and the unprocessed band 10 and 11 tiffs.
+
+    *Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband Transmissivity, and Sky Radiance constants,
+    atmospheric conditions will not be accounted for and the surface values may be off. Values are attainable using MODTRAN.
 
     Inputs:
         band4_toa       Filepath to the Band 4 Top-of-Atmosphere Reflectance tiff
@@ -111,8 +115,10 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
 def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = False, L = 0.5):
     """
     Calculates surface temperature from Landsat 4/5 TM or 7 ETM+ data.
-
     Requires band 3 and 4 Top-of-Atmosphere Reflectance tiffs and the unprocessed band 6 (or 6_VCID_1 for Landsat 7) tiff.
+
+    *Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband Transmissivity, and Sky Radiance constants,
+    atmospheric conditions will not be accounted for and the surface values may be off. Values are attainable using MODTRAN.
 
     Inputs:
         band3_toa       Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff
@@ -146,13 +152,13 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
         K2 = 1260.56
         band6 = meta_path.replace("_MTL.txt", "_B6.tif")
     elif "7" in spacecraft:
+        K1 = 666.09
+        K2 = 1282.71
+        band6 = meta_path.replace("_MTL.txt", "_B6_VCID_1.tif")
         if "VCID_1" in band6:
             band_num = "6_VCID_1"
         elif "VCID_2" in band6:
             band_num = "6_VCID_2"
-        K1 = 666.09
-        K2 = 1282.71
-        band6 = meta_path.replace("_MTL.txt", "_B6_VCID_1.tif")
     else:
         print("Enter the MTL file corresponding to a Landsat 4, 5, or 7 dataset")
 

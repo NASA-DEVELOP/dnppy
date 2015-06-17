@@ -14,7 +14,9 @@ from datetime import datetime
 def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
                                                 force_overwrite = False):
     """
-    Fetch MODIS Land products from one of two servers.
+    Fetch MODIS Land products from one of two servers. If this function
+    runs and downloads 0 files, check that your inputs are consistent
+    with the naming convention at the appropriate server address.
 
        http://e4ftl01.cr.usgs.gov
        ftp://n5eil01u.ecs.nsidc.org
@@ -23,6 +25,7 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
         product         MODIS product to download such as 'MOD10A1' or 'MYD11A1'
         version         version number, usually '004' or '041' or '005'
         tiles           list of tiles to grab such as ['h11v12','h11v11']
+                        NOTE: for some MODIS products, the h and v are omitted.
         outdir          output directory to save downloaded files
         start_dto       datetime object, the starting date of the range of data to download
         end_dto         datetime object, the ending date of the range of data to download
@@ -36,12 +39,6 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
 
     # check formats
     tiles = core.enf_list(tiles)
-
-    # do a quick input tile check for 6 characters.
-    for tile in tiles:
-        if not len(tile) == 6:
-            print("Warning! your tiles appear to be invalid!")
-            print("Warning! make sure they are in format 'h##v##")
 
     # create output directories
     if not os.path.exists(outdir):
@@ -67,7 +64,6 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
     except:
         raise ValueError("Could not connect to {0}/{1}".format(site,Dir))
 
-    print dates
     # refine contents down to just addresses of valid year and j_day
     good_dates = []
     for date in dates:
@@ -112,7 +108,8 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
 
                         print('Downloaded {0}'.format(address))
 
-    print('Finished retrieving MODIS - {0} data!'.format(product))
+    print("Finished retrieving MODIS - {0} data!".format(product))
+    print("Downloaded {0} files".format(len(out_filepaths)))
 
     return out_filepaths
 
@@ -178,11 +175,11 @@ def Find_MODIS_Product(product, version):
 if __name__ == "__main__":
 
     from datetime import datetime
-    prod = "MOD10A1"
-    vers = "005"
-    tile = ["h11v05", "h12v05"]
+    prod = "MOD11_L2"
+    vers = "041"
+    tile = ["1105", "1205"]
     outd = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1"
     star  = datetime(2015,1,1)
-    end    = datetime(2015,12,31)
+    end    = datetime(2015,1,3)
 
     fetch_MODIS(prod, vers, tile, outd, star, end)
