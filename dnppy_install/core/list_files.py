@@ -41,8 +41,7 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
 
     # ensure input directory actually exists
     if not exists(Dir):
-        Warning("{0} is not a valid file or folder!".format(Dir))
-        return False
+        raise Exception("{0} is not a valid file or folder!".format(Dir))
 
     # Ensure single strings are in list format for the loops below
     if Contains:

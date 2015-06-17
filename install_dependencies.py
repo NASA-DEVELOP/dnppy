@@ -47,6 +47,7 @@ def check_pip():
     try:
         import pip
         return True
+
     except ImportError:
         return False
 
@@ -119,7 +120,7 @@ def get_modules(dependencies):
 
 def main():
     """
-    setup commonly had to be run twice to succeeed, the reason wasn't determined,
+    setup commonly had to be run twice to succeed, the reason wasn't determined,
     as an immediate hack fix, each of these functions is simply called twice
     """
     get_pip()
@@ -135,6 +136,7 @@ def main():
         print("dependencies fetched!")
     else:
         raise Exception("Dependencies could not be installed!")
+
 
 if __name__ == "__main__":
     main()
