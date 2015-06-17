@@ -6,7 +6,7 @@ import os
 import arcpy
 
 
-def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
+def extract_from_hdf(filelist, layerlist, layernames = False, outdir = None):
 
     """
     Extracts tifs from MODIS extract_HDF_layer files, ensures proper projection.
@@ -21,8 +21,9 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
                    the input file was found.
     """
 
-    if not os.path.exists(outdir):
-        os.makedirs(outdir)
+    if outdir is not None:
+        if not os.path.exists(outdir):
+            os.makedirs(outdir)
 
     # enforce lists for iteration purposes and sanitize inputs
     filelist = core.enf_filelist(filelist)
@@ -62,7 +63,6 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
             # use the input output directory if the user input one, otherwise build one  
             if outdir:
                 outname = os.path.join(outdir, "{0}_{1}.tif".format(name[:-4], layername))
-
             else:
                 outname = os.path.join(path, "{0}_{1}.tif".format(name[:-4], layername))
 
@@ -86,7 +86,6 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = False):
 
 
 if __name__ == "__main__":
-    extract_from_hdf(r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1",
-                     [3],
-                     ["FracSnowCover"],
-                     r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow")
+    extract_from_hdf(r"C:\Users\jwely\Desktop\Team_Projects\2015_summer_Alaska_Disasters",
+                     [0, 1, 2, 3, 4],
+                     outdir = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow")

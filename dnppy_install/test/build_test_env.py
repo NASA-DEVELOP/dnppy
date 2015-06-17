@@ -4,6 +4,7 @@ from fetch_test_landsat import fetch_test_landsat
 from fetch_test_MODIS import fetch_test_MODIS
 from fetch_VA_shapefile import fetch_VA_shapefile
 from fetch_test_SRTM import fetch_test_SRTM
+from fetch_test_precip import fetch_test_precip
 
 def build_test_env(test_dir):
     """
@@ -19,6 +20,7 @@ def build_test_env(test_dir):
     fetch_VA_shapefile(test_dir)
     fetch_test_SRTM(test_dir)
     fetch_test_MODIS(test_dir)
+    fetch_test_precip(test_dir)
 
     return
 

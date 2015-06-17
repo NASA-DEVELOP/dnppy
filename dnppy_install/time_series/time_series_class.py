@@ -1,4 +1,4 @@
-
+__author__ = "Jwely"
 
 # local imports
 from dnppy import textio
@@ -11,10 +11,8 @@ from calendar import monthrange, isleap
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
-
-class time_series:
+class time_series_class():
     """
     A subsettable time series object
 
@@ -454,7 +452,7 @@ class time_series:
         """
         Removes rows where the specified column has an invalid number
         or is outside the defined thresholds (above high_thresh or below low_thresh)
-        :type self: time_series
+        :type self: time_series_class
         """
 
 
@@ -800,7 +798,7 @@ class time_series:
 
                 # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
-                    new_subset = time_series(units = subset_units, parent = self)
+                    new_subset = time_series_class(units = subset_units, parent = self)
                     new_subset.center_time = center_time
                     new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
@@ -863,7 +861,7 @@ class time_series:
             for i in xrange(min(grouping),max(grouping) + 1):
 
                 subset_units    = self._fmt_to_units(fmt)
-                new_subset      = time_series( units = subset_units, parent = self)
+                new_subset      = time_series_class( units = subset_units, parent = self)
 
                 # only take rows whos grouping is within ow of i
                 subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
@@ -967,7 +965,7 @@ class time_series:
 
         Accepts custom title input and y-axis label. If a save_path is
         specified, it will save the plot to that path and close it automatically.
-        :type self: time_series
+        :type self: time_series_class
         """
 
         # figure out temporal resolution of data to appropiately label x-axis
@@ -1120,7 +1118,7 @@ if __name__ == "__main__":
     print(tdo.headers)                              # print the headers
     print(tdo.row_data[0])                          # print the first row
 
-    ts = time_series('weather_data')                # initialize a time series named "weather_data"
+    ts = time_series_class('weather_data')                # initialize a time series named "weather_data"
     ts.from_tdo(tdo)                                # populate it with the contents of the tdo
 
     print ts.headers                                # view the headers of this time series

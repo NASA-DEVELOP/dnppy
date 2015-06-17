@@ -1,4 +1,4 @@
-__author__ = ['djjensen','jwely']
+__author__ = ['djjensen', 'jwely']
 
 from dnppy import textio
 from dnppy import core

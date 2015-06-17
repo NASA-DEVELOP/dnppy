@@ -1,13 +1,11 @@
-__author__ = ['jeff.ely.08@gmail.com']
+__author__ = ['jwely']
 
 
-from dnppy import core
 from list_ftp import list_ftp
 from download_url import download_url
 
 from datetime import datetime, timedelta
 import os
-import arcpy
 
 def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1day"):
 
@@ -37,8 +35,7 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
     # username and password info, should eventually be some DEVELOP credential.
     # this information is not at all sensitive.
-    un = "jeff.ely.08@gmail.com"
-    pw = "jeff.ely.08@gmail.com"
+    login = "jeff.ely.08@gmail.com"
 
 
     # special filtering for gis type tif data to minimize data representation overlap.
@@ -57,10 +54,10 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
     prod_server = "/".join(["NRTPUB/imerg", product])
 
     # log in and list available month folders.
-    foldnames, foldpaths = list_ftp(pps_server,
+    foldnames, foldpaths = list_ftp(site = pps_server,
                                     dir = prod_server,
-                                    username = un,
-                                    password = pw)
+                                    username = login,
+                                    password = login)
 
     # perform a simple quick filtering of folders that definitely don't have data we want.
     for foldname in foldnames:
@@ -72,10 +69,10 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
     for foldname in foldnames:
         print("exploring directory '{0}'".format(foldname))
         subdir = "/".join([prod_server, foldname])
-        filenames, filepaths = list_ftp(pps_server,
+        filenames, filepaths = list_ftp(site = pps_server,
                                         dir = subdir,
-                                        username = un,
-                                        password = pw)
+                                        username = login,
+                                        password = login)
 
         for filepath in filepaths:
             filename = os.path.basename(filepath)
@@ -101,25 +98,11 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
             # download the files
             if good_date and good_time and good_minutes:
                 outname = os.path.join(outdir, date.strftime("%Y-%m-%d"), filename)
-                download_url(filepath, outname, username = un, password = pw)
+                download_url(filepath, outname, username = login, password = login)
                 print("saved '{0}' in '{1}'".format(filename, outdir))
-
-                extractname = extract_GPM_precip(outname)
-                download_list.append(extractname)
-
+                download_list.append(outname)
 
     return download_list
-
-
-def extract_GPM_precip(gpmfilepath):
-    """
-    subfunction to extract only the calibrated precipitation estimate layer from GPM IMERG HDF5 files.
-    """
-
-    outdir = os.path.dirname(gpmfilepath)
-    outname = core.create_outname(outdir, gpmfilepath, "precip", "tif")
-    arcpy.ExtractSubDataset_management(gpmfilepath, outname, "5")
-    return outname
 
 
 if __name__ == "__main__":

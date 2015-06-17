@@ -1,8 +1,4 @@
 
-# standard imports
-import sys
-import os
-
 # dnppy imports
 from dnppy import core
 
@@ -14,11 +10,12 @@ if arcpy.CheckExtension('Spatial')=='Available':
     from arcpy import env
     arcpy.env.overwriteOutput = True
 
-    
+
 def TRMM_NetCDF(filelist, outdir):
 
     """
-     Function converts NetCDFs to tiffs. Designed to work with TRMM data.
+     Function converts NetCDFs to tiffs. Designed to work with TRMM data downloaded
+     from GLOVIS
 
      inputs:
        filelist    list of '.nc' files to conver to tifs.
@@ -27,7 +24,7 @@ def TRMM_NetCDF(filelist, outdir):
 
     # Set up initial parameters.
     arcpy.env.workspace = outdir
-    filelist    = core.enf_list(filelist)
+    filelist = core.enf_list(filelist)
 
     # convert every file in the list "filelist"
     for infile in filelist:
