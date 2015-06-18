@@ -40,20 +40,6 @@ def get_pip():
         os.remove("install_pip.py")
     return
 
-
-<<<<<<< Updated upstream
-def check_pip():
-    """checks that pip imports OK"""
-    try:
-        import pip
-        return True
-
-    except ImportError:
-        return False
-
-
-=======
->>>>>>> Stashed changes
 def get_gdal():
     """
     easy installation of gdal is a little different than other packages, but
