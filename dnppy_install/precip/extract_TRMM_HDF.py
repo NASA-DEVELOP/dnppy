@@ -20,7 +20,7 @@ def extract_TRMM_HDF(filelist, layers, outdir = None):
             layerfile = None
 
             fig,ax = plt.subplots(figsize = (6,6))
-            ax.imshow(layerdata[0,:,:], cmap = plt.cm.Greys, vmin = 1000, vmax = 6000)
+            ax.imshow(layerdata[:,:], cmap = plt.cm.Greys, vmin = 1000, vmax = 6000)
     return
 
 if __name__ == "__main__":
