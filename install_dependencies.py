@@ -82,11 +82,18 @@ def get_gdal():
 def get_numpy():
     """ gets numpy 1.9.2 wheel that is compatible with gdal 1.11.2"""
 
-    import numpy
+    # see if numpy should update or not
+    try:
+        import numpy
 
-    if numpy.__version__ != "1.9.2":
-        print(numpy.__version__)
+        if numpy.__version__ == "1.9.2":
+            update = False
+        else:
+            update = True
+    except:
+        update = True
 
+    if update is True:
         bit64py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win_amd64.whl"
         bit32py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"
 
