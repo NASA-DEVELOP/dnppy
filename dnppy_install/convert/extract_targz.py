@@ -27,5 +27,6 @@ def extract_targz(filepaths):
             tfile.extractall(outdir)
             tfile.close()
             os.remove(filepath)
+            print("Extracted {0}".format(filepath))
 
     return

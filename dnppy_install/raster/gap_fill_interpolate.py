@@ -7,8 +7,6 @@ import arcpy
 import os
 
 
-
-
 def gap_fill_interpolate(in_rasterpath, out_rasterpath, model = None,
                          max_cell_dist = None, min_points = None):
     """
