@@ -11,7 +11,7 @@ def decibel_convert(filename):
     """
     Converts the input UAVSAR .grd file into units of decibels.
 
-    *Note that a .hdr file must be created for teh .grd/.inc files for this to work
+    *Note that a .hdr file must be created and accompany the .grd/.inc files for this to work
 
     Inputs:
         file:   the full file path string for the .grd data file

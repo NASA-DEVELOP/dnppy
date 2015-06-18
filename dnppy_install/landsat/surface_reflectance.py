@@ -103,7 +103,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         out_list = []
         n = 0
         for file in os.listdir(toa_folder):
-                if ("TOA_Ref" in file) and (".tif" in file) and (".tif." not in file):
+                if ("TOA_Ref" in file) and (file[-4:] == ".tif" or file[-4:] == ".TIF"):
                         if "LC8" in meta_path:
                                 tile = "{0}_B{1}".format(tilename, OLI_bands[n])
                                 if tile in file:

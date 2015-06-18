@@ -333,7 +333,7 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
         band_name = "{0}_B".format(tilename)
         
         #for each band (number 1-9) tif whose id matches the mask's, create an output name and append to the in and output lists
-        if (band_name1 in band or band_name2 in band) and (".tif" in band or ".TIF" in band) and (".tif." not in band and ".TIF." not in band) and ("NoClds" not in band):
+        if (band_name in band) and (band[-4:] == ".tif" or band[-4:] == ".TIF") and ("NoClds" not in band):
             name = band.replace(".tif", "")
             if outdir:
                 outname = core.create_outname(outdir, name, "NoClds", "tif")
