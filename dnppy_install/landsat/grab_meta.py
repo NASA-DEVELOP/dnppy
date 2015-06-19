@@ -25,7 +25,8 @@ def grab_meta(filename):
 
     # if the "filename" input is actually already a metadata class object, return it back.
     import inspect
-    if inspect.isclass(filename): return (filename)
+    if inspect.isclass(filename):
+        return (filename)
 
     fields = []
     values = []

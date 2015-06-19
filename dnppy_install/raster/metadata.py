@@ -9,14 +9,26 @@ class metadata:
         arrays for data manipulation.
         """
 
-        def __init__(self, raster, xs, ys, zs = None):
+        def __init__(self, raster = None, xs = None, ys = None, zs = None):
 
+            # sets geometry information
             if zs is None:
                 zs = 1
 
-            self.Xsize          = xs
-            self.Ysize          = ys
-            self.Zsize          = zs
+            self.Xsize  = xs
+            self.Ysize  = ys
+            self.Zsize  = zs
+
+            # if a filepath to existing raster is input, build metadata from it
+            if raster is not None:
+                self.get_atts_from_raster(raster)
+            return
+
+
+        def get_atts_from_raster(self, raster):
+            """
+            sets all required metadata attributes from an existing raster image
+            """
 
             desc = arcpy.Describe(raster)
             self.cellWidth      = desc.meanCellWidth
@@ -27,8 +39,8 @@ class metadata:
             self.pixel_type     = self._get_pixel_type
             self.numpy_datatype = self._get_numpy_datatype
 
-            self.Xmax           = self.Xmin + (xs * self.cellWidth)
-            self.Ymax           = self.Ymin + (ys * self.cellHeight)
+            self.Xmax           = self.Xmin + (self.Xsize * self.cellWidth)
+            self.Ymax           = self.Ymin + (self.Ysize * self.cellHeight)
 
             self.rectangle      = ' '.join([str(self.Xmin),
                                             str(self.Ymin),

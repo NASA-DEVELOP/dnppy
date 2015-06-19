@@ -104,6 +104,6 @@ def to_numpy(raster, numpy_datatype = None):
 # testing area
 if __name__ == "__main__":
 
-    path = r"C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\365.asc"
+    path = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\MYD09GQ.A2015160.h18v02.005.2015162071112_000.tif"
 
     rast, meta = to_numpy(path)
