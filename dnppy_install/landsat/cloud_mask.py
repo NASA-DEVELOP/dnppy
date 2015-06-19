@@ -33,11 +33,9 @@ def make_cloud_mask_8(BQA_path, outdir = False):
     outReclass = arcpy.sa.Reclassify(BQA_path, "Value", remap)
 
     #set the name and save the binary cloud mask tiff file
-    if "\\" in BQA_path:
-        BQA_split = BQA_path.split("\\")[-1]
-    elif "//" in BQA_path:
-        BQA_split = BQA_path.split("//")[-1]
-    TileName = BQA_split.replace("_BQA.tif", "")
+    BQA = os.path.abspath(BQA_path)
+    name = os.path.split(BQA)[1]
+    TileName = name.replace("_BQA.tif", "")
 
     #create an output name and save the mask tiff
     if outdir:
@@ -76,12 +74,14 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     elif "LE7" in B2_TOA_Ref:
         band_6 = "6_VCID_1"
 
-    Band2 = arcpy.Raster(B2_TOA_Ref)
+    B2_path = os.path.abspath(B2_TOA_Ref)
 
-    band_path3 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B3_TOA_Ref.tif")
-    band_path4 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B4_TOA_Ref.tif")
-    band_path5 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B5_TOA_Ref.tif")
-    band_path6 = B2_TOA_Ref.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
+    Band2 = arcpy.Raster(B2_path)
+
+    band_path3 = B2_path.replace("B2_TOA_Ref.tif","B3_TOA_Ref.tif")
+    band_path4 = B2_path.replace("B2_TOA_Ref.tif","B4_TOA_Ref.tif")
+    band_path5 = B2_path.replace("B2_TOA_Ref.tif","B5_TOA_Ref.tif")
+    band_path6 = B2_path.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
 
     Band3 = arcpy.Raster(band_path3)
     Band4 = arcpy.Raster(band_path4)
@@ -90,13 +90,10 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     
     del band_path3, band_path4, band_path5, band_path6
 
-    if "\\" in B2_TOA_Ref:
-        name = B2_TOA_Ref.split("\\")[-1]
-    elif "//" in B2_TOA_Ref:
-        name = B2_TOA_Ref.split("//")[-1]
-        
+    name = os.path.split(B2_path)[1]
+
     if outdir == False:
-        outdir = B2_TOA_Ref.replace(name, "")
+        outdir = os.path.split(B2_path)[0]
             
     #Establishing location of gaps in data. 0 = Gap, 1 = Data
     #This will be used multiple times in later steps
@@ -319,11 +316,10 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
     noclds_list = []
 
     #enforce the input band numbers as a list of strings
-    if "\\" in mask_path:
-        mask_split = mask_path.split("\\")[-1]
-    elif "//" in mask_path:
-        mask_split = mask_path.split("//")[-1]
+    mpath = os.path.abspath(mask_path)
+    mask_split = os.path.split(mpath)[1]
     tilename = mask_split.replace("_Mask.tif", "")
+    folder = os.path.abspath(folder)
 
     #loop through each file in folder
     inlist = []
@@ -333,7 +329,7 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
         band_name = "{0}_B".format(tilename)
         
         #for each band (number 1-9) tif whose id matches the mask's, create an output name and append to the in and output lists
-        if (band_name in band) and (band[-4:] == ".tif" or band[-4:] == ".TIF") and ("NoClds" not in band):
+        if (band_name in band) and (band[-4:] == ".tif" or band[-4:] == ".TIF") and ("NoClds" not in band) and ("BQA" not in band):
             name = band.replace(".tif", "")
             if outdir:
                 outname = core.create_outname(outdir, name, "NoClds", "tif")
