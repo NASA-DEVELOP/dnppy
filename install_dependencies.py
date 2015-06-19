@@ -6,12 +6,8 @@ dependencies of dnppy in the active python environment. This is to make
 the code available in dnppy as accessible as possible and easy to
 get started with straight from the github download.
 
-NOTE: turns out many dependencies we end up wanting to use have completely
-unreasonable installation processes that are difficult to figure out let alone automate
-with the added complication of a non-standard arcmap installation of python.
-This drastically reduces the utility of this script.
-
-challenging modules include scipy, and h5py.
+Several modules that do not successfully install with pip alone are installed
+by fetching binaries from the dnppy release assets.
 """
 
 
@@ -40,68 +36,40 @@ def get_pip():
         os.remove("install_pip.py")
     return
 
-def get_gdal():
+
+def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     """
-    easy installation of gdal is a little different than other packages, but
-    a pretty reliable method of arcmap compatible installation has been discovered
-    with the use of a wheel file. This function grabs that wheel file from
-    the assets of dnppys first beta release, and installs gdal on any system
+    function for installing python packages from wheel files hosted in dnppys assets
+
+    :param module_name:         name of the module
+    :param version:             version, use None if no version is prefered
+    :param wheel64link:         asset url to 64 bit binaries
+    :param wheel32link:         asset url to 32 bit binaries
+    :return:
     """
 
+    # determine if the module is already good or not
     try:
-        import gdal
+        module = __import__(module_name)
 
-    except ImportError:
-        print("gathering gdal assets")
-
-        bit64py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl"
-        bit32py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"
-
-        # determine if python running is 32 or 64 bit
-        if platform.architecture()[0] == "64bit":
-            dlurl = bit64py27
+        if version is not None:
+            if module.__version__ == version:
+                isready = True
+            else:
+                isready = False
         else:
-            dlurl = bit32py27
-
-        # write the file right next to this setupfile
-        with open(os.path.basename(dlurl),"wb+") as f:
-            connection = urllib.urlopen(dlurl)
-            page = connection.read()
-            f.write(page)
-            f.close()
-            del connection
-
-        # now use pip to install the gdal wheel file
-        import pip
-        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
-        pip.main(["install", path])
-        os.remove(path)
-    return
-
-
-def get_numpy():
-    """ gets numpy 1.9.2 wheel that is compatible with gdal 1.11.2"""
-
-    # see if numpy should update or not
-    try:
-        import numpy
-
-        if numpy.__version__ == "1.9.2":
-            update = False
-        else:
-            update = True
+            isready = True
     except:
-        update = True
+        isready = False
 
-    if update is True:
-        bit64py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win_amd64.whl"
-        bit32py27 = "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"
+    if isready is False:
+        print("gathering {0} assets".format(module_name))
 
         # determine if python running is 32 or 64 bit
         if platform.architecture()[0] == "64bit":
-            dlurl = bit64py27
+            dlurl = wheel64link
         else:
-            dlurl = bit32py27
+            dlurl = wheel32link
 
         # write the file right next to this setupfile
         with open(os.path.basename(dlurl),"wb+") as f:
@@ -136,7 +104,6 @@ def get_mod_with_pip(modulename, version = None):
             pip.main(["install", modulename + "==" + version])
         else:
             pip.main(["install", modulename])
-
     return
 
 
@@ -159,9 +126,6 @@ def check_mod(modulename, version = None):
         return True
 
 
-
-
-
 def main():
     """
     setup commonly had to be run twice to succeed, the reason wasn't determined,
@@ -169,34 +133,57 @@ def main():
     """
 
     get_pip()
-    get_mod_with_pip("wheel", None)
-    get_mod_with_pip("requests", None)
-    get_numpy()
-    get_gdal()
 
-    # run modules that failed one more time
-    if not check_mod("pip", None):
-        get_pip()
+    # list of assets to install, add to assets here.
+              # module : [version,
+              #           64 bit asset link,
+              #           32 bit asset link]
 
-    if not check_mod("wheel", None):
-        get_mod_with_pip("wheel")
+    assets = {"gdal" : [None,
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl",
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"],
+              "numpy": ["1.9.2",
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win_amd64.whl",
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"],
+              "h5py":  [None,
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win_amd64.whl",
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"]}
 
-    if not check_mod("requests", None):
-        get_mod_with_pip("requests")
+    pip_versions = {"wheel" : None,
+                    "requests": None,
+                    }
 
-    if not check_mod("numpy", "1.9.2"):
-        get_numpy()
 
-    if not check_mod("gdal", None):
-        get_gdal()
+    # installs assets
+    for mod in assets:
+        get_mod_from_assets(mod, *assets[mod])
+    for mod in pip_versions:
+        get_mod_with_pip(mod, pip_versions[mod])
 
-    # perform final check
-    checks = {"pip" :       check_mod("pip", None),
-              "wheel":      check_mod("wheel", None),
-              "requests":   check_mod("requests", None),
-              "numpy":      check_mod("numpy", "1.9.2"),
-              "gdal" :      check_mod("gdal", None)}
+    # perform a check
+    checks = {}
+    for key in assets:
+        checks[key] = check_mod(key, assets[key][0])
+    for key in pip_versions:
+        checks[key] = check_mod(key, pip_versions[key])
 
+    # tries failed modules a second time
+    for mod in checks:
+        if checks[mod] is False:
+            if mod in assets:
+                get_mod_from_assets(mod, *assets[mod])
+            elif mod in pip_versions:
+                get_mod_with_pip(mod, pip_versions[mod])
+
+    # perform a second check
+    checks = {}
+    for key in assets:
+        checks[key] = check_mod(key, assets[key][0])
+    for key in pip_versions:
+        checks[key] = check_mod(key, pip_versions[key])
+
+
+    # prints status updates
     print("library name    ready?")
     for key in checks:
         print("  {0}{1}".format(key.ljust(14), checks[key]))
