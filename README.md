@@ -19,7 +19,7 @@ Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be instal
 1. Python 2.7
 2. `arcpy`  (see ESRI's ArcMap software)
 
-At present, the following third party packages are automatically installed with the setup file in the pre-existing ArcGIS python directory. Windows binaries for each of these resources were selected from [http://www.lfd.uci.edu/~gohlke/pythonlibs] and rehosted in the dnppy release assets. They are unofficial,  and are included only to provide convenient installation of common scientific packages for the custom ArcMap installation of python.
+At present, the following third party packages are automatically installed with the setup file in the pre-existing ArcGIS python directory. Windows binaries for each of these resources were selected from [here](http://www.lfd.uci.edu/~gohlke/pythonlibs) and rehosted in the dnppy release assets. They are unofficial,  and are included only to provide convenient installation of common scientific packages for the custom ArcMap installation of python.
 
 3. `pip`
 4. `wheel`
