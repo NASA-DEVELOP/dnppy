@@ -144,7 +144,7 @@ def main():
     assets = {"cython":[None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win32.whl"],
-              "scipy":[None,
+              "scipy": [None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win32.whl"],
               "gdal" : [None,
