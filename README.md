@@ -19,12 +19,14 @@ Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be instal
 1. Python 2.7
 2. `arcpy`  (see ESRI's ArcMap software)
 
-At present, the following dependencies are automatically installed with the setup file in the pre-existing ArcGIS python directory. 
+At present, the following third party packages are automatically installed with the setup file in the pre-existing ArcGIS python directory. Windows binaries for each of these resources were selected from [http://www.lfd.uci.edu/~gohlke/pythonlibs] and rehosted in the dnppy release assets. They are unofficial,  and are included only to provide convenient installation of common scientific packages for the custom ArcMap installation of python.
 
 3. `pip`
 4. `wheel`
 5. `requests`
-5. `gdal`
+6. `numpy 1.9.2`
+7. `gdal`
+8. `h5py`
 
 The version of `GDAL` that is installed on setup is version 1.11.2 for python 2.7. The 32 bit version is installed unless the user has the 64 bit background geoprocessing packages installed, in which case the 64 bit `GDAL` is installed.
 
