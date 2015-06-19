@@ -1,8 +1,9 @@
 
 #standard imports
-from dnppy.landsat import grab_meta
+from dnppy.landsat.grab_meta import grab_meta
 from dnppy import core
 import math
+import os
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
@@ -33,6 +34,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
+    meta_path = os.path.abspath(meta_path)
     meta = grab_meta(meta_path)
 
     #cycle through each band in the list for calculation, ensuring each is in the list of OLI bands
@@ -55,13 +57,10 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
 
             #save the data to the automated name if outdir is given or in the parent folder if not
             if outdir:
+                outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, band_path, "TOA_Ref", "tif")
             else:
-                if "\\" in meta_path:
-                    name = meta_path.split("\\")[-1]
-                elif "//" in meta_path:
-                    name = meta_path.split("//")[-1]
-                folder = meta_path.replace(name, "")
+                folder = os.path.split(meta_path)[0]
                 outname = core.create_outname(folder, band_path, "TOA_Ref", "tif")
                 
             TOA_ref.save(outname)
@@ -100,6 +99,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
     f = open(meta_path)
     MText = f.read()
 
+    meta_path = os.path.abspath(meta_path)
     metadata = grab_meta(meta_path)
     
     #the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
@@ -184,13 +184,10 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
 
             #construc output names for each band based on whether outdir is set (default is False)
             if outdir:
+                outdir = os.path.abspath(outdir)
                 BandPath = core.create_outname(outdir, pathname, "TOA_Ref", "tif")
             else:
-                if "\\" in meta_path:
-                    name = meta_path.split("\\")[-1]
-                elif "//" in meta_path:
-                    name = meta_path.split("//")[-1]
-                folder = meta_path.replace(name, "")
+                folder = os.path.split(meta_path)[0]
                 BandPath = core.create_outname(folder, pathname, "TOA_Ref", "tif")
 
             Refraster.save(BandPath)

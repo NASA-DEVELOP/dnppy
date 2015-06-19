@@ -1,8 +1,9 @@
 
 #standard imports
-from dnppy.landsat import grab_meta
+from dnppy.landsat.grab_meta import grab_meta
 from dnppy import core
 import arcpy
+import os
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
@@ -24,6 +25,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
     outdir      Output directory to save converted files.
     """
 
+    meta_path = os.path.abspath(meta_path)
     outlist = []
 
     #enforce list of band numbers and grab the metadata from the MTL file
@@ -60,13 +62,10 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
             rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
 
             if outdir:
+                outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
             else:
-                if "\\" in meta_path:
-                    name = meta_path.split("\\")[-1]
-                elif "//" in meta_path:
-                    name = meta_path.split("//")[-1]
-                folder = meta_path.replace(name, "")
+                folder = os.path.split(meta_path)[0]
                 outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
                 
             TOA_rad.save(outname)
@@ -94,6 +93,8 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     """
 
     outlist = []
+    meta_path = os.path.abspath(meta_path)
+
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
 
@@ -130,7 +131,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
     #this info determines the solar exoatmospheric irradiance (ESun) for each band
     spacecraft = getattr(metadata, "SPACECRAFT_ID")
 
-    if   "7" in spacecraft:
+    if "7" in spacecraft:
         ESun = (1969.0, 1840.0, 1551.0, 1044.0, 255.700, 0., 82.07, 1368.00)
         TM_ETM_bands = ['1','2','3','4','5','7','8']
         
@@ -177,13 +178,10 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
 
             #create the output name and save the TOA radiance tiff
             if outdir:
+                outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, band_rad, "TOA_Rad", "tif")
             else:
-                if "\\" in meta_path:
-                    name = meta_path.split("\\")[-1]
-                elif "//" in meta_path:
-                    name = meta_path.split("//")[-1]
-                folder = meta_path.replace(name, "")
+                folder = os.path.split(meta_path)[0]
                 outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
                 
             Radraster.save(outname)

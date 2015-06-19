@@ -1,6 +1,7 @@
 
 #standard imports
 from dnppy import core
+import os
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
@@ -22,6 +23,9 @@ def ndvi_8(Band5, Band4, outdir = False):
       outdir      Output directory to save NDVI tifs
     """
 
+    Band4 = os.path.abspath(Band4)
+    Band5 = os.path.abspath(Band5)
+
     #Set the input bands to float
     Red = arcpy.sa.Float(Band4)
     NIR = arcpy.sa.Float(Band5)
@@ -30,13 +34,14 @@ def ndvi_8(Band5, Band4, outdir = False):
     L8_NDVI = (NIR - Red)/(NIR + Red)
 
     #Create the output name and save the NDVI tiff
-    name = Band4.split("\\")[-1]
+    name = os.path.split(Band4)[1]
     ndvi_name = name.replace("_B4","")
     
     if outdir:
+        outdir = os.path.abspath(outdir)
         outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
     else:
-        folder = Band4.replace(name, "")
+        folder = os.path.split(Band4)[0]
         outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
     
     L8_NDVI.save(outname)
@@ -56,6 +61,9 @@ def ndvi_457(Band4, Band3, outdir = False):
       outdir      Output directory to save NDVI tifs
     """
 
+    Band3 = os.path.abspath(Band3)
+    Band4 = os.path.abspath(Band4)
+
     #Set the input bands to float
     Red = arcpy.sa.Float(Band3)
     NIR = arcpy.sa.Float(Band4)
@@ -64,13 +72,14 @@ def ndvi_457(Band4, Band3, outdir = False):
     L457_NDVI = (NIR - Red)/(NIR + Red)
 
     #Create the output name and save the NDVI tiff
-    name = Band3.split("\\")[-1]
+    name = os.path.split(Band3)[1]
     ndvi_name = name.replace("_B3","")
 
     if outdir:
+        outdir = os.path.abspath(outdir)
         outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
     else:
-        folder = Band4.replace(name, "")
+        folder = os.path.split(Band3)[0]
         outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
     
     L457_NDVI.save(outname)

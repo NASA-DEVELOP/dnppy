@@ -1,8 +1,9 @@
 
 #standard imports
 import arcpy
+import os
 from dnppy import core
-from dnppy.landsat import grab_meta
+from dnppy.landsat.grab_meta import grab_meta
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
@@ -37,6 +38,9 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
                         *default L = 0.5 works well in most situations
                         *when L = 0, SAVI = NDVI
     """
+
+    band4_toa = os.path.abspath(band4_toa)
+    meta_path = os.path.abspath(meta_path)
 
     #Grab metadata from the MTL file and set the pathnames for Band 5 TOA Reflectance and the raw Band 11 tiffs
     meta = grab_meta(meta_path)
@@ -97,14 +101,10 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
     tilename = getattr(meta, "LANDSAT_SCENE_ID")
     
     if outdir:
+        outdir = os.path.abspath(outdir)
         outname = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
     else:
-        if "\\" in band4_toa:
-            name = band4_toa.split("\\")[-1]
-            folder = band4_toa.replace(name, "")
-        elif "//" in band4_toa:
-            name = band4_toa.split("//")[-1]
-            folder = band4_toa.replace(name, "")
+        folder = os.path.split(band4_toa)[0]
         outname = core.create_outname(folder, tilename, "Surf_Temp", "tif")
         
     st.save(outname)
@@ -137,6 +137,9 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
                         *default L = 0.5 works well in most situations
                         *when L = 0, SAVI = NDVI
     """
+
+    band3_toa = os.path.abspath(band3_toa)
+    meta_path = os.path.abspath(meta_path)
 
     #Set the pathname for band 4
     band4_toa = band3_toa.replace("_B3_", "_B4_")
@@ -207,14 +210,10 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
 
     #Create output name and save the surface temperature tiff   
     if outdir:
+        outdir = os.path.abspath(outdir)
         outname = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
     else:
-        if "\\" in band3_toa:
-            name = band3_toa.split("\\")[-1]
-            folder = band4_toa.replace(name, "")
-        elif "//" in band4_toa:
-            name = band3_toa.split("//")[-1]
-            folder = band3_toa.replace(name, "")
+        folder = os.path.split(band3_toa)[0]
         outname = core.create_outname(folder, tilename, "Surf_Temp", "tif")
         
     st.save(outname)

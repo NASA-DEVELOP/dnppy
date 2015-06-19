@@ -1,8 +1,9 @@
 
 #standard imports
 import arcpy
+import os
 from dnppy import core
-from dnppy.landsat import grab_meta
+from dnppy.landsat.grab_meta import grab_meta
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
@@ -28,6 +29,7 @@ def atsat_bright_temp_8(meta_path, outdir = False):
     
     #enforce the list of band numbers and grab metadata from the MTL file
     band_nums = ["10", "11"]
+    meta_path = os.path.abspath(meta_path)
     meta = grab_meta(meta_path)
 
     outlist = []
@@ -57,14 +59,10 @@ def atsat_bright_temp_8(meta_path, outdir = False):
 
         #save the data to the automated name if outdir is given or in the parent folder if not
         if outdir:
+            outdir = os.path.abspath(outdir)
             outname = core.create_outname(outdir, band_path, "ASBTemp", "tif")
         else:
-            if "\\" in meta_path:
-                name = meta_path.split("\\")[-1]
-                folder = meta_path.replace(name, "")
-            elif "//" in meta_path:
-                name = meta_path.split("//")[-1]
-                folder = meta_path.replace(name, "")
+            folder = os.path.split(meta_path)[0]
             outname = core.create_outname(folder, band_path, "ASBTemp", "tif")
             
         Bright_Temp.save(outname)
@@ -91,9 +89,10 @@ def atsat_bright_temp_457(meta_path, outdir = False):
                    files in the same directory as input files.
     """
     
-   outlist      = []
-   metadata     = grab_meta(meta_path)
-   spacecraft   = getattr(metadata, "SPACECRAFT_ID")
+   outlist = []
+   meta_path = os.path.abspath(meta_path)
+   metadata = grab_meta(meta_path)
+   spacecraft = getattr(metadata, "SPACECRAFT_ID")
 
    if "4" in spacecraft or "5" in spacecraft:
       band_nums = ["6"]
@@ -168,14 +167,10 @@ def atsat_bright_temp_457(meta_path, outdir = False):
       
       #save the data to the automated name if outdir is given or in the parent folder if not
       if outdir:
+          outdir = os.path.abspath(outdir)
           BandPath = core.create_outname(outdir, band_temp, "ASBTemp", "tif")
       else:
-          if "\\" in meta_path:
-              name = meta_path.split("\\")[-1]
-              folder = meta_path.replace(name, "")
-          elif "//" in meta_path:
-              name = meta_path.split("//")[-1]
-              folder = meta_path.replace(name, "")
+          folder = os.path.split(meta_path)[0]
           BandPath = core.create_outname(folder, band_temp, "ASBTemp", "tif")
 
       Refraster.save(BandPath)

@@ -1,6 +1,6 @@
 
 #standard imports
-from dnppy.landsat import grab_meta
+from dnppy.landsat.grab_meta import grab_meta
 from dnppy import solar
 import arcpy
 import datetime
@@ -63,6 +63,9 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                                   *Set at 0.5 for extremeley turbid, dusty, or polluted air
         """
 
+        meta_path = os.path.abspath(meta_path)
+        toa_folder = os.path.abspath(toa_folder)
+        dem_path = os.path.abspath(dem_path)
         outlist = []
 
         #define the list of constants for effective narrowband transmissivity for incoming solar radiation 
@@ -208,6 +211,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
         #Calculate and save At-Surface Reflectance band tiffs
         for k in xrange(6):
                 if outdir:
+                        outdir = os.path.abspath(outdir)
                         asr_path = "{0}\\{1}".format(outdir, out_list[k])
                 else:
                         asr_path = "{0}\\{1}".format(toa_folder, out_list[k])

@@ -2,12 +2,10 @@
 # imports
 from dnppy import core
 import numpy
-
-try: from scipy import stats
-except: pass
-
 import arcpy
 import os
+try: from scipy import stats
+except: pass
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
@@ -39,6 +37,7 @@ def make_cloud_mask_8(BQA_path, outdir = False):
 
     #create an output name and save the mask tiff
     if outdir:
+        outdir = os.path.abspath(outdir)
         CloudMask_path = core.create_outname(outdir, TileName, "Mask", "tif")
     else:
         folder = BQA_path.replace(BQA_split, "")
@@ -286,6 +285,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     #create output name
     mask_path = name.replace("_B2_TOA_Ref.tif", "")
     if outdir:
+        outdir = os.path.abspath(outdir)
         outname = core.create_outname(outdir, mask_path, "Mask", "tif")
     else:
         folder = B2_TOA_Ref.replace(name, "")
