@@ -9,10 +9,10 @@ for the DEVELOP National Program. Teams in the DEVELOP program increasingly find
 For more information about the NASA DEVELOP program and the projects teams conduct 
 utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
 
-#####Instalation
+####Instalation
 Run `setup.py`
 
-#####Dependencies
+####Dependencies
 
 Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
 
