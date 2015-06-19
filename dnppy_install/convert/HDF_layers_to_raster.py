@@ -66,12 +66,14 @@ def HDF_layers_to_raster(hdfpath, layer_indexs = None,
         if cust_projection is not None:
             outdataset.SetProjection(cust_projection)
         else:
+            print("applying projection {0}".format(projection))
             outdataset.SetProjection(projection)
 
         # set the geometric transform
         if cust_geotransform is not None:
             outdataset.SetGeoTransform(cust_geotransform)
         else:
+            print("applying geotransform {0}".format(geotransform))
             outdataset.SetGeoTransform(geotransform)
 
         # save the raster layer one band at a time
@@ -121,8 +123,8 @@ if __name__ == "__main__":
     #HDF_layers_to_raster(rasterpath)
 
     # try GPM
-    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    #HDF_layers_to_raster(rasterpath, cust_geotransform = geotransforms.TRMM(), cust_projection = projections.WGS_1984())
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    HDF_layers_to_raster(rasterpath, None, cust_geotransform = geotransforms.TRMM())
 
     # try TRMM
     #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B42.20140101.00.7.HDF"
