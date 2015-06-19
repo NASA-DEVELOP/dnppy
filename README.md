@@ -28,7 +28,4 @@ At present, the following third party packages are automatically installed with 
 7. `gdal`
 8. `h5py`
 
-The version of `GDAL` that is installed on setup is version 1.11.2 for python 2.7. The 32 bit version is installed unless the user has the 64 bit background geoprocessing packages installed, in which case the 64 bit `GDAL` is installed.
-
-* GDAL‑1.11.2‑cp27‑none‑win32.whl
-* GDAL‑1.11.2‑cp27‑none‑win_amd64.whl
+In each case, 64 bit binaries will be used if the target python installation is 64 bit. For most intended Arcmap users, this means 64 bit binaries will only be installed if the "64 bit background geoprocessing" add-in is available.
