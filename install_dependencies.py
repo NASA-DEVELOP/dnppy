@@ -162,10 +162,11 @@ def main():
                     }
 
     # installs assets
-    for mod in asset_order:
-        get_mod_from_assets(mod, *assets[mod])
     for mod in pip_versions:
         get_mod_with_pip(mod, pip_versions[mod])
+    for mod in asset_order:
+        get_mod_from_assets(mod, *assets[mod])
+
 
     # perform a check
     checks = {}
