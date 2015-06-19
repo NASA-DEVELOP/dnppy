@@ -139,7 +139,12 @@ def main():
               #           64 bit asset link,
               #           32 bit asset link]
 
-    assets = {"gdal" : [None,
+    asset_order = ["cython", "numpy", "gdal", "h5py"] # installs assets below in this order
+
+    assets = {"cython":[None,
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win32.whl"],
+              "gdal" : [None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"],
               "numpy": ["1.9.2",
@@ -153,9 +158,8 @@ def main():
                     "requests": None,
                     }
 
-
     # installs assets
-    for mod in assets:
+    for mod in asset_order:
         get_mod_from_assets(mod, *assets[mod])
     for mod in pip_versions:
         get_mod_with_pip(mod, pip_versions[mod])
