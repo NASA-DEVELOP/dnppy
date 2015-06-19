@@ -1,9 +1,11 @@
 
 #standard imports
-from grab_meta import grab_meta
+from dnppy.landsat import grab_meta
 from dnppy import core
 import arcpy
-
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['toa_radiance_8',          # complete
          'toa_radiance_457']        # complete

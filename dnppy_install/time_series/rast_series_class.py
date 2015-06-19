@@ -2,7 +2,7 @@
 # local imports
 from dnppy import core
 from dnppy import raster
-from time_series import time_series
+from time_series_class import time_series_class
 
 # standard imports
 import os
@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 
-class raster_series(time_series):
+class rast_series_class(time_series_class):
     """
     This is an extension of the time_series class
 
@@ -249,7 +249,7 @@ class raster_series(time_series):
 
                 # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
-                    new_subset = raster_series(units = subset_units, parent = self)
+                    new_subset = rast_series_class(units = subset_units, parent = self)
                     new_subset.center_time = center_time
                     new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
@@ -312,7 +312,7 @@ class raster_series(time_series):
             for i in xrange(min(grouping),max(grouping) + 1):
 
                 subset_units    = self._fmt_to_units(fmt)
-                new_subset      = raster_series( units = subset_units, parent = self)
+                new_subset      = rast_series_class( units = subset_units, parent = self)
 
                 # only take rows whos grouping is within ow of i
                 subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
@@ -341,7 +341,7 @@ class raster_series(time_series):
 
 if __name__ == "__main__":
 
-    rs = raster_series()
+    rs = rast_series_class()
     
     rastdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
     fmt      = "%Y%j"

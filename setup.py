@@ -20,7 +20,7 @@ import os, shutil, sys, dnppy_install, time
 import install_dependencies
 
 
-def upgrading(now_vers,up_vers):
+def upgrading(now_vers, up_vers):
     """
     compares two version strings and returns True if up_vers is more recent than
     now_vers
@@ -122,22 +122,20 @@ def main():
     print("   Setting up dnnpy! the DEVELOP National Program python package!")
     print("====================================================================")
 
-    print("\nsetup will check some required libraries")
+    print("\nseting up dependencies")
     install_dependencies.main()
     setup()
 
     print("\nValidating setup...")
-    success = test_setup()
-
-    if success:
-        print("\nSetup was successful!")
+    if test_setup() is True:
+        print("Setup was successful!")
     else:
-        print("\nSetup has failed!")
+        print("Setup has failed!")
 
+    print("You may close this window")
+    time.sleep(20)
+    # sys.exit()
 
-    print("window will close in 10 seconds")
-    time.sleep(10)
-    sys.exit()
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,10 @@
 #standard imports
 import arcpy
 from dnppy import core
-from grab_meta import grab_meta
+from dnppy.landsat import grab_meta
+if arcpy.CheckExtension('Spatial')=='Available':
+    arcpy.CheckOutExtension('Spatial')
+    arcpy.env.overwriteOutput = True
 
 __all__=['atsat_bright_temp_8',     # complete
          'atsat_bright_temp_457']   # complete

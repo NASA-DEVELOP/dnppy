@@ -74,7 +74,7 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
     if bands is None:
         bands = map(str,[1,2,3,4,5,6,7,8,9,10,11,"QA"])
     else:
-        bands = core.enf_list(bands)
+        bands = map(str,(core.enf_list(bands)))
 
     # create the scene name from the input parameters and use that to generate the scene's unique url
     connection = urllib.urlopen(amazon_url)
@@ -131,9 +131,9 @@ def fetch_Landsat8_scene_list():
 
 if __name__ == "__main__":
 
-    outdir = r"C:\Users\jeff\Desktop\metric_testing"
+    outdir = r""
     start = datetime.datetime(2015,5,22)
     end   = datetime.datetime(2015,5,26)
-    path_row_pairs = (44,28)
+    path_row_pairs = ()
 
     fetch_Landsat8(path_row_pairs, start, end, outdir)

@@ -4,6 +4,7 @@ import os
 from dnppy import core
 import gdal
 import arcpy
+
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True

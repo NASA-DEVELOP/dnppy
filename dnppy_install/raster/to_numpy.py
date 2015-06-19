@@ -3,6 +3,7 @@
 from is_rast import is_rast
 from metadata import metadata
 
+import os
 import arcpy
 import numpy
 
@@ -44,41 +45,65 @@ def to_numpy(raster, numpy_datatype = None):
     # create a metadata object and assign attributes to it
 
 
-    # read in the raster as an array
-    if is_rast(raster):
+    # perform some checks to convert to supported data format
+    if not is_rast(raster):
+        try:
+            print("Raster '{0}' may not be supported, converting to tif".format(raster))
+            tifraster = raster + ".tif"
+            if not os.path.exists(raster + ".tif"):
+                arcpy.CompositeBands_management(raster, tifraster)
 
-        numpy_rast  = arcpy.RasterToNumPyArray(raster)
-        ys, xs      = numpy_rast.shape
-        meta        = metadata(raster, xs, ys)
+            raster = tifraster
+        except:
+            raise Exception("Raster type could not be recognized")
+
+
+    # read in the raster as a numpy array
+    numpy_rast  = arcpy.RasterToNumPyArray(raster)
+
+    # build metadata for multi band raster
+    if len(numpy_rast.shape) == 3:
+        zs, ys, xs  = numpy_rast.shape
+        meta = []
+
+        for i in range(zs):
+            bandpath = raster + "\\Band_{0}".format(i+1)
+            meta.append(metadata(bandpath, xs, ys))
+
+        if numpy_datatype is None:
+            numpy_datatype = meta[0].numpy_datatype
+
+
+    # build metadata for single band raster
+    else:
+        ys, xs  = numpy_rast.shape
+        meta  = metadata(raster, xs, ys)
 
         if numpy_datatype is None:
             numpy_datatype = meta.numpy_datatype
 
-        numpy_rast = numpy_rast.astype(numpy_datatype)
+    numpy_rast = numpy_rast.astype(numpy_datatype)
 
-        # mask NoData values from the array
-        if 'float' in numpy_datatype:
-            numpy_rast[numpy_rast == meta.NoData_Value] = numpy.nan
-            numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast),
-                                               dtype = numpy_datatype)
+    # mask NoData values from the array
+    if 'float' in numpy_datatype:
+        numpy_rast[numpy_rast == meta.NoData_Value] = numpy.nan
+        numpy_rast = numpy.ma.masked_array(numpy_rast, numpy.isnan(numpy_rast),
+                                           dtype = numpy_datatype)
 
-        elif 'int' in numpy_datatype: # (numpy.nan not supported by ints)
-            mask = numpy.zeros(numpy_rast.shape)
-            mask[numpy_rast != meta.NoData_Value] = False    # do not mask
-            mask[numpy_rast == meta.NoData_Value] = True     # mask
-            numpy_rast = numpy.ma.masked_array(numpy_rast, mask,
-                                               dtype = numpy_datatype)
+    elif 'int' in numpy_datatype: # (numpy.nan not supported by ints)
+        mask = numpy.zeros(numpy_rast.shape)
+        mask[numpy_rast != meta.NoData_Value] = False    # do not mask
+        mask[numpy_rast == meta.NoData_Value] = True     # mask
+        numpy_rast = numpy.ma.masked_array(numpy_rast, mask,
+                                           dtype = numpy_datatype)
 
-    else:  
-        raise Exception("Raster '{0}'does not exist".format(raster))
 
     return numpy_rast, meta
 
+
+# testing area
 if __name__ == "__main__":
 
-    path = "C:/test.tif"
-    rast, meta = to_numpy(path)
+    path = r"C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\365.asc"
 
-    print meta.desc_pixelType
-    print meta.pixel_type
-    print meta.numpy_datatype
+    rast, meta = to_numpy(path)
