@@ -155,13 +155,11 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
         K2 = 1260.56
         band6 = meta_path.replace("_MTL.txt", "_B6.tif")
     elif "7" in spacecraft:
+        band_num = "6_VCID_1"
         K1 = 666.09
         K2 = 1282.71
         band6 = meta_path.replace("_MTL.txt", "_B6_VCID_1.tif")
-        if "VCID_1" in band6:
-            band_num = "6_VCID_1"
-        elif "VCID_2" in band6:
-            band_num = "6_VCID_2"
+
     else:
         print("Enter the MTL file corresponding to a Landsat 4, 5, or 7 dataset")
 

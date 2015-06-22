@@ -33,7 +33,8 @@ def make_cloud_mask_8(BQA_path, outdir = False):
     #set the name and save the binary cloud mask tiff file
     BQA = os.path.abspath(BQA_path)
     name = os.path.split(BQA)[1]
-    TileName = name.replace("_BQA.tif", "")
+    name_ext = os.path.splitext(name)[0]
+    TileName = name_ext.replace("_BQA", "")
 
     #create an output name and save the mask tiff
     if outdir:
@@ -279,9 +280,6 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     remap = arcpy.sa.RemapValue([[1,0],[0,1],["NODATA",1]])
     Cloud_Mask = arcpy.sa.Reclassify(Cloudmask, "Value", remap)
 
-    mask_path = B2_TOA_Ref.replace("_B2_TOA_Ref.tif", "")
-    path = "{0}\\{1}".format(mask_path, file)
-
     #create output name
     mask_path = name.replace("_B2_TOA_Ref.tif", "")
     if outdir:
@@ -295,7 +293,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     Cloud_Mask.save(outname)
     cloudmask457 = arcpy.Raster(outname)
 
-    del name, mask_path, Cloud_Mask, path, remap
+    del name, mask_path, Cloud_Mask, remap
     
     return cloudmask457
 
@@ -318,7 +316,8 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
     #enforce the input band numbers as a list of strings
     mpath = os.path.abspath(mask_path)
     mask_split = os.path.split(mpath)[1]
-    tilename = mask_split.replace("_Mask.tif", "")
+    name = os.path.splitext(mask_split)[0]
+    tilename = name.replace("_Mask", "")
     folder = os.path.abspath(folder)
 
     #loop through each file in folder
