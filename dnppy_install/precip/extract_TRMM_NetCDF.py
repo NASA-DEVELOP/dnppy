@@ -35,3 +35,8 @@ def TRMM_NetCDF(filelist, outdir):
         print('Converted netCDF file ' + infile + ' to Raster')
 
     return
+
+if __name__ == "__main__":
+    afile = ""
+    outdir = ""
+    TRMM_NetCDF(afile, outdir)

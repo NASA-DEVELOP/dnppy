@@ -3,6 +3,8 @@ __author__ = ['jwely']
 from dnppy import core
 import gdal
 import os
+import numpy
+import osr
 import geotransforms
 import projections
 
@@ -16,10 +18,16 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None,
     head, tail = os.path.split(ncpath)
     outraster_names = []
 
+    # open the netcdf dataset
+    print("opening {0}".format(ncpath))
+    nc_dataset = gdal.Open(ncpath)
+    print nc_dataset
+
+
     return outraster_names
 
 
-def convert_dtype(numpy_dtype_string):
+def _convert_dtype(numpy_dtype_string):
     """
     converts numpy dtype to a gdal data type object
     """
@@ -47,4 +55,5 @@ def convert_dtype(numpy_dtype_string):
 
 if __name__ == "__main__":
     # try some MPE netcdf files
-    pass
+    ncfile = r"C:\Users\jwely\Desktop\troubleshooting\MPE\nws_precip_conus_20150101.nc"
+    NetCDF_layers_to_raster(ncfile)

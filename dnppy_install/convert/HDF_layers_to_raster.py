@@ -60,7 +60,7 @@ def HDF_layers_to_raster(hdfpath, layer_indexs = None,
         # build the new geotiff
         gtiff       = gdal.GetDriverByName("GTiff")
         outraster   = core.create_outname(head, tail, layer, "tif")
-        outdataset  = gtiff.Create(outraster, xsize, ysize, bands,  convert_dtype(datatype))
+        outdataset  = gtiff.Create(outraster, xsize, ysize, bands,  _convert_dtype(datatype))
 
         # if there is no projection found in the HDF metadata, assume its in WGS_1984
         if cust_projection is not None:
@@ -90,7 +90,7 @@ def HDF_layers_to_raster(hdfpath, layer_indexs = None,
     return outraster_names
 
 
-def convert_dtype(numpy_dtype_string):
+def _convert_dtype(numpy_dtype_string):
     """
     converts numpy dtype to a gdal data type object
     """
