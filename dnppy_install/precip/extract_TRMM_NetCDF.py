@@ -20,11 +20,14 @@ def TRMM_NetCDF(filelist, outdir):
      inputs:
        filelist    list of '.nc' files to conver to tifs.
        outdir      directory to which tif files should be saved
+
+    returns an output filelist of local filepaths of extracted data.
     """
 
     # Set up initial parameters.
     arcpy.env.workspace = outdir
     filelist = core.enf_list(filelist)
+    output_filelist = []
 
     # convert every file in the list "filelist"
     for infile in filelist:
@@ -32,9 +35,10 @@ def TRMM_NetCDF(filelist, outdir):
         # use arcpy module to make raster layer from netcdf
         arcpy.MakeNetCDFRasterLayer_md(infile, "r", "longitude", "latitude", "r", "", "", "BY_VALUE")
         arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
+        output_filelist.append(infile[:-3] + ".tif")
         print('Converted netCDF file ' + infile + ' to Raster')
 
-    return
+    return output_filelist
 
 if __name__ == "__main__":
     afile = ""
