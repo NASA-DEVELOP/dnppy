@@ -5,8 +5,6 @@ import gdal
 import os
 import numpy
 import osr
-import geotransforms
-import projections
 
 def NetCDF_layers_to_raster(ncpath, layer_indexs = None,
                             cust_projection = None, cust_geotransform = None):
@@ -22,6 +20,14 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None,
     print("opening {0}".format(ncpath))
     nc_dataset = gdal.Open(ncpath)
     print nc_dataset
+
+    subdataset = nc_dataset.GetRasterBand(1)
+    projection = nc_dataset.GetProjection()
+    geotransform = nc_dataset.GetGeoTransform()
+
+    print projection
+    print geotransform
+
 
 
     return outraster_names

@@ -3,13 +3,13 @@ __author__ = ['djjensen', 'jwely']
 from dnppy import core
 import gdal
 import os
-import geotransforms
-import projections
 
 def HDF_layers_to_raster(hdfpath, layer_indexs = None,
                          cust_projection = None, cust_geotransform = None):
     """
-    Extracts one or more layers from an HDF file and saves them as tifs
+    Extracts one or more layers from an HDF file and saves them as tifs. Please note
+    that most HDF5 formats will REQUIRE a custom projection or custom geotransform
+    to produce good outputs.
 
     :param hdfpath:             filepath to an HDF5 file
     :param layer_indexs:        a list of integer values or layer names to extract
@@ -17,7 +17,7 @@ def HDF_layers_to_raster(hdfpath, layer_indexs = None,
 
     :param cust_geotransform    custom array of 6 values that specify geotransformation
 
-    :return:                dict with band names as keys and numpy arrays as values
+    :return:                    dict with band names as keys and numpy arrays as values
     """
 
     head, tail = os.path.split(hdfpath)
@@ -43,6 +43,10 @@ def HDF_layers_to_raster(hdfpath, layer_indexs = None,
         geotransform = subdataset.GetGeoTransform()
         numpy_array  = subdataset.ReadAsArray()
         datatype     = numpy_array.dtype
+
+        print projection
+        print geotransform
+        print
 
 
         # assemble raster properties based on dimensions
@@ -123,13 +127,13 @@ if __name__ == "__main__":
     #HDF_layers_to_raster(rasterpath)
 
     # try GPM
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    HDF_layers_to_raster(rasterpath, None, cust_geotransform = geotransforms.TRMM())
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    #HDF_layers_to_raster(rasterpath, None, cust_geotransform = geotransforms.TRMM())
 
     # try TRMM
     #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B42.20140101.00.7.HDF"
     #HDF_layers_to_raster(rasterpath, cust_geotransform = geotransforms.TRMM())
 
     # try something else?
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
-    HDF_layers_to_raster(rasterpath)
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
+    #HDF_layers_to_raster(rasterpath)

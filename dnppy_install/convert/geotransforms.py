@@ -12,3 +12,6 @@ def TRMM():
           -179.8750000,
           49.8750000000]
     return gt
+
+def GPM():
+    return
