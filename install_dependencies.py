@@ -42,7 +42,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     function for installing python packages from wheel files hosted in dnppys assets
 
     :param module_name:         name of the module
-    :param version:             version, use None if no version is prefered
+    :param version:             version, use None if no version is preferred
     :param wheel64link:         asset url to 64 bit binaries
     :param wheel32link:         asset url to 32 bit binaries
     :return:
