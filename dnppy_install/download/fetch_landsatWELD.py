@@ -2,7 +2,7 @@ __author__ = 'jwely'
 
 
 from dnppy import core
-from list_http import list_http
+from list_http import list_http_e4ftl01
 from download_url import download_url
 import os
 
@@ -40,7 +40,7 @@ def Landsat_WELD(product, tiles, years, outdir):
     # Map the contents of the directory
     site= 'http://e4ftl01.cr.usgs.gov/WELD/WELD'+product+'.001'
     try:
-        dates = list_http(site)
+        dates = list_http_e4ftl01(site)
     except:
         print '{Fetch_Landsat_WELD} Could not connect to site! check inputs!'
 
@@ -58,7 +58,7 @@ def Landsat_WELD(product, tiles, years, outdir):
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
 
-        files = list_http(site+'/'+good_date)
+        files = list_http_e4ftl01(site+'/'+good_date)
 
         for afile in files:
             # only list files with desired tilenames and not preview jpgs

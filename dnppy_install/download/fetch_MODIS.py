@@ -4,7 +4,7 @@ __author__ = 'jwely'
 from dnppy import core
 
 from list_ftp import list_ftp
-from list_http import list_http
+from list_http import list_http_e4ftl01
 from download_url import download_url
 
 import os
@@ -60,7 +60,7 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
         if isftp:
             dates,_ = list_ftp(site, False, False, Dir)
         else:
-            dates   = list_http(site)
+            dates   = list_http_e4ftl01(site)
     except:
         raise ValueError("Could not connect to {0}/{1}".format(site,Dir))
 
@@ -85,7 +85,7 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
             files,_ = list_ftp(site, False, False, Dir + '/' + good_date)
 
         else:
-            files   = list_http(site + '/' + good_date)
+            files   = list_http_e4ftl01(site + '/' + good_date)
 
         for afile in files:
 
