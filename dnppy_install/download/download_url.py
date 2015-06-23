@@ -4,6 +4,8 @@ import urllib
 import ftplib
 import os
 
+__all__ = ["download_url"]
+
 
 def download_url(url, outname, username = None, password = None):
     """Download a single file. input source url and output filename"""
