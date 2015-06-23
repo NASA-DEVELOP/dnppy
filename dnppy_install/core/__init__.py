@@ -32,3 +32,4 @@ from exists import *
 from list_files import *
 from move import *
 from rename import *
+from install_from_wheel import *

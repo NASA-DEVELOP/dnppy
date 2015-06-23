@@ -30,7 +30,7 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
 
     Example:
         lat_lons = [(37,-76), (37,-77)]    # Two tiles
-        prod = SRTMGL3                     #3 arc second DEM product)
+        prod = "SRTMGL3"                   #3 arc second DEM product)
 
         download.fetch_SRTM(lat_lons, prod)
 
