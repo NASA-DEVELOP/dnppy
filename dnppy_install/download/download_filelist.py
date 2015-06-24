@@ -4,6 +4,8 @@ from dnppy import core
 from download_urls import download_urls
 import os, time
 
+__all__ = ["download_filelist"]
+
 def download_filelist(ftptexts, filetypes = False, outdir = False):
 
     """

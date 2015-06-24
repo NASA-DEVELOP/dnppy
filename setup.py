@@ -98,20 +98,32 @@ def test_setup():
 
     try:
         # ensure every module imports OK
+        print("convert")
         from dnppy import convert
+        print("core")
         from dnppy import core
+        print("download")
         from dnppy import download
+        print("landsat")
         from dnppy import landsat
+        print("modis")
         from dnppy import modis
+        print("radar")
         from dnppy import radar
+        print("raster")
         from dnppy import raster
+        print("solar")
         from dnppy import solar
+        print("test")
         from dnppy import test
+        print("textio")
         from dnppy import textio
+        print("time_series")
         from dnppy import time_series
         return True
 
     except ImportError:
+        print("failed!")
         return False
 
 
@@ -126,7 +138,7 @@ def main():
     install_dependencies.main()
     setup()
 
-    print("\nValidating setup...")
+    print("\nValidating setup of each module...")
     if test_setup() is True:
         print("Setup was successful!")
     else:

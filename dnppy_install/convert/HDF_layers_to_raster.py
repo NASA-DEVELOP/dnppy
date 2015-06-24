@@ -122,6 +122,7 @@ def _convert_dtype(numpy_dtype_string):
 
 
 if __name__ == "__main__":
+    pass
     # try MODIS
     #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\MOD09A1.A2015033.h11v05.005.2015044233105.hdf"
     #HDF_layers_to_raster(rasterpath)

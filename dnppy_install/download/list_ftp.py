@@ -3,6 +3,8 @@ __author__ = 'jwely'
 import ftplib
 import socket
 
+__all__ = ["list_ftp"]
+
 def list_ftp(site, username = None , password = None, dir = None):
     """
     lists contents of typical FTP download site

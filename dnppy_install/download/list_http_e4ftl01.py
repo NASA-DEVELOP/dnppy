@@ -2,6 +2,8 @@ __author__ = 'jwely'
 
 import urllib
 
+__all__ = ["list_http_e4ftl01"]
+
 def list_http_e4ftl01(site):
     """
     Lists contents of  http download site at [http://e4ftl01.cr.usgs.gov]

@@ -1,7 +1,6 @@
 __author__ = 'Jwely'
 
-
-
+__all__ = ["fetch_AIRS"]
 
 def fetch_AIRS():
     """
@@ -13,4 +12,4 @@ def fetch_AIRS():
     """
 
     print("This function is an unfinished stub!")
-    return
+    pass

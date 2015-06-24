@@ -1,5 +1,8 @@
 __author__ = 'Jwely'
 
+__all__ = ["fetch_VIIRS"]
+
+
 def fetch_VIIRS():
     """
     functiong fetches VIIRS data via ftp server

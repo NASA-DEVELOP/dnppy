@@ -14,7 +14,10 @@ if arcpy.CheckExtension('Spatial')=='Available':
     from arcpy import env
     arcpy.env.overwriteOutput = True
 
-    
+
+__all__ = ["GCMO_NetCDF"]
+
+
 def GCMO_NetCDF(netcdf_list, variable, outdir):
     """
     Extracts all time layers from a "Global Climate Model Output" NetCDF layer

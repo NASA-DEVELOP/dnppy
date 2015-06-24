@@ -2,12 +2,14 @@ __author__ = 'jwely'
 
 
 from dnppy import core
-from list_http import list_http_e4ftl01
+from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 import os
 
+__all__ = ["fetch_Landsat_WELD"]
 
-def Landsat_WELD(product, tiles, years, outdir):
+
+def fetch_Landsat_WELD(product, tiles, years, outdir):
 
     """
      Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD]

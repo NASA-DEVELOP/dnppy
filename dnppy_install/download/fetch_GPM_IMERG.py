@@ -7,6 +7,8 @@ from download_url import download_url
 from datetime import datetime, timedelta
 import os
 
+__all__ = ["fetch_GPM_IMERG"]
+
 def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1day"):
 
     """

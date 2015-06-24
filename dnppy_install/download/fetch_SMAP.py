@@ -1,5 +1,6 @@
 __author__ = 'Jwely'
 
+__all__ = ["fetch_SMAP"]
 
 
 def fetch_SMAP():

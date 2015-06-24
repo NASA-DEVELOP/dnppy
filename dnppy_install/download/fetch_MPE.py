@@ -1,9 +1,12 @@
 __author__ = 'jwely'
 
-from download_url import *
+from download_url import download_url
 
 from datetime import timedelta, datetime
 import os
+
+__all__ = ["fetch_MPE"]
+
 
 def fetch_MPE(start_dto, end_dto, outdir, area = None):
     """

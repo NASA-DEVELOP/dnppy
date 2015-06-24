@@ -7,6 +7,10 @@ from datetime import datetime, timedelta
 import os
 import gzip
 
+
+__all__ = ["fetch_TRMM"]
+
+
 def fetch_TRMM(start_dto, end_dto, outdir, product_string):
     """
     Fetches TRMM data from an FTP server.
