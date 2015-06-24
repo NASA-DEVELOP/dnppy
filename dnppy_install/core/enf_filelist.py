@@ -14,6 +14,8 @@ def enf_filelist(filelist, extension = None):
     accepting directories instead.
     """
 
+    new_filelist = None
+
     if isinstance(filelist, str):
         if os.path.isdir(filelist):
             new_filelist = list_files(False, filelist, False, False)
@@ -28,6 +30,9 @@ def enf_filelist(filelist, extension = None):
         new_filelist = filelist
 
 
+    if new_filelist is None:
+        new_filelist = filelist
+
     if extension is not None:
 
         for new_file in new_filelist:
@@ -35,8 +40,4 @@ def enf_filelist(filelist, extension = None):
             if extension not in new_file:
                 new_filelist.remove(new_file)
 
-        else:
-            return new_filelist
-
-    else:
-        return new_filelist
+    return new_filelist
