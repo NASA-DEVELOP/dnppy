@@ -2,7 +2,7 @@ __author__ = 'jwely'
 
 import gdal
 
-def _convert_dtype(numpy_dtype_string):
+def convert_dtype(numpy_dtype_string):
     """
     converts numpy dtype to a gdal data type object
     """
