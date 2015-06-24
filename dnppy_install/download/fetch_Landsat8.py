@@ -11,6 +11,8 @@ import site
 import os
 import gzip
 
+__all__ = ["fetch_Landsat8"]
+
 
 def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
                    max_cloud_cover = 100, bands = None):

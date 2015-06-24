@@ -1,6 +1,6 @@
 
 #standard imports
-from dnppy.landsat.grab_meta import grab_meta
+from grab_meta import grab_meta
 from dnppy import solar
 import arcpy
 import datetime

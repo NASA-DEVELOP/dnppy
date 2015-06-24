@@ -4,6 +4,8 @@ from dnppy import core
 from download_url import download_url
 import os, time
 
+__all__ = ["download_urls"]
+
 def download_urls(url_list, outdir, filetypes = False):
 
     """

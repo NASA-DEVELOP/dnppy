@@ -6,6 +6,7 @@ import urllib, urllib2
 import time
 import tarfile
 
+
 def fetch_test_landsat(test_dir):
     """
     downloading data from earth explorer requires that users are logged in.

@@ -1,9 +1,10 @@
 __author__ = 'jwely'
 
-
 import os
 import tarfile
 from dnppy import core
+
+__all__ = ["extract_targz"]
 
 def extract_targz(filepaths):
     """

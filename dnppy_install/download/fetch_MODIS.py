@@ -4,11 +4,13 @@ __author__ = 'jwely'
 from dnppy import core
 
 from list_ftp import list_ftp
-from list_http import list_http_e4ftl01
+from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 
 import os
 from datetime import datetime
+
+__all__ = ["fetch_MODIS"]
 
 
 def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,

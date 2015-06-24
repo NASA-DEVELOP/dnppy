@@ -1,5 +1,9 @@
 __author__ = 'Jwely'
 
+
+__all__ = ["fetch_AVHRR"]
+
+
 def fetch_AVHRR():
     """
     fetches AVHRR-pathfinder data via ftp
