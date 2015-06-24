@@ -26,6 +26,7 @@ if not __name__ == "dnppy_install":
     from download import *
     from landsat import *
     from modis import *
+    from precip import *
     from radar import *
     from raster import *
     from solar import *

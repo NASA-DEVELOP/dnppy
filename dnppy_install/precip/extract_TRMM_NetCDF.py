@@ -6,8 +6,6 @@ from dnppy import core
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
     arcpy.env.overwriteOutput = True
 
 

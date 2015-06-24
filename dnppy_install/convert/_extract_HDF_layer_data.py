@@ -1,9 +1,11 @@
 __author__ = ['djjensen', 'jwely']
 
+__all__ = ["_extract_HDF_layer_data"]
+
 import gdal
 import os
 
-def extract_HDF_layer_data(hdfpath, layer_indexs = None):
+def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
     """
     Extracts one or more layers from an HDF file and returns a dictionary with
     all the data available in the HDF layer for use in further format conversion
@@ -52,17 +54,20 @@ def extract_HDF_layer_data(hdfpath, layer_indexs = None):
                 layer_names.append(dataset_string[1])
 
         # give metadata info for the entire layer
-        out_info["MasterMetadata"] = hdf_dataset.GetMetadata_Dict()
+        mdict = hdf_dataset.GetMetadata()
+        out_info["MasterMetadata"] = mdict
+        #for key in mdict:
+        #   print key," = ", mdict[key]
 
         # perform operation on each of the desired layers
         for i,layer in enumerate(layer_indexs):
             subdataset   = gdal.Open(subdatasets[layer][0])
-            projection   = subdataset.GetProjection()
-            geotransform = subdataset.GetGeoTransform()
-            numpy_array  = subdataset.ReadAsArray()
-            datatype     = numpy_array.dtype
+            #projection   = subdataset.GetProjection()
+            #geotransform = subdataset.GetGeoTransform()
+            #numpy_array  = subdataset.ReadAsArray()
 
-            out_info[subdataset] = [layer_names [i], projection, geotransform, numpy_array]
+            out_info[i] = subdataset
+            print subdataset
 
         return out_info
 
@@ -73,17 +78,17 @@ def extract_HDF_layer_data(hdfpath, layer_indexs = None):
 
 if __name__ == "__main__":
     #try MODIS
-    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\MOD09A1.A2015033.h11v05.005.2015044233105.hdf"
-    #extract_HDF_layer_data(rasterpath)
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\MOD09A1.A2015033.h11v05.005.2015044233105.hdf"
+    _extract_HDF_layer_data(rasterpath)
 
     # try GPM
-    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    #extract_HDF_layer_data(rasterpath)
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    _extract_HDF_layer_data(rasterpath)
 
     # try TRMM
     rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B42.20140101.00.7.HDF"
-    extract_HDF_layer_data(rasterpath)
+    _extract_HDF_layer_data(rasterpath)
 
     # try something else?
-    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
-    #print extract_HDF_layer_data(rasterpath)
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
+    _extract_HDF_layer_data(rasterpath)
