@@ -27,12 +27,13 @@ def datatype_library():
         # read text file rows
         name = str(row[0].replace(" ",""))
         proj = str(row[1].replace(" ",""))
-        xtl  = float(row[2])
-        xps  = float(row[3])
-        xpr  = float(row[4])
-        ytl  = float(row[5])
-        yps  = float(row[6])
-        ypr  = float(row[7])
+        A  = float(row[2])
+        B  = float(row[3])
+        C  = float(row[4])
+        D  = float(row[5])
+        E  = float(row[6])
+        F  = float(row[7])
+        dls  = str(row[8])
 
         # build projection text from projection ID file
         proj_fname = os.path.join(dirname,"lib","prj","{0}.prj".format(proj))
@@ -40,13 +41,14 @@ def datatype_library():
             proj_text = f.read()
 
         # assemble the geotransform
-        geotrans = (xtl, xps, xpr, ytl, ypr, yps)
+        geotrans = (A, B, C, D, E, F)
 
         # create the datatype instance
         datatype_dict[name] = datatype(name = name,
                                        projectionID = proj,
                                        geotransform = geotrans,
-                                       projectionTXT = proj_text)
+                                       projectionTXT = proj_text,
+                                       downloadSource = dls)
 
     return datatype_dict
 
@@ -57,7 +59,8 @@ class datatype():
     NASA/NOAA/WeatherService/USGS data types
     """
 
-    def __init__(self, name= None, projectionID = None, geotransform = None, projectionTXT = None):
+    def __init__(self, name= None, projectionID = None,
+                 geotransform = None, projectionTXT = None, downloadSource = None):
         """
         Inputs:
             name            (str) the product name, (descriptive)
@@ -77,6 +80,7 @@ class datatype():
         self.projectionID = projectionID
         self.geotransform = geotransform
         self.projectionTXT = projectionTXT
+        self.downloadSource = downloadSource
 
 
 
@@ -85,7 +89,9 @@ def main():
     """
     datalib = datatype_library()
     for entry in datalib:
-        print("{0}: \n projectionID  = {1}\n projectionTXT = {2} \n geotransform  = {3}".format(datalib[entry].name,
+        print("{0}: from {1} \n\tprojectionID  = {2}\n\tprojectionTXT = {3} \n\tgeotransform  = {4}".format(
+              datalib[entry].name,
+              datalib[entry].downloadSource,
               datalib[entry].projectionID,
               datalib[entry].projectionTXT,
               datalib[entry].geotransform))

@@ -1,9 +1,9 @@
 __author__ = 'jwely'
-__all__ = ["_HDF_layer_to_tif"]
+__all__ = ["_gdal_dataset_to_tif"]
 
 import gdal
 
-def _HDF_layer_to_tif(gdal_dataset, outpath, cust_projection = None, cust_geotransform = None):
+def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None, cust_geotransform = None):
     """
     This function takes a gdal dataset object as returned from the
     "_extract_HDF_layer_data" function and writes it to tif with
@@ -28,30 +28,34 @@ def _HDF_layer_to_tif(gdal_dataset, outpath, cust_projection = None, cust_geotra
     else:
         geotransform = cust_geotransform
 
+    print("using projection {0}".format(projection))
+    print("using geotransform {0}".format(geotransform))
+
     # set up the numpy array
     numpy_array = gdal_dataset.ReadAsArray()
     shape = numpy_array.shape
 
+    # determine its shape
     if len(shape) == 2:
-        xsize = shape[0]
-        ysize = shape[1]
+        xsize = shape[1]
+        ysize = shape[0]
         numbands = 1
     elif len(shape) == 3:
-        xsize = shape[1]
-        ysize = shape[2]
+        xsize = shape[2]
+        ysize = shape[1]
         numbands = shape[0]
     else:
         raise Exception("cannot write 1 dimensional data to tif")
 
     # create the tiff
     gtiff = gdal.GetDriverByName("GTiff")
-    outdata = gtiff.Create(outpath, xsize, ysize, 4)
+    outdata = gtiff.Create(outpath, xsize, ysize, numbands)
     outdata.SetProjection(projection)
     outdata.SetGeoTransform(geotransform)
 
+    # write each band
     for i in range(numbands):
-        outdata.GetRasterBand(i + 1).WriteRaster(0,0, xsize, ysize)
-
+        outdata.GetRasterBand(i+1).WriteArray(numpy_array, 0, 0)
 
     return outpath
 

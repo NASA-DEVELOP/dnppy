@@ -20,16 +20,11 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
 
     where the "MasterMetadata" values very widely in format depending on
     data source, but should contain georeferencing information and the like.
-    Each of the values for those integer keys will be a list of
-    values that looks like this.
-
-        [layer name descriptor, projection, geotransform, numpy_array]
+    Each of the values for those integer keys will simply be a gdal.dataset
+    object.
 
     gdal has proven annoying to use, but this function should help you
-    get started with programming support for any HDF datatype. Building
-    proper geotransormation will require info in the MasterMetadata most
-    likely, but there is not an established naming convention that can be
-    applied to all datatypes.
+    get started with programming support for any HDF datatype.
     """
 
     # output dict
@@ -56,18 +51,13 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
         # give metadata info for the entire layer
         mdict = hdf_dataset.GetMetadata()
         out_info["MasterMetadata"] = mdict
-        #for key in mdict:
-        #   print key," = ", mdict[key]
+        for key in mdict:
+           print key," = ", mdict[key]
 
         # perform operation on each of the desired layers
-        for i,layer in enumerate(layer_indexs):
-            subdataset   = gdal.Open(subdatasets[layer][0])
-            #projection   = subdataset.GetProjection()
-            #geotransform = subdataset.GetGeoTransform()
-            #numpy_array  = subdataset.ReadAsArray()
-
-            out_info[i] = subdataset
-            print subdataset
+        for layer in layer_indexs:
+            subdataset  = gdal.Open(subdatasets[layer][0])
+            out_info[layer] = subdataset
 
         return out_info
 
@@ -92,3 +82,5 @@ if __name__ == "__main__":
     # try something else?
     rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
     _extract_HDF_layer_data(rasterpath)
+
+    #

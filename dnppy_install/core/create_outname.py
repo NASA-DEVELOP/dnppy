@@ -31,6 +31,9 @@ def create_outname(outdir, inname, suffix, ext = False):
        can be passed to other functions that require an output filepath.
     """
 
+    # remove unneeded . in the extension
+    ext = ext.replace(".","")
+
     # isolate the filename from its directory and extension
     if os.path.isfile(inname):
         head, tail  = os.path.split(inname)

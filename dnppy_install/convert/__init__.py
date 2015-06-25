@@ -6,5 +6,7 @@ __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 from extract_targz import *
 from GCMO_NetCDF import *
+from datatype_library import *
+
 
 
