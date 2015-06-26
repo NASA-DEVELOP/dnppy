@@ -37,52 +37,60 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
     # open the HDF dataset
     hdf_dataset = gdal.Open(hdfpath)
 
-    try:
-        subdatasets = hdf_dataset.GetSubDatasets()
+    subdatasets = hdf_dataset.GetSubDatasets()
 
-        if layer_indexs is None:
-            layer_indexs = range(len(subdatasets))
-        elif isinstance(layer_indexs, int):
-            layer_indexs = [layer_indexs]
+    if layer_indexs is None:
+        layer_indexs = range(len(subdatasets))
+    elif isinstance(layer_indexs, int):
+        layer_indexs = [layer_indexs]
 
-        print("Contents of {0}".format(os.path.basename(hdfpath)))
-        for i, dataset_string in enumerate(subdatasets):
-            print("  {0}  {1}".format(i, dataset_string[1]))
-            if i in layer_indexs:
-                layer_names.append(dataset_string[1])
+    print("Contents of {0}".format(os.path.basename(hdfpath)))
+    for i, dataset_string in enumerate(subdatasets):
+        print("  {0}  {1}".format(i, dataset_string[1]))
+        if i in layer_indexs:
+            layer_names.append(dataset_string[1])
 
-        # give metadata info for the entire layer
-        mdict = hdf_dataset.GetMetadata()
-        out_info["MasterMetadata"] = mdict
+    # give metadata info for the entire layer
+    mdict = hdf_dataset.GetMetadata()
+    out_info["MasterMetadata"] = mdict
 
-        for key in mdict:
-           print key," = ", mdict[key]
+    #for key in mdict:
+       #print key," = ", mdict[key]
 
-        # perform operation on each of the desired layers
-        for layer in layer_indexs:
-            subdataset  = gdal.Open(subdatasets[layer][0])
-            out_info[layer] = subdataset
+    # perform operation on each of the desired layers
+    for layer in layer_indexs:
+        subdataset  = gdal.Open(subdatasets[layer][0])
+        out_info[layer] = subdataset
 
-        return out_info
-
-    except:
-        raise Exception("this function doesn't yet work for HDF5s with just a single layer")
+    return out_info
 
 
 
 if __name__ == "__main__":
     #try MODIS
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\MOD09A1.A2015033.h11v05.005.2015044233105.hdf"
-    _extract_HDF_layer_data(rasterpath)
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\MOD09A1.A2015033.h11v05.005.2015044233105.hdf"
+    #_extract_HDF_layer_data(rasterpath)
 
     # try GPM
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    _extract_HDF_layer_data(rasterpath)
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    #_extract_HDF_layer_data(rasterpath)
 
     # try TRMM
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B42.20140101.00.7.HDF"
-    _extract_HDF_layer_data(rasterpath)
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B42.20140101.00.7.HDF"
+    #_extract_HDF_layer_data(rasterpath)
 
     # try ASTER?
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
-    _extract_HDF_layer_data(rasterpath)
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\AG100.v003.28.-098.0001.h5"
+    #_extract_HDF_layer_data(rasterpath)
+
+    # try VIIRS
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\GDNBO-SVDNB_npp_d20150626_t0132557_e0138361_b18964_c20150626174428799822_noaa_ops.h5"
+    stuff = _extract_HDF_layer_data(rasterpath, [2, 4])
+
+    print stuff[2].GetProjection()
+    print stuff[2].GetGeoTransform()
+    lat = stuff[2].ReadAsArray()
+    lon = stuff[4].ReadAsArray()
+    print lat[0, 0],lat[0, -1],lat[-1, 0],lat[-1, -1]
+    print lon[0, 0],lon[0, -1],lon[-1, 0],lon[-1, -1]]
+

@@ -94,9 +94,9 @@ def LLtoUTM(Lat, Long):
                                            +600*C
                                            -330*eccPrimeSquared)*A*A*A*A*A*A/720)))
 
-    if Hemisphere=="S":
-        UTMNorthing = UTMNorthing + 10000000.0; #10000000 meter offset for southern hemisphere
-    return (UTMNorthing,UTMEasting)
+    if Hemisphere == "S":
+        UTMNorthing += 10000000.0; #10000000 meter offset for southern hemisphere
+    return (UTMNorthing, UTMEasting)
 
 VLLtoUTM=numpy.vectorize(LLtoUTM)
 

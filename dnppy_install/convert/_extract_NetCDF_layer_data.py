@@ -10,24 +10,22 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
     to better supported formats.
 
     example:
-    ncpath = filepath to any netcdf filetype (usualy ".nc")
+    ncpath = filepath to an NetCDF file. (any HDF 4 or 5 datatype)
     layer indexs = [1,2,3]
 
     the output dict will have keys :
                     ["MasterMetadata", "1", "2", "3"]
 
     where the "MasterMetadata" values very widely in format depending on
-    data source, but should contain georeferencing information and the like.
-    Each of the values for those integer keys will be a list of
-    values that looks like this.
+    data source, but might contain georeferencing information and the like.
+    Each of the values for those integer keys will simply be a gdal.dataset
+    object.
 
-        [layer name descriptor, projection, geotransform, numpy_array]
+    this function is the first step in the chain for turning HDF data into
+    geotiff. the next step is to build an established datatype
 
-    gdal has proven annoying to use, but this function should help you
-    get started with programming support for any HDF datatype. Building
-    proper geotransormation will require info in the MasterMetadata most
-    likely, but there is not an established naming convention that can be
-    applied to all datatypes.
+    :param ncpath          filepath to any NetCDF formated file
+    :param layer_indexs     list of integer index values for layers to extract
     """
 
     # output dict

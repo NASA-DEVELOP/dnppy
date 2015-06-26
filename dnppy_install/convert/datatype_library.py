@@ -9,6 +9,14 @@ def datatype_library():
     this function builds the datatype_library dict out of file
     datatype_library.csv and returns it. Adding to this datatype
     library should be done by editing the csv file, not this code.
+
+    geotransform math used to create the array [A, B, C, D, E, F]
+            x = A + iB + jC
+            y = D + iE + jF
+
+        where x,y are real spatial coordinates, nd i,j
+        are matrix indices. A, B, C, D, E, F and are
+        coefficients that make up the geotransformation array.
     """
 
     # empty dict
@@ -68,12 +76,14 @@ class datatype():
                                 downloaded from "spatialreference.org"
             geotransform    (list floats) geotransform array, lsit of 6
                                 float values in the gdal ordering:
-                                [top left x,
-                                w-e pixel resolution,
-                                0,
-                                top left y,
-                                0,
-                                n-s pixel resolution (negative value)]
+
+                                x = A + iB + jC
+                                y = D + iE + jF
+
+                                where x,y are real spatial coordinates,
+                                and i,j are matrix indices.
+                                A, B, C, D, E, F and are coefficients that make
+                                up the geotransformation array.
         """
 
         self.name = name
