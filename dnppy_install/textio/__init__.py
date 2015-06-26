@@ -10,7 +10,7 @@ a "text file object" or "tfo"
 __author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
 
 from ioconfig import *
+from logfile import *
 from read_csv import *
 from read_DS3505 import *
-from logfile import *
 from text_data import *

@@ -54,6 +54,7 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
         # give metadata info for the entire layer
         mdict = hdf_dataset.GetMetadata()
         out_info["MasterMetadata"] = mdict
+
         for key in mdict:
            print key," = ", mdict[key]
 

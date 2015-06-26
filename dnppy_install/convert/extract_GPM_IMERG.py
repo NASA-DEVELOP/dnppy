@@ -1,27 +1,34 @@
 __author__ = 'jwely'
 __all__ = ["extract_GPM_IMERG"]
 
-
-from _extract_HDF_layer_data import _extract_HDF_layer_data
-from _gdal_dataset_to_tif import _gdal_dataset_to_tif
-from datatype_library import datatype_library
-
 from dnppy import core
+from datatype_library import *
+from _extract_HDF_datatype import *
 
 def extract_GPM_IMERG(hdf_list, layer_indexs, outdir):
+    """
+    Extracts GPM_IMERG data from its HDF5 format.
+
+    :param hdf_list:        list of hdf files or directory with hdfs
+    :param layer_indexs:    list of integer layer indexs
+    :param outdir:          directory to place outputs
+
+    :return:                a list of all files created as output
+    """
+
+    hdf_list = core.enf_filelist(hdf_list)
+    output_filelist = []
 
     # load the GPM datatype from the library
     datatype = datatype_library()["GPM_IMERG"]
 
-    gpm_data = _extract_HDF_layer_data(hdf_list, layer_indexs)
+    # for every hdf file in the input list
+    for hdf in hdf_list:
+        # extract layers and add the new filepaths to the output filelist
+        hdf_output_filelist =  _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype)
+        output_filelist +=  hdf_output_filelist
 
-    for li in layer_indexs:
-        dataset = gpm_data[li]
-        outpath = core.create_outname(outdir, hdf_list, str(li), "tif")
-        print("creating dataset at {0}".format(outpath))
-        _gdal_dataset_to_tif(dataset, outpath,
-                            cust_projection = datatype.projectionTXT,
-                            cust_geotransform = datatype.geotransform)
+    return output_filelist
 
 
 if __name__ == "__main__":

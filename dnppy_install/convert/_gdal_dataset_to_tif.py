@@ -36,15 +36,15 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
         gdal_projection = gdal_dataset.GetProjection()
 
         # only uses the custom projection if gdal metadata is bad
-        if gdal_projection != "":
+        if gdal_projection == "":
             projection = cust_projection
         else:
             projection = gdal_projection
 
-        gdal_geotransform = gdal_dataset.GetGeotransform()
+        gdal_geotransform = gdal_dataset.GetGeoTransform()
 
         # only uses the custom geotransform if gdal geotransform is default (bad)
-        if gdal_geotransform != (0, 1, 0, 0, 0,1):
+        if gdal_geotransform == (0.0, 1.0, 0.0, 0.0, 0.0, 1.0):
             geotransform = cust_geotransform
         else:
             geotransform = gdal_geotransform

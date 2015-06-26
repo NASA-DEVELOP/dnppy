@@ -24,7 +24,7 @@ def datatype_library():
 
     for row in rows:
 
-        # read text file rows
+        # interpret text file rows
         name = str(row[0].replace(" ",""))
         proj = str(row[1].replace(" ",""))
         A  = float(row[2])

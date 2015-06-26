@@ -1,15 +1,13 @@
 __author__ = 'jwely'
 __all__ = ["_extract_HDF_datatype"]
 
-
-from _extract_HDF_layer_data import _extract_HDF_layer_data
-from _gdal_dataset_to_tif import _gdal_dataset_to_tif
-from datatype_library import datatype_library
+from _extract_HDF_layer_data import *
+from _gdal_dataset_to_tif import *
 
 from dnppy import core
 
 
-def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype):
+def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype, force_custom = False):
     """
     This function wraps "_extract_HDF_layer_data" and "_gdal_dataset_to_tif"
 
@@ -17,25 +15,31 @@ def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype):
     :param hdf:             a single hdf filepath
     :param layer_indexs:    list of int index values of layers to extract
     :param outdir:          filepath to output directory to place tifs
-    :param datatype:
-    :return:
+    :param datatype:        a dnppy.convert.datatype object created from an
+                            entry in the datatype_library.csv
+    :param force_custom:    if True, this will force the data to take on the
+                            projection and geotransform attributes from
+                            the datatype object, even if valid projection
+                            and geotransform info can be pulled from the gdal
+                            dataset. Should almost never be True.
+
+    :return:                list of filepaths to output files
     """
 
-    # load the GPM datatype from the libarary
-    datatype = datatype_library()["GPM_IMERG"]
+    output_filelist = []
 
-    gpm_data = _extract_HDF_layer_data(hdf_list, layer_indexs)
+    data = _extract_HDF_layer_data(hdf, layer_indexs)
 
-    for li in layer_indexs:
-        dataset = gpm_data[li]
-        outpath = core.create_outname(outdir, hdf_list, str(li), "tif")
+    for layer_index in layer_indexs:
+        dataset = data[layer_index]
+        outpath = core.create_outname(outdir, hdf, str(layer_index), "tif")
         print("creating dataset at {0}".format(outpath))
         _gdal_dataset_to_tif(dataset, outpath,
                             cust_projection = datatype.projectionTXT,
-                            cust_geotransform = datatype.geotransform)
+                            cust_geotransform = datatype.geotransform,
+                            force_custom = force_custom)
 
+        output_filelist.append(outpath)
 
-if __name__ == "__main__":
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    outdir     = r"C:\Users\jwely\Desktop\troubleshooting"
-    extract_GPM_IMERG(rasterpath, [5], outdir)
+    return output_filelist
+
