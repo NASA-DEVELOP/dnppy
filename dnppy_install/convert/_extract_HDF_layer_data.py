@@ -19,12 +19,15 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
                     ["MasterMetadata", "1", "2", "3"]
 
     where the "MasterMetadata" values very widely in format depending on
-    data source, but should contain georeferencing information and the like.
+    data source, but might contain georeferencing information and the like.
     Each of the values for those integer keys will simply be a gdal.dataset
     object.
 
-    gdal has proven annoying to use, but this function should help you
-    get started with programming support for any HDF datatype.
+    this function is the first step in the chain for turning HDF data into
+    geotiff. the next step is to build an established datatype
+
+    :param hdfpath          filepath to any HDF formated file
+    :param layer_indexs     list of integer index values for layers to extract
     """
 
     # output dict
@@ -79,8 +82,6 @@ if __name__ == "__main__":
     rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B42.20140101.00.7.HDF"
     _extract_HDF_layer_data(rasterpath)
 
-    # try something else?
+    # try ASTER?
     rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\AG100.v003.28.-098.0001.h5"
     _extract_HDF_layer_data(rasterpath)
-
-    #

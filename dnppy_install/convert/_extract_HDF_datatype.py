@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-__all__ = ["extract_GPM_IMERG"]
+__all__ = ["_extract_HDF_datatype"]
 
 
 from _extract_HDF_layer_data import _extract_HDF_layer_data
@@ -8,9 +8,20 @@ from datatype_library import datatype_library
 
 from dnppy import core
 
-def extract_GPM_IMERG(hdf_list, layer_indexs, outdir):
 
-    # load the GPM datatype from the library
+def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype):
+    """
+    This function wraps "_extract_HDF_layer_data" and "_gdal_dataset_to_tif"
+
+
+    :param hdf:             a single hdf filepath
+    :param layer_indexs:    list of int index values of layers to extract
+    :param outdir:          filepath to output directory to place tifs
+    :param datatype:
+    :return:
+    """
+
+    # load the GPM datatype from the libarary
     datatype = datatype_library()["GPM_IMERG"]
 
     gpm_data = _extract_HDF_layer_data(hdf_list, layer_indexs)
