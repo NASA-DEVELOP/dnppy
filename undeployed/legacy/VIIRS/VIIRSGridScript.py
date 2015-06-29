@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        VIIRS Grid Tool
-# Purpose:     This tool grids and georeferences VIIRS extract_HDF_layer data files from
+# Purpose:     This tool grids and georeferences VIIRS HDF data files from
 #              the NOAA CLASS website
 # Author:     Quinten Geddes Quinten.A.Geddes@nasa.gov
 #               NASA DEVELOP Program
@@ -11,34 +11,32 @@
 import numpy
 from scipy.interpolate import griddata
 import h5py
-import os
 import arcpy
 from math import pi, sin, cos, tan, sqrt
 
 from tempfile import TemporaryFile
-import time
 from textwrap import dedent
 arcpy.env.overwriteOutput = True
 
 #Variables-------------------------------------------------------------Variables
 
 
-HDFfile      = arcpy.GetParameterAsText(0) #extract_HDF_layer file including
-ArrayName    = arcpy.GetParameterAsText(1) #Data array in the extract_HDF_layer file that the user wishes to interpolate
-psize        = float(arcpy.GetParameterAsText(2)) #Desired pixel size in degrees or meters if Project to UTM is True
-Extent       = arcpy.GetParameterAsText(3)
-SampleMethodInput = arcpy.GetParameterAsText(4)
-ProjectToUTM = arcpy.GetParameterAsText(5) #Whether or not the user wants to project to UTM coordinates
-ZoneNumber   = arcpy.GetParameterAsText(6)
-Hemisphere   = arcpy.GetParameterAsText(7)
-OutputFolder = arcpy.GetParameterAsText(8) #Folder to which GeoTIFF files will be saved
+HDFfile             = arcpy.GetParameterAsText(0)       #extract_HDF_layer file including
+ArrayName           = arcpy.GetParameterAsText(1)       #Data array in the extract_HDF_layer file that the user wishes to interpolate
+psize               = float(arcpy.GetParameterAsText(2))#Desired pixel size in degrees or meters if Project to UTM is True
+Extent              = arcpy.GetParameterAsText(3)
+SampleMethodInput   = arcpy.GetParameterAsText(4)
+ProjectToUTM        = arcpy.GetParameterAsText(5)       #Whether or not the user wants to project to UTM coordinates
+ZoneNumber          = arcpy.GetParameterAsText(6)
+Hemisphere          = arcpy.GetParameterAsText(7)
+OutputFolder        = arcpy.GetParameterAsText(8)       #Folder to which GeoTIFF files will be saved
 
 
 blockSize=500   # Length of each side of the iterating block.
                 # This is related to memory limits and processing speed
-sdistance = blockSize*psize*.6  # Determines size of sample taken from original
-                                # data used to interpolate output block
-                                # of size blockSize x blockSize
+sdistance = blockSize * psize * .6  # Determines size of sample taken from original
+                                    # data used to interpolate output block
+                                    # of size blockSize x blockSize
 
 #Variables-------------------------------------------------------------Variables
 
@@ -99,20 +97,25 @@ def LLtoUTM(Lat, Long):
         UTMNorthing += 10000000.0; #10000000 meter offset for southern hemisphere
     return (UTMNorthing, UTMEasting)
 
-VLLtoUTM=numpy.vectorize(LLtoUTM)
 
-#this function used to find points within sdistance of a point (y,x)
+VLLtoUTM = numpy.vectorize(LLtoUTM)
+
+#this function used to find points within "sdistance" of a point (y,x)
 #returns a one dimensional array with the Y,X coordinates of qualifying points
-#and the assosicated data values
-def findpoints(y,x,Data, nodata):
-    subLatInd= numpy.where(abs(numpy.array(DataGridY)-y)<sdistance)
-    subLong= numpy.array(DataGridX)[subLatInd]
-    blockInd = numpy.where(abs(subLong- x)<sdistance)
-    blocklong = subLong[blockInd]
-    blocklat  = numpy.array(DataGridY)[subLatInd][blockInd]
-    blockz= numpy.array(Data)[subLatInd][blockInd]
-    nodatamask=numpy.where(eval(nodata))
+#and the associated data values
+
+def findpoints(y, x, Data, nodata):
+    subLatInd   = numpy.where(abs(numpy.array(DataGridY)-y)<sdistance)
+    subLong     = numpy.array(DataGridX)[subLatInd]
+    blockInd    = numpy.where(abs(subLong- x) < sdistance)
+    blocklong   = subLong[blockInd]
+    blocklat    = numpy.array(DataGridY)[subLatInd][blockInd]
+    blockz      = numpy.array(Data)[subLatInd][blockInd]
+    nodatamask  = numpy.where(eval(nodata))
+
     return blocklat[nodatamask], blocklong[nodatamask], blockz[nodatamask]
+
+
 #Functions-------------------------------------------------------------Functions
 
 #Check to make sure pixel units are appropriate for output coordinate system
