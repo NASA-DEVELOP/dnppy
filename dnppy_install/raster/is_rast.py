@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-
+__all__ = ["is_rast"]
 import os
 
 def is_rast(filename):

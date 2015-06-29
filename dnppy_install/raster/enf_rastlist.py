@@ -1,4 +1,5 @@
 __author__ = 'jwely'
+__all__ = ["enf_rastlist"]
 
 from dnppy import core
 

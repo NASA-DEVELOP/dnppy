@@ -1,4 +1,5 @@
 __author__ = 'jwely'
+__all__ = ["metadata"]
 
 import arcpy
 

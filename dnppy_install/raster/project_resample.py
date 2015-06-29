@@ -1,4 +1,6 @@
 
+__all__ = ["project_resample"]
+
 # local imports
 from dnppy import core
 from enf_rastlist import enf_rastlist

@@ -1,5 +1,7 @@
 __author__ = 'jwely'
 
+__all__ = ["clip_to_shape"]
+
 from dnppy import core
 from enf_rastlist import enf_rastlist
 

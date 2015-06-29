@@ -1,4 +1,5 @@
 __author__ = 'jwely'
+__all__ = ["null_set_range"]
 
 from enf_rastlist import enf_rastlist
 from to_numpy import to_numpy

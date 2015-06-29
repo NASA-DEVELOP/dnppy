@@ -1,4 +1,6 @@
 
+__all__ = ["degree_days"]
+
 from to_numpy import to_numpy
 from from_numpy import from_numpy
 

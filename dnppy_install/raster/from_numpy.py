@@ -1,4 +1,6 @@
-# local imports
+__author__ = "jwely"
+__all__ = ["from_numpy"]
+
 import arcpy
 import numpy
 

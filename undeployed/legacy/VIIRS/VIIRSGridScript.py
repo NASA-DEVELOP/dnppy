@@ -11,12 +11,10 @@
 import numpy
 from scipy.interpolate import griddata
 import h5py
-import os
 import arcpy
 from math import pi, sin, cos, tan, sqrt
 
 from tempfile import TemporaryFile
-import time
 from textwrap import dedent
 arcpy.env.overwriteOutput = True
 
@@ -185,7 +183,7 @@ if ProjectToUTM == "true":
     DataGridX = UTMx
     if Hemisphere =="N":
         ESPGh="6"
-    elif Hemishpere=="S":
+    elif Hemisphere=="S":
         ESPGh="7"
     ESPG = "32{0}{1}".format(ESPGh,ZoneNumber)
 

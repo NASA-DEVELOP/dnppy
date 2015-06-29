@@ -8,8 +8,8 @@ It is maintained by the Geoinformatics YP class.
 It contains functions for fairly routine manipulations of raster data.
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com",
-              "Lauren Makely, lmakely09@gmail.com"]
+__author__ = ["jwely",
+              "lmakely"]
 
 
 from apply_linear_correction import *

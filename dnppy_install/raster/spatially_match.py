@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-
+__all__ = ["spatially_match"]
 
 from dnppy import core
 from to_numpy import to_numpy

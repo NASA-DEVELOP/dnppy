@@ -1,4 +1,6 @@
-# local imports
+__author__ = "jwely"
+__all__ = ["to_numpy"]
+
 
 from is_rast import is_rast
 from metadata import metadata

@@ -1,4 +1,5 @@
 __author__ = 'jwely'
+__all__ = ["null_define"]
 
 import arcpy
 from enf_rastlist import enf_rastlist

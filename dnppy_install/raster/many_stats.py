@@ -1,4 +1,6 @@
-# local imports
+__author__ = "Jwely"
+__all__ = ["many_stats"]
+
 from dnppy import core
 from enf_rastlist import enf_rastlist
 from to_numpy import to_numpy

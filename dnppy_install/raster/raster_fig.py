@@ -1,5 +1,6 @@
-# standard imports
+__all__ = ["raster_fig"]
 
+# standard imports
 import matplotlib.pyplot as plt
 
 class raster_fig:

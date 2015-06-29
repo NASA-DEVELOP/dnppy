@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-
+__all__ = ["gap_fill_interpolate"]
 from dnppy import core
 from to_numpy import to_numpy
 from is_rast import is_rast

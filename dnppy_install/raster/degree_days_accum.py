@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-
+__all__ = ["degree_days_accum"]
 
 def degree_days_accum(rasterlist, critical_values = False, outdir = False):
 

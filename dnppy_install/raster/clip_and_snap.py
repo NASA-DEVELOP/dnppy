@@ -1,5 +1,7 @@
 __author__ = 'jwely'
 
+__all__ = ["clip_and_snap"]
+
 from to_numpy import to_numpy
 from from_numpy import from_numpy
 
