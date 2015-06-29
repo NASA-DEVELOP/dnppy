@@ -34,11 +34,11 @@ Hemisphere   = arcpy.GetParameterAsText(7)
 OutputFolder = arcpy.GetParameterAsText(8) #Folder to which GeoTIFF files will be saved
 
 
-blockSize=500   #Length of each side of the iterating block.
-                #This is related to memory limits and processing speed
-sdistance = blockSize*psize*.6  #Determines size of sample taken from original
-                                #data used to interpolate output block
-                                #of size blockSize x blockSize
+blockSize=500   # Length of each side of the iterating block.
+                # This is related to memory limits and processing speed
+sdistance = blockSize*psize*.6  # Determines size of sample taken from original
+                                # data used to interpolate output block
+                                # of size blockSize x blockSize
 
 #Variables-------------------------------------------------------------Variables
 
@@ -46,6 +46,7 @@ sdistance = blockSize*psize*.6  #Determines size of sample taken from original
 
 #Functions-------------------------------------------------------------Functions
 def LLtoUTM(Lat, Long):
+    """this function has been absorbed into dnppy"""
 #This function converts lat/long to UTM coords.  Equations from USGS Bulletin 1532
 #East Longitudes are positive, West longitudes are negative.
 #North latitudes are positive, South latitudes are negative
@@ -119,6 +120,7 @@ if ProjectToUTM=="true" and psize<10:
     msg="Pixel Size must be in meters for UTM Projection"
     arcpy.AddError(msg)
     raise arcpy.ExecuteError
+
 if ProjectToUTM =="false" and psize>10:
     msg="Pixel Size must be in decimal degrees for WGS84 grid"
     arcpy.AddError(msg)
@@ -185,9 +187,9 @@ if ProjectToUTM == "true":
     DataGridX = UTMx
     if Hemisphere =="N":
         ESPGh="6"
-    elif Hemishpere=="S":
+    elif Hemisphere=="S":
         ESPGh="7"
-    ESPG = "32{0}{1}".format(ESPGh,ZoneNumber)
+    ESPG = "32{0}{1}".format(ESPGh, ZoneNumber)
 
 else:
     DataGridY = Latitude
@@ -218,8 +220,8 @@ except:
     raise arcpy.ExecuteError
 #calculating the Y and X values for each row and column respectively
 #for the output grid
-def makerowcoord(rown,maxval): return float(maxval - (rown*psize))
-def makecolcoord(coln,minval): return float(minval + (coln*psize))
+def makerowcoord(rown, maxval): return float(maxval - (rown*psize))
+def makecolcoord(coln, minval): return float(minval + (coln*psize))
 Vmakerowcoord=numpy.vectorize(makerowcoord)
 Vmakecolcoord=numpy.vectorize(makecolcoord)
 nrows,ncols=numpy.arange(rows),numpy.arange(cols)

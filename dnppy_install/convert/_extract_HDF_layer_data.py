@@ -44,6 +44,7 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
     elif isinstance(layer_indexs, int):
         layer_indexs = [layer_indexs]
 
+    # print a summary of the layer content
     print("Contents of {0}".format(os.path.basename(hdfpath)))
     for i, dataset_string in enumerate(subdatasets):
         print("  {0}  {1}".format(i, dataset_string[1]))
@@ -92,5 +93,5 @@ if __name__ == "__main__":
     lat = stuff[2].ReadAsArray()
     lon = stuff[4].ReadAsArray()
     print lat[0, 0],lat[0, -1],lat[-1, 0],lat[-1, -1]
-    print lon[0, 0],lon[0, -1],lon[-1, 0],lon[-1, -1]]
+    print lon[0, 0],lon[0, -1],lon[-1, 0],lon[-1, -1]
 
