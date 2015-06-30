@@ -1,6 +1,7 @@
 __author__ = 'jwely'
 __all__ = ["nongrid_data"]
 
+from LLtoUTM import *
 import numpy
 import math
 
@@ -21,15 +22,15 @@ class nongrid_data():
 
     This sorting is done to optimize processing time when building
     a gridded dataset from what is effectively assumed to be point data.
-    memory consumption is doubled, but processing time is decreased
-    by a factor of order 10.
+    Please note ALL angular data is internally stored in radians, even
+    though lat/lon inputs are likely to be in degrees!
     """
 
-    def __init__(self, lat, lon, data, unit = "Degree"):
+    def __init__(self, lat, lon, data):
         """
         each lat, lon and data input can be numpy arrays of any
         size, as long as all three inputs are identical shapes.
-        If lat/lon are in units of radians, use "unit" input
+        please use inputs of "degree"
 
         :param lat:     matrix of values representing latitude
         :param lon:     matrix of values representing longitude
@@ -37,8 +38,7 @@ class nongrid_data():
         :param unit:    either "Degree" or "Radian"
         """
 
-        # one dimensionalizes the inputs
-        self.unit = unit
+        # one dimensionalizes the inputs and converts to radians
         self.lat = numpy.reshape(lat, -1)
         self.lon = numpy.reshape(lon, -1)
         self.data = numpy.reshape(data, -1)
@@ -63,27 +63,34 @@ class nongrid_data():
         self.min_lon = min(self.lon_sortlon)
         self.max_lon = max(self.lon_sortlon)
 
-        # gives simple estimation of data resolution
-        self.mean_lat_space = (self.max_lat - self.min_lat) / len(lat)
-        self.mean_lon_space = (self.max_lon - self.min_lon) / len(lon)
+        # calculate the middle lat/lon so UTM zone can be inferred
+        self.mid_lon = self.max_lon - self.min_lon / 2
+        self.mid_lat = self.max_lat - self.min_lat /2
 
-        print self.mean_lat_space
-        print self.mean_lon_space
+        self.utm_zone   = int(((self.mid_lon - 3 + 180) / 6) + 1)
+        if self.mid_lat < 0:
+            self.hemisphere = "S"
+        else:
+            self.hemisphere = "N"
+
+        print("Found data centered in UTM zone {0}{1}".format(self.utm_zone,
+                                                              self.hemisphere))
+        return
 
 
     def distance(self, lat0, lon0, lat1, lon1):
         """
         computes the distance between two lat/lon coordinates in meters
-        using the haversine formula
+        using the haversine formula. Radians are the unit!
         """
+
+        # radius of earth in meters
         R = 6371000
 
-        # convert to radians if needed
-        if self.unit == "Degree":
-            lat0 = math.radians(lat0)
-            lon0 = math.radians(lon0)
-            lat1 = math.radians(lat1)
-            lon1 = math.radians(lon1)
+        lat0 = math.radians(lat0)
+        lon0 = math.radians(lon0)
+        lat1 = math.radians(lat1)
+        lon1 = math.radians(lon1)
 
         del_lat = lat1 - lat0
         del_lon = lon1 - lon0
@@ -97,9 +104,9 @@ class nongrid_data():
         return dist
 
 
-    def sample_by_grid(self, resolution, min_points):
+    def sample_by_grid(self, resolution, utm_zone, hemisphere):
         """
-        Input a resolution (in degrees), and
+
         """
 
         pass

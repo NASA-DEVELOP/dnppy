@@ -44,7 +44,7 @@ sdistance = blockSize * psize * .6  # Determines size of sample taken from origi
 
 #Functions-------------------------------------------------------------Functions
 def LLtoUTM(Lat, Long):
-    """this function has been absorbed into dnppy"""
+    """ this function has been absorbed into dnppy """
 #This function converts lat/long to UTM coords.  Equations from USGS Bulletin 1532
 #East Longitudes are positive, West longitudes are negative.
 #North latitudes are positive, South latitudes are negative
@@ -247,7 +247,7 @@ NeedForInterp=sampledict[SampleMethod]
 #For each band an output array is created
 #The output array is written by blocks of size "blockSize" by "blockSize".
 #The extent of these blocks correspond output grid coordinates.
-#Data points are retreived from the input extract_HDF_layer that have lat longs that
+#Data points are retrieved from the input extract_HDF_layer that have lat longs that
 #fall within the extent of these blocks plus some slop.
 #These collected data points are then used to interpolate and
 #fill a block of the output array
