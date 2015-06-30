@@ -1,6 +1,7 @@
 __author__ = ['jwely']
 
 import gdal
+import numpy
 import os
 
 def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
@@ -33,26 +34,43 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
     layer_names = []
 
     # opening the netcdf dataset
-    nc_dataset = gdal.Open(ncpath)
+    nc_dataset = gdal.Open('netCDF:"{0}"'.format(ncpath))
 
+    # if the netcdf has subdatasets
+    if nc_dataset.GetSubDatasets():
 
-    band         = nc_dataset.GetRasterBand(1)
-    projection   = nc_dataset.GetProjection()
-    geotransform = nc_dataset.GetGeoTransform()
-    numpy_array  = band.ReadAsArray()
+        subdatasets = nc_dataset.GetSubDatasets()
 
-    dict = band.GetMetadata_Dict()
-    for key in dict:
-        print key," = ", dict[key]
+        # set layer indices if they were left default
+        if layer_indexs is None:
+            layer_indexs = range(len(subdatasets))
+        elif isinstance(layer_indexs, int):
+            layer_indexs = [layer_indexs]
 
-    print projection
-    print geotransform
-    print numpy_array.shape
+        # print a summary of the layer content
+        print("Contents of {0}".format(os.path.basename(ncpath)))
+        for i, dataset_string in enumerate(subdatasets):
+            print("  {0}  {1}".format(i, dataset_string[1]))
+            if i in layer_indexs:
+                layer_names.append(dataset_string[1])
 
+    # if only one layer exists in the netcdf
+    else:
+        mdict = nc_dataset.GetMetadata_Dict()
+        out_info["MasterMetadata"] = mdict
 
-    return
+        for key in mdict:
+            print key," = ", mdict[key]
+
+        out_info[0] = nc_dataset
+
+    return out_info
+
 
 if __name__ == "__main__":
     # try some MPE netcdf files
     ncfile = r"C:\Users\jwely\Desktop\troubleshooting\MPE\nws_precip_conus_20150101.nc"
-    NetCDF_layers_to_raster(ncfile)
+    out = NetCDF_layers_to_raster(ncfile)
+    a = out[0].ReadAsArray()
+    print a.shape
+
