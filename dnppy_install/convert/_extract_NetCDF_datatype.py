@@ -1,17 +1,16 @@
 __author__ = 'jwely'
-__all__ = ["_extract_HDF_datatype"]
+__all__ = ["_extract_NetCDF_datatype"]
 
-from _extract_HDF_layer_data import *
+from _extract_NetCDF_layer_data import *
 from _gdal_dataset_to_tif import *
 
 from dnppy import core
 
-
-def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype, force_custom = False):
+def _extract_NetCDF_datatype(netcdf, layer_indexs, outdir, datatype, force_custom = False):
     """
-    This function wraps "_extract_HDF_layer_data" and "_gdal_dataset_to_tif"
+    This function wraps "_extract_NetCDF_layer_data" and "_gdal_dataset_to_tif"
 
-    :param hdf:             a single hdf filepath
+    :param netcdf:          a single netcdf filepath
     :param layer_indexs:    list of int index values of layers to extract
     :param outdir:          filepath to output directory to place tifs
     :param datatype:        a dnppy.convert.datatype object created from an
@@ -27,11 +26,11 @@ def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype, force_custom = Fa
 
     output_filelist = []
 
-    data = _extract_HDF_layer_data(hdf, layer_indexs)
+    data = _extract_NetCDF_layer_data(netcdf, layer_indexs)
 
     for layer_index in layer_indexs:
         dataset = data[layer_index]
-        outpath = core.create_outname(outdir, hdf, str(layer_index), "tif")
+        outpath = core.create_outname(outdir, netcdf, str(layer_index), "tif")
         print("creating dataset at {0}".format(outpath))
         _gdal_dataset_to_tif(dataset, outpath,
                             cust_projection = datatype.projectionTXT,
@@ -41,4 +40,3 @@ def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype, force_custom = Fa
         output_filelist.append(outpath)
 
     return output_filelist
-

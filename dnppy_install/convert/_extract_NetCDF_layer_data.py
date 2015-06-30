@@ -1,10 +1,10 @@
 __author__ = ['jwely']
+__all__ = ["_extract_NetCDF_layer_data"]
 
 import gdal
-import numpy
 import os
 
-def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
+def _extract_NetCDF_layer_data(ncpath, layer_indexs = None):
     """
     Extracts one or more layers from an NetCDF file and returns a dictionary with
     all the data available in the NetCDF layer for use in further format conversion
@@ -39,6 +39,10 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
     # if the netcdf has subdatasets
     if nc_dataset.GetSubDatasets():
 
+        # build master metadata
+        mdict = nc_dataset.GetMetadata_Dict()
+        out_info["MasterMetadata"] = mdict
+
         subdatasets = nc_dataset.GetSubDatasets()
 
         # set layer indices if they were left default
@@ -54,15 +58,25 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
             if i in layer_indexs:
                 layer_names.append(dataset_string[1])
 
+        # grab the subdatasets
+        for layer in layer_indexs:
+            subdataset = gdal.Open(subdatasets[layer][0])
+            out_info[layer] = subdataset
+
+
     # if only one layer exists in the netcdf
     else:
+        # build master metadata
         mdict = nc_dataset.GetMetadata_Dict()
         out_info["MasterMetadata"] = mdict
 
-        for key in mdict:
-            print key," = ", mdict[key]
-
+        # grab the data layer
         out_info[0] = nc_dataset
+
+
+    # print some of the master metadata
+    for key in mdict:
+        print key," = ", mdict[key]
 
     return out_info
 
@@ -70,7 +84,10 @@ def NetCDF_layers_to_raster(ncpath, layer_indexs = None):
 if __name__ == "__main__":
     # try some MPE netcdf files
     ncfile = r"C:\Users\jwely\Desktop\troubleshooting\MPE\nws_precip_conus_20150101.nc"
-    out = NetCDF_layers_to_raster(ncfile)
+
+    # try some SMOS netcdf
+    ncfile = r"C:\Users\jwely\Desktop\troubleshooting\SMOS\_NRTSM003D025A_ALL.nc"
+    out = _extract_NetCDF_layer_data(ncfile)
     a = out[0].ReadAsArray()
     print a.shape
 
