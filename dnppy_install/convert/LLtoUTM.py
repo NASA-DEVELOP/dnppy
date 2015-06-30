@@ -20,7 +20,7 @@ def LLtoUTM(lat, lon, utm_zone, hemisphere):
     k0     = 0.9996
 
     # Make sure the longitude is between -180.00 .. 179.9
-    LongTemp = (lon + 180) - int((lon + 180) / 360) * 360 - 180
+    LongTemp = (lon + 180) - ((lon + 180) / 360).astype('int32') * 360 - 180
 
     # convert to radians
     LatRad   = lat * np.pi / 180.0
