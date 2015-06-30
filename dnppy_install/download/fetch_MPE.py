@@ -19,7 +19,8 @@ def fetch_MPE(start_dto, end_dto, outdir, area = None):
         end_dto          datetime object for end date of desired range
         outdir           output directory where files should be saved (str)
         area             area of interest, either "conus", "ak" or "pr"
-                         for continental us, alaska, or puerto rico respectively
+                         for continental us, alaska, or puerto rico respectively.
+                         defaults to "conus"
     """
 
     # set defaults
