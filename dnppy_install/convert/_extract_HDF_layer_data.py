@@ -39,6 +39,7 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
 
     subdatasets = hdf_dataset.GetSubDatasets()
 
+    # establish layer indices if left default
     if layer_indexs is None:
         layer_indexs = range(len(subdatasets))
     elif isinstance(layer_indexs, int):
