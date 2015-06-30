@@ -48,6 +48,8 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     :return:
     """
 
+    import pip
+
     # determine if the module is already good or not
     try:
         module = __import__(module_name)
@@ -56,6 +58,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
             if module.__version__ == version:
                 isready = True
             else:
+                pip.main(["uninstall", module_name])
                 isready = False
         else:
             isready = True
@@ -72,7 +75,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
             dlurl = wheel32link
 
         # write the file right next to this setupfile
-        with open(os.path.basename(dlurl),"wb+") as f:
+        with open(os.path.basename(dlurl), "wb+") as f:
             connection = urllib.urlopen(dlurl)
             page = connection.read()
             f.write(page)
@@ -80,7 +83,6 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
             del connection
 
         # now use pip to install the gdal wheel file
-        import pip
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
         os.remove(path)
@@ -139,7 +141,7 @@ def main():
               #           64 bit asset link,
               #           32 bit asset link]
 
-    asset_order = ["cython", "scipy", "numpy", "gdal", "h5py"] # installs assets below in this order
+    asset_order = ["numpy", "cython", "scipy", "gdal", "h5py"] # installs assets below in this order
 
     assets = {"cython":[None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",

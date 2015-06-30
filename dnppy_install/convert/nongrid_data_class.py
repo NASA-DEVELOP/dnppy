@@ -4,6 +4,7 @@ __all__ = ["nongrid_data"]
 from LLtoUTM import *
 import numpy
 import math
+import scipy
 
 class nongrid_data():
     """
@@ -35,7 +36,6 @@ class nongrid_data():
         :param lat:     matrix of values representing latitude
         :param lon:     matrix of values representing longitude
         :param data:    matrix of values containing spatial data
-        :param unit:    either "Degree" or "Radian"
         """
 
         # one dimensionalizes the inputs and converts to radians
@@ -46,26 +46,15 @@ class nongrid_data():
         if not (len(self.lat) == len(self.lon) == len(self.data)):
             raise Exception("inputs are not the same dimensions!")
 
-        # build sorted arrays of lat,lon,data inputs
-        self.lat_sortlat  = sorted(self.lat)
-        self.lon_sortlat  = [x for (y, x) in sorted(zip(self.lat, self.lon))]
-        self.data_sortlat = [x for (y, x) in sorted(zip(self.lat, self.data))]
-        self.lat_sortlon  = [x for (y, x) in sorted(zip(self.lon, self.lat))]
-        self.lon_sortlon  = sorted(self.lon)
-        self.data_sortlat = [x for (y, x) in sorted(zip(self.lon, self.data))]
-
-        # delete original input arrays to save memory
-        del self.lat, self.lon, self.data
-
         # get bounding box info
-        self.min_lat = min(self.lat_sortlat)
-        self.max_lat = max(self.lat_sortlat)
-        self.min_lon = min(self.lon_sortlon)
-        self.max_lon = max(self.lon_sortlon)
+        self.min_lat = min(self.lat)
+        self.max_lat = max(self.lat)
+        self.min_lon = min(self.lon)
+        self.max_lon = max(self.lon)
 
-        # calculate the middle lat/lon so UTM zone can be inferred
+        # determine the UTM zone of the center point of this data.
         self.mid_lon = self.max_lon - self.min_lon / 2
-        self.mid_lat = self.max_lat - self.min_lat /2
+        self.mid_lat = self.max_lat - self.min_lat / 2
 
         self.utm_zone   = int(((self.mid_lon - 3 + 180) / 6) + 1)
         if self.mid_lat < 0:
@@ -73,15 +62,30 @@ class nongrid_data():
         else:
             self.hemisphere = "N"
 
-        print("Found data centered in UTM zone {0}{1}".format(self.utm_zone,
-                                                              self.hemisphere))
+        # find min and maximum utm coordinates
+        self.min_utmx, self.min_utmy = LLtoUTM(self.min_lat, self.min_lon,
+                                               self.utm_zone, self.hemisphere)
+        self.max_utmx, self.max_utmy = LLtoUTM(self.max_lat, self.max_lon,
+                                               self.utm_zone, self.hemisphere)
+
+        # estimate the spatial resolution of the data
+        W = self.distance(self.min_lat, self.min_lon, self.max_lat, self.min_lon)
+        H = self.distance(self.min_lat, self.min_lon, self.min_lat, self.max_lon)
+
+        self.est_resolution = ((W * H) / len(self.data)) ** 0.5
+
+        # print a summary
+        print("location: UTM zone {0}{1}".format(self.utm_zone, self.hemisphere))
+        print("resolution: {0} m".format(self.est_resolution))
         return
 
 
-    def distance(self, lat0, lon0, lat1, lon1):
+
+    @staticmethod
+    def distance(lat0, lon0, lat1, lon1):
         """
         computes the distance between two lat/lon coordinates in meters
-        using the haversine formula. Radians are the unit!
+        using the Haversine formula. Radians are the unit!
         """
 
         # radius of earth in meters
@@ -104,10 +108,24 @@ class nongrid_data():
         return dist
 
 
-    def sample_by_grid(self, resolution, utm_zone, hemisphere):
+
+    def sample_by_grid(self, resolution):
+        """
+        Grids a dataset to the desired resolution in a UTM projection. input
+        resolution is the length of one pixel on a side in meters.
         """
 
-        """
+        # build a meshgrid
+        xgrid, ygrid = numpy.meshgrid[self.min_utmx:self.max_utmx:complex(0, resolution),
+                                      self.min_utmy:self.max_utmy:complex(0, resolution)]
 
-        pass
 
+
+        return
+
+
+# testing area
+if __name__ == "__main__":
+    pass
+
+    numpy.mgrid()

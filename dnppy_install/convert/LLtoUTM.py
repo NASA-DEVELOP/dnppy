@@ -13,7 +13,7 @@ def LLtoUTM(lat, lon, utm_zone, hemisphere):
     :param utm_zone:        UTM zone number as an integer, without the "S" or "N"
     :param hemisphere:      hemisphere for UTM zone, either "S", or "N"
 
-    :return:                UTM_northing, UTM_easting
+    :return:                UTM_easting, UTM_northing
     """
     a      = 6378137
     eccSq  = 0.00669438         # ECC squared
@@ -61,4 +61,4 @@ def LLtoUTM(lat, lon, utm_zone, hemisphere):
     if hemisphere == "S":
         UTM_northing += 10000000.0
 
-    return UTM_northing, UTM_easting
+    return UTM_easting, UTM_northing
