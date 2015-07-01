@@ -34,7 +34,7 @@ def _extract_NetCDF_layer_data(ncpath, layer_indexs = None):
     layer_names = []
 
     # opening the netcdf dataset
-    nc_dataset = gdal.Open('netCDF:"{0}"'.format(ncpath))
+    nc_dataset = gdal.Open('NETCDF:"{0}"'.format(ncpath))
 
     # if the netcdf has subdatasets
     if nc_dataset.GetSubDatasets():
@@ -75,8 +75,8 @@ def _extract_NetCDF_layer_data(ncpath, layer_indexs = None):
 
 
     # print some of the master metadata
-    for key in mdict:
-        print key," = ", mdict[key]
+    #for key in mdict:
+    #    print key," = ", mdict[key]
 
     return out_info
 
@@ -88,6 +88,5 @@ if __name__ == "__main__":
     # try some SMOS netcdf
     ncfile = r"C:\Users\jwely\Desktop\troubleshooting\SMOS\_NRTSM003D025A_ALL.nc"
     out = _extract_NetCDF_layer_data(ncfile)
-    a = out[0].ReadAsArray()
-    print a.shape
+    print out[0].GetGeoTransform()
 

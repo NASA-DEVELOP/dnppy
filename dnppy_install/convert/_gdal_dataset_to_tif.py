@@ -2,9 +2,11 @@ __author__ = ['jwely']
 __all__ = ["_gdal_dataset_to_tif"]
 
 import gdal
+from convert_dtype import *
 
 def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
-                         cust_geotransform = None, force_custom = False):
+                         cust_geotransform = None, force_custom = False,
+                         nodata_value = None):
     """
     This function takes a gdal dataset object as returned from the
     "_extract_HDF_layer_data" OR "_extractNetCDF_layer_data functions
@@ -23,6 +25,7 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
                                     projections and geotransforms will be ignored
                                     if valid variables can be pulled from the
                                     gdal.dataset metadata.
+    :param nodata_value:            the value to set to Nodata
 
     returns the local system filepath to output dataset.
     """
@@ -72,13 +75,17 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
 
     # create the tiff
     gtiff = gdal.GetDriverByName("GTiff")
-    outdata = gtiff.Create(outpath, xsize, ysize, numbands)
+    outdata = gtiff.Create(outpath, xsize, ysize, numbands, convert_dtype(numpy_array.dtype))
     outdata.SetProjection(projection)
     outdata.SetGeoTransform(geotransform)
 
     # write each band
     for i in range(numbands):
-        outdata.GetRasterBand(i+1).WriteArray(numpy_array, 0, 0)
+        outraster = outdata.GetRasterBand(i+1)
+        outraster.WriteArray(numpy_array, 0, 0)
+        if nodata_value is not None:
+            outraster.SetNoDataValue(nodata_value)
+        outraster.FlushCache()
 
     return outpath
 
