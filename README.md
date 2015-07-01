@@ -14,7 +14,7 @@ Run `setup.py`
 
 ####Dependencies
 
-Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
+Before dnppy can be installed, ESRI's Arcmap 10.1+ must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
 
 1. Python 2.7
 2. `arcpy`  (see ESRI's ArcMap software)
