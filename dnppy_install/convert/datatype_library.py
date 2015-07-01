@@ -35,7 +35,8 @@ def datatype_library():
 
         # interpret text file rows
         name = str(row[0].replace(" ",""))
-        proj = str(row[1].replace(" ",""))
+        proj = str(row[1].replace(" ","").split("-")[-1])
+        proj_lib = str("-".join(row[1].replace(" ","").split("-")[:-1]))
         A  = float(row[2])
         B  = float(row[3])
         C  = float(row[4])
@@ -45,16 +46,24 @@ def datatype_library():
         dls  = str(row[8])
 
         # build projection text from osr library
-        srs = osr.SpatialReference()
-        srs.ImportFromEPSG(int(proj))
-        proj_text = srs.ExportToWkt()
+        if proj_lib == "EPSG":
+            srs = osr.SpatialReference()
+            srs.ImportFromEPSG(int(proj))
+            proj_text = srs.ExportToWkt()
+
+        # read projection from SR-ORG prj file.
+        else:
+            proj_fname = os.path.join(dirname, "lib","prj","{0}.prj".format(proj))
+            with open(proj_fname, "r") as f:
+                proj_text = f.read()
+
 
         # assemble the geotransform
         geotrans = (A, B, C, D, E, F)
 
         # create the datatype instance
         datatype_dict[name] = datatype(name = name,
-                                       projectionID = proj,
+                                       projectionID = "-".join([proj_lib, proj]),
                                        geotransform = geotrans,
                                        projectionTXT = proj_text,
                                        downloadSource = dls)
@@ -99,7 +108,7 @@ def main():
     """
     datalib = datatype_library()
     for entry in datalib:
-        print("{0}: from {1} \n\tprojectionID  = {2}\n\tprojectionTXT = {3} \n\tgeotransform  = {4}".format(
+        print("{0}: from {1} \n\t\tprojectionID  = {2}\n\t\tprojectionTXT = {3} \n\t\tgeotransform  = {4}".format(
               datalib[entry].name,
               datalib[entry].downloadSource,
               datalib[entry].projectionID,
