@@ -2,6 +2,7 @@ __author__ = 'jwely'
 __all__ = ["datatype_library", "datatype"]
 
 import os
+from osgeo import osr
 from dnppy import textio
 
 def datatype_library():
@@ -43,10 +44,10 @@ def datatype_library():
         F  = float(row[7])
         dls  = str(row[8])
 
-        # build projection text from projection ID file
-        proj_fname = os.path.join(dirname,"lib","prj","{0}.prj".format(proj))
-        with open(proj_fname, "r") as f:
-            proj_text = f.read()
+        # build projection text from osr library
+        srs = osr.SpatialReference()
+        srs.ImportFromEPSG(int(proj))
+        proj_text = srs.ExportToWkt()
 
         # assemble the geotransform
         geotrans = (A, B, C, D, E, F)
@@ -72,8 +73,7 @@ class datatype():
         """
         Inputs:
             name            (str) the product name, (descriptive)
-            projectionID    (str) projection ID according to prj files
-                                downloaded from "spatialreference.org"
+            projectionID    (str) projection ID according spatialreference.org
             geotransform    (list floats) geotransform array, lsit of 6
                                 float values in the gdal ordering:
 
