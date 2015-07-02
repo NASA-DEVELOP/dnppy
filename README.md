@@ -10,6 +10,8 @@ For more information about the NASA DEVELOP program and the projects teams condu
 utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
 
 ####Instalation
+Arcmap can NOT be running when trying to install dnppy. dnppy upgrades the installed version of numpy to one that is both arcmap and gdal compatible, but it will fail to do this if arcmap is running at the time of install.
+
 Run `setup.py` 
 
 ####Dependencies
