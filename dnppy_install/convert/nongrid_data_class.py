@@ -17,31 +17,35 @@ class nongrid_data():
     The three arrays are represented as:
         lat_array, lon_array, data_array
 
-    where each array is of equal length, and the value of each row
+    where each array is of equal shape, and the value of each row
     corresponds to the values in the same row of the other arrays.
-    these arrays are then represented twice, sorted by lat, then lon.
+    these arrays are then converted to UTM coordinates and sorted
+    by the utm_x coordinate.
 
     This sorting is done to optimize processing time when building
     a gridded dataset from what is effectively assumed to be point data.
-    Please note ALL angular data is internally stored in radians, even
-    though lat/lon inputs are likely to be in degrees!
     """
 
-    def __init__(self, lat, lon, data):
+    def __init__(self, lat, lon, data, hemisphere):
         """
         each lat, lon and data input can be numpy arrays of any
         size, as long as all three inputs are identical shapes.
         please use inputs of "degree"
 
-        :param lat:     matrix of values representing latitude
-        :param lon:     matrix of values representing longitude
-        :param data:    matrix of values containing spatial data
+        :param lat:          matrix of values representing latitude
+        :param lon:          matrix of values representing longitude
+        :param data:         matrix of values containing spatial data
+        :param hemisphere:   either "N" or "S"
         """
 
-        # one dimensionalizes the inputs and converts to radians
+        print("Loading non-gridded dataset")
+        self.hemisphere = hemisphere
+
+        # one dimensionalizes the inputs
         self.lat = numpy.reshape(lat, -1)
         self.lon = numpy.reshape(lon, -1)
         self.data = numpy.reshape(data, -1)
+        del lat, lon, data
 
         if not (len(self.lat) == len(self.lon) == len(self.data)):
             raise Exception("inputs are not the same dimensions!")
@@ -56,14 +60,16 @@ class nongrid_data():
         self.mid_lon = self.max_lon - self.min_lon / 2
         self.mid_lat = self.max_lat - self.min_lat / 2
 
-        self.utm_zone   = int(((self.mid_lon - 3 + 180) / 6) + 1)
-        if self.mid_lat < 0:
-            self.hemisphere = "S"
-        else:
-            self.hemisphere = "N"
+        self.utm_zone = int(((self.mid_lon - 3 + 180) / 6) + 1)
 
         # converts lat lon points to utmx and utmy points
-        self.utmx, self.utmy = LLtoUTM(self.lat, self.lon, self.utm_zone, self.hemisphere)
+        print("Converting to UTM coordinates")
+        utmx, utmy = LLtoUTM(self.lat, self.lon, self.utm_zone, self.hemisphere)
+
+        # sorts the data (transformed into utm space) by utmx
+        self.utmx = sorted(utmx)
+        self.utmy = [y for (x,y) in sorted(zip(utmx, utmy))]
+        self.data = [d for (x,d) in sorted(zip(utmx, self.data))]
 
         # find min and maximum utm coordinates
         self.min_utmx = numpy.min(self.utmx)
@@ -115,23 +121,37 @@ class nongrid_data():
         return dist
 
 
-    def _sample_by_location(self, utmx0, utmy0, resolution):
-        """ performs grid interpolation for a single location """
+    def _sample_by_location(self, utmx_matrix, utmy_matrix, resolution):
+        """
+        performs grid interpolation for a smaller subset of the total dataset.
+        utmx_matrix and utmy_matrix are the two components of a meshgrid
+        """
 
-        # find points in the dataset that are near the input x,y
+        # establish a sample distance
+        samp_dist = 4 * resolution
 
-        #
+        # further sort out values whos utmy coordinate is too far away.
+        print("\t Subsetting samples by y location...")
+        lowy = numpy.min(utmy_matrix) - samp_dist
+        highy = numpy.max(utmy_matrix) + samp_dist
 
+        # two steps, first is remove values blower than lowy
+        lowmask = numpy.where(numpy.array(self.utmy) > lowy)
+        subutmx_low = numpy.array(self.utmx)[lowmask]
+        subutmy_low = numpy.array(self.utmy)[lowmask]
+        subdata_low = numpy.array(self.data)[lowmask]
 
+        highmask = numpy.where(subutmy_low < highy)
+        subutmx = subutmx_low[highmask]
+        subutmy = subutmy_low[highmask]
+        subdata = subdata_low[highmask]
 
-        subutmx, subutmy, subdata = [(x, y, z) if self.distance_x_y(utmx0, utmy0, x, y) < (2 * resolution) else (None, None, None) \
-                                   for x,y,z in zip(self.utmx, self.utmy, self.data)]
+        print("\t Performing interpolation with {0} points...".format(len(subdata)))
 
         # create single point meshgrid and interpolate its value from nearby points
         points = (subutmx, subutmy)
-        meshgrid = numpy.mgrid(utmx0, utmy0)
+        meshgrid = (utmx_matrix, utmy_matrix)
         location_data_value = interpolate.griddata(points, subdata, meshgrid, method = "cubic")
-
         return location_data_value
 
 
@@ -141,15 +161,33 @@ class nongrid_data():
         resolution is the length of one square pixel on a side in meters.
         """
 
-        xrange = numpy.arange(self.min_utmx, self.max_utmx, resolution)
-        yrange = numpy.arange(self.min_utmy, self.max_utmy, resolution)
+        # build range arrays
+        x_range = list(numpy.arange(self.min_utmx, self.max_utmx, resolution))
+        y_range = list(numpy.arange(self.min_utmy, self.max_utmy, resolution))
 
-        outgrid = numpy.zeros((len(xrange), len(yrange)))
-        print outgrid.shape
-        print("griding dataset, this may take a while")
-        for xi, x in enumerate(xrange):
-            for yi, y in enumerate(yrange):
-                outgrid[x,y] = self._sample_by_location(x, y, resolution)
+        # build meshgrid
+        x_mesh, y_mesh = numpy.mgrid[self.min_utmx:self.max_utmx:complex(0,len(x_range)),
+                                     self.min_utmy:self.max_utmy:complex(0,len(y_range))]
+
+        print x_mesh.shape
+
+        # grid one slice at a time. where each slice is no more than 20000 locations
+        num_slices = int((len(x_range) * len(y_range)) / 20000)
+        slice_width = len(x_range) / float(num_slices)
+
+        outgrid = numpy.zeros((len(x_range), len(y_range)))
+
+        # perform griding for one slice of the output grid at a time.
+        print("Dividing dataset into {0} slices and griding to a matrix of size {1}".format(num_slices, outgrid.shape))
+        for slice in range(num_slices):
+            print("processing slice {0}".format(slice))
+            slice_x_mesh = x_mesh[:, int(slice * slice_width):int((slice + 1) * slice_width)]
+            slice_y_mesh = y_mesh[:, int(slice * slice_width):int((slice + 1) * slice_width)]
+
+            outslice = self._sample_by_location(slice_x_mesh, slice_y_mesh, resolution)
+            outgrid[:, int(slice * slice_width):int((slice + 1) * slice_width)] = outslice
+
+        print("100%")
 
         return outgrid
 
@@ -163,6 +201,6 @@ if __name__ == "__main__":
 
     ngd = nongrid_data(layer_data[2].ReadAsArray(),
                         layer_data[4].ReadAsArray(),
-                        layer_data[19].ReadAsArray())
+                        layer_data[19].ReadAsArray(), "S")
 
-    ngd.sample_by_grid(resolution = 10000)
+    ngd.sample_by_grid(resolution = 15000)

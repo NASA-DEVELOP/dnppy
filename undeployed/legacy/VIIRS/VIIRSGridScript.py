@@ -247,7 +247,7 @@ NeedForInterp=sampledict[SampleMethod]
 #For each band an output array is created
 #The output array is written by blocks of size "blockSize" by "blockSize".
 #The extent of these blocks correspond output grid coordinates.
-#Data points are retrieved from the input extract_HDF_layer that have lat longs that
+#Data points are retrieved from the input HDF that have lat longs that
 #fall within the extent of these blocks plus some slop.
 #These collected data points are then used to interpolate and
 #fill a block of the output array
