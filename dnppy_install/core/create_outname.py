@@ -46,7 +46,7 @@ def create_outname(outdir, inname, suffix, ext = False):
 
     # create the suffix
     if ext:
-        suffix = "_{0}.{1}".format(suffix,ext)
+        suffix = "_{0}.{1}".format(suffix, ext)
     else:
         ext = tail.split('.')[-1:]
         suffix = "_{0}.{1}".format(suffix, ''.join(ext))

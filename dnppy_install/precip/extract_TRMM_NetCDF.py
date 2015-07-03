@@ -1,24 +1,22 @@
+__author__ = ["jwely"]
+__all__ = ["extract_TRMM_NetCDF"]
 
 # dnppy imports
 from dnppy import core
 
 # arcpy imports
 import arcpy
-if arcpy.CheckExtension('Spatial')=='Available':
-    arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
-    arcpy.env.overwriteOutput = True
+arcpy.env.overwriteOutput = True
 
 
-def TRMM_NetCDF(filelist, outdir):
+def extract_TRMM_NetCDF(filelist, outdir):
 
     """
      Function converts NetCDFs to tiffs. Designed to work with TRMM data downloaded
      from GLOVIS
 
      inputs:
-       filelist    list of '.nc' files to conver to tifs.
+       filelist    list of '.nc' files to convert to tiffs.
        outdir      directory to which tif files should be saved
 
     returns an output filelist of local filepaths of extracted data.
@@ -34,13 +32,15 @@ def TRMM_NetCDF(filelist, outdir):
         
         # use arcpy module to make raster layer from netcdf
         arcpy.MakeNetCDFRasterLayer_md(infile, "r", "longitude", "latitude", "r", "", "", "BY_VALUE")
-        arcpy.CopyRaster_management("r", infile[:-3] + ".tif", "", "", "", "NONE", "NONE", "")
-        output_filelist.append(infile[:-3] + ".tif")
-        print('Converted netCDF file ' + infile + ' to Raster')
+        outname = core.create_outname(outdir, infile, "e", "tif")
+        arcpy.CopyRaster_management("r", outname, "", "", "", "NONE", "NONE", "")
+        output_filelist.append(outname)
+        print('Converted netCDF file ' + outname + ' to Raster')
 
     return output_filelist
+
 
 if __name__ == "__main__":
     afile = ""
     outdir = ""
-    TRMM_NetCDF(afile, outdir)
+    extract_TRMM_NetCDF(afile, outdir)
