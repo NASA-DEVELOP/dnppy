@@ -83,7 +83,6 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
         import pip
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
-        os.remove(path)
     return
 
 
