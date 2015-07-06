@@ -14,7 +14,10 @@ by fetching binaries from the dnppy release assets.
 import urllib
 import os
 import platform
+import time
 #import pip               installs pip, then imports it
+#import psutil            installs psutil, then imports it
+
 
 def get_pip():
     """ ensures pip is installed"""
@@ -34,6 +37,30 @@ def get_pip():
         import install_pip
         os.system("install_pip.py")
         os.remove("install_pip.py")
+    return
+
+
+def check_process_lock():
+    """
+    raises an exception if processes which may lock dependencies from being
+    upgraded are presently running
+    """
+    import psutil
+
+    # sleep two seconds before killing processes
+    time.sleep(2)
+
+    bad_list = ["ArcGIS", "ArcMap"]
+
+    for proc in psutil.process_iter():
+        try:
+            name = proc.name()
+            if any([k in name for k in bad_list]):
+                raise RuntimeError("Terminate {0} and try running setup again!".format(name))
+
+        except psutil.AccessDenied:
+            pass
+
     return
 
 
@@ -156,16 +183,21 @@ def main():
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"]}
 
-    pip_versions = {"wheel" : None,
-                    "requests": None,
+    pip_versions = {"wheel" : None,     # for installing other dependencies
+                    "requests": None,   # for better web interfacing
+                    "psutil": None      # for killing processes which might lock files we want to modify
                     }
 
-    # installs assets
+    # installs python packages with simple pip install
     for mod in pip_versions:
         get_mod_with_pip(mod, pip_versions[mod])
+
+    # checks for process that might lock files from modification
+    check_process_lock()
+
+    # installs modules from asset wheel files
     for mod in asset_order:
         get_mod_from_assets(mod, *assets[mod])
-
 
     # perform a check
     checks = {}
