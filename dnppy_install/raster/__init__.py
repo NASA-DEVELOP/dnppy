@@ -30,7 +30,8 @@ from project_resample import *
 from raster_fig import *
 from raster_overlap import *
 from spatially_match import *
-from temporal_fill import *
+from gap_fill_temporal import *
+from gap_fill_interpolate import *
 
 
 # this code will test the raster module
