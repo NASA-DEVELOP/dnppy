@@ -5,6 +5,7 @@ from LLtoUTM import *
 import numpy
 import math
 from scipy import interpolate
+import datetime
 
 class nongrid_data():
     """
@@ -128,31 +129,53 @@ class nongrid_data():
         """
 
         # establish a sample distance
-        samp_dist = 4 * resolution
+        samp_dist = abs(3 * resolution)
 
-        # further sort out values whos utmy coordinate is too far away.
-        print("\t Subsetting samples by y location...")
+        # sort out data that is too far from input grid points
+        print("\t Subsetting samples...")
+        lowx = numpy.min(utmx_matrix) - samp_dist
+        highx = numpy.max(utmx_matrix) + samp_dist
+
         lowy = numpy.min(utmy_matrix) - samp_dist
         highy = numpy.max(utmy_matrix) + samp_dist
 
-        # two steps, first is remove values blower than lowy
-        lowmask = numpy.where(numpy.array(self.utmy) > lowy)
-        subutmx_low = numpy.array(self.utmx)[lowmask]
-        subutmy_low = numpy.array(self.utmy)[lowmask]
-        subdata_low = numpy.array(self.data)[lowmask]
+        # remove low x points
+        lowxmask = numpy.where(numpy.array(self.utmx) > lowx)
+        subutmx = numpy.array(self.utmx)[lowxmask]
+        subutmy = numpy.array(self.utmy)[lowxmask]
+        subdata = numpy.array(self.data)[lowxmask]
 
-        highmask = numpy.where(subutmy_low < highy)
-        subutmx = subutmx_low[highmask]
-        subutmy = subutmy_low[highmask]
-        subdata = subdata_low[highmask]
+        # remove high x points
+        highxmask = numpy.where(subutmx < highx)
+        subutmx = subutmx[highxmask]
+        subutmy = subutmy[highxmask]
+        subdata = subdata[highxmask]
 
-        print("\t Performing interpolation with {0} points...".format(len(subdata)))
+        # remove low y points
+        lowymask = numpy.where(subutmy > lowy)
+        subutmx = subutmx[lowymask]
+        subutmy = subutmy[lowymask]
+        subdata = subdata[lowymask]
+
+        # remove high y points
+        #highymask = numpy.where(subutmy < highy)
+        #subutmx = subutmx[highymask]
+        #subutmy = subutmy[highymask]
+        #subdata = subdata[highymask]
+
+        print("\t Performing interpolation across {1} grid with {0} points...".format(
+                                            len(subdata), utmx_matrix.shape))
 
         # create single point meshgrid and interpolate its value from nearby points
         points = (subutmx, subutmy)
         meshgrid = (utmx_matrix, utmy_matrix)
-        location_data_value = interpolate.griddata(points, subdata, meshgrid, method = "cubic")
-        return location_data_value
+
+        if subdata.shape[0] != 0:
+            location_data_value = interpolate.griddata(points, subdata, meshgrid, method = "cubic")
+            return location_data_value
+        else:
+            return utmx_matrix * 0
+
 
 
     def sample_by_grid(self, resolution):
@@ -169,23 +192,31 @@ class nongrid_data():
         x_mesh, y_mesh = numpy.mgrid[self.min_utmx:self.max_utmx:complex(0,len(x_range)),
                                      self.min_utmy:self.max_utmy:complex(0,len(y_range))]
 
-        print x_mesh.shape
-
-        # grid one slice at a time. where each slice is no more than 20000 locations
-        num_slices = int((len(x_range) * len(y_range)) / 20000)
-        slice_width = len(x_range) / float(num_slices)
-
         outgrid = numpy.zeros((len(x_range), len(y_range)))
 
-        # perform griding for one slice of the output grid at a time.
-        print("Dividing dataset into {0} slices and griding to a matrix of size {1}".format(num_slices, outgrid.shape))
-        for slice in range(num_slices):
-            print("processing slice {0}".format(slice))
-            slice_x_mesh = x_mesh[:, int(slice * slice_width):int((slice + 1) * slice_width)]
-            slice_y_mesh = y_mesh[:, int(slice * slice_width):int((slice + 1) * slice_width)]
+        # divide into equal number of slices and chunks
+        num_slices = int(((len(x_range) * len(y_range)) / 800000) * (2 ** 0.5))
+        slice_width = len(x_range) / float(num_slices)
 
-            outslice = self._sample_by_location(slice_x_mesh, slice_y_mesh, resolution)
-            outgrid[:, int(slice * slice_width):int((slice + 1) * slice_width)] = outslice
+        num_chunks = num_slices
+        chunk_height = len(y_range) / float(num_chunks)
+
+        # perform griding for one slice of the output grid at a time.
+        print("Dividing dataset into {0} pieces and griding to a matrix of size {1}".format(
+                                                        num_slices * num_chunks, outgrid.shape))
+
+        for aslice in range(num_slices):
+            for chunk in range(num_chunks):
+
+                print("processing chunk {0},{1}".format(aslice + 1, chunk + 1))
+
+                chunkrange = slice(int(chunk * chunk_height),int((chunk + 1) * chunk_height))
+                slicerange = slice(int(aslice * slice_width),int((aslice + 1) * slice_width))
+                slice_x_mesh = x_mesh[chunkrange, slicerange]
+                slice_y_mesh = y_mesh[chunkrange, slicerange]
+
+                outslice = self._sample_by_location(slice_x_mesh, slice_y_mesh, resolution)
+                outgrid[chunkrange, slicerange] = outslice
 
         print("100%")
 
@@ -196,6 +227,7 @@ class nongrid_data():
 if __name__ == "__main__":
     from _extract_HDF_layer_data import *
 
+    start = datetime.datetime.now()
     rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\GDNBO-SVDNB_npp_d20150626_t0132557_e0138361_b18964_c20150626174428799822_noaa_ops.h5"
     layer_data = _extract_HDF_layer_data(rasterpath, [2, 4, 19])
 
@@ -203,4 +235,6 @@ if __name__ == "__main__":
                         layer_data[4].ReadAsArray(),
                         layer_data[19].ReadAsArray(), "S")
 
-    ngd.sample_by_grid(resolution = 15000)
+    ngd.sample_by_grid(resolution = 1000)
+    end = datetime.datetime.now()
+    print end - start
