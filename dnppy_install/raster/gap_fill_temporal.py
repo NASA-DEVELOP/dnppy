@@ -1,12 +1,16 @@
-__author__ = ["djjensen", "jwely"]
+__author__ = ["jwely", "djjensen"]
 __all__ = ["gap_fill_temporal"]
 
 import os
-import numpy as np
-from enf_rastlist import *
-from dnppy.raster import to_numpy, from_numpy
 
-def gap_fill_temporal(rasterlist, outdir = None):
+from dnppy import core
+from enf_rastlist import *
+from to_numpy import *
+from from_numpy import *
+from raster_fig import *
+
+
+def gap_fill_temporal(rasterlist, outdir = None, continuous = True,  NoData_Value = None):
     """
     This function is designed to input a time sequence of rasters with partial voids and
     output a copy of each input image with every pixel equal to the last good value taken.
@@ -18,66 +22,67 @@ def gap_fill_temporal(rasterlist, outdir = None):
     "5" at that location.
 
     Inputs:
-        rasterlist      a list of filepaths for rasters with which to fill gaps
-                            *the first item in this list will be the base raster
-                            **values will be filled based on the list's ordering
-                                (e.g. gap in raster 1 will first attempt to take the corresponding
-                                value from raster 2, then 3 if raster 2 also contains a gap there)
-        outdir          the path to the desired output folder
-                            *optional - left "None" by default
-                            **if left "None", the output tiff will be place in the same folder
-                                as the first input raster
+    :param rasterlist:  a list of filepaths for rasters with which to fill gaps. THESE IMAGES
+                        MUST BE ORDERED FROM OLDEST TO NEWEST (ascending time).
+    :param outdir:      the path to the desired output folder, if left "None", outputs will be
+                        saved right next to respective inputs.
+    :param continuous:  if "True" an output raster will be generated for every single input raster,
+                        which can be used to fill gaps in an entire time series. So, for example
+                        output raster 2 will have all the good points in input raster 2, with gaps
+                        filled with data from raster 1. output raster 3 will then be gap filled with
+                        output raster 2, which might contain some fill values from raster 1, and so
+                        forth. If "False" an output raster will only be generated for the LAST raster
+                        in the input rasterlist.
+
+    :returns            a list of filepaths to new files created by this function.
     """
 
     # enforce the list of rasters to ensure it's sanitized
     rasterlist = enf_rastlist(rasterlist)
 
     # create an empty list to store output arrays in
-    arr_list = []
+    output_filelist = []
 
-    # convert each raster in the input list to an array, and save its data to the list
-    for i, raster in enumerate(rasterlist):
-        item = rasterlist[i]
-        item_arr = to_numpy(item)
-        arr_list.append(item_arr[0].data)
+    # grab the first raster, then start stepping through the list
+    old_rast, old_meta = to_numpy(rasterlist[0])
+    rastfig = raster_fig(old_rast)
 
-    # convert the list to a numpy array
-    arr_list = np.array(arr_list)
+    for i, araster in enumerate(rasterlist[1:]):
 
-    # set the lists of ranges of values for each dimension of the output array
-    x_range = range(0, np.shape(arr_list)[2])
-    y_range = range(0, np.shape(arr_list)[1])
-    z_range = range(0, np.shape(arr_list)[0])
+        new_rast, new_meta = to_numpy(araster)
 
-    # pull out the first array to be edited
-    new_arr = arr_list[0]
+        # combine new and old data and mask matrices
+        outrast = new_rast
+        outrast.data[new_rast.mask] = old_rast.data[new_rast.mask]
+        outrast.mask[new_rast.mask] = old_rast.mask[new_rast.mask]
 
-    # loop through each x, y value
-    # if the first array's value at each location is "Not A Number",
-    # attempt to fill it with the corresponding value from the next array
-    # if no array has a corresponding value, it will be left as a "nan"
-    for i in y_range:
-        for j in x_range:
-            if  np.isnan(new_arr[i,j]) is True:
-                x = 1
-                while x <= z_range[-1]:
-                    if np.isnan(arr_list[x,i,j]) is False:
-                        new_arr[i,j] = arr_list[x,i,j]
-                        break
-                    x += 1
+        # only save output if continuous is true or is last raster in series
+        if continuous is True or i == (len(rasterlist[1:]) - 1):
 
-    # separate the filename from the first input array
-    inname = os.path.splitext(rasterlist[0])[0]
+            # create output name and save it
+            if outdir is None:
+                this_outdir = os.path.dirname(araster)
+            else:
+                this_outdir = outdir
 
-    # create an output name
-    if outdir is not None:
-        outdir = os.path.abspath(outdir)
-        name = "{0}_gapfilled.tif".format(os.path.split(inname)[1])
-        outname = os.path.join(outdir, name)
-    else:
-        outname = "{0}_gapfilled.tif".format(inname)
+            # update the figure
+            rastfig.update_fig(outrast)
 
-    # convert the edited array to a tiff
-    from_numpy(new_arr, item_arr[1], outname, "NoData")
+            outpath = core.create_outname(this_outdir, araster, "gft", "tif")
+            print("Filled gaps in {0}".format(os.path.basename(araster)))
+            from_numpy(outrast, new_meta, outpath, NoData_Value)
+            output_filelist.append(outpath)
 
-    return outname
+        # prepare for next time step by setting current to old
+        old_rast = new_rast
+
+    return output_filelist
+
+
+
+if __name__ == "__main__":
+    from null_set_range import *
+    rastdir = r"C:\Users\jwely\Desktop\troubleshooting\Bender_TX_data\2010-11"
+    rastlist = core.list_files(True, rastdir,["LST"], ["gft"])
+    outlist = gap_fill_temporal(rastlist)
+    null_set_range(outlist,low_thresh = -100)

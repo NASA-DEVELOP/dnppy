@@ -10,7 +10,7 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = None):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
     
-     this is just a wraper for the NumPyArrayToRaster function within arcpy. It is used in
+     this is just a wrapper for the NumPyArrayToRaster function within arcpy. It is used in
      conjunction with to_numpy to streamline reading image files in and out of numpy
      arrays. It also ensures that all spatial referencing and projection info is preserved
      between input and outputs of numpy manipulations.
@@ -36,8 +36,8 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = None):
     
     # save the output.
     if isinstance(numpy_rast, numpy.ma.core.MaskedArray):
-        mask = numpy.ma.getmask(numpy_rast)
-        data = numpy.ma.getdata(numpy_rast)
+        mask = numpy_rast.mask
+        data = numpy_rast.data
         data[mask] = metadata.NoData_Value
 
         OUT = arcpy.NumPyArrayToRaster(data, llcorner, metadata.cellWidth ,metadata.cellHeight)
