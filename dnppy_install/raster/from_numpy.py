@@ -2,6 +2,7 @@ __author__ = "jwely"
 __all__ = ["from_numpy"]
 
 import arcpy
+arcpy.env.overwriteOutput = True
 import numpy
 
 
