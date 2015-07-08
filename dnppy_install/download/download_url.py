@@ -15,10 +15,14 @@ def download_url(url, outname, username = None, password = None):
         os.makedirs(head)
 
     if "http" in url[:4]:
-        writefile   = open(outname, 'wb+')
         connection  = urllib.urlopen(url)
         page        = connection.read()
 
+        # escapes in the event of a 404 not found
+        if "404 Not Found" in page:
+            return
+
+        writefile   = open(outname, 'wb+')
         writefile.write(page)
         writefile.close()
         del connection
@@ -45,5 +49,10 @@ def download_url(url, outname, username = None, password = None):
     else:
         print("Unknown url protocol type, must be http or ftp")
 
-
     return
+
+if __name__ == "__main__":
+
+    url = "http://water.weather.gov/precip/p_download_new/2002/01/05/nws_precip_conus_20020105.nc"
+    outpath = r"C:\Users\jwely\Desktop\troubleshooting\test.nc"
+    download_url(url, outpath)
