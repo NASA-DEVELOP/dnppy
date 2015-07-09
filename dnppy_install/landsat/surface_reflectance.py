@@ -8,9 +8,9 @@ import numpy as np
 import math
 import os
 if arcpy.CheckExtension("Spatial") == "Available":
-        arcpy.CheckOutExtension("Spatial")
+    arcpy.CheckOutExtension("Spatial")
 else:
-        raise LicenseError
+    raise("You must enable arcpy spatial extension to use this function!")
 
 
 __all__ = ['surface_reflectance']      # complete
