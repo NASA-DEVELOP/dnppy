@@ -9,7 +9,7 @@ try: import arcpy
 except: pass
 
 
-def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
+def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = None):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)
     [http://e4ftl01.cr.usgs.gov/SRTM/]
@@ -17,8 +17,10 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
     This data can be used to create DEMS of a variety of resolutions.
 
     Inputs:
-        lat_lon_pairs   tupled integer values of lat,lon combinations.
-                        may be a list of tuples. (N positive, E positive)
+        ll_lat          latitude of lower left corner
+        ll_lon          longitude of lower left corner
+        ur_lat          latitude of upper right corner
+        ur_lon          longitude of upper right corner
         product         short name of product you want. See link below
                         https://lpdaac.usgs.gov/products/measures_products_table
         outdir          local directory to save downloaded files
@@ -28,12 +30,6 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
         tif_list        a list of all successfully downloaded tif filepaths
                         for further manipulation
 
-    Example:
-        lat_lons = [(37,-76), (37,-77)]    # Two tiles
-        prod = "SRTMGL3"                   #3 arc second DEM product)
-
-        download.fetch_SRTM(lat_lons, prod)
-
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
     turns out arcmap does some funky things when interpreting these files.
     """
@@ -41,8 +37,13 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
     # build empty return list
     tif_list = []
 
-    # sanitize input list
-    lat_lon_pairs = core.enf_list(lat_lon_pairs)
+    # build list of lat/lon pairs from input corners
+    lat_lon_pairs = []
+    for i in range(int(ll_lat), int(ur_lat + 1) + 1):
+        for j in range(int(ll_lon), int(ur_lon + 1) + 1):
+            lat_lon_pairs.append((i, j))
+
+    print lat_lon_pairs
 
     # determine product version
     if product is "SRTMGL30":
@@ -138,13 +139,8 @@ def fetch_SRTM(lat_lon_pairs, product, outdir = None, mosaic = None):
 
 if __name__ == "__main__":
 
-    testdir = r"C:\Users\Jeff\Desktop\metric_testing"
-    tiles = [(44, -118),(45, -118),(46, -118),(47, -118),
-             (44, -119),(45, -119),(46, -119),(47, -119),
-             (44, -120),(45, -120),(46, -120),(47, -120),
-             (44, -121),(45, -121),(46, -121),(47, -121),]
-
-    fetch_SRTM(tiles, "SRTMGL3", testdir, mosaic = True)
+    testdir = r"D:\dh_dev"
+    fetch_SRTM(44, -121, 47, -118, "SRTMGL3", testdir, mosaic = True)
 
 
 
