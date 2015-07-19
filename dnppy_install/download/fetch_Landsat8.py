@@ -74,9 +74,9 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
     """
 
     if bands is None:
-        bands = map(str,[1,2,3,4,5,6,7,8,9,10,11,"QA"])
+        bands = map(str, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "QA"])
     else:
-        bands = map(str,(core.enf_list(bands)))
+        bands = map(str, (core.enf_list(bands)))
 
     # create the scene name from the input parameters and use that to generate the scene's unique url
     connection = urllib.urlopen(amazon_url)
@@ -99,8 +99,13 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
             if good_band or mtl_file:
                 link     = amazon_url.replace("index.html",filename)
                 savename = os.path.join(outdir, tilename, filename)
-                download_url(link, savename)
+
+                # try twice, failures occur occasionally.
+                try:    download_url(link, savename)
+                except: download_url(link, savename)
+
                 print("\tDownloaded {0}".format(filename))
+
     return
 
 
@@ -133,9 +138,9 @@ def fetch_Landsat8_scene_list():
 
 if __name__ == "__main__":
 
-    outdir = r""
-    start = datetime.datetime(2015,5,22)
-    end   = datetime.datetime(2015,5,26)
-    path_row_pairs = ()
+    outdir = r"D:\dh_dev\WA_test_data\44_27"
+    start = datetime.datetime(2015, 5, 1)
+    end   = datetime.datetime(2015, 7, 18)
+    path_row_pairs = (44, 27)
 
-    fetch_Landsat8(path_row_pairs, start, end, outdir)
+    fetch_Landsat8(path_row_pairs, start, end, outdir, bands = [2, 3, 4, 5, 6, 7, 10, 11])

@@ -128,7 +128,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     if mosaic is True:
 
         arcpy.MosaicToNewRaster_management(tif_list, outdir, "SRTM_mosaic.tif",
-                                       number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
+                                           number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
 
     print("Finished download and extraction of SRTM data")
 
@@ -140,7 +140,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
 if __name__ == "__main__":
 
     testdir = r"D:\dh_dev"
-    fetch_SRTM(44, -121, 47, -118, "SRTMGL3", testdir, mosaic = True)
+    fetch_SRTM(44, -123, 47, -118, "SRTMGL1", testdir, mosaic = True)
 
 
 
