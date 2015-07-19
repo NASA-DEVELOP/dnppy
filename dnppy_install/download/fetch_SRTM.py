@@ -143,4 +143,3 @@ if __name__ == "__main__":
     fetch_SRTM(44, -123, 47, -118, "SRTMGL1", testdir, mosaic = True)
 
 
-
