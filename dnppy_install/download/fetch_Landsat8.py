@@ -100,11 +100,13 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
                 link     = amazon_url.replace("index.html",filename)
                 savename = os.path.join(outdir, tilename, filename)
 
-                # try twice, failures occur occasionally.
-                try:    download_url(link, savename)
-                except: download_url(link, savename)
-
-                print("\tDownloaded {0}".format(filename))
+                # try twice if filepath doesn't already exist
+                if not os.path.isfile(savename):
+                    try:    download_url(link, savename)
+                    except: download_url(link, savename)
+                    print("\tDownloaded {0}".format(filename))
+                else:
+                    print("\t Found {0}".format(filename))
 
     return
 
