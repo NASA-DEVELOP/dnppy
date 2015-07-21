@@ -30,7 +30,7 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = None):
 
     
     for filename in filelist:
-        if '.xml' in filename or not '.hdf' in filename:
+        if '.xml' in filename or '.ovr' in filename or not '.hdf' in filename:
             filelist.remove(filename)
             
     layerlist  = core.enf_list(layerlist)
