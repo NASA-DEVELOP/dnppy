@@ -1,4 +1,4 @@
-__author__ = 'Jwely'
+__author__ = 'jwely'
 
 __all__ = ["fetch_AIRS"]
 
