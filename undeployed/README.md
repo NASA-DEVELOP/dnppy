@@ -1,4 +1,4 @@
-This folder holds code that is packaged with dnppy for good record keeping, but is NOT installed with the module. There are two folders within.
+This folder holds code that is packaged with dnppy for good record keeping, but is NOT installed with the module. There are a few different categories that code like this falls within, and it is organized as such.
 
 ####/subjects
 This repository is filled with unstructured code that could be usefull to refactor and add to the dnppy framework
