@@ -10,19 +10,19 @@ from raster_fig import raster_fig
 # other imports
 import numpy
 import os
-import time
 
-def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
-                                low_thresh = None, high_thresh = None, numtype = 'float32'):
+def many_stats(rasterlist, outdir, outname, saves = None, low_thresh = None,
+                    high_thresh = None, numtype = 'float32', NoData_Value = -9999):
     """
-    Take statitics across many input rasters
+    Take statistics across many input rasters
     
      this function is used to take statistics on large groups of rasters with identical
      spatial extents. Similar to Rolling_Raster_Stats
 
      Inputs:
         rasterlist      list of raster filepaths for which to take statistics
-        outdir          Directory where output should be stored.
+        outdir          directory where output should be stored.
+        outname         output name filename string that will be used in output filenames
         saves           which statistics to save in a raster. In addition to the options
                         supported by 
                            
@@ -32,6 +32,8 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
         numtype         type of numerical value. defaults to 32bit float.
     """
 
+    if saves is None:
+        saves = ['AVG','NUM','STD','SUM']
     if not os.path.isdir(outdir):
         os.makedirs(outdir)
     
@@ -65,9 +67,9 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
             new_rast[new_rast == new_meta.NoData_Value] = metadata.NoData_Value
             
         # set values outside thresholds to nodata values
-        if not low_thresh == None:
+        if not low_thresh is None:
             new_rast[new_rast < low_thresh] = metadata.NoData_Value
-        if not high_thresh == None:
+        if not high_thresh is None:
             new_rast[new_rast > high_thresh] = metadata.NoData_Value
 
         new_rast = numpy.ma.masked_array(new_rast, numpy.isnan(new_rast))
@@ -77,8 +79,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
 
         rast_3d[:,:,i] = new_rast
 
-
-    # build up our statistics by masking nan values and performin matrix opperations
+    # build up our statistics by masking nan values and performing matrix operations
     rastfig.close_fig()
     rast_3d_masked  = numpy.ma.masked_array(rast_3d, numpy.isnan(rast_3d))
 
@@ -89,7 +90,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
 
         avg_name = core.create_outname(outdir, outname, 'AVG', 'tif')
         print("Saving AVERAGE output raster as {0}".format(avg_name))
-        from_numpy(avg_rast, metadata, avg_name)
+        from_numpy(avg_rast, metadata, avg_name, NoData_Value = NoData_Value)
         rastfig.close_fig()
         del avg_rast
 
@@ -100,7 +101,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
 
         std_name = core.create_outname(outdir, outname, 'STD', 'tif')
         print("Saving STANDARD DEVIATION output raster as {0}".format(std_name))
-        from_numpy(std_rast, metadata, std_name)
+        from_numpy(std_rast, metadata, std_name, NoData_Value = NoData_Value)
         rastfig.close_fig()
         del std_rast
         
@@ -112,7 +113,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
 
         num_name = core.create_outname(outdir, outname, 'NUM', 'tif')
         print("Saving NUMBER output raster as {0}".format(num_name))
-        from_numpy(num_rast, metadata, num_name)
+        from_numpy(num_rast, metadata, num_name, NoData_Value = NoData_Value)
         rastfig.close_fig()
         del num_rast
 
@@ -124,7 +125,7 @@ def many_stats(rasterlist, outdir, outname, saves = ['AVG','NUM','STD','SUM'],
 
         sum_name = core.create_outname(outdir, outname, 'SUM', 'tif')
         print("Saving NUMBER output raster as {0}".format(sum_name))
-        from_numpy(sum_rast, metadata, sum_name)
+        from_numpy(sum_rast, metadata, sum_name, NoData_Value = NoData_Value)
         rastfig.close_fig()
         del sum_rast
                    
