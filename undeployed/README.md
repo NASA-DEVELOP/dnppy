@@ -1,3 +1,7 @@
-NASA DEVELOP project teams contribute specialized code to this directory. Project code is evaluated for its general applicability to the larger dnppy framework and is refactored and deployed on a case by case basis. 
+This folder holds code that is packaged with dnppy for good record keeping, but is NOT installed with the module. There are two folders within.
 
-Code in this directory should be functional, but may have a very narrow focus and lack scalability. This directory is NOT included in the install package, and should NOT be referenced by any deployed code, though it is expected most code in this folder will be dnppy dependent.
+#subjects
+This repository is filled with unstructured code that could be usefull to refactor and add to the dnppy framework
+
+#proj_code
+NASA DEVELOP project teams contribute specialized code to this directory. Project code is evaluated for its generality and moved up to the subjects folder, then into dnppy if some generalization is possible. Code in this directory may have a very narrow focus on the needs of the project partners and lack scalability. 
