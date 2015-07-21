@@ -1,18 +1,18 @@
-﻿# dnppy
+﻿### dnppy (The DEVELOP National Program Python Package)
 
-###Overview
-DEVELOP National Program Python Package (`dnppy`)
+####Overview
+ (`dnppy`) is a python package for the download, extraction, conversion, and analysis of NASA and NOAA earth observation data. It includes several modules to ease handling and analysis of common raster datatypes such as Landsat, MODIS, GPM, TRMM, ASTER, SRTM, and text datatypes such as weather records.
 
-This collection of python modules serves as a living codebase
-for the DEVELOP National Program. Teams in the DEVELOP program increasingly find themselves using some level of programming to manipulate project data. Most of the time, this data manipulation is performed in Python. The DEVELOP Python package, referred to as “dnppy” (pronounced "done-py" as it uses Python to get the job done) was created to improve institutional knowledge retention, open the DEVELOP toolkit for public contributions and use, represent DEVELOP in the public domain, and put more power in the hands of new participants the first day the walk into the program. It is a social media, programming capacity building, and educational endeavor.
+
+This collection of python modules also serves as a living codebase for the DEVELOP National Program. dnppy was created to improve institutional knowledge retention, open the DEVELOP toolkit for public contributions and use, represent DEVELOP in the public domain, and put more power in the hands of new participants the first day the walk into the program. It is a social media, programming capacity building, and educational endeavor. Code specifically pertinent to our past project partners can be found in the `/undeployed/proj_code` folder.
 
 For more information about the NASA DEVELOP program and the projects teams conduct 
 utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
 
-####Instalation
+#####Instalation
 Run `setup.py` 
 
-####Dependencies
+#####Dependencies
 
 Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
 
