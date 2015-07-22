@@ -13,7 +13,6 @@ __author__ = ["jwely, jeff.ely.08@gmail.com",
 
 # local imports
 from create_outname import *
-from enf_featlist import *
 from enf_filelist import *
 from enf_list import *
 from exists import *
