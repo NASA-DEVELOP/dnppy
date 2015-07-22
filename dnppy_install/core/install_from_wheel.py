@@ -8,28 +8,28 @@ import os
 __all__ = ["install_from_wheel"]
 
 
-def install_from_wheel(filepath_to_wheel_file):
+def install_from_wheel(whl_filepath):
     """
     This script can be used to add python libraries to the arcmap
-    installation of python from wheelfiles. A great source of wheelfiles
-    can be found here
+    installation of python from wheel files. A great source of wheel files
+    can be found at [http://www.lfd.uci.edu/~gohlke/pythonlibs/]
 
-    http://www.lfd.uci.edu/~gohlke/pythonlibs/
+    :param whl_filepath: the full local filepath to a downloaded wheel file.
 
-    simply use
+    Example:
         from dnppy import core
         filepath = r"C:\mydirectory\some_wheelfyle.whl"
         core.install_from_wheel(filepath)
     """
 
-    head, tail = os.path.split(filepath_to_wheel_file)
+    head, tail = os.path.split(whl_filepath)
 
     py_architecture = platform.architecture()[0]
     py_version = "".join(map(str,sys.version_info[0:2]))
 
     # make sure the wheel file appears to be the correct version
     if py_architecture in tail and py_version in tail:
-        pip.main(["install", filepath_to_wheel_file])
+        pip.main(["install", whl_filepath])
     else:
         if py_architecture == "64bit":
             ending = "_amd64.whl"

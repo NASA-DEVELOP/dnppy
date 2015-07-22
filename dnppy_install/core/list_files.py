@@ -5,34 +5,32 @@ from exists import exists
 from enf_list import enf_list
 
 
-def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
-
+def list_files(recursive, Dir, Contains = None, DoesNotContain = None):
     """
     Simple file listing function with more versatility than python builtins or arcpy.List
 
-     This function sifts through a directory and returns a list of filepaths for all files
-     meeting the input criteria. Useful for discriminatory iteration or recursive searches.
-     Could be used to find all tiles with a given datestring such as 'MOD11A1.A2012', or
-     perhaps all Band 4 tiles from a directory containing landsat 8 data.
+    This function sifts through a directory and returns a list of filepaths for all files
+    meeting the input criteria. Useful for discriminatory iteration or recursive searches.
+    Could be used to find all tiles with a given datestring such as 'MOD11A1.A2012', or
+    perhaps all Band 4 tiles from a directory containing landsat 8 data.
 
-     Inputs:
-           recursive       'True' if search should search subfolders within the directory
+    :param recursive:      'True' if search should search subfolders within the directory
                            'False' if search should ignore files in subfolders.
-           Dir             The directory in which to search for files meeting the criteria
-           Contains        search criteria to limit returned file list. File names must
-                           contain parameters listed here. If no criteriaexists use 'False'
-           DoesNotContain  search criteria to limit returned file list. File names must not
-                           contain parameters listed here. If no criteriaexists use 'False'
-     Outputs:
-           filelist        An array of full filepaths meeting the criteria.
+    :param Dir:             The directory in which to search for files meeting the criteria
+    :param Contains:        search criteria to limit returned file list. File names must
+                            contain parameters listed here. If no criteria exists use 'False'
+    :param DoesNotContain:  search criteria to limit returned file list. File names must not
+                            contain parameters listed here. If no criteria exists use 'False'
 
-     Example Usage:
-           from dnppy import core
-           filelist = core.list_files(True,r'E:\Landsat7','B1',['gz','xml','ovr'])
+    :return filelist:        An array of full filepaths meeting the criteria.
 
-           The above statement will find all the Band 1 tifs in a landsat data directory
-           without including the associated metadata and uncompressed gz files.
-           "filelist" variable will contain full filepaths to all files found.
+    Example Usage:
+        from dnppy import core
+        filelist = core.list_files(True,r'E:\Landsat7', 'B1', ['gz','xml','ovr'])
+
+        The above statement will find all the Band 1 tifs in a landsat data directory
+        without including the associated metadata and uncompressed gz files.
+        output filelist variable will contain full filepaths to all files found.
     """
 
     # import modules and set up empty lists
@@ -81,7 +79,7 @@ def list_files(recursive, Dir, Contains = False, DoesNotContain = False):
                             if i in basename:
                                 templist.append(filename)
                         # if the entire array of 'Contains' terms were found, add to list
-                        if len(templist)==len(Contains):
+                        if len(templist) == len(Contains):
                             filelist.append(filename)
                         templist=[]
 

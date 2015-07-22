@@ -4,26 +4,24 @@ import os
 from exists import exists
 
 
-def rename(filename, replacethis, withthis):
+def rename(filename, replace_this, with_this):
     """
-    Simply renames files
+    renames a file
 
-     Inputs:
-       filename        input file to rename
-       replacethis     String to be replaced. such as " " (a space)
-       withthis        What to replace the string with. such as "_" (an underscore)
+    :param filename:        input file to rename
+    :param replace_this:    string to be replaced. such as " " (a space)
+    :param with_this:       what to replace the string with. such as "_" (an underscore)
 
-     Outputs:
-           newfilename     returns the new name of the renamed file.
+    :return newfilename:    the new name of the file.
      """
 
-    if replacethis in filename:
+    if replace_this in filename:
 
-        # make sure the filenameexists
+        # make sure the filename exists
         exists(filename)
 
         # define a new filename
-        newfilename = filename.replace(replacethis, withthis)
+        newfilename = filename.replace(replace_this, with_this)
 
         # rename the file
         os.rename(filename,newfilename)

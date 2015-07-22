@@ -3,7 +3,12 @@ __author__ = 'jwely'
 import os, shutil
 
 def move(source, destination):
-    """Moves a file"""
+    """
+    moves a file
+
+    :param source:      the current full location of the file
+    :param destination:  the desired full location of the file
+    """
 
     dest_path, name = os.path.split(destination)
 
