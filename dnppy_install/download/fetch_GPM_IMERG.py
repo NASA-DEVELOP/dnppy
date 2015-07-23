@@ -1,5 +1,5 @@
 __author__ = ['jwely']
-
+__all__ = ["fetch_GPM_IMERG"]
 
 from list_ftp import list_ftp
 from download_url import download_url
@@ -7,24 +7,21 @@ from download_url import download_url
 from datetime import datetime, timedelta
 import os
 
-__all__ = ["fetch_GPM_IMERG"]
-
 def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1day"):
-
     """
     Fetches 30 minute resolution GPM IMERG data from an ftp server. Several restrictions exist
     for this relatively new dataset, please read in the input section carefully.
 
        http://pps.gsfc.nasa.gov/Documents/GPM_Data_Info_140616.pdf
 
-     Input:
+    Input:
        start_dto    datetime object for starting time of study boundary
        end_dto      datetiem object for ending time of study boundary
        outdir       output directory to save the data
        product      either "early" , "late" or "final" for full HDF5 data stacks of the respective runs,
                     which are all at 30minute resolutions. OR product can be set equal to "gis"
                     (default) to find only tif averages of the precipitation estimates. This gis
-                    tif data is only provided for data less than one year old.
+                    tif data is ONLY provided for data less than one year old.
        time_res     if "product"  is set to "gis", specify what time average period you want. options
                     are "30min", "3hr", "1day", "3day", "7day". Defaults to "1day"
 
@@ -109,11 +106,11 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
 if __name__ == "__main__":
 
-    start_dto = datetime(2015, 4, 2)
-    end_dto   = datetime(2015, 4, 3)
-    testdir   = r"C:\Users\Jeff\Desktop\GPM_testing"
+    start = datetime(2015, 4, 2)
+    end   = datetime(2015, 4, 3)
+    testdir = r"C:\Users\Jeff\Desktop\GPM_testing"
 
     prod = "late"
     time = "3day"
 
-    download_list = fetch_GPM_IMERG(start_dto, end_dto, testdir, product = prod, time_res = time)
+    dlist = fetch_GPM_IMERG(start, end, testdir, product = prod, time_res = time)
