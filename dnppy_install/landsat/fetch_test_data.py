@@ -96,10 +96,10 @@ def landsat_8_scene(path, row, year, day, outdir):
     while i <= 11:
         filename = "{0}{1}_B{2}.TIF".format(url,name,i)
         urls_dl.append(filename)
-        i = i + 1
-    BQA = url + name + "_BQA.TIF"
+        i += 1
+    BQA = "{0}{1}_BQA.TIF".format(url, name)
     urls_dl.append(BQA)
-    meta = url + name + "_MTL.txt"
+    meta = "{0}{1}_MTL.txt".format(url, name)
     urls_dl.append(meta)
 
     #download urls to the output directory
@@ -159,8 +159,7 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
 
     #loop through the scene list
     #if the date for the given path/row scene is within the date range, download it with landsat_8_scene
-    x = 1
-    for line in content:
+    for x in range(1, len(content)):
         year = int(content[x][22:26])
         month = int(content[x][27:29])
         day = int(content[x][30:32])
@@ -170,7 +169,6 @@ def landsat_8_series(path, row, start_date, end_date, outdir):
             if date >= start_dtdate and date <= end_dtdate:
                 jday = content[x][13:16]
                 landsat_8_scene(path_str, row_str, year, jday, outdir)
-        x = x + 1
         if date > end_dtdate:
             break
 
