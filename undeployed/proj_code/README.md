@@ -11,7 +11,7 @@ Upon creation of a final code deliverable, perform the following tasks.
  * A brief description of this folders content and how it was used in meeting the projects objectives.
  * How to run the code, and the order in which scripts are executed or processes were run, if applicable.
  * The dependencies and packages required to run the scripts including versions. (ex: dnppy, gdal, scipy, matplotlib)
-5. zip the folder containing this file up and send it to the geoinformatics point of contact. It will then be made available through the develop github account for download by the public.
+5. zip the folder containing this file up and send it to the geoinformatics point of contact. It will then be made available right here on github for download and reference by the public.
 
 
 Do not include any non-text files in this folder! This means no sample raster data or extensive shapefiles. Your whole zipped folder should be only a few kilobytes in size.
