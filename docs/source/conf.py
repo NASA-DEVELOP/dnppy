@@ -297,10 +297,10 @@ texinfo_documents = [
 # -- Options for Epub output ----------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = project
-epub_author = author
-epub_publisher = author
-epub_copyright = copyright
+epub_title = u'dnppy'
+epub_author = u'Jeff Ely'
+epub_publisher = u'Jeff Ely'
+epub_copyright = u'2015, Jeff Ely'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = project
@@ -362,3 +362,8 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 #epub_use_index = True
+
+
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'http://docs.python.org/': None}
