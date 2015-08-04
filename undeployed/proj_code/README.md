@@ -1,4 +1,4 @@
-Code in this direcory may have utility for specific DEVELOP project partners. Each folder will be named according to 
+Code in this directory may have utility for specific DEVELOP project partners. Each folder will be named according to
 `Year_Term_Node_ProjectShortTitle` such as `2015_Spring_LaRC_VA_agriculture`. 
 
 
