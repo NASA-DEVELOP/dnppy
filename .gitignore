@@ -2,3 +2,4 @@
 .idea/
 *.whl
 *dnppy_stat_report.txt
+docs/build

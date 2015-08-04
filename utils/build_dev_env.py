@@ -1,12 +1,13 @@
 __author__ = 'jwely'
 
+import pip
+
 def build_dev_env():
     """
     builds the development environment used to create autodocs through
     sphinx.
     """
 
-    import pip
     got_sphinx = pip.main(["install","sphinx"])
     got_graphviz = pip.main(["install","graphviz"])
 
@@ -15,10 +16,6 @@ def build_dev_env():
         print("Modules ready!, ensure '{0}' is added to your PATH variable to continue!".format(path))
 
 
-def main():
-    build_dev_env()
-
-
 if __name__ == "__main__":
-    main()
+    build_dev_env()
 
