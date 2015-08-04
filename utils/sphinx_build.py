@@ -24,10 +24,10 @@ def build_sphinx():
     # assemble filepaths
     sphinx_path = pip.__file__.replace("lib\\site-packages\\pip\\__init__.pyc",
                                        "Scripts\sphinx-build.exe")
-    source_path = __file__.replace("utils/build_dev_env.py","docs/source")
+    source_path = __file__.replace("utils/sphinx_build.py","docs/source")
 
     # assemble the command and write it to a file
-    with open("make_html.bat","w+") as f:
+    with open("make_html.bat", "w+") as f:
         bat_txt = "{0} -b html {1} ../../docpage".format(sphinx_path, source_path)
         f.write(bat_txt)
 
