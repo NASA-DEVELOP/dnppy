@@ -23,7 +23,7 @@ Contents:
     overview
     structure
     installation
-    tutorial
+    nowwhat
 
 .. toctree::
     :caption: Examples by Module
