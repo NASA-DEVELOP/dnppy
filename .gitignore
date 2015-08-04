@@ -1,4 +1,4 @@
 *.pyc
 .idea/
 *.whl
-dnppy_stat_report.txt
+*dnppy_stat_report.txt
