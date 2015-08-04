@@ -38,10 +38,6 @@ def enf_filelist(filelist, extension = None):
         new_filelist = filelist
 
     if extension is not None:
-
-        for new_file in new_filelist:
-
-            if extension not in new_file:
-                new_filelist.remove(new_file)
+        new_filelist = [new_file for new_file in new_filelist if extension in new_filelist]
 
     return new_filelist
