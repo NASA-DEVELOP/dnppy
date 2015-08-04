@@ -2,4 +2,5 @@
 .idea/
 *.whl
 *dnppy_stat_report.txt
+*make_html.bat
 docs/build
