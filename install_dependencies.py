@@ -14,7 +14,6 @@ by fetching binaries from the dnppy release assets.
 import urllib
 import os
 import platform
-import time
 #import pip               installs pip, then imports it
 #import psutil            installs psutil, then imports it
 
@@ -37,7 +36,6 @@ def get_pip():
         import install_pip
         os.system("install_pip.py")
         os.remove("install_pip.py")
-    return
 
 
 def check_process_lock():
@@ -46,9 +44,6 @@ def check_process_lock():
     upgraded are presently running
     """
     import psutil
-
-    # sleep two seconds before killing processes
-    time.sleep(2)
 
     bad_list = ["ArcGIS", "ArcMap"]
 
@@ -61,12 +56,10 @@ def check_process_lock():
         except psutil.AccessDenied:
             pass
 
-    return
-
 
 def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     """
-    function for installing python packages from wheel files hosted in dnppys assets
+    function for installing python packages from wheel files hosted in dnppy's assets
 
     :param module_name:         name of the module
     :param version:             version, use None if no version is preferred
@@ -76,20 +69,9 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     """
 
     # determine if the module is already good or not
-    try:
-        module = __import__(module_name)
+    isready = check_mod(module_name, version)
 
-        if version is not None:
-            if module.__version__ == version:
-                isready = True
-            else:
-                isready = False
-        else:
-            isready = True
-    except:
-        isready = False
-
-    if isready is False:
+    if not isready:
         print("gathering {0} assets".format(module_name))
 
         # determine if python running is 32 or 64 bit
@@ -98,22 +80,21 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
         else:
             dlurl = wheel32link
 
-        # write the file right next to this setupfile
-        with open(os.path.basename(dlurl),"wb+") as f:
+        # write the file right next to this setup file
+        with open(os.path.basename(dlurl), "wb+") as f:
             connection = urllib.urlopen(dlurl)
             page = connection.read()
             f.write(page)
             f.close()
             del connection
 
-        # now use pip to install the gdal wheel file
+        # now use pip to install the wheel file
         import pip
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
-    return
 
 
-def get_mod_with_pip(modulename, version = None):
+def get_mod_with_pip(module_name, version = None):
     """
     attempts pip install of all dependencies in the input list of
     tupled package names and version numbers (package, version).
@@ -121,30 +102,29 @@ def get_mod_with_pip(modulename, version = None):
     """
 
     try:
-        newmodule = __import__(modulename)
+        newmodule = __import__(module_name)
 
     except:
         import pip
 
         if version is not None:
-            pip.main(["install", modulename + "==" + version])
+            pip.main(["install", module_name + "==" + version])
         else:
-            pip.main(["install", modulename])
-    return
+            pip.main(["install", module_name])
 
 
-def check_mod(modulename, version = None):
+def check_mod(module_name, version = None):
     """
     returns true if module of input version can be imported
     """
 
     try:
-        newmodule = __import__(modulename)
+        new_module = __import__(module_name)
     except:
         return False
 
     if version is not None:
-        if newmodule.__version__ == version:
+        if new_module.__version__ == version:
             return True
         else:
             return False
@@ -170,7 +150,7 @@ def main():
     assets = {"cython":[None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win32.whl"],
-              "scipy":[None,
+              "scipy": [None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win_amd64.whl",
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win32.whl"],
               "gdal" : [None,
