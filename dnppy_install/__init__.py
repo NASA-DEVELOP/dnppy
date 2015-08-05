@@ -5,7 +5,7 @@ as part of NASA DEVELOP Projects.
 Please consult the dnppy git wiki for further use instructions!
 """
 
-# dnppy version info
+# dnppy version. follows [major revision].[year].[minor revision]
 __version__= "1.15.2"
 
 # author list
@@ -16,7 +16,7 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
               "Scott Baron"]
 
 
-# prevents module import issues durring installation.
+# prevents module import issues during installation.
 if not __name__ == "dnppy_install":
 
     #from test import *

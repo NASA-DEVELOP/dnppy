@@ -61,7 +61,7 @@ This package is still early in its life, and supports a small fraction of the NA
 
 Special thanks to Geoinformatics Fellow team of 2015: Daniel Jensen, Lance Watkins, Amber Brooks
 
-- `Jeff Ely`_, August 2015
+`Jeff Ely`_, August 2015
 
 .. _NASA DEVELOP National Program: http://develop.larc.nasa.gov/
 .. _Jeff Ely: https://github.com/Jwely
