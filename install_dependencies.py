@@ -181,11 +181,18 @@ def main():
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"],
               "h5py":  [None,
                         "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"]}
+                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"],
+              "pycurl": [None,
+                         "https://github.com/nasa/dnppy/releases/download/1.15.2/pycurl-7.19.5.1-cp27-none-win_amd64.whl",
+                         "https://github.com/nasa/dnppy/releases/download/1.15.2/pycurl-7.19.5.1-cp27-none-win32.whl"],
+              "shapely":[None,
+                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Shapely-1.5.9-cp27-none-win_amd64.whl",
+                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Shapely-1.5.9-cp27-none-win32.whl"]}
 
     pip_versions = {"wheel" : None,     # for installing other dependencies
                     "requests": None,   # for better web interfacing
-                    "psutil": None      # for killing processes which might lock files we want to modify
+                    "psutil": None,     # for killing processes which might lock files we want to modify
+                    "urllib3": None,    # magical url library
                     }
 
     # installs python packages with simple pip install
