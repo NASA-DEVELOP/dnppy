@@ -31,6 +31,9 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
     :returns:   A list of tilenames downloaded by this function.
     """
 
+    # fetch an updated scene list with custom function.
+    scene_list = fetch_Landsat8_scene_list()
+
     path_row_pairs = core.enf_list(path_row_pairs)
     output_tilenames = []
 
@@ -39,9 +42,6 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
         path, row = path_row_pair
         path_str  = str(path).zfill(3)
         row_str   = str(row).zfill(3)
-
-        # fetch an updated scene list with custom function.
-        scene_list = fetch_Landsat8_scene_list()
 
         # loop through the scene list
         # if the date for the given path/row scene is within the date range, download it with landsat_8_scene
