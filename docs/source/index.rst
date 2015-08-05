@@ -21,7 +21,7 @@ Contents:
     :maxdepth: 2
 
     overview
-    structure
+    design
     installation
     nowwhat
 
