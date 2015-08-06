@@ -51,11 +51,11 @@ def build_sphinx():
     # assemble filepaths
     sphinx_path = pip.__file__.replace("lib\\site-packages\\pip\\__init__.pyc",
                                        "Scripts\sphinx-build.exe")
-    source_path = __file__.replace("utils/sphinx_build.py","docs/source")
+    source_path = __file__.replace("dev/sphinx_build.py","docs/source")
 
 
     # build in the local docs/build folder
-    dest_path1  = __file__.replace("utils/sphinx_build.py","docs/build")
+    dest_path1  = __file__.replace("dev/sphinx_build.py","docs/build")
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path1)
         f.write(line1)

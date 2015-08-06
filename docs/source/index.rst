@@ -9,9 +9,9 @@ Welcome to the dnppy documentation page!
 
 The DEVELOP national program python package (``dnppy``) is as a living codebase for the `NASA DEVELOP National Program`_, our project partners, and the GIS programming community! DEVELOP is under NASA's "Capacity Building" program, and functions to educate its participants and its partners in earth science and remote sensing. Viewers will notice a very instructional approach to both user and developer documentation within these pages. ``dnppy`` was created to improve institutional knowledge retention, open the DEVELOP toolkit for public contributions and use, represent DEVELOP in the public domain, and put more power in the hands of new participants the first day the walk into the program. It is a social media, programming capacity building, and educational endeavor.
 
-=========
-Contents:
-=========
+========
+Contents
+========
 
 .. toctree::
     :caption: Getting Started
@@ -21,6 +21,19 @@ Contents:
     install
     design
     whatnow
+
+.. toctree::
+    :caption: Modules
+    :maxdepth: 2
+
+    modules/convert
+    modules/core
+    modules/download
+    modules/landsat
+    modules/modis
+    modules/raster
+    modules/solar
+    modules/time_series
 
 .. toctree::
     :caption: Development

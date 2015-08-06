@@ -11,6 +11,7 @@ functional format
 At heart, ``dnppy`` is a simple collection of classes and functions. Wherever possible, these functions are designed such that they can be assembled in simple "building block" style sequence to perform manipulation and analysis on many files, typically raster data from a NASA sensor. This approach makes otherwise complex programming tasks more accessible to novice programmers, and provides context for learning more foundational computer programming.
 
 Many of the user oriented functions in dnppy are usually defined similar to the following:
+
 .. code-block:: python
 
     def foo(input_filelist, other_argument):
