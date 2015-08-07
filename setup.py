@@ -96,35 +96,29 @@ def setup():
 def test_setup():
     """ returns True if all modules of dnppy import properly"""
 
-    try:
-        # ensure every module imports OK
-        print("convert")
-        from dnppy import convert
-        print("core")
-        from dnppy import core
-        print("download")
-        from dnppy import download
-        print("landsat")
-        from dnppy import landsat
-        print("modis")
-        from dnppy import modis
-        print("radar")
-        from dnppy import radar
-        print("raster")
-        from dnppy import raster
-        print("solar")
-        from dnppy import solar
-        print("test")
-        from dnppy import test
-        print("textio")
-        from dnppy import textio
-        print("time_series")
-        from dnppy import time_series
-        return True
+    # ensure every module imports OK
+    print("convert")
+    from dnppy import convert
+    print("core")
+    from dnppy import core
+    print("download")
+    from dnppy import download
+    print("landsat")
+    from dnppy import landsat
+    print("modis")
+    from dnppy import modis
+    print("radar")
+    from dnppy import radar
+    print("raster")
+    from dnppy import raster
+    print("solar")
+    from dnppy import solar
+    print("textio")
+    from dnppy import textio
+    print("time_series")
+    from dnppy import time_series
+    return True
 
-    except ImportError:
-        print("failed!")
-        return False
 
 
 def main():
