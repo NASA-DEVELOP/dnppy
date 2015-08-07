@@ -131,7 +131,7 @@ def main():
     """ main function for installing dnppy """
 
     print("====================================================================")
-    print("   Setting up dnnpy! the DEVELOP National Program python package!")
+    print("   Setting up dnppy! the DEVELOP National Program python package!")
     print("====================================================================")
 
     print("\nseting up dependencies")
