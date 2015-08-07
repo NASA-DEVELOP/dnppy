@@ -33,30 +33,30 @@ Each of the distinct directives results in a few different directories within dn
         \dev
 
 
-.. rubric:: \dnppy_install
+.. rubric:: \\dnppy_install
 
 Contains each module of dnppy which is installed on setup. Read more about the modules on the modules page
 
-.. rubric:: \docs
+.. rubric:: \\docs
 
 The folder containing the source rst files used to automatically generate this doc website
 
-.. rubric:: \undeployed
+.. rubric:: \\undeployed
 
 This folder holds code that is packaged with dnppy for good record keeping, but is NOT installed with the module. There are a few different categories that code like this falls within, and it is organized as such.
 
-.. rubric::     \legacy
+.. rubric:: \\legacy
 
 This is old python code from before our days of configuration management that might have very useful snippets to pull into dnppy_install.
 
-.. rubric::     \proj_code
+.. rubric:: \\proj_code
 
 NASA DEVELOP project teams contribute specialized code to this directory for access by project partners. Project code is evaluated for its generality and moved up to the subjects folder, then into dnppy if some generalization is possible. Code in this directory may have a very narrow focus on the needs of the project partners and lack scalability, but may have utility for specific users or have syntactical reference value. Code in this directory may be in any programming language.
 
-.. rubric::     \subjects
+.. rubric:: \\subjects
 
 This repository is filled with unstructured code for a generalized purpose that could be useful to refactor and add to the dnppy framework in the near future.
 
-.. rubric:: \dev
+.. rubric:: \\dev
 
 Tools for building the development environment and testing, includes setup of ``sphinx``. Read more about it in the section for developers.

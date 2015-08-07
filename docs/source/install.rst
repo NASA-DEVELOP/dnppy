@@ -21,19 +21,22 @@ There are no other requirements for ``dnppy`` which are not automatically retrie
 How to Install
 --------------
 
-Grab the master branch from our `GitHub`_ by clicking on the "download zip" button on the bottom right of the screen. Extract the archive and run ``setup.py``. Setup will fetch other dependencies from whl files hosted in the release assets or from the python package index. Most of these ``.whl`` files were originally obtained from this `unofficial windows binaries index`_. Ta-da! You have ``dnppy``.
+Grab the master branch from our `GitHub`_ by clicking on the "download zip" button on the bottom right of the screen. Extract the archive and run ``setup.py``. Setup will fetch other dependencies from whl files hosted in the release assets or from the python
+Contributors Traffic Commits Code frequency Punch card Network Members
+ Keyboard shortcuts available
+package index. Most of these ``.whl`` files were originally obtained from this `unofficial windows binaries index`_. Ta-da! You have ``dnppy``.
 
 -----------------
 Included Packages
 -----------------
 The following packages are installed with ``dnppy``.
 
-* With PyPI
+* Using PyPI
     * psutil
     * requests
     * urllib3
     * wheel
-* With Binaries
+* Using Binaries
     * cython
     * gdal
     * h5py
@@ -42,5 +45,5 @@ The following packages are installed with ``dnppy``.
     * scipy
     * shapely
 
-.. _GitHub: https://github.com/nasa/dnppy
+.. _GitHub: https://github.com/nasa-develop/dnppy
 .. _unofficial windows binaries index: http://www.lfd.uci.edu/~gohlke/pythonlibs/
