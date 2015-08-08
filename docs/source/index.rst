@@ -43,6 +43,7 @@ Contents
     dev/strategy
     dev/env
     dev/conventions
+    dev/doc
     dev/contact
 
 .. toctree::
