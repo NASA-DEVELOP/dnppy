@@ -2,10 +2,6 @@
 This module contains some core functions to assist in data formatting,
 path manipulation, and logical checks. It is commonly called by other
 modules in the dnppy package.
-
-Example:
-   from dnppy import core
-   core.function_name(args)
 """
 
 __author__ = ["jwely, jeff.ely.08@gmail.com",

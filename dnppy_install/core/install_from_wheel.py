@@ -14,12 +14,7 @@ def install_from_wheel(whl_filepath):
     installation of python from wheel files. A great source of wheel files
     can be found at [http://www.lfd.uci.edu/~gohlke/pythonlibs/]
 
-    :param whl_filepath: the full local filepath to a downloaded wheel file.
-
-    Example:
-        from dnppy import core
-        filepath = r"C:\mydirectory\some_wheelfyle.whl"
-        core.install_from_wheel(filepath)
+    :param whl_filepath:    the full local filepath to a downloaded wheel file.
     """
 
     head, tail = os.path.split(whl_filepath)

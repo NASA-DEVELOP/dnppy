@@ -1,7 +1,7 @@
 Python Quick-Starter
 ====================
 
-There are lots of python tutorials out there, and users just getting started with python, especially if it is your first programming language, are highly encouraged to check out some of the following tutorials before continuing. It won't take long, and it will get you primed and ready to learn intermediate concepts pretty quickly. If you're already quite familiar with python, continue to :doc:`Purpose and Overview <overview>`.
+There are lots of python tutorials out there, and users just getting started with python, especially if it is your first programming language, are highly encouraged to check out some of the following tutorials before continuing. It won't take long, and it will get you primed and ready to learn intermediate concepts pretty quickly.
 
 * `Learn X in Y minutes`_
 * `Learn python in 10 minutes`_

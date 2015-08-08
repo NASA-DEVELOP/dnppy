@@ -3,6 +3,7 @@ __author__ = 'jwely'
 import os
 from list_files import list_files
 
+
 def enf_filelist(filelist, extension = None):
     """
     Sanitizes file list inputs
@@ -12,10 +13,10 @@ def enf_filelist(filelist, extension = None):
     extension. This is to allow all functions which input filelists to be a little more
     flexible by accepting directories instead.
 
-    :param filelist:    a list of filepath strings
-    :param extension:   output list contains only files with this string extension. (txt, tif, etc)
+    :param filelist:        a list of filepath strings
+    :param extension:       output list contains only files with this string extension. (txt, tif, etc)
 
-    :return new_filelist: sanitized file list
+    :return new_filelist:   sanitized file list
     """
 
     new_filelist = None

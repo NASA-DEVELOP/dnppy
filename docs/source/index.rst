@@ -19,7 +19,6 @@ Contents
     :caption: Getting Started
     :maxdepth: 2
 
-    pythonstarter
     overview
     install
     design
@@ -49,6 +48,7 @@ Contents
 .. toctree::
     :caption: Troubleshoot
 
+    trub/pythonstarter
     trub/faq
     trub/issues
 
