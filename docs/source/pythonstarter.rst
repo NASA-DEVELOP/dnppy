@@ -1,16 +1,18 @@
-Python Quick-start Guide
-========================
+Python Quick-Starter
+====================
 
-There are lots of python tutorials out there, and users just getting started with python, especially if it is their first programming language, are highly encouraged to check out some of the following tutorials.
+There are lots of python tutorials out there, and users just getting started with python, especially if it is your first programming language, are highly encouraged to check out some of the following tutorials before continuing. It won't take long, and it will get you primed and ready to learn intermediate concepts pretty quickly. If you're already quite familiar with python, continue to :doc:`Purpose and Overview <overview>`.
 
 * `Learn X in Y minutes`_
 * `Learn python in 10 minutes`_
 * `Python for first time programmers`_
 * `Code Academy`_
 * `Learn Python`_
-* `think like a computer scientist`_
+* `Think like a computer scientist`_
 
-However, since the users of dnppy represent a focused subset of all python users, we will cover a few topically relevant lessons here.
+Additionally, we will cover a few intermediate topics here to help users better understand what goes on behind the scenes.
+
+.. note:: You can start writing python code with the default interpreter called "IDLE"
 
 Frequent Pitfalls
 -----------------
@@ -80,12 +82,12 @@ And function, class, and method definitions would look something like this.
         # method
         def ripen(self, time):
             """  adds time to fruits ripeness value """
-            self.ripeness = self.ripeness + time
-            return
+            self.ripeness += time
+            return self.ripeness
 
 .. rubric:: Magic Methods
 
-Magic methods are special methods that allow custom classes to interact with python syntax in an almost "magical" way. They are always surrounded by double underscores, such as the very common ``__init__`` that you may have come across already. A great guide exists on the topic already by `Rafe Kettler`_.
+Magic methods are special methods that allow custom classes to interact with python syntax in an almost "magical" way. They are always surrounded by double underscores, such as the very common ``__init__`` in the example above that governs the initialization behavior of a class. A great guide exists on the topic already by `Rafe Kettler`_.
 
 .. rubric:: Keywords
 
@@ -99,12 +101,13 @@ Keyword arguments are like local versions of pythons keywords, they have a speci
 
     def list_files(recursive, Dir, Contains = None, DoesNotContain = None):
 
-This means you could specify all four arguments in the order they are listed, but it `also` means that these
-arguments have a `default` value. If they are left blank, they take on the value of ``None``. In addition, key word arguments (any argument with a pre-existing value assigned with an ``=``) they can be defined in any order you wish. So, for example, if you had a criteria for ``DoesNotContain``, but not for ``Contains``, you could call this function successfully with
+When calling `list_files`, you could specify all four arguments in the order they are listed, but the two trailing arguments have a `default` value with special implications. If they are left blank, they take on the value of ``None``. In addition, key word arguments (any argument with a pre-existing value assigned with an ``=``) they can be defined in any order you wish. So, for example, if you had a criteria for ``DoesNotContain``, but not for ``Contains``, you could call this function successfully with
 
 .. code-block:: python
 
     my_files = core.list_files(False, my_dir, DoesNotContain = ['dont_want','also_dont_want'])
+
+without needing to give the ``Contains`` argument a value. This comes in handy for functions with 4 or more inputs where it can be tedious to pass every conceivable argument every time.
 
 
 
