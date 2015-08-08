@@ -21,20 +21,11 @@ The DEVELOP program partners with external organizations to complete a wide vari
 ###Instalation
 Run `setup.py` 
 
-###Dependencies
+###Requirements
 
-Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
+* Python 2.7 (32 or 64 bit)
+* arcpy (as distributed with ESRI's ArcMap software version 10.1 to 10.3)
 
-1. Python 2.7
-2. `arcpy`  (see ESRI's ArcMap software)
+At present, many of the dnppy functions call upon ``arcpy``, distributed with ESRI's commercial ArcMap software. By time ``dnppy`` is out of beta, the installation will be split such that users can still access the non ``arcpy`` dependent modules (such as those for downloading and formatting NASA satellite data) if they do not have ArcMap. In the long term, the modification of several key functions to use ``gdal`` should allow complete ``arcpy`` independence.
 
-At present, the following third party packages are automatically installed with the setup file in the pre-existing ArcGIS python directory. Windows binaries for each of these resources were selected from [here](http://www.lfd.uci.edu/~gohlke/pythonlibs) and rehosted in the dnppy release assets. They are unofficial,  and are included only to provide convenient installation of common scientific packages for the custom ArcMap installation of python.
-
-3. `pip`
-4. `wheel`
-5. `requests`
-6. `numpy 1.9.2`
-7. `gdal`
-8. `h5py`
-
-In each case, 64 bit binaries will be used if the target python installation is 64 bit. For most intended Arcmap users, this means 64 bit binaries will only be installed if the "64 bit background geoprocessing" add-in is available.
+There are no other requirements for ``dnppy`` which are not automatically retrieved on setup.
