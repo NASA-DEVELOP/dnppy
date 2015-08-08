@@ -20,6 +20,7 @@ Contents
     overview
     install
     design
+    pythonstarter
     whatnow
 
 .. toctree::
@@ -36,13 +37,12 @@ Contents
     modules/time_series
 
 .. toctree::
-    :caption: Development
+    :caption: Developers
 
     dev/strategy
     dev/env
     dev/conventions
     dev/docs
-    dev/pythonstarter
     dev/contact
 
 .. toctree::
@@ -60,11 +60,11 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-====================
-Note from the Author
-====================
 
-The DEVELOP program is a great program, and is that way because of its great participants. I came in as a Fall 2013 participant with a background in aerospace engineering and exposure to image analysis with a method called particle image velocimetry for use in wind tunnels. I had very little knowledge of GIS, earth science, climate science, agronomy, hydrology, geology, or the type of remote sensing done via satellite, but I wanted to learn. I was not a very good programmer. The environment I was exposed to with DEVELOP allowed me to sponge up the immense knowledge of my peers from all sorts of disciplines, and I soon realized the importance of good programming in the programming and in the community as a whole.
+Note from the Author
+--------------------
+
+The DEVELOP program is a great program, and is that way because of its great participants. I came in as a Fall 2013 participant with a background in aerospace engineering and exposure to image analysis with a method called particle image velocimetry for use in wind tunnels. I had very little knowledge of GIS, earth science, climate science, agronomy, hydrology, geology, or the type of remote sensing done via satellite, but I wanted to learn. I was not a very good programmer. The environment I was exposed to with DEVELOP allowed me to sponge up a fraction of the immense knowledge of my peers from all sorts of disciplines, and I soon realized the importance of good programming in the community as a whole.
 
 Firstly, DEVELOP expects participants to come in, learn about a topic, plan an analysis, and produce results in 10 weeks. I am continuously impressed with the achievements of the DEVELOP cohort, and the frequency with which they meet challenging objectives. Performing an analysis is one thing, but creating software tools for partners and end users to repeat that analysis is something else entirely. With the growing number of freely available earth observation data sources, analyses are growing more complex. Secondly, project partners who come to us often reveal that some of their largest stumbling blocks to using NASA data products are actually quite simple for a programmer to solve. For some, an entire new world can be opened up with the simple ability to mass extract data from an HDF5 or a NetCDF and take some statistics. All they need is the right introduction to the right tools. There clearly exists an opportunity to improve the industry with better software tools that can be learned and implemented quickly.
 

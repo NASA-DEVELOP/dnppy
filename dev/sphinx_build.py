@@ -29,6 +29,7 @@ here, and the local copy of that branch. You may now freely
 commit the changes to both branches.
 """
 
+
 def get_sphinx():
     """ subfunction to make sure modules are available """
     try: import sphinx
@@ -51,11 +52,11 @@ def build_sphinx():
     # assemble filepaths
     sphinx_path = pip.__file__.replace("lib\\site-packages\\pip\\__init__.pyc",
                                        "Scripts\sphinx-build.exe")
-    source_path = __file__.replace("dev/sphinx_build.py","docs/source")
+    source_path = __file__.replace("dev/sphinx_build.py", "docs/source")
 
 
     # build in the local docs/build folder
-    dest_path1  = __file__.replace("dev/sphinx_build.py","docs/build")
+    dest_path1  = __file__.replace("dev/sphinx_build.py", "docs/build")
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path1)
         f.write(line1)
@@ -63,7 +64,7 @@ def build_sphinx():
     # build in the user specified gh-pages branch folder
     if os.path.isfile("docpage_dir.txt"):
         with open("docpage_dir.txt", "r") as d:
-            dest_path2  = d.read().replace("\\","/")
+            dest_path2  = d.read().replace("\\", "/")
 
             with open("make_html.bat", "a") as f:
                 f.write("\n")

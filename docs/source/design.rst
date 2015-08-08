@@ -4,13 +4,33 @@ Design
 
 There exists several design themes within dnppy, and an effort is (and should continue to be) made to follow these design themes to keep its use intuitive.
 
------------------
-functional format
+Modules
+-------
+
+dnppy is divided into some thematic `modules`_ by purpose. Each module has its own page and some examples to get you started, but they are all used in a similar fashion. When accessing code from some remote location with python, we use the an ``import`` statement to bring the module contents into the current namespace of python. Once the functions are loaded into the namespace, you can invoke all functions in that module, and call ``help()`` on them to explore their contents from the console. All information displayed by a help command should be available in clean formatted text on these doc pages.
+
+.. code-block:: python
+
+    from dnppy import modis         # import the modis module from dnppy
+    help(modis)                     # print list of functions in modis
+    help(modis.mosaic_modis)        # print detailed help for this function
+    modis.mosaic_modis(filelist)    # execute the mosaic_modis function
+
+Notice that when we use `` from dnppy import modis`` we need to keep the modis name out front of all functions within it.
+
+Functional Format
 -----------------
 
-At heart, ``dnppy`` is a simple collection of classes and functions. Wherever possible, these functions are designed such that they can be assembled in simple "building block" style sequence to perform manipulation and analysis on many files, typically raster data from a NASA sensor. This approach makes otherwise complex programming tasks more accessible to novice programmers, and provides context for learning more foundational computer programming.
+At heart, ``dnppy`` is a simple collection of classes and functions. Wherever possible, these functions are designed such that they can be assembled together in simple "chain-link" style sequence to perform manipulation and analysis on many files, typically raster data from a NASA sensor, by feeding the outputs of one function into the inputs of another. This approach makes otherwise complex programming tasks more accessible to novice programmers, and provides context for learning more foundational computer programming.
 
-Many of the user oriented functions in dnppy are usually defined similar to the following:
+In the example below, ``foo_outputs``, which is a list of the output files created by ``foo``, was directly fed into the inputs for function ``bar``
+
+.. code-block:: python
+
+    foo_outputs = foo(my_filelist, my_arg1)
+    bar_outputs = bar(foo_outputs, my_arg2)
+
+This is accomplished by defining functions in a manner similar to the following:
 
 .. code-block:: python
 
@@ -35,14 +55,11 @@ Many of the user oriented functions in dnppy are usually defined similar to the 
 
         return output_filelist
 
-This allows the user to invoke these functions with
 
-.. code-block:: python
+.. note:: Future developers should keep this in mind when building functions to operate on files. You can read more about the specifics on the module and developer pages.
 
-    foo_outputs = foo(my_filelist, my_arg1)
-    bar_outputs = bar(foo_outputs, my_arg2)
+.. _modules: https://docs.python.org/2/tutorial/modules.html
 
-Where ``foo_outputs`` was directly fed into the inputs for function ``bar``
 
-Of course, there also exist many classes within dnppy which are used in the conventional python fashion.
+
 
