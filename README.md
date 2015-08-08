@@ -1,7 +1,7 @@
-﻿## dnppy 
+dnppy 
 (The DEVELOP National Program Python Package)
 
-####Overview
+###Overview
 The DEVELOP national program python package(dnppy) has a handful of directives for different user groups, serving related but distinct purposes.
 
 ##### As a python module
@@ -18,10 +18,10 @@ The primary users within the DEVELOP program are operating on government compute
 
 The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within ``dnppy`` along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome very significant bureaucratic hurdles associated with releasing software.
 
-#####Instalation
+###Instalation
 Run `setup.py` 
 
-#####Dependencies
+###Dependencies
 
 Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
 
