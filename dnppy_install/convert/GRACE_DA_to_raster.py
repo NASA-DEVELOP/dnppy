@@ -9,6 +9,10 @@ def GRACE_DA_to_raster(folder, outdir = False, npy_file = False):
     This function will convert a folder of GRACE Data Assimilation product binary files into individual tiffs
     or a single three-dimensional NumPy array. The input folder should contain only the binary files.
 
+    For more information on GRACE Data Assimilation products, visit:
+
+    http://drought.unl.edu/MonitoringTools/NASAGRACEDataAssimilation.aspx
+
     Inputs:
 
         folder      the full path to the folder containing the binary files to be converted
