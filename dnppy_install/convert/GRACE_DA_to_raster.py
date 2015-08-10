@@ -54,6 +54,8 @@ def GRACE_DA_to_raster(folder, outdir = False, npy_file = False):
         name = "{0}-{1}.npy".format(os.path.splitext(files[0])[0], files[-1][15:21])
         outnpy = os.path.join(outfolder, name)
         np.save(outnpy, array)
+
+        return outnpy
         
     #If "npy_file" is left false, save each segment of the new array as a tiff
     else:     
@@ -65,6 +67,8 @@ def GRACE_DA_to_raster(folder, outdir = False, npy_file = False):
 
         #Loop through each file to create names and convert from NumPy array to raster
         #Use the "Flip" tool to save the files and define the projection
+        outlist = []
+        
         for bin_name in files:
             name = bin_name.replace(".bin", ".tif")
             array_i = array[i,:,:]
@@ -72,9 +76,12 @@ def GRACE_DA_to_raster(folder, outdir = False, npy_file = False):
             outname = os.path.join(outfolder, name)
             arcpy.Flip_management(raster, outname)
             arcpy.DefineProjection_management(outname, coor_sys)
+            outlist.append(outname)
             i += 1
             
         #Delete the extraneous '1' folder created in the input
         files = os.listdir('.')
         if files[0] == '1':
             os.rmdir(os.path.join(folder, files[0]))
+
+        return outlist
