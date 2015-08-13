@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy_install.core.list_files &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../../../index.html" class="icon icon-home"> dnppy
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatnow.html">Now What?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/time_series.html">time_series</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul class="simple">
+</ul>
+<p class="caption"><span class="caption-text">Troubleshoot</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/issues.html">Issues</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy_install.core.list_files</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy_install.core.list_files</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;jwely&#39;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">exists</span> <span class="kn">import</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">enf_list</span> <span class="kn">import</span> <span class="n">enf_list</span>
+
+
+<div class="viewcode-block" id="list_files"><a class="viewcode-back" href="../../../modules/core.html#dnppy_install.core.list_files.list_files">[docs]</a><span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">contains</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">not_contains</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple file listing function with more versatility than python builtins or arcpy.List</span>
+
+<span class="sd">    This function sifts through a directory and returns a list of filepaths for all files</span>
+<span class="sd">    meeting the input criteria. Useful for discriminatory iteration or recursive searches.</span>
+<span class="sd">    Could be used to find all tiles with a given datestring such as &#39;MOD11A1.A2012&#39;, or</span>
+<span class="sd">    perhaps all Band 4 tiles from a directory containing landsat 8 data.</span>
+
+<span class="sd">    :param recursive:       &#39;True&#39; if search should search subfolders within the directory</span>
+<span class="sd">                            &#39;False&#39; if search should ignore files in subfolders.</span>
+<span class="sd">    :param directory:       The directory in which to search for files meeting the criteria</span>
+<span class="sd">    :param contains:        search criteria to limit returned file list. File names must</span>
+<span class="sd">                            contain parameters listed here. If no criteria exists use &#39;False&#39;</span>
+<span class="sd">    :param not_contains:    search criteria to limit returned file list. File names must not</span>
+<span class="sd">                            contain parameters listed here. If no criteria exists use &#39;False&#39;</span>
+
+<span class="sd">    :return filelist:        An array of full filepaths meeting the criteria.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># import modules and set up empty lists</span>
+    <span class="n">filelist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">templist</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c"># ensure input directory actually exists</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;{0} is not a valid file or folder!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory</span><span class="p">))</span>
+
+    <span class="c"># Ensure single strings are in list format for the loops below</span>
+    <span class="k">if</span> <span class="n">contains</span><span class="p">:</span>
+        <span class="n">contains</span> <span class="o">=</span> <span class="n">enf_list</span><span class="p">(</span><span class="n">contains</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">not_contains</span><span class="p">:</span>
+        <span class="n">not_contains</span> <span class="o">=</span> <span class="n">enf_list</span><span class="p">(</span><span class="n">not_contains</span><span class="p">)</span>
+        <span class="n">not_contains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;sr.lock&#39;</span><span class="p">)</span>    <span class="c"># make sure lock files don&#39;t get counted</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">not_contains</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;sr.lock&#39;</span><span class="p">]</span>          <span class="c"># make sure lock files don&#39;t get counted</span>
+
+    <span class="c"># use os.walk commands to search through whole directory if recursive</span>
+    <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">basename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
+
+                <span class="c"># if both conditions exist, add items which meet contains criteria</span>
+                <span class="k">if</span> <span class="n">contains</span> <span class="ow">and</span> <span class="n">not_contains</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">contains</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                            <span class="n">templist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="c"># if the entire array of &#39;contains&#39; terms were found, add to list</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">templist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">contains</span><span class="p">):</span>
+                        <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="n">templist</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="c"># remove items which do not meet the DoesNotcontain criteria</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">not_contains</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span> <span class="n">filelist</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                            <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+
+                <span class="c"># If both conditions do not exist (one is false)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c"># determine if a file is good. if it is, add it to the list.</span>
+                    <span class="k">if</span> <span class="n">contains</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">contains</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                                <span class="n">templist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="c"># if the entire array of &#39;contains&#39; terms were found, add to list</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">templist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">contains</span><span class="p">):</span>
+                            <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">templist</span> <span class="o">=</span> <span class="p">[]</span>
+
+                    <span class="c"># add all files to the list, then remove the bad ones.</span>
+                    <span class="k">elif</span> <span class="n">not_contains</span><span class="p">:</span>
+                        <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">not_contains</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                                <span class="k">try</span><span class="p">:</span> <span class="n">filelist</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                                <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+                <span class="c"># if neither conditionexists</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">contains</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">not_contains</span><span class="p">:</span>
+                        <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c"># use a simple listdir if recursive is False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c"># list only files in current directory, not subdir and check criteria</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">basename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">basename</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">contains</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">contains</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                                <span class="n">templist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+                        <span class="c"># if the entire array of &#39;contains&#39; terms were found, add to list</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">templist</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">contains</span><span class="p">):</span>
+                            <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                        <span class="n">templist</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+                <span class="c"># Remove any files from the filelist that fail not_contains criteria</span>
+                <span class="k">if</span> <span class="n">not_contains</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">not_contains</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">basename</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span> <span class="n">filelist</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                            <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+        <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Files found which meet all input criteria: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filelist</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">filelist</span>
+
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">list_files</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="s">r&quot;C:\Users\Jeff\Desktop\Github\dnppy\docs\build&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, jwely.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
