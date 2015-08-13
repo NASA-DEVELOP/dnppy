@@ -44,10 +44,9 @@ def _del_dir_contents(dirpath):
         not the directory itself """
 
     for item in os.listdir(dirpath):
-        try:
-            shutil.rmtree(item)
-        except:
-            pass
+        if ".git" not in item:
+            try: shutil.rmtree(item)
+            except: pass
 
 
 def build_sphinx():
