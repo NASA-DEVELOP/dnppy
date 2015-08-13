@@ -2,6 +2,7 @@
 *.whl
 *.xml
 
+docs/build
 *dnppy_stat_report.txt
 *make_html.bat
 *docs_dir.txt
