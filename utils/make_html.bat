@@ -1,2 +1,0 @@
-C:\Python27\ArcGISx6410.3\Scripts\sphinx-build.exe -b html C:/Users/jwely/Desktop/GitHub/NASA/dnppy/docs/source C:/Users/jwely/Desktop/GitHub/NASA/dnppy/docs/build
-C:\Python27\ArcGISx6410.3\Scripts\sphinx-build.exe -b html C:/Users/jwely/Desktop/GitHub/NASA/dnppy/docs/source C:/Users/jwely/Desktop/GitHub/NASA/docpage
