@@ -22,8 +22,8 @@ The recommended workflow is as follows:
         /docpage
 
 2) place the filepath to this branch in a text file right here
-   named "docpage_dir.txt". for example:
-        "C:\Users\jwely\Desktop\GitHub\NASA\docpage"
+   named "docs_dir.txt". for example:
+        "C:\Users\jwely\Desktop\GitHub\NASA\dnppy_docs"
 
 This will automatically make changes to both the build folder
 here, and the local copy of that branch. You may now freely
@@ -37,6 +37,17 @@ def get_sphinx():
     except ImportError: pip.main(["install", "sphinx"])
     try: import graphviz
     except ImportError: pip.main(["install", "graphviz"])
+
+
+def _del_dir_contents(dirpath):
+    """ subfunction to delete all contents of a directory, but
+        not the directory itself """
+
+    for item in os.listdir(dirpath):
+        try:
+            shutil.rmtree(item)
+        except:
+            pass
 
 
 def build_sphinx():
@@ -61,21 +72,19 @@ def build_sphinx():
 
     # remove the directory if it is already present
     if os.path.exists(dest_path1):
-        shutil.rmtree(dest_path1)
-        os.mkdir(dest_path1)
+        _del_dir_contents(dest_path1)
 
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path1)
         f.write(line1)
 
     # build in the user specified gh-pages branch folder
-    if os.path.isfile("docpage_dir.txt"):
-        with open("docpage_dir.txt", "r") as d:
+    if os.path.isfile("docs_dir.txt"):
+        with open("docs_dir.txt", "r") as d:
             dest_path2  = d.read().replace("\\", "/")
 
             if os.path.exists(dest_path2):
-                shutil.rmtree(dest_path2)
-                os.mkdir(dest_path2)
+                _del_dir_contents(dest_path2)
 
             with open("make_html.bat", "a") as f:
                 f.write("\n")
