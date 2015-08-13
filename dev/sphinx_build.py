@@ -58,10 +58,11 @@ def build_sphinx():
 
     # build in the local docs/build folder
     dest_path1  = __file__.replace("dev/sphinx_build.py", "docs/build")
-    try:
+
+    # remove the directory if it is already present
+    if os.path.exists(dest_path1):
         shutil.rmtree(dest_path1)
         os.mkdir(dest_path1)
-    except: pass
 
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path1)
@@ -71,10 +72,10 @@ def build_sphinx():
     if os.path.isfile("docpage_dir.txt"):
         with open("docpage_dir.txt", "r") as d:
             dest_path2  = d.read().replace("\\", "/")
-            try:
+
+            if os.path.exists(dest_path2):
                 shutil.rmtree(dest_path2)
                 os.mkdir(dest_path2)
-            except: pass
 
             with open("make_html.bat", "a") as f:
                 f.write("\n")
