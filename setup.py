@@ -128,15 +128,15 @@ def main():
     print("   Setting up dnppy! the DEVELOP National Program python package!")
     print("====================================================================")
 
-    print("\nseting up dependencies")
+    print("\nSetting up other libraries!")
     install_dependencies.main()
     setup()
 
     print("\nValidating setup of each module...")
     if test_setup() is True:
-        print("Setup was successful!")
+        print("\nSetup was successful!")
     else:
-        print("Setup has failed!")
+        print("\nSetup has failed!")
 
     print("You may close this window")
     time.sleep(20)

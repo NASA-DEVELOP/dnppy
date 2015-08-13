@@ -211,6 +211,7 @@ def main():
 
 
     # prints status updates
+    print("Checking libraries!")
     print("library name    ready?")
     for key in checks:
         print("  {0}{1}".format(key.ljust(14), checks[key]))
