@@ -10,12 +10,11 @@ Several modules that do not successfully install with pip alone are installed
 by fetching binaries from the dnppy release assets.
 """
 
-
 import urllib
 import os
 import platform
-#import pip               installs pip, then imports it
-#import psutil            installs psutil, then imports it
+# import pip               installs pip, then imports it
+# import psutil            installs psutil, then imports it
 
 
 def get_pip():
@@ -34,6 +33,7 @@ def get_pip():
 
         # run pip and clean up.
         import install_pip
+
         os.system("install_pip.py")
         os.remove("install_pip.py")
 
@@ -90,6 +90,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
 
         # now use pip to install the wheel file
         import pip
+
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
 
@@ -101,10 +102,7 @@ def get_mod_with_pip(module_name, version = None):
     use "None" to leave version unspecified.
     """
 
-    try:
-        newmodule = __import__(module_name)
-
-    except:
+    if check_mod(module_name, version) is False:
         import pip
 
         if version is not None:
@@ -141,39 +139,42 @@ def main():
     get_pip()
 
     # list of assets to install, add to assets here.
-              # module : [version,
-              #           64 bit asset link,
-              #           32 bit asset link]
+    # {module : [version,
+    #           64 bit asset link,
+    #           32 bit asset link]}
 
-    asset_order = ["cython", "scipy", "numpy", "gdal", "h5py"] # installs assets below in this order
+    # installs assets in the order listed here
+    asset_order = ["cython", "scipy", "numpy", "gdal", "pycurl", "shapely", "h5py"]
+    release_address = "https://github.com/nasa/dnppy/releases/download/1.15.2/"
 
-    assets = {"cython":[None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win32.whl"],
-              "scipy": [None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win32.whl"],
-              "gdal" : [None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"],
-              "numpy": ["1.9.2",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"],
-              "h5py":  [None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"],
+    assets = {"cython": [None,
+                         release_address + "Cython-0.22-cp27-none-win_amd64.whl",
+                         release_address + "Cython-0.22-cp27-none-win32.whl"],
+              "scipy":  [None,
+                         release_address + "scipy-0.15.1-cp27-none-win_amd64.whl",
+                         release_address + "scipy-0.15.1-cp27-none-win32.whl"],
+              "gdal":   [None,
+                         release_address + "GDAL-1.11.2-cp27-none-win_amd64.whl",
+                         release_address + "GDAL-1.11.2-cp27-none-win32.whl"],
+              "numpy":  ["1.9.2",
+                         release_address + "numpy-1.9.2.mkl-cp27-none-win_amd64.whl",
+                         release_address + "numpy-1.9.2.mkl-cp27-none-win32.whl"],
+              "h5py":   [None,
+                         release_address + "h5py-2.5.0-cp27-none-win_amd64.whl",
+                         release_address + "h5py-2.5.0-cp27-none-win32.whl"],
               "pycurl": [None,
-                         "https://github.com/nasa/dnppy/releases/download/1.15.2/pycurl-7.19.5.1-cp27-none-win_amd64.whl",
-                         "https://github.com/nasa/dnppy/releases/download/1.15.2/pycurl-7.19.5.1-cp27-none-win32.whl"],
+                         release_address + "pycurl-7.19.5.1-cp27-none-win_amd64.whl",
+                         release_address + "pycurl-7.19.5.1-cp27-none-win32.whl"],
               "shapely":[None,
-                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Shapely-1.5.9-cp27-none-win_amd64.whl",
-                         "https://github.com/nasa/dnppy/releases/download/1.15.2/Shapely-1.5.9-cp27-none-win32.whl"]}
+                         release_address + "Shapely-1.5.9-cp27-none-win_amd64.whl",
+                         release_address + "Shapely-1.5.9-cp27-none-win32.whl"]
+    }
 
-    pip_versions = {"wheel" : None,     # for installing other dependencies
-                    "requests": None,   # for better web interfacing
-                    "psutil": None,     # for killing processes which might lock files we want to modify
-                    "urllib3": None,    # magical url library
-                    }
+    pip_versions = {"wheel": None,  # for installing other dependencies
+                    "requests": None,  # for better web interfacing
+                    "psutil": None,  # for killing processes which might lock files we want to modify
+                    "urllib3": None,  # magical url library
+    }
 
     # installs python packages with simple pip install
     for mod in pip_versions:
@@ -210,6 +211,7 @@ def main():
 
 
     # prints status updates
+    print("Checking libraries!")
     print("library name    ready?")
     for key in checks:
         print("  {0}{1}".format(key.ljust(14), checks[key]))
@@ -221,6 +223,5 @@ def main():
 
 
 if __name__ == "__main__":
-
     # run main
     main()
