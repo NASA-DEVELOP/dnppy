@@ -8,3 +8,4 @@
 
 .idea/
 docs/build
+*dnppy_stat_report.txt

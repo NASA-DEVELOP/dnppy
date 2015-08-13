@@ -5,9 +5,10 @@ NetCDF or HDF5 to geotiff. Due to differences in metadata standards, many of the
 functions only operate successfully data from a specific source.
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com", "Daniel Jensen, danieljohnjensen@gmail.com"]
 
 from extract_targz import *
 from GCMO_NetCDF import *
+from GRACE_DA_to_raster import *
 
 

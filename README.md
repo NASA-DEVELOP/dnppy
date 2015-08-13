@@ -1,31 +1,31 @@
-﻿## dnppy 
+dnppy 
 (The DEVELOP National Program Python Package)
 
-####Overview
- `dnppy` is a python package for the download, extraction, conversion, and analysis of NASA and NOAA earth observation data. It includes several modules to ease handling and analysis of common raster datatypes such as Landsat, MODIS, GPM, TRMM, ASTER, SRTM, and text datatypes such as weather records. It also houses modules such as the `solar` module, for calculating solar geometries for entire arrays of lat/lon coordinates, and the `time_series` module for handling temporal raster data.
+###Overview
+The DEVELOP national program python package(dnppy) has a handful of directives for different user groups, serving related but distinct purposes.
 
-This collection of python modules also serves as a living codebase for the DEVELOP National Program. `dnppy` was created to improve institutional knowledge retention, open the DEVELOP toolkit for public contributions and use, represent DEVELOP in the public domain, and put more power in the hands of new participants the first day the walk into the program. It is a social media, programming capacity building, and educational endeavor. Code specifically pertinent to our past project partners can be found in the `/undeployed/proj_code` folder.
+##### As a python module
 
-For more information about the NASA DEVELOP program and the projects teams conduct 
-utilizing NASA Earth Observation Data for society please visit: http://develop.larc.nasa.gov/
+As a python module, ``dnppy`` serves as a simple collection of functions and classes that are useful for manipulation, formatting, conversion, and analysis of geospatial data, with a heavy emphasis on NASA satellite data from earth observing platforms and ancillary NOAA climate and weather data. This docsite should be able to guide you through using dnppy functions.
 
-#####Instalation
+
+##### As an IDE modifier
+
+The primary users within the DEVELOP program are operating on government computers without administrator elevation. So, ``dnppy`` installs itself, and many common libraries that GIS python programmers might need without requiring administrative access. With ``dnppy``, users can have ``arcpy``, ``gdal``, ``scipy``, and other libraries all working together with an ESRI ArcGIS installation of python. Think of it as a modification to the users Integrated Development Environment (IDE). See the :doc:`installation <install>` page to learn more.
+
+
+##### To distribute DEVELOP project code
+
+The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within ``dnppy`` along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome very significant bureaucratic hurdles associated with releasing software.
+
+###Instalation
 Run `setup.py` 
 
-#####Dependencies
+###Requirements
 
-Before dnppy can be installed, ESRI's Arcmap 10.2 or 10.3 must already be installed. ArcMap ships with a custom installation of python 2.7, and `dnppy` is built to modify that python installation.
+* Python 2.7 (32 or 64 bit)
+* arcpy (as distributed with ESRI's ArcMap software version 10.1 to 10.3)
 
-1. Python 2.7
-2. `arcpy`  (see ESRI's ArcMap software)
+At present, many of the dnppy functions call upon ``arcpy``, distributed with ESRI's commercial ArcMap software. By time ``dnppy`` is out of beta, the installation will be split such that users can still access the non ``arcpy`` dependent modules (such as those for downloading and formatting NASA satellite data) if they do not have ArcMap. In the long term, the modification of several key functions to use ``gdal`` should allow complete ``arcpy`` independence.
 
-At present, the following third party packages are automatically installed with the setup file in the pre-existing ArcGIS python directory. Windows binaries for each of these resources were selected from [here](http://www.lfd.uci.edu/~gohlke/pythonlibs) and rehosted in the dnppy release assets. They are unofficial,  and are included only to provide convenient installation of common scientific packages for the custom ArcMap installation of python.
-
-3. `pip`
-4. `wheel`
-5. `requests`
-6. `numpy 1.9.2`
-7. `gdal`
-8. `h5py`
-
-In each case, 64 bit binaries will be used if the target python installation is 64 bit. For most intended Arcmap users, this means 64 bit binaries will only be installed if the "64 bit background geoprocessing" add-in is available.
+There are no other requirements for ``dnppy`` which are not automatically retrieved on setup.
