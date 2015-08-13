@@ -13,7 +13,7 @@ def rename(filename, replace_this, with_this):
     :param with_this:       what to replace the string with. such as "_" (an underscore)
 
     :return newfilename:    the new name of the file.
-     """
+    """
 
     if replace_this in filename:
 
@@ -24,7 +24,7 @@ def rename(filename, replace_this, with_this):
         newfilename = filename.replace(replace_this, with_this)
 
         # rename the file
-        os.rename(filename,newfilename)
+        os.rename(filename, newfilename)
 
         print("renamed" + filename + "to" + newfilename)
         return newfilename

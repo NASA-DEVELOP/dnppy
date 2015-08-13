@@ -25,7 +25,6 @@ def view_release_stats():
         if r.status_code is 403:
             raise Exception("You have made too many requests to the GitHub API this hour. Try again later")
 
-
     # generate download statistics report
     for release in rjson:
 
@@ -48,7 +47,6 @@ def view_release_stats():
     # add total download summary to the log
     log.append("\nTotal downloads of all assets = {0}\n".format(total_downloads))
 
-
     # write the log to a text file.
     with open("dnppy_stat_report.txt",'w+') as f:
         for entry in log:
@@ -56,5 +54,9 @@ def view_release_stats():
             f.write(entry)
 
 
-if __name__ == "__main__":
+def main():
     view_release_stats()
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,11 @@
 *.pyc
-.idea/
 *.whl
+*.xml
+
+*dnppy_stat_report.txt
+*make_html.bat
+*docs_dir.txt
+
+.idea/
 docs/build
 *dnppy_stat_report.txt

@@ -1,10 +1,11 @@
 __author__ = 'jwely'
 
-import os, shutil
+import os,shutil
+
 
 def move(source, destination):
     """
-    moves a file
+    moves a file, ensures destination directory exists
 
     :param source:      the current full location of the file
     :param destination:  the desired full location of the file
