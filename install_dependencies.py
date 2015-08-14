@@ -92,7 +92,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
         import pip
 
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
-        pip.main(["install", "--user", path])
+        pip.main(["install", path])
 
 
 def get_mod_with_pip(module_name, version = None):
@@ -106,9 +106,9 @@ def get_mod_with_pip(module_name, version = None):
         import pip
 
         if version is not None:
-            pip.main(["install", "--user", module_name + "==" + version])
+            pip.main(["install", module_name + "==" + version])
         else:
-            pip.main(["install", "--user", module_name])
+            pip.main(["install", module_name])
 
 
 def check_mod(module_name, version = None):
