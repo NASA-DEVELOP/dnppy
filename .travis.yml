@@ -1,0 +1,11 @@
+sudo: false
+
+language: python
+    - "2.7"
+
+install:
+    - python setup.py -q --user install
+    - pip install --user sphinx
+
+script:
+    - sphinx-build -b html docs/source docs/build

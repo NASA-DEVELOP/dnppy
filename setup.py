@@ -1,5 +1,6 @@
 """
- This is a barebones install script to install the dnppy module
+
+This is a barebones install script to install the dnppy module
  
  It simply checks the version numbers indicated in __init__.py and
  copies the dnppy_install folder contents into a new folder named
