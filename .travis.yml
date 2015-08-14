@@ -4,8 +4,9 @@ language: python
     - "2.7"
 
 install:
-    - python setup.py -q --user install
     - pip install --user sphinx
+    - pip install --user psutil
+    - python setup.py --user install
 
 script:
     - sphinx-build -b html docs/source docs/build
