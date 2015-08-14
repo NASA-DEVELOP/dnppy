@@ -22,6 +22,8 @@ Which, when typed into the shell looks like this:
 
 .. image:: ../_static/clone_dnppy_docs.png
 
+Now you have a copy of the gh-pages branch!
+
 
 1. As with other required libraries in dnppy, you do not need to manually set up the required packages. Simply run ``dev/sphinx_build.py``, and all the required libraries will be fetched and installed from the python package index if you don't yet have them.
 
