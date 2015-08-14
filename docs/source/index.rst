@@ -40,11 +40,11 @@ Contents
 .. toctree::
     :caption: Developers
 
-    dev/strategy
-    dev/env
-    dev/conventions
-    dev/doc
-    dev/contact
+    dev_pages/strategy
+    dev_pages/env
+    dev_pages/conventions
+    dev_pages/doc
+    dev_pages/contact
 
 .. toctree::
     :caption: Troubleshoot
