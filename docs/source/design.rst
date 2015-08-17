@@ -21,7 +21,7 @@ Notice that when we use `` from dnppy import modis`` we need to keep the modis n
 Functional Format
 -----------------
 
-At heart, ``dnppy`` is a simple collection of classes and functions. Wherever possible, these functions are designed such that they can be assembled together in simple "chain-link" style sequence to perform manipulation and analysis on many files, typically raster data from a NASA sensor, by feeding the outputs of one function into the inputs of another. This approach makes otherwise complex programming tasks more accessible to novice programmers, and provides context for learning more foundational computer programming.
+At heart, dnppy is a simple collection of classes and functions. Wherever possible, these functions are designed such that they can be assembled together in simple "chain-link" style sequence to perform manipulation and analysis on many files, typically raster data from a NASA sensor, by feeding the outputs of one function into the inputs of another. This approach makes otherwise complex programming tasks more accessible to novice programmers, and provides context for learning more foundational computer programming.
 
 In the example below, ``foo_outputs``, which is a list of the output files created by ``foo``, was directly fed into the inputs for function ``bar``
 

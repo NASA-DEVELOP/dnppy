@@ -2,21 +2,23 @@
 Purpose and Overview
 ====================
 
-The DEVELOP national program python package(dnppy) has a handful of directives for different user groups, serving related but distinct purposes.
+The `DEVELOP national program`_ python package(dnppy) has a handful of directives for different user groups, serving related but distinct purposes.
+
+.. _Develop national program: http://develop.larc.nasa.gov/
 
 .. rubric:: As a python module
 
-As a python module, ``dnppy`` serves as a simple collection of functions and classes that are useful for manipulation, formatting, conversion, and analysis of geospatial data, with a heavy emphasis on NASA satellite data from earth observing platforms and ancillary NOAA climate and weather data. This docsite should be able to guide you through using dnppy functions.
+As a python module, dnppy serves as a simple collection of functions and classes that are useful for manipulation, formatting, conversion, and analysis of geospatial data, with a heavy emphasis on NASA satellite data from earth observing platforms and ancillary NOAA climate and weather data. This docsite should be able to guide you through using dnppy functions.
 
 
 .. rubric:: As an IDE modifier
 
-The primary users within the DEVELOP program are operating on government computers without administrator elevation. So, ``dnppy`` installs itself, and many common libraries that GIS python programmers might need without requiring administrative access. With ``dnppy``, users can have ``arcpy``, ``gdal``, ``scipy``, and other libraries all working together with an ESRI ArcGIS installation of python. Think of it as a modification to the users Integrated Development Environment (IDE). See the :doc:`installation <install>` page to learn more.
+The primary users within the DEVELOP program are operating on government computers without administrator elevation. So, dnppy installs itself, and many common libraries that GIS python programmers might need without requiring administrative access. With dnppy, users can have ``arcpy``, ``gdal``, ``scipy``, and other libraries all working together with an ESRI ArcGIS installation of python. Think of it as a modification to the users Integrated Development Environment (IDE). See the :doc:`installation <install>` page to learn more.
 
 
 .. rubric:: To distribute DEVELOP project code
 
-The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within ``dnppy`` along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome very significant bureaucratic hurdles associated with releasing software.
+The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within dnppy along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome very significant bureaucratic hurdles associated with releasing software.
 
 Structure
 ---------
