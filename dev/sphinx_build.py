@@ -10,26 +10,20 @@ As you might notice, this folder is in the .gitignore, so it
 doesn't add to the git history. Why is this? We choose to follow
 the best practice of keeping the entire documentation set
 on a distinct branch, called "gh-pages" away from the master and
-development branches. In order to update the live version of
-the website, the changes must be made on the "gh-pages" branch.
+development branches. The whole documentation website is rebuilt
+from source and pushed to the "gh-pages" branch every time a commit
+is made to the master branch of dnppy, so you do not need to worry about
+performing this process manually.
 
-The recommended workflow is as follows:
-1) Create a clone of the gh-pages branch separate from your main dnppy
-   project space. for example:
-
-    /NASA
-        /dnppy
-        /docpage
-
-2) place the filepath to this branch in a text file right here
-   named "docs_dir.txt". for example:
-        "C:\Users\jwely\Desktop\GitHub\NASA\dnppy_docs"
-
-This will automatically make changes to both the build folder
-here, and the local copy of that branch. You may now freely
-commit the changes to both branches.
+However! before making a commit to the master branch, you should
+run this sphinx_build script to build a copy of the doc pages in your
+local "docs/build" folder. Make sure you resolve any errors or warnings
+given by sphinx, then open up "index.html" and browse the new
+build to make sure it displays as intended. You should do this in addition
+to any other quality assurance and testing checks you deem necessary. Once
+everything looks good, commit to the master branch, and updates should go
+live to "https://nasa-develop.github.io/dnppy/" within two minutes.
 """
-
 
 def get_sphinx():
     """ subfunction to make sure modules are available """
@@ -67,36 +61,19 @@ def build_sphinx():
 
 
     # build in the local docs/build folder
-    dest_path1  = __file__.replace("dev/sphinx_build.py", "docs/build")
+    dest_path  = __file__.replace("dev/sphinx_build.py", "docs/build")
 
     # remove the directory if it is already present
-    if os.path.exists(dest_path1):
-        _del_dir_contents(dest_path1)
+    if os.path.exists(dest_path):
+        _del_dir_contents(dest_path)
 
     with open("make_html.bat", "w+") as f:
-        line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path1)
+        line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path)
         f.write(line1)
-
-    # build in the user specified gh-pages branch folder
-    if os.path.isfile("docs_dir.txt"):
-        with open("docs_dir.txt", "r") as d:
-            dest_path2  = d.read().replace("\\", "/")
-
-            if os.path.exists(dest_path2):
-                _del_dir_contents(dest_path2)
-
-            with open("make_html.bat", "a") as f:
-                f.write("\n")
-                line2 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path2)
-                f.write(line2)
 
     os.system("make_html.bat")
 
 
-def main():
-    build_sphinx()
-
-
 if __name__ == "__main__":
-    main()
+    build_sphinx()
 
