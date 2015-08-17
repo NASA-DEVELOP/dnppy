@@ -11,10 +11,12 @@ Please consult the dnppy documentation pages for further information!
 __version__= "1.15.2"
 
 # author list
-__author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
-              "Daniel Jensen, djjensen, danieljohnjensen@gmail.com",
-              "Lauren Makely, lmakely, lmakely09@gmail.com",
-              "Quinten Geddes",
+__author__ = ["Jwely",
+              "djjensen",
+              "Syntaf",
+              "lancewatkins",
+              "lmakely",
+              "qgeddes",
               "Scott Baron",
               ]
 
