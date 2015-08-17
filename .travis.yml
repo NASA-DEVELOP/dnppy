@@ -1,0 +1,19 @@
+language: python - "2.7"
+before_install:
+- wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+- chmod +x miniconda.sh
+- "./miniconda.sh -b"
+- export PATH=/home/travis/miniconda/bin:$PATH
+- conda update --yes conda
+- sudo rm -rf /dev/shm
+- sudo ln -s /run/shm /dev/shm
+install:
+- conda install --yes python="2.7" psutil sphinx numpy scipy gdal cython h5py pycurl
+  shapely
+script:
+- sphinx-build -b html docs/source docs/build
+after_success:
+- python doc_upload.py
+env:
+  global:
+    secure: Wf3ESkJOuwC4Jwl6gGnXPhrLmmM5cLbo3OVVI7mdrXkUPE9le3Frlo6Dh9X+mrCCi+rxxWJ+98733pxZNF7gsmDfG1PFfBeQBxLuz9fnHsDZbfhhSH/AQ7A/cmkfaPXIzY/Thj0VbBx7s6fF7bKxlZGicrSE3pWVoqzTDho+SS/uluzcaYAJ2ru5dvi8knGoWZb9Eiw6my/NhSIbwge50pfruQPEY7I4+lBny/a8nItIWVmSS5q8dS3f7pglYqOG952NzZSqb2SLiHTWoES18Tv3zhjIuHTyoht724jnvQSqM9jw8bW5v/Co8NTMMFrXjcktAEJv3tDGAZ05Mz/zZH8Gu/YASsTZM5E10fuuqRaCzZh8PbTztGjhWqP1u7NMibxFSxQw4L8fe+Y1brwuWpPuxplwe3z7lY8R5V/sfReeebvm4MjOcMzAGdVmkZW4zOF30NpwPp8sroFYpM7yGli7BjmqiZsK2W95r+W7UrbDXIoM05pfEDQE4B9H0wifOsXE3AgmYK/EavJuRaTKUznu2a05ObJPvWaPP0k3RoU+jv7TozMlr8r1yameyv46tLyaqRjlxNhjlXkAZERNpygGsGlVmF27p7nf/FFsuMWEeXDwBlpbZI59g5frAtD48/FpwHaxmbJydMcgQSVyxwl0LFO9OXprbESlwR49Teo=
