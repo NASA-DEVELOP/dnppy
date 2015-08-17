@@ -1,6 +1,8 @@
-*.pyc
+*.pyc       # pycs can be re-generated from source
 *.whl
 *.xml
+*.tif
+*.TIF
 
 docs/build
 *dnppy_stat_report.txt
