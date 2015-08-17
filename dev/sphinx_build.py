@@ -34,12 +34,15 @@ def get_sphinx():
 
 
 def _del_dir_contents(dirpath):
-    """ subfunction to delete all contents of a directory, but
+    """ sub-function to delete all contents of a directory, but
         not the directory itself """
 
+    print("Cleaning {0}".format(dirpath))
     for item in os.listdir(dirpath):
         if ".git" not in item:
-            try: shutil.rmtree(item)
+            try:
+                shutil.rmtree(item)
+                os.remove(item)
             except: pass
 
 
