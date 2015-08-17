@@ -1,8 +1,10 @@
 """
-A module for performing common geospatial programming tasks
-as part of NASA DEVELOP Projects.
+The DEVELOP national Program python package (dnppy) is a living codebase for the
+NASA DEVELOP program, our project partners, and the GIS programming community!
+DEVELOP is under NASA's "Capacity Building" program, and functions to educate its
+participants and partners in earth science and remote sensing.
 
-Please consult the dnppy git wiki for further use instructions!
+Please consult the dnppy documentation pages for further information!
 """
 
 # dnppy version. follows [major revision].[year].[minor revision]
@@ -13,7 +15,8 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
               "Daniel Jensen, djjensen, danieljohnjensen@gmail.com",
               "Lauren Makely, lmakely, lmakely09@gmail.com",
               "Quinten Geddes",
-              "Scott Baron"]
+              "Scott Baron",
+              ]
 
 
 # prevents module import issues during installation.

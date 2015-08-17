@@ -16,7 +16,10 @@ This is a barebones install script to install the dnppy module
  can allow dnppy installation with pip directly, please do so.
 """
 
-import os, shutil, sys, dnppy_install, time
+import os
+import shutil
+import time
+import dnppy_install
 import install_dependencies
 
 
@@ -118,7 +121,6 @@ def test_setup():
     print("time_series")
     from dnppy import time_series
     return True
-
 
 
 def main():

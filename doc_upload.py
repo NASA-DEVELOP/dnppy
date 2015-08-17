@@ -1,3 +1,6 @@
+__author__ = "Syntaf"
+
+
 import os
 import sys
 import subprocess
