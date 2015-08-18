@@ -17,17 +17,15 @@ def fetch_TRMM(start_dto, end_dto, outdir, product_string):
 
        ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/
 
-    Input:
-        start_dto        datetime object for start date of desired range
-        end_dto          datetime object for end date of desired range
-        outdir           output directory where files should be saved (str)
-        product_string   the string for the desired product, options include
-                            1B11, 1B21, 1CTMI, 2A12, 2A21, 2A23, 2A25, 2B31, 3B42,
-                            3G25, 3G31. The usual precip product of interest is the
-                            famous 3B42 data product.
+    :param start_dto:        datetime object for start date of desired range
+    :param end_dto:          datetime object for end date of desired range
+    :param outdir:           output directory where files should be saved (str)
+    :param product_string:   the string for the desired product, options include
+                             1B11, 1B21, 1CTMI, 2A12, 2A21, 2A23, 2A25, 2B31, 3B42,
+                             3G25, 3G31. The usual precip product of interest is the
+                             well known 3B42 data product.
 
-    outputs:
-        output_files    a list of new filepaths created by this function
+    :param output_files:     a list of new filepaths created by this function
     """
 
     # set up empty structure

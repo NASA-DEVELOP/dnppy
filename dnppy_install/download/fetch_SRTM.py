@@ -5,8 +5,7 @@ from download_url import download_url
 import os
 import zipfile
 
-try: import arcpy
-except: pass
+import arcpy
 
 
 def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = None):
@@ -14,20 +13,18 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     downloads data from the Shuttle Radar Topography Mission (SRTM)
     [http://e4ftl01.cr.usgs.gov/SRTM/]
 
-    This data can be used to create DEMS of a variety of resolutions.
+    This data can be used to create DEMs of a variety of resolutions.
 
-    Inputs:
-        ll_lat          latitude of lower left corner
-        ll_lon          longitude of lower left corner
-        ur_lat          latitude of upper right corner
-        ur_lon          longitude of upper right corner
-        product         short name of product you want. See link below
+    :param ll_lat:      latitude of lower left corner
+    :param ll_lon:      longitude of lower left corner
+    :param ur_lat:      latitude of upper right corner
+    :param ur_lon:      longitude of upper right corner
+    :param product:     short name of product you want. See link below
                         https://lpdaac.usgs.gov/products/measures_products_table
-        outdir          local directory to save downloaded files
-        mosaic          Set to TRUE to mosaic all downloaded DEM tiles.
+    :param outdir:      local directory to save downloaded files
+    :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles.
 
-    Returns:
-        tif_list        a list of all successfully downloaded tif filepaths
+    :return tif_list:   a list of all successfully downloaded tif filepaths
                         for further manipulation
 
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.

@@ -14,12 +14,13 @@ def fetch_MPE(start_dto, end_dto, outdir, area = None):
     weather/noaa server at:
         [http://water.weather.gov/precip/p_download_new/]
 
-    Inputs:
-        start_dto        datetime object for start date of desired range
-        end_dto          datetime object for end date of desired range
-        outdir           output directory where files should be saved (str)
-        area             area of interest, either "conus", "ak" or "pr"
-                         for continental us, alaska, or puerto rico respectively
+    :param start_dto:       datetime object for start date of desired range
+    :param end_dto:         datetime object for end date of desired range
+    :param outdir:          output directory where files should be saved (str)
+    :param area:            area of interest, either "conus", "ak" or "pr"
+                            for continental us, alaska, or Puerto Rico respectively
+
+    :return output_files:   list of output files fetched by this function
     """
 
     # set defaults

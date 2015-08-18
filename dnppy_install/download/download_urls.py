@@ -6,24 +6,21 @@ import os, time
 
 __all__ = ["download_urls"]
 
-def download_urls(url_list, outdir, filetypes = False):
-
+def download_urls(url_list, outdir, file_types = None):
     """
     Downloads a list of files. Retries failed downloads
 
-     This script downloads a list of files and places it in the output directory. It was
-     built to be nested within "Download_filelist" to allow loops to continuously retry
-     failed files until they are successful or a retry limit is reached.
+    This script downloads a list of files and places it in the output directory. It was
+    built to be nested within "Download_filelist" to allow loops to continuously retry
+    failed files until they are successful or a retry limit is reached.
 
-     Inputs:
-       url_list        array of urls, probably as read from a text file
-       filetypes       list of filetypes to download. Useful for excluding extraneous
-                       metadata by only downloding 'hdf' or 'tif' for example. Please note
+    :param url_list:   array of urls, probably as read from a text file
+    :param file_types: list of file types to download. Useful for excluding extraneous
+                       metadata by only downloading 'hdf' or 'tif' for example. Please note
                        that often times, you actually NEED the metadata.
-       outdir          folder where files are to be placed after download
+    :param outdir:     folder where files are to be placed after download
 
-     Output:
-       failed          list of files which failed download
+    :return failed:    list of files which failed download
     """
 
     failed   = []
@@ -45,8 +42,8 @@ def download_urls(url_list, outdir, filetypes = False):
         name     = sub[leng-1]
 
         # Determine whether or not to download the file based on filetype.
-        if filetypes:
-            for filetype in filetypes:
+        if file_types is not None:
+            for filetype in file_types:
                 if filetype in name[-4:]:
                     download = True
         else:
@@ -70,7 +67,6 @@ def download_urls(url_list, outdir, filetypes = False):
                 print("{0} will be retried! {1}".format(sub[leng-1], wait))
                 wait += 5
                 failed.append(url)
-
 
     print("Finished downloading urls!")
     return failed

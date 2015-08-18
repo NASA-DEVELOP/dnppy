@@ -7,12 +7,18 @@ __all__ = ["list_ftp"]
 
 def list_ftp(site, username = None , password = None, dir = None):
     """
-    lists contents of typical FTP download site
+    lists contents of typical FTP download site. returns two lists, the first is of
+    filenames, the second is of full filepaths (including filenames) that one could
+    patch through to the "download_url" function. returns False if the server has
+    rejected our connection
 
-    Returns two lists, the first is of filenames, the second is of full filepaths
-    (including filenames) that one could patch through to the "download_url" function.
+    :param site:        url to ftp website root, does not need to include "ftp://"
+    :param username:    username to log in with, if required
+    :param password:    password to log in with, if required
+    :param dir:         specific ftp directory we wish to access
 
-    returns False if the server has rejected our connection
+    :returns filenames: a list of filenames
+    :returns filepaths: a list of full filepaths
     """
 
     # ftplib does not like the ftp address out front for some reason

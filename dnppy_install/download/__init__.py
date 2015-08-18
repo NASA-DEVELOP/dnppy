@@ -1,15 +1,8 @@
 """
- the "download" module is part of the "dnppy" package (develop national program py)
- this module houses python functions for obtaining data from the internet in a systematic
- way.
-
- If you wrote a function you think should be added to this module, or have an idea for one
- you wish was available, please email the Geoinformatics YP class or code it up yourself
- for future DEVELOP participants to use!
+The download module houses many "fetch" functions for automatic retrieval of specific data products from ``http`` and ``ftp`` servers around the USA. While centered around NASA data products, some functions exist for fetching of ancillary NOAA climate products and others.
 """
 
-
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+__author__ = ["Jwely"]
 
 # local imports
 from download_filelist import *
@@ -26,4 +19,5 @@ from fetch_TRMM import *
 
 
 from list_http_e4ftl01 import *
+from list_http_waterweather import *
 from list_ftp import *

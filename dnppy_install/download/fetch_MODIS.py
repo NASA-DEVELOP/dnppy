@@ -23,18 +23,16 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
        http://e4ftl01.cr.usgs.gov
        ftp://n5eil01u.ecs.nsidc.org
 
-    Inputs:
-        product         MODIS product to download such as 'MOD10A1' or 'MYD11A1'
-        version         version number, usually '004' or '041' or '005'
-        tiles           list of tiles to grab such as ['h11v12','h11v11']
-                        NOTE: for some MODIS products, the h and v are omitted.
-        outdir          output directory to save downloaded files
-        start_dto       datetime object, the starting date of the range of data to download
-        end_dto         datetime object, the ending date of the range of data to download
-        force_overwrite will re-download files even if they already exist
+    :param product:         MODIS product to download such as 'MOD10A1' or 'MYD11A1'
+    :param version:         version number, usually '004' or '041' or '005'
+    :param tiles:           list of tiles to grab such as ['h11v12','h11v11']
+                            NOTE: for some MODIS products, the h and v are omitted.
+    :param outdir :         output directory to save downloaded files
+    :param start_dto:       datetime object, the starting date of the range of data to download
+    :param end_dto:         datetime object, the ending date of the range of data to download
+    :param force_overwrite: will re-download files even if they already exist
 
-    outputs:
-        out_filepaths   list of filepaths to all files created by this function
+    :return out_filepaths:  list of filepaths to all files created by this function
     """
 
     out_filepaths = []
@@ -50,7 +48,7 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
 
     # obtain the web address, protocol information, and subdirectory where
     # this tpe of MODIS data can be found.
-    site, isftp, Dir = Find_MODIS_Product(product, version)
+    site, isftp, Dir = _find_modis_product(product, version)
 
     if Dir:
         print("Connected to {0}/{1}".format(site, Dir))
@@ -117,23 +115,21 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
 
 
 
-def Find_MODIS_Product(product, version):
+def _find_modis_product(product, version):
     """
-    Subfunction to determine  server properties for MODIS data product.
+    Sub-function to determine  server properties for MODIS data product.
     returns http/ftp handles
 
     the two current servers where aqua/terra MODIS data can be downloaded are
         site1='http://e4ftl01.cr.usgs.gov'
         site2='n5eil01u.ecs.nsidc.org'
 
-    Inputs:
-       product     modis product such as 'MOD10A1'
-       versions    modis version, usually '005', '004', or '041'
+    :param product:  modis product such as 'MOD10A1'
+    :param version:  modis version, usually '005', '004', or '041'
 
-    Outputs:
-       site        server address where data can be found
-       ftp         ftp handle for open ftp session
-       Dir         subdirectory of server to further search for files of input product.
+    :returns site:   server address where data can be found
+    :returns ftp:    ftp handle for open ftp session
+    :returns Dir:    subdirectory of server to further search for files of input product.
     """
 
     sat_designation = product[0:3]

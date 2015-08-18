@@ -22,13 +22,13 @@ def fetch_Landsat8(path_row_pairs, start_dto, end_dto, outdir,
     It uses the amazon web service at
     [https://aws.amazon.com/public-data-sets/landsat/]
 
-    :param path_row_pairs:  tupled integer values of path,row coordinates of tile. may be a list of several tuples. example: [(1,1),(1,2)]
+    :param path_row_pairs:  tupled integer values of path,row coordinates of tile. may be a list of several                                 tuples. example: [(1,1),(1,2)]
     :param start_dto:       python datetime object of start date of range
     :param end_dto:         python datetime object of end date of range
     :param outdir:          the folder to save the output landsat files in
     :param max_cloud_cover: maximum percent cloud cover that is acceptable to download the file.
 
-    :returns:   A list of tilenames downloaded by this function.
+    :return output_filelist: A list of tile names downloaded by this function.
     """
 
     # fetch an updated scene list with custom function.
@@ -70,9 +70,13 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
     This function makes use of the amazon web service hosted Landsat 8 OLI data.
     It recieves an amazon web url for a single landsat tile, and downloads the desired files
 
-    defaults to downlod all bands, but users can call
-        bands = [1,2,3,4,5,6,7,8,9,10,11,"QA"] to control which files are downloaded.
-        The MTL file is ALWAYS downloaded.
+    :param amazon_url:  url to amazons page hosting these landsat tiles
+    :param tilename:    landsat tile name
+    :param outdir:      output directory to place landsat data
+    :param bands:       list of bands to download when not all are desired, options include
+                        any of [1,2,3,4,5,6,7,8,9,10,11,"QA"]. The MTL file is ALWAYS downloaded.
+
+    :return tilepath:   returns a filepath to the new landsat tile folder with .TIFs in it
     """
 
     if bands is None:
@@ -110,14 +114,18 @@ def fetch_Landsat8_tile(amazon_url, tilename, outdir, bands = None):
                 else:
                     print("\t Found {0}".format(filename))
 
-    return
+    return os.path.join(outdir, tilename)
 
 
 def fetch_Landsat8_scene_list():
     """
-    Simple downloads the most recent version of the scene_list textfile for reference
+    Simple downloads and extracts the most recent version of the scene_list
+    text file for reference
 
-    http://landsat-pds.s3.amazonaws.com/scene_list.gz
+        http://landsat-pds.s3.amazonaws.com/scene_list.gz
+
+    :return scene_list_text_data:   returns a text data object with all
+                                    the data on scene inventory on amazon WS.
     """
 
     print("Updating scene list")

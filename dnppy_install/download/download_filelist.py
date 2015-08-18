@@ -6,31 +6,29 @@ import os, time
 
 __all__ = ["download_filelist"]
 
-def download_filelist(ftptexts, filetypes = False, outdir = False):
-
+def download_filelist(ftp_texts, file_type = None, outdir = None):
     """
     Reads text file of download links, downloads them.
 
-     This script reads a text file with urls such as those output from ECHO REVERB
-     and outputs them to an output directory. It will retry failed links 20 times before
-     giving up and outputing a warning to the user.
+    This script reads a text file with urls such as those output from ECHO REVERB
+    and outputs them to an output directory. It will retry failed links 20 times before
+    giving up and outputting a warning to the user.
 
-     Inputs:
-       ftptexts        array of txt files ordered from reverb containing ftp links
-       filetype        file extension of the desired files, leave blank or False to grab all
-                       types.
-       outdir          folder where files are to be placed after download
+    :param ftp_texts:    array of txt files ordered from reverb containing ftp links
+    :param file_type:    file extension of the desired files, leave blank or False to grab all types.
+    :param outdir:       folder where files are to be placed after download
 
-     Outputs:
-       failed          list of files which failed to download after the end of the script.
+    :return list failed: list of files which failed to download after the end of the script.
     """
 
-    # force inputs to take list format
-    ftptexts = core.enf_list(ftptexts)
-    if filetypes:
-        filetypes = core.enf_list(filetypes)
+    failed = []
 
-    for ftptext in ftptexts:
+    # force inputs to take list format
+    ftp_texts = core.enf_list(ftp_texts)
+    if file_type is not None:
+        file_type = core.enf_list(file_type)
+
+    for ftptext in ftp_texts:
         #verify that things exist.
         core.exists(ftptext)
 
@@ -44,14 +42,14 @@ def download_filelist(ftptexts, filetypes = False, outdir = False):
         print("Saving all files to {0}".format(outdir))
 
         # perform the first attempt
-        failed = download_urls(sites, outdir, filetypes)
+        failed = download_urls(sites, outdir, file_type)
 
         # for 19 more times, if there are still items in the failed list, try again
         for i in range(1,19):
             if len(failed)>0:
                 print("retry number {0} to grab {1} failed downloads!".format(i,len(failed)))
                 time.sleep(60)
-                failed = download_urls(failed, filetypes, outdir)
+                failed = download_urls(failed, file_type, outdir)
 
         # once all tries are complete, print a list of files which repeatedly failed
         if len(failed)>0:

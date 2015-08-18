@@ -10,20 +10,19 @@ __all__ = ["fetch_Landsat_WELD"]
 
 
 def fetch_Landsat_WELD(product, tiles, years, outdir):
-
     """
-     Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD]
+    Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD].
+    Weld data is corrected and processed Landsat 5 and 7 data that is distributed in the
+    MODIS sinusoidal projection and grid format. Read more about WELD data.
+    https://landsat.usgs.gov/WELD.php
+    http://globalmonitoring.sdstate.edu/projects/weldglobal/
 
-     Weld data is corrected and processed Landsat 5 and 7 data that is distributed in the
-     MODIS sinusoidal projection and grid format. Read more about WELD data.
-       https://landsat.usgs.gov/WELD.php
-       http://globalmonitoring.sdstate.edu/projects/weldglobal/
+    :param product:     WELD product to download such as 'USWK','USMO','USYR'
+    :param tiles:       list of tiles to grab such as ['h11v12','h11v11']
+    :param years:       list of years to grab such as range(2001,2014)
+    :param outdir:      output directory to save downloaded files
 
-     Inputs:
-       product     WELD product to download such as 'USWK','USMO','USYR'
-       tiles       list of tiles to grab such as ['h11v12','h11v11']
-       years       list of years to grab such as range(2001,2014)
-       outdir      output directory to save downloaded files
+    :return
     """
 
     # check formats
