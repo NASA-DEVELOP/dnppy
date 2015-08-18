@@ -45,6 +45,8 @@ Contents
     dev_pages/contrib_git
     dev_pages/doc
     dev_pages/contact
+    dev_pages/wishlist
+
 
 .. toctree::
     :caption: Help and Reference
@@ -53,7 +55,6 @@ Contents
     trub/pythonstarter
     trub/faq
     trub/issues
-
 
 Indices and tables
 ------------------
