@@ -8,10 +8,8 @@ from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 
 import os
-from datetime import datetime
 
 __all__ = ["fetch_MODIS"]
-
 
 def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
                                                 force_overwrite = False):
@@ -27,12 +25,13 @@ def fetch_MODIS(product, version, tiles, outdir, start_dto, end_dto,
     :param version:         version number, usually '004' or '041' or '005'
     :param tiles:           list of tiles to grab such as ['h11v12','h11v11']
                             NOTE: for some MODIS products, the h and v are omitted.
+
     :param outdir :         output directory to save downloaded files
     :param start_dto:       datetime object, the starting date of the range of data to download
     :param end_dto:         datetime object, the ending date of the range of data to download
     :param force_overwrite: will re-download files even if they already exist
 
-    :return out_filepaths:  list of filepaths to all files created by this function
+    :return out_filepaths:  a list of filepaths to all files created by this function
     """
 
     out_filepaths = []

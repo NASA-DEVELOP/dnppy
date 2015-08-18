@@ -11,8 +11,7 @@ __all__ = ["fetch_MPE"]
 def fetch_MPE(start_dto, end_dto, outdir, area = None):
     """
     Fetches Multisensor Precipitation Estimates data from
-    weather/noaa server at:
-        [http://water.weather.gov/precip/p_download_new/]
+    weather/noaa server at [http://water.weather.gov/precip/p_download_new/]
 
     :param start_dto:       datetime object for start date of desired range
     :param end_dto:         datetime object for end date of desired range

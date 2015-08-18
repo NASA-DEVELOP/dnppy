@@ -6,10 +6,10 @@ from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 import os
 
-__all__ = ["fetch_Landsat_WELD"]
+__all__ = ["fetch_LandsatWELD"]
 
 
-def fetch_Landsat_WELD(product, tiles, years, outdir):
+def fetch_LandsatWELD(product, tiles, years, outdir):
     """
     Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD].
     Weld data is corrected and processed Landsat 5 and 7 data that is distributed in the
@@ -22,8 +22,10 @@ def fetch_Landsat_WELD(product, tiles, years, outdir):
     :param years:       list of years to grab such as range(2001,2014)
     :param outdir:      output directory to save downloaded files
 
-    :return
+    :return output_filelist: A list of full filepaths to files fetched be this function
     """
+
+    output_filelist = []
 
     # check formats
     global dates
@@ -73,5 +75,6 @@ def fetch_Landsat_WELD(product, tiles, years, outdir):
 
                         #download the file.
                         outname = os.path.join(outdir,tile,afile)
+                        output_filelist.append(outname)
                         download_url(address, outname)
     return

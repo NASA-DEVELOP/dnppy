@@ -2,7 +2,6 @@ __author__ = 'jwely'
 
 import pip
 import os
-import shutil
 
 """
 Running this script will create the sphinx build in the local repository.
