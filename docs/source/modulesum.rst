@@ -1,18 +1,17 @@
-===================
-Now What? - Modules
-===================
+=====================
+Exploring the modules
+=====================
 
-OK, so you have read the overview, maybe you've downloaded and installed the package, you read about the design and how how to use it, but what can dnppy *actually* do!? How do you access functions?! What can you do with NASA data? The next section of the sidebar breaks dnppy down into its individual modules with some introductory examples on how to use some of the functions and classes in each one.
-
-Users can gain access to functions and classes within dnppy modules by:
+OK, so you have read the overview, maybe you've downloaded and installed the package, you read about the design and how how to use it, but what can dnppy *actually* do!? How do you access functions?! What can you do with NASA data? The next section of the sidebar breaks dnppy down into its individual modules with some introductory examples on how to use some of the functions and classes in each one. When accessing code from some remote location with python, we use the an ``import`` statement to bring the module contents into the current namespace of python.
 
 .. code-block:: python
 
-    # import the core module
-    from dnppy import core
+    from dnppy import core    # import the core module from dnppy
+    help(core)                # print list of functions in core
+    help(core.function)       # print detailed help for function "function"
 
-    # invoke hypothetical "function" on input arguments to collect a returned value
-    returned = core.function(*args)
+    # collects the returned value from passing some arguments into our hypothetical function
+    returned_value = core.function(*args)
 
 
 Module Summary

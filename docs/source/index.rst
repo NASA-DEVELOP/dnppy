@@ -22,7 +22,7 @@ Contents
     overview
     install
     design
-    whatnow
+    modulesum
 
 .. toctree::
     :caption: Modules
