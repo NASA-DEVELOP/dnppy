@@ -5,10 +5,10 @@ from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 import os
 
-__all__ = ["fetch_LandsatWELD"]
+__all__ = ["fetch_Landsat_WELD"]
 
 
-def fetch_LandsatWELD(product, tiles, years, outdir):
+def fetch_Landsat_WELD(product, tiles, years, outdir):
     """
     Fetch WELD data from the server at [http://e4ftl01.cr.usgs.gov/WELD].
     Weld data is corrected and processed Landsat 5 and 7 data that is distributed in the
@@ -37,14 +37,14 @@ def fetch_LandsatWELD(product, tiles, years, outdir):
         if not os.path.exists(os.path.join(outdir,tile)):
             os.makedirs(os.path.join(outdir,tile))
 
-    print '{Fetch_Landsat_WELD} Connecting to servers!'
+    print('Connecting to servers!')
 
     # Map the contents of the directory
     site= 'http://e4ftl01.cr.usgs.gov/WELD/WELD'+product+'.001'
     try:
         dates = list_http_e4ftl01(site)
     except:
-        print '{Fetch_Landsat_WELD} Could not connect to site! check inputs!'
+        print('Could not connect to site! check inputs!')
 
     # find just the folders within the desired year range.
     good_dates=[]
@@ -55,7 +55,7 @@ def fetch_LandsatWELD(product, tiles, years, outdir):
                 good_dates.append(date)
         except: pass
 
-    print 'Found ' + str(len(good_dates)) + ' days within year range'
+    print("Found {0} days within year range".format(len(good_dates)))
 
     # for all folders within the desired date range,  map the subfolder contents.
     for good_date in good_dates:
@@ -70,7 +70,7 @@ def fetch_LandsatWELD(product, tiles, years, outdir):
 
                         # assemble the address
                         address = '/'.join([site,good_date,afile])
-                        print '{Fetch_Landsat_WELD} Downloading' + address
+                        print("Downloading {0}".format(address))
 
                         #download the file.
                         outname = os.path.join(outdir,tile,afile)

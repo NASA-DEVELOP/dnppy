@@ -11,7 +11,7 @@ from download_urls import *
 
 from fetch_GPM_IMERG import *
 from fetch_Landsat8 import *
-from fetch_LandsatWELD import *
+from fetch_Landsat_WELD import *
 from fetch_MODIS import *
 from fetch_MPE import *
 from fetch_SRTM import *
