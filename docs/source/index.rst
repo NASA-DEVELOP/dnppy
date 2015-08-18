@@ -72,7 +72,7 @@ Firstly, DEVELOP expects participants to come in, learn about a topic, plan an a
 
 So, between September 2014 and August 2015, I worked to improve my programming skills to meet the professional standard (which I continue to do). Over a period of nine months, I've worked as part of a team of Geoinformatics Fellows to conceptualize and realize dnppy. It has been a very rewarding and exciting experience for me.
 
-This package is still early in its life, and supports a small fraction of the NASA data types we would like to support. Hopefully, the members of the community will adopt it as their own and continue to find it usefull and improve upon it. If you are a student or recent graduate using this package, I encourage you to take a look at the NASA DEVELOP program and consider applying. If you look at some of this code in disgust and anguish at some foolish design choice we've made, or see potential for improvement, we welcome your feedback and contributions through GitHub.
+This package is still early in its life, and supports a small fraction of the NASA data types we would like to support. Hopefully, the members of the community will adopt it as their own and continue to find it useful and improve upon it. If you are a student or recent graduate using this package, I encourage you to take a look at the NASA DEVELOP program and consider applying. If you look at some of this code in disgust and anguish at some foolish design choice we've made, or see potential for improvement, we welcome your feedback and contributions through GitHub.
 
 Special thanks to Geoinformatics Fellow team of 2015: Daniel Jensen, Lance Watkins, Amber Brooks
 

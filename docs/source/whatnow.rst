@@ -2,7 +2,7 @@
 Now What? - Modules
 ===================
 
-OK, so you have read the overview, maybe you've downloaded and installed the package, you read about the design and how how to use it, but what can ``dnppy`` *actually* do!? How do you access functions?! What can you do with NASA data? The next section of the sidebar breaks dnppy down into its individual modules with some introductory examples on how to use some of the functions and classes in each one.
+OK, so you have read the overview, maybe you've downloaded and installed the package, you read about the design and how how to use it, but what can dnppy *actually* do!? How do you access functions?! What can you do with NASA data? The next section of the sidebar breaks dnppy down into its individual modules with some introductory examples on how to use some of the functions and classes in each one.
 
 Users can gain access to functions and classes within dnppy modules by:
 
@@ -15,8 +15,8 @@ Users can gain access to functions and classes within dnppy modules by:
     returned = core.function(*args)
 
 
-Module structure
-----------------
+Module Summary
+--------------
 
 .. rubric:: :doc:`convert <modules/convert>`
 

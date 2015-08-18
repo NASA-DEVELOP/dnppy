@@ -1,8 +1,6 @@
-GitHub
-======
+GitHub Basics
+=============
 
-Basics of Git
--------------
 Git is one of several "version control systems", and the industry standard for open source software. GitHub is the specific implementation of git where a complete copy of a repository is kept online for easy remote access. It is both a technology and a workflow that allows many people to contribute to a single set of code easily, with the reason behind every change made available for posterity.
 
 .. rubric:: Introductory Videos
