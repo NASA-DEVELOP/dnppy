@@ -46,7 +46,7 @@ def build_sphinx():
 
     # assemble filepaths
     sphinx_path = pip.__file__.replace("lib\\site-packages\\pip\\__init__.pyc",
-                                       "Scripts\sphinx-build.exe")
+                                       "Scripts/sphinx-build.exe")
     source_path = __file__.replace("dev/sphinx_build.py", "docs/source")
 
 

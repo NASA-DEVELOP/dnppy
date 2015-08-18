@@ -3,7 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-========================================
 Welcome to the dnppy documentation page!
 ========================================
 
@@ -13,9 +12,8 @@ The DEVELOP national program python package (dnppy) is as a living codebase for 
 
 dnppy was created to improve institutional knowledge retention, open the DEVELOP toolkit for public contributions and use, represent DEVELOP in the public domain, and put more power in the hands of new participants the first day the walk into the program. It is a social media, programming capacity building, and educational endeavor.
 
-========
 Contents
-========
+--------
 
 .. toctree::
     :caption: Getting Started
@@ -37,6 +35,7 @@ Contents
     modules/modis
     modules/raster
     modules/solar
+    modules/textio
     modules/time_series
 
 .. toctree::
@@ -56,9 +55,8 @@ Contents
     trub/issues
 
 
-==================
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

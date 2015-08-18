@@ -212,7 +212,7 @@ html_search_language = 'en'
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'dnppydoc'
+htmlhelp_basename = 'pydoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
