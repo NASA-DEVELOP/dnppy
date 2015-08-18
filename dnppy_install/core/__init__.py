@@ -1,5 +1,7 @@
 """
 The ``core`` module houses functions that assist in data formatting, input sanitation, path manipulations, file naming, logical checks, etc for use in other functions within dnppy. They are short and sweet, and can be used as examples to start defining your own functions!
+
+This module does `not` require ``arcpy``
 """
 
 __author__ = ["jwely",

@@ -4,9 +4,6 @@ from download_url import download_url
 import os
 import zipfile
 
-import arcpy
-
-
 def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = None):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)
@@ -123,19 +120,22 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
 
     if mosaic is True:
 
-        arcpy.MosaicToNewRaster_management(tif_list, outdir, "SRTM_mosaic.tif",
-                                           number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
+        # use gdal to mosaic these raster together
+        mosaic_list = " ".join(tif_list)
+        out_mosaic  = os.path.join(outdir, "SRTM_mosaic.tif")
+        command = "gdalwarp {0} {1}".format(mosaic_list, out_mosaic)
+        os.system(command)
+
+        #arcpy.MosaicToNewRaster_management(tif_list, outdir, "SRTM_mosaic.tif", number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
 
     print("Finished download and extraction of SRTM data")
 
     return tif_list
 
 
-
-
 if __name__ == "__main__":
 
-    testdir = r"D:\dh_dev"
-    fetch_SRTM(44, -123, 47, -118, "SRTMGL1", testdir, mosaic = True)
+    testdir = r"C:\Users\jwely\Desktop\troubleshooting\SRTM"
+    fetch_SRTM(46, -119, 47, -118, "SRTMGL1", testdir, mosaic = True)
 
 
