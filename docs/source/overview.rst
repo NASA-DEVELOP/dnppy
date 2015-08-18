@@ -62,3 +62,15 @@ This repository is filled with unstructured code for a generalized purpose that 
 .. rubric:: \\dev
 
 Tools for building the development environment and testing, includes setup of ``sphinx``. Read more about it in the section for developers.
+
+Long Term Goals
+---------------
+
+First and foremost, any future changes to dnppy need to keep a few top priorities in focus. Those are:
+
+    * To improve accessibility and utility of NASA data products
+    * To be as beginner friendly and approachable as possible
+
+Support of these primary goals is why, for example, we chose to have dnppy fetch and install several third party libraries upon setup, to make life easier for people starting out who may struggle with setting up complex libraries like ``gdal`` along side the more familiar ``arcpy``. Support of these primary goals is part of why the download and convert modules for fetching and conversion of NASA data products to standard GeoTiffs are a center focus for further development.
+
+Any architectural or design changes to dnppy that better serve these goals is ultimately a good idea. Eventual ``arcpy`` independence would better serve the open source community, and should be worked towards by introducing new ``arcpy`` dependent functions as seldom as possible. Eventual upgrade to use Python 3.0 is also likely, so using python 3.0 compatible syntax where possible is also a terrific idea.
