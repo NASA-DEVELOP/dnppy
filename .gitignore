@@ -1,14 +1,15 @@
-*.pyc       # pycs can be re-generated from source
+# filter by file extension
+*.pyc
 *.whl
 *.xml
 *.tif
 *.TIF
 
+# specific files and folders
 docs/build
 *dnppy_stat_report.txt
 *make_html.bat
-*docs_dir.txt
 *arc.dir
 
+# the users pycharm workspace
 .idea/
-*dnppy_stat_report.txt
