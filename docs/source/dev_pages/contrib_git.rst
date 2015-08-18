@@ -25,7 +25,11 @@ We typically direct people to simply download the most recent version of the mas
 
     * Simple bug fixes can be committed directly to the master branch.
     * Commits in which changes to documentation, docstrings, or comments to improve clarity, but preserve function can be committed directly to the master branch.
-    * When adding some kind of new functionality, you should always create a new branch for development and testing. When you are satisfied with the new additions, you can then merge that branch with the master branch with a pull request.
+
+When adding some kind of new functionality, you should always create a new branch for development and testing. When you are satisfied with the new additions, you can then merge that branch with the master branch with a pull request. Learn more about the `GitHub Flow`_
+
+.. _GitHub Flow: https://guides.github.com/introduction/flow/
+
 
 .. note:: We started out as noobs, and did not institute proper git workflow with dnppy from the beginning. Nothing terrible happened, but some things were more difficult than they would have been otherwise. Just do your best, and learn as much as you can!
 
