@@ -47,7 +47,7 @@ Each of the distinct directives results in a few different directories within dn
 
 .. rubric:: \\dnppy_install
 
-Contains each module of dnppy which is installed on setup.
+Contains each module of dnppy which is installed on setup as ``dnppy``!
 :doc:`Read more about the modules <whatnow>`
 
 .. rubric:: \\docs

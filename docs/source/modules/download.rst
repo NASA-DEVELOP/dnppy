@@ -1,7 +1,8 @@
 download
 ========
 
-The download module houses many "fetch" functions for automatic retrieval of specific data products from ``http`` and ``ftp`` servers around the USA. While centered around NASA data products, some functions exist for fetching of ancillary NOAA climate products and others.
+.. automodule:: dnppy_install.download
+    :members:
 
 Examples
 --------
@@ -31,8 +32,7 @@ The other fetching functions work similarly.
 Code Help
 ---------
 
-.. automodule:: dnppy_install.download
-    :members:
+Auto-documentation for functions and classes within this module is generated below!
 
 .. automodule:: dnppy_install.download.download_filelist
     :members:
