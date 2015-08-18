@@ -1,7 +1,7 @@
 __author__ = ['djjensen', 'jwely']
 
-from dnppy import textio
-from dnppy import core
+from dnppy_install import textio
+from dnppy_install import core
 
 from download_url import download_url
 

@@ -1,7 +1,7 @@
 __author__ = 'jwely'
 
 
-from dnppy import core
+from dnppy_install import core
 
 from list_ftp import list_ftp
 from list_http_e4ftl01 import list_http_e4ftl01
