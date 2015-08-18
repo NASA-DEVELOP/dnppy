@@ -42,9 +42,9 @@ We expect that a new version should be always be released immediately after, and
 
 The numbering is pretty simple, and takes the format of
 
-    ``major_revision.two_digit_year.minor_revision``
+    ``[major_revision].[two_digit_year].[minor_revision]``
 
-The major revision is reserved for very large changes. When dnppy reaches complete ``arcpy`` independence, an increase in the major revision number would be justified. It is difficult for us to know what future scenarios may arise, but anything that changes the major revision number should be a pretty big deal. The two digit year is a simple record keeping device to associate a version of dnppy with NASA's fiscal year, which turns over each September. The minor revision is the smallest revision increment for the year, and should just go up every time there is a revision change worth changing the number over.
+The major revision is reserved for very large changes. When dnppy reaches complete ``arcpy`` independence or upgrades to use python 3.0, an increase in the major revision number would be justified. It is difficult for us to know what future scenarios may arise, but anything that changes the major revision number should be a pretty big deal. The two digit year is a simple record keeping device to associate a version of dnppy with NASA's fiscal year, which turns over each September. The minor revision is the smallest revision increment for the year, and should just go up every time there is a revision change worth changing the number over.
 
 Example revision schedule:
     * ``dnppy 1.16.1`` Fall 2015, at the beginning of FY16
