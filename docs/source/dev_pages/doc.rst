@@ -26,6 +26,8 @@ These documentation pages are made into pretty html and css from a couple of dif
 Documenting new additions
 -------------------------
 
+.. rubric:: A new function or class
+
 When you add a new function or class to dnppy, you will have to add a couple lines to that modules ``.rst`` file in the modules folder. These few lines allow sphinx to parse the docstrings and arguments of that function or class definition and create help pages and add it to the index so users can find it in the search bar.
 
 Its easiest to check the source for these very doc pages.
@@ -39,7 +41,7 @@ Its easiest to check the source for these very doc pages.
 .. _core module help page: https://nasa-develop.github.io/dnppy/modules/core.html
 .. _generate the core module help page: https://nasa-develop.github.io/dnppy/_sources/modules/core.txt
 
-You will notice that in the source code for the core module help page a statement that looks like
+You will notice in the source code for the core module help page a statement that looks like:
 
 .. code-block:: rst
 
@@ -71,6 +73,11 @@ The auto documentation tool chain will generate this:
   :rtype: returns int
 
 Ensure you write descriptive docstrings for your functions, and comment well, which are things you should definitely be doing anyway right? It is worth noting that PyCharm, our recommended IDE, automatically provides tooltips to encourage the user to document to this standard as quickly and easily as possible.
+
+.. rubric:: A new module
+
+When adding a new module to dnppy, you should create a new ``.rst`` file in ``docs/source/modules`` with an "Examples" and a "Code Help" section in the same way the other modules of dnppy are set up.
+
 
 Checking the docs
 -----------------
