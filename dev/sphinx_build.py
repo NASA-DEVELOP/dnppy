@@ -33,19 +33,6 @@ def get_sphinx():
     except ImportError: pip.main(["install", "graphviz"])
 
 
-def _del_dir_contents(dirpath):
-    """ sub-function to delete all contents of a directory, but
-        not the directory itself """
-
-    print("Cleaning {0}".format(dirpath))
-    for item in os.listdir(dirpath):
-        if ".git" not in item:
-            try:
-                shutil.rmtree(item)
-                os.remove(item)
-            except: pass
-
-
 def build_sphinx():
     """
     This function creates a batch file for running sphinx-build on
@@ -66,9 +53,12 @@ def build_sphinx():
     # build in the local docs/build folder
     dest_path  = __file__.replace("dev/sphinx_build.py", "docs/build")
 
-    # remove the directory if it is already present
-    if os.path.exists(dest_path):
-        _del_dir_contents(dest_path)
+    # remove key files to force rebuild
+    buildinfo = os.path.join(dest_path, ".buildinfo")
+    pickle = os.path.join(dest_path, ".doctrees","environment.pickle")
+    if os.path.exists(pickle): os.remove(pickle)
+    if os.path.exists(buildinfo): os.remove(buildinfo)
+
 
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path)
