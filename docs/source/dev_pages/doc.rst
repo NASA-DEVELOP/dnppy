@@ -1,7 +1,7 @@
 Building Docs
 =============
 
-One of the most important aspects of writing good software is documentation. This website is generated automatically from the source files in ``dnppy/docs/source`` with `Sphinx`_ and `graphviz`_.
+One of the most important aspects of writing good software is documentation. This website is generated automatically from the source files in ``dnppy/docs/source`` with `Sphinx`_ and `graphviz`_. You can click on the "View page source" button in the top right corner to see the source code used to build this web page! Neat!
 
 .. rubric:: Documentation source
 

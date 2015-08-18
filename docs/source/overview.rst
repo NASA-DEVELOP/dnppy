@@ -18,7 +18,17 @@ The primary users within the DEVELOP program are operating on government compute
 
 .. rubric:: To distribute DEVELOP project code
 
-The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within dnppy along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome very significant bureaucratic hurdles associated with releasing software.
+The DEVELOP program partners with external organizations to complete a wide variety of earth science based projects. Often times, these external organizations would like access to code created by these project teams, though the projects were not fundamentally computer science based. This code is placed in the ``undeployed`` folder within dnppy along with legacy code. Code in the ``undeployed`` folder is not installed and accessible from dnppy. This is done in part to overcome *unbelievably* restrictive bureaucratic hurdles associated with releasing software from NASA Langley Research Center where we are headquartered.
+
+Scope
+-----
+
+All current and future actions related to dnppy must be within the following scope:
+
+    1. To improve accessibility and utility of NASA data products
+    2. To be as beginner friendly and approachable as possible
+
+Support of this scope is why, for example, we chose to have dnppy fetch and install several third party libraries upon setup, to make life easier for people starting out who may struggle with setting up complex libraries like ``gdal`` along side the more familiar ``arcpy``. Support of these primary goals is part of why the download and convert modules for fetching and conversion of NASA data products to standard GeoTiffs are a center focus for further development.
 
 Structure
 ---------
@@ -37,11 +47,13 @@ Each of the distinct directives results in a few different directories within dn
 
 .. rubric:: \\dnppy_install
 
-Contains each module of dnppy which is installed on setup. Read more about the modules on the modules page
+Contains each module of dnppy which is installed on setup.
+:doc:`Read more about the modules <whatnow>`
 
 .. rubric:: \\docs
 
-The folder containing the source rst files used to automatically generate this doc website
+The folder containing the source rst files used to automatically generate these documentation pages.
+:doc:`Read more about how docs are built and contributed to <dev_pages/doc>`
 
 .. rubric:: \\undeployed
 
@@ -63,14 +75,3 @@ This repository is filled with unstructured code for a generalized purpose that 
 
 Tools for building the development environment and testing, includes setup of ``sphinx``. Read more about it in the section for developers.
 
-Long Term Goals
----------------
-
-First and foremost, any future changes to dnppy need to keep a few top priorities in focus. Those are:
-
-    * To improve accessibility and utility of NASA data products
-    * To be as beginner friendly and approachable as possible
-
-Support of these primary goals is why, for example, we chose to have dnppy fetch and install several third party libraries upon setup, to make life easier for people starting out who may struggle with setting up complex libraries like ``gdal`` along side the more familiar ``arcpy``. Support of these primary goals is part of why the download and convert modules for fetching and conversion of NASA data products to standard GeoTiffs are a center focus for further development.
-
-Any architectural or design changes to dnppy that better serve these goals is ultimately a good idea. Eventual ``arcpy`` independence would better serve the open source community, and should be worked towards by introducing new ``arcpy`` dependent functions as seldom as possible. Eventual upgrade to use Python 3.0 is also likely, so using python 3.0 compatible syntax where possible is also a terrific idea.
