@@ -1,91 +1,123 @@
 
 # standard imports
 from datetime import datetime
-import math
+from dnppy import solar
+
+import inspect
+
+class landsat_metadata_obj():
+    """
+    A landsat metadata object. This class builds is attributes
+    from the names of each tag in the xml formatted .MTL files that
+    come with landsat data. So, any tag that appears in the MTL file
+    will populate as an attribute of landsat_metadata_obj by using the
+    grab_meta function.
+
+    There are however, several critical attributes
+    that keep a common naming convention between all landsat versions,
+    so they are initialized in this class for good record keeping.
+
+    :param filename: the filepath to an MTL file.
+    """
+
+    def __init__(self, filename):
+
+        # custom attribute additions
+        self.FILEPATH           = filename
+        self.DATETIME_OBJ       = None
+
+        # product metadata attributes
+        self.LANDSAT_SCENE_ID   = None
+        self.DATA_TYPE          = None
+        self.ELEVATION_SOURCE   = None
+        self.OUTPUT_FORMAT      = None
+        self.SPACECRAFT_ID      = None
+        self.SENSOR_ID          = None
+        self.WRS_PATH           = None
+        self.WRS_ROW            = None
+        self.NADIR_OFFNADIR     = None
+        self.TARGET_WRS_PATH    = None
+        self.TARGET_WRS_ROW     = None
+        self.DATE_ACQUIRED      = None
+        self.SCENE_CENTER_TIME  = None
+
+        # image attributes
+        self.CLOUD_COVER        = None
+        self.IMAGE_QUALITY_OLI  = None
+        self.IMAGE_QUALITY_TIRS = None
+        self.ROLL_ANGLE         = None
+        self.SUN_AZIMUTH        = None
+        self.SUN_ELEVATION      = None
+        self.EARTH_SUN_DISTANCE = None    # calculated for Landsats before 8.
+
+        # read the file and populate the MTL attributes
+        self.read(filename)
+
+
+    def read(self, filename):
+        """ reads the contents of an MTL file """
+
+        # if the "filename" input is actually already a metadata class object, return it back.
+        if inspect.isclass(filename):
+            return filename
+
+        fields = []
+        values = []
+
+        metafile = open(filename,'r')
+        metadata = metafile.readlines()
+
+        for line in metadata:
+            # skips lines that contain "bad flags" denoting useless data AND lines
+            # greater than 1000 characters. 1000 character limit works around an odd LC5
+            # issue where the metadata has 40,000+ characters of whitespace
+            bad_flags = ["END", "GROUP"]
+            if not any(x in line for x in bad_flags) and len(line)<=1000:
+                try:
+                    line = line.replace("  ","")
+                    line = line.replace("\n","")
+                    field_name , field_value = line.split(' = ')
+                    fields.append(field_name)
+                    values.append(field_value)
+                except: pass
+
+        for i in range(len(fields)):
+
+            #format fields without quotes,dates, or times in them as floats
+            if not any(['"' in values[i],'DATE' in fields[i],'TIME' in fields[i]]):
+                setattr(self, fields[i],float(values[i]))
+            else:
+                values[i] = values[i].replace('"','')
+                setattr(self, fields[i],values[i])
+
+        # create datetime_obj attribute (drop decimal seconds)
+        dto_string          = self.DATE_ACQUIRED + self.SCENE_CENTER_TIME
+        self.DATETIME_OBJ   = datetime.strptime(dto_string.split(".")[0], "%Y-%m-%d%H:%M:%S")
+
+        # only landsat 8 includes sun-earth-distance in MTL file, so calculate it
+        # for the Landsats 4,5,7 using solar module.
+        if not self.SPACECRAFT_ID == "LANDSAT_8":
+
+            # use 0s for lat and lon, sun_earth_distance is not a function of any one location on earth.
+            s = solar.solar(0 ,0 , self.DATETIME_OBJ , 0)
+            self.EARTH_SUN_DISTANCE = s.get_rad_vector()
+
+        print("Scene {0} center time is {1}".format(self.LANDSAT_SCENE_ID, self.DATETIME_OBJ))
 
 
 def grab_meta(filename):
     """
-    Parses the xml format landsat metadata "MTL.txt" file
+    Legacy metadata function simply wraps the newer landsat_metadata_obj class.
+    You should use ``landsat_metadata_obj`` instead of this function, and can
+    refer to that class for further explanation.
 
-    This function parses the xml format metadata file associated with landsat images.
-    it outputs a class instance metadata object with all the attributes found in the MTL
-    file for quick referencing by other landsat related functions.
-
-    Custom additions to metadata:
-        datetime_obj    a datetime object for the precise date and time of image
-                        aquisition (in Z time!)
-    
-    Inputs:
-       filename    the filepath to a landsat MTL file.
-
-    Returns:
-        meta        class object with all metadata attributes
+    :param filename:                filepath to an MTL file
+    :return landsat_metadata_obj:   metadata object with MTL attributes.
     """
 
-    # if the "filename" input is actually already a metadata class object, return it back.
-    import inspect
-    if inspect.isclass(filename):
-        return (filename)
-
-    fields = []
-    values = []
-
-    class landsat_metadata_obj(object):pass
-    meta = landsat_metadata_obj()
-
-    if filename:
-        metafile = open(filename,'r')
-        metadata = metafile.readlines()
-
-    for line in metadata:
-        # skips lines that contain "bad flags" denoting useless data AND lines
-        # greater than 1000 characters. 1000 character limit works around an odd LC5
-        # issue where the metadata has 40,000+ erroneous characters of whitespace
-        bad_flags = ["END","GROUP"]                 
-        if not any(x in line for x in bad_flags) and len(line)<=1000:
-            try:
-                line = line.replace("  ","")
-                line = line.replace("\n","")
-                field_name , field_value = line.split(' = ')
-                fields.append(field_name)
-                values.append(field_value)
-            except: pass
-
-    for i in range(len(fields)):
-        
-        #format fields without quotes,dates, or times in them as floats
-        if not any(['"' in values[i],'DATE' in fields[i],'TIME' in fields[i]]):   
-            setattr(meta,fields[i],float(values[i]))
-        else:
-            values[i] = values[i].replace('"','')
-            setattr(meta,fields[i],values[i])   
-        
-
-    # Add a FILEPATH attribute for local filepath of MTL file.
-    meta.FILEPATH = filename
-
-    # only landsat 8 includes sun-earth-distance in MTL file, so calculate it for the others.
-    # this equation is tuned to match [http://landsathandbook.gsfc.nasa.gov/data_prod/prog_sect11_3.html]
-    # with a maximum error of 0.055%
-    if not meta.SPACECRAFT_ID == "LANDSAT_8":
-        j_day = int(meta.LANDSAT_SCENE_ID[13:16])
-        ecc   = 0.01671123
-        theta = j_day * (2 * math.pi / 369.7)    #see above url for why this number isn't 365.25
-        sm_ax = 1.000002610
-        meta.EARTH_SUN_DISTANCE = sm_ax*(1-(ecc*ecc))/(1+ecc*(math.cos(theta)))
-        print("Calculated Earth to Sun distance as {0} AU".format(str(meta.EARTH_SUN_DISTANCE)))
-
-
-    # create datetime_obj attribute (drop decimal seconds
-    dto_string          = meta.DATE_ACQUIRED + meta.SCENE_CENTER_TIME
-    dto_string          = dto_string.split(".")[0]
-    meta.datetime_obj   = datetime.strptime(dto_string, "%Y-%m-%d%H:%M:%S")
-    
-    print("Scene center time is {0}".format(meta.datetime_obj))
-    
-    return(meta)
+    return landsat_metadata_obj(filename)
 
 
 if __name__ == "__main__":
-    m = grab_meta(r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy\landsat\test_meta\LT50140342011307EDC00_MTL.txt")
+    m = grab_meta("metadata/LT50140342011307EDC00_MTL.txt")
+    m2 = grab_meta("metadata/LC80140342014347LGN00_MTL.txt")
