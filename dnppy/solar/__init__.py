@@ -12,4 +12,4 @@ it is a planned addition.
 
 .. _common NOAA excel calculator: http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
 """
-from solar import *
+from solar import solar
