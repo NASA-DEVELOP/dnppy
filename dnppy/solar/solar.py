@@ -11,6 +11,14 @@ class solar:
 
     It requires a physical location on the earth and a datetime object
 
+    :param lat:             decimal degrees latitude (float OR numpy array)
+    :param lon:             decimal degrees longitude (float OR numpy array)
+    :param time_zone:       float of time shift from GMT (such as "-5" for EST)
+    :param date_time_obj:   either a timestamp string following fmt or a datetime obj
+    :param fmt:             if date_time_obj is a string, fmt is required to interpret it
+    :param slope:           slope of land at lat,lon for solar energy calculations
+    :param aspect:          aspect of land at lat,lon for solar energy calculations
+
     An instance of this class may have the following attributes:
 
         =================== =========================================== ========
@@ -74,14 +82,6 @@ class solar:
                          fmt = False, slope = None, aspect = None):
         """
         Initializes critical spatial and temporal information for solar object.
-
-        :param lat:             decimal degrees latitude (float OR numpy array)
-        :param lon:             decimal degrees longitude (float OR numpy array)
-        :param time_zone:       float of time shift from GMT (such as "-5" for EST)
-        :param date_time_obj:   either a timestamp string following fmt or a datetime obj
-        :param fmt:             if date_time_obj is a string, fmt is required to interpret it
-        :param slope:           slope of land at lat,lon for solar energy calculations
-        :param aspect:          aspect of land at lat,lon for solar energy calculations
         """
 
         # empty list of class attributes
