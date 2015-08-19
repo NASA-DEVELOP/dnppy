@@ -28,6 +28,8 @@ class solar:
         lon                 longitude                                   (array)
         tz                  time zone                                   (scalar)
         rdt                 reference datetime object (date_time_obj)   (scalar)
+        slope               slope, derivative of DEM                    (array)
+        aspect              aspect (north is 0, south is 180)           (array)
         ajd                 absolute julian day                         (scalar)
         ajc                 absolute julian century                     (scalar)
         geomean_long        geometric mean longitude of the sun         (scalar)
@@ -609,7 +611,8 @@ class solar:
         # perform an approximate atmospheric refraction correction
         
         # matrix hour_angle calculations
-        # these equations are hideous, but im not sure how to improve them without adding computational complexity
+        # these equations are hideous, but im not sure how to improve them without
+        # adding computational complexity
         if self.is_numpy:
             e = 90 - self.zenith
             ar = e * 0 
@@ -740,7 +743,10 @@ class solar:
     
 
     def compute_all(self):
-        """ computes and prints all the attributes of this solar object"""
+        """
+        Computes and prints all the attributes of this solar object. Spatial
+        averages are printed for numpy array type attributes.
+        """
 
         print("="*50)
         print("Interogation of entire matrix of points.")
