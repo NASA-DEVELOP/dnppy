@@ -26,7 +26,7 @@ For a simple example, lets just assume we want to go ahead and calculate everyth
 
 The code above successfully updates ``solar`` instance ``sc`` to have all the attributes supported by the class, and prints a summary with descriptive variable names, values, and units. If the ``datestamp`` and ``fmt`` variables are unfamiliar to you, you can read more about python `datetime objects`_ and how to create them from strings with `fmt syntax`_.
 
-Once you master datetime objects, you will probably want to use them all the time (they are pretty great). Fortunately, you can simply input a datetime object in place of the ``datestamp`` variable in the code above, and omit the ``fmt`` variable entirely, such as:
+Once you mastered datetime objects, you will probably want to use them all the time (they are pretty great). Fortunately, you can simply input a datetime object in place of the ``datestamp`` variable in the code above, and omit the ``fmt`` variable entirely, such as:
 
 .. code-block:: python
 
