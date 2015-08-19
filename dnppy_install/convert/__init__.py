@@ -10,8 +10,9 @@ Requires ``arcpy``: Yes, slightly
 __author__ = ["Jwely",
               "djjensen"]
 
-from extract_targz import *
-from GCMO_NetCDF import *
-from GRACE_DA_to_raster import *
+if "dnppy_install" not in __name__:
+    from extract_targz import *
+    from GCMO_NetCDF import *
+    from GRACE_DA_to_raster import *
 
 
