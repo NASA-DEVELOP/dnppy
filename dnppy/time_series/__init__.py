@@ -4,7 +4,6 @@ should be central to any data analysis task that examines temporal relationships
 raster or tabular format. This module also houses the rast_series class, which is an extension of
 time_series for handling filepaths to raster data.
 
-Requires ``arcpy``: Requires raster module, which depends upon arcpy.
 """
 
 __author__ = ["Jwely"]

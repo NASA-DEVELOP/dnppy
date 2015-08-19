@@ -11,7 +11,5 @@ yet capable of ingesting digital elevation models to calculate slope and aspect 
 it is a planned addition.
 
 .. _common NOAA excel calculator: http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
-
-Requires ``arcpy``: No
 """
 from solar import *

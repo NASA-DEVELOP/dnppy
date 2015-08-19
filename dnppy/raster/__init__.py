@@ -5,7 +5,7 @@ for use with functions in the raster module. The modules capabilities include st
 generation, subsetting, reprojecting, null data management, correction functions, and others.
 Top level functions in the raster module should all have batch processing capabilities bult in.
 
-Requires ``arcpy``: Yes, extensively
+Requires ``arcpy``
 """
 
 __author__ = ["Jwely",

@@ -4,7 +4,7 @@ of data products for over a full decade with minimal interruption. The modis mod
 functions specifically related to processing and handling MODIS data, which includes handling
 of the MODIS sinusoidal projection, and mosaic operations.
 
-Requires ``arcpy``: Yes, slightly
+Requires ``arcpy``
 """
 
 

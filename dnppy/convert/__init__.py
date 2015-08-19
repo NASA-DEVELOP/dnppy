@@ -4,7 +4,7 @@ a file type distributed by a NASA Distributed Active Archive Center (DAAC) such 
 NetCDF or HDF5 to geotiff. Due to differences in metadata standards, many of these
 functions only operate successfully data from a specific source.
 
-Requires ``arcpy``: Yes, slightly
+Requires ``arcpy``
 """
 
 __author__ = ["Jwely",

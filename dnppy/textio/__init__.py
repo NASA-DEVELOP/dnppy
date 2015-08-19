@@ -6,8 +6,6 @@ aims to convert them to something more standardized. Currently, custom ``text_da
 are used, but migrating to something based on standard `json`_ is envisioned.
 
 .. _json: http://json.org/
-
-Requires ``arcpy``: No
 """
 
 __author__ = ["Jwely"]
