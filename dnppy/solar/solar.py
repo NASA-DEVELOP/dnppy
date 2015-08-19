@@ -68,7 +68,6 @@ class solar:
 
         1. DONE. Inputs of numpy arrays for lat and lon needs to be allowed.
         2. inputs of a numpy array DEM for slope/aspect effects on incident solar energy
-        intensity need to be allowed
 
     Present performance
 
