@@ -31,6 +31,8 @@ def get_sphinx():
     except ImportError: pip.main(["install", "sphinx"])
     try: import graphviz
     except ImportError: pip.main(["install", "graphviz"])
+    try: import mock
+    except ImportError: pip.main(["install", "mock"])
 
 
 def build_sphinx():

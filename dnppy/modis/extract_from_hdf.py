@@ -6,19 +6,20 @@ import os
 import arcpy
 
 
-def extract_from_hdf(filelist, layerlist, layernames = False, outdir = None):
-
+def extract_from_hdf(file_list, layer_list, layer_names = False, outdir = None):
     """
-    Extracts tifs from MODIS extract_HDF_layer files, ensures proper projection.
+    Extracts tifs from MODIS HDF files, ensures proper projection.
 
-     inputs:
-       filelist    list of '.hdf' files from which data should be extracted (or a directory)
-       layerlist   list of layer numbers to pull out as individual tifs should be integers
-                   such as [0,4] for the 0th and 4th layer respectively.
-       layernames  list of layer names to put more descriptive file suffixes to each layer
-       outdir      directory to which tif files should be saved
-                   if outdir is left as 'False', files are saved in the same directory as
-                   the input file was found.
+    :param file_list:    either a list of '.hdf' files from which data should be extracted,
+                         or a directory containing '.hdf'  files.
+    :param layer_list:   list of layer numbers to pull out as individual tifs should be integers
+                         such as [0,4] for the 0th and 4th layer respectively.
+    :param layer_names:  list of layer names to put more descriptive file suffixes to each layer
+    :param outdir:       directory to which tif files should be saved
+                         if outdir is left as 'None', files are saved in the same directory as
+                         the input file was found.
+
+    :return output_filelist: returns a list of all files created by this function
     """
 
     if outdir is not None:
@@ -26,37 +27,36 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = None):
             os.makedirs(outdir)
 
     # enforce lists for iteration purposes and sanitize inputs
-    filelist = core.enf_filelist(filelist)
+    file_list = core.enf_filelist(file_list)
 
     
-    for filename in filelist:
+    for filename in file_list:
         if '.xml' in filename or '.ovr' in filename or not '.hdf' in filename:
-            filelist.remove(filename)
+            file_list.remove(filename)
             
-    layerlist  = core.enf_list(layerlist)
-    layernames = core.enf_list(layernames)
+    layer_list  = core.enf_list(layer_list)
+    layer_names = core.enf_list(layer_names)
     
-    # ignore user input layernames if they are invalid, but print warnings
-    if layernames and not len(layernames) == len(layerlist):
-        Warning('Layernames must be the same length as layerlist!')
-        Warning('Ommiting user defined layernames!')
-        layernames = False
+    # ignore user input layer_names if they are invalid, but print warnings
+    if layer_names and not len(layer_names) == len(layer_list):
+        Warning('layer_names must be the same length as layer_list!')
+        Warning('Omitting user defined layer_names!')
+        layer_names = False
 
-    # create empty list to add failed file names into
-    failed = []
+    output_filelist = []
 
-    # iterate through every file in the input filelist
-    for infile in filelist:
+    # iterate through every file in the input file_list
+    for infile in file_list:
         
         # pull the filename and path apart 
-        path,name           = os.path.split(infile)
+        path,name = os.path.split(infile)
         arcpy.env.workspace = path
 
-        for i,layer in enumerate(layerlist):
+        for i, layer in enumerate(layer_list):
             
             # specify the layer names.
-            if layernames:
-                layername = layernames[i]
+            if layer_names:
+                layername = layer_names[i]
             else:
                 layername = str(layer).zfill(3)
 
@@ -68,21 +68,16 @@ def extract_from_hdf(filelist, layerlist, layernames = False, outdir = None):
 
             # perform the extracting and projection definition
             try:
-                # extract the subdataset
                 arcpy.ExtractSubDataset_management(infile, outname, str(layer))
-
-                # define the projection as the MODIS Sinusoidal
                 define_projection(outname)
+                output_filelist.append(outname)
 
                 print("Extracted {0}".format(os.path.basename(outname)))
-
             except:
-                print("Failed to extract {0}  from {1}".format(os.path.basename(outname),
+                print("Failed to extract {0} from {1}".format(os.path.basename(outname),
                                                                os.path.basename(infile)))
-            failed.append(infile)
-                
-    print("Finished extracting all hdfs! \n") 
-    return failed
+
+    return output_filelist
 
 
 if __name__ == "__main__":

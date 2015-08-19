@@ -8,15 +8,17 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 
-def define_projection(filenames):
+def define_projection(file_list):
     """
-    Give raster(s) proper MODIS sinusoidal projection metadata
+    Give raster(s) proper MODIS sinusoidal projection metadata.
+    Some MODIS data does not have an adequately defined projection
+    for some software like arcmap to use
 
-    filename may be either a single filepath string or a list of them.
+    :param file_list: a list of one or more filepaths
     """
 
-    # accept list of filenames
-    filenames = raster.enf_rastlist(filenames)
+    # accept list of file_list
+    file_list = raster.enf_rastlist(file_list)
     
     # custom text for MODIS sinusoidal projection
     proj = """PROJCS["Sinusoidal",
@@ -31,7 +33,7 @@ def define_projection(filenames):
                 PARAMETER["Central_Meridian",0.0],
                 UNIT["Meter",1.0]]"""
 
-    for filename in filenames:
+    for filename in file_list:
         arcpy.DefineProjection_management(filename, proj)
         
     return

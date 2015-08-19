@@ -7,7 +7,7 @@ of the MODIS sinusoidal projection, and mosaic operations.
 Requires ``arcpy``
 """
 
-
+# created October 2014
 __author__ = ["Jwely"]
 
 # local imports

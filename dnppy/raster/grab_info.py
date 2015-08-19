@@ -8,7 +8,6 @@ import os
 
 
 def grab_info(filepath, data_type = False, CustGroupings = None):
-
     """
     Extracts in-filename metadata from common NASA data products
 
@@ -77,7 +76,7 @@ def grab_info(filepath, data_type = False, CustGroupings = None):
             
     elif data_type =='Landsat':
         params  =['sensor', 'satellite', 'WRSpath', 'WRSrow', 'year', 'j_day',
-                        'groundstationID', 'Version', 'band', 'type', 'suffix']
+                  'groundstationID', 'Version', 'band', 'type', 'suffix']
         n       = name.split('.')[0]
         string  =[n[1], n[2], n[3:6], n[6:9], n[9:13], n[13:16], n[16:19],
                 n[19:21], n[23:].split('_')[0], 'Landsat', '_'.join(n[23:].split('_')[1:])]
@@ -86,7 +85,7 @@ def grab_info(filepath, data_type = False, CustGroupings = None):
         params  = ['coverage', 'period', 'year', 'tile', 'start_day', 'end_day', 'type']
         n       = name.split('.')
         string  =[n[0], n[1], n[2] ,n[3], n[4][4:6], n[4][8:11], 'WELD']
-        # take everything after the first underscore as a suffix if onecore.exists.
+        # take everything after the first underscore as a suffix if one exists.
         if '_' in name:
             params.append('suffix')
             string.append('_'.join(name.split('_')[1:]))
@@ -98,7 +97,7 @@ def grab_info(filepath, data_type = False, CustGroupings = None):
     
     elif data_type == 'TRMM':
         print '{Grab_Data_Info} no support for TRMM data yet! you could add it!'
-        return(False)
+        return False
 
     elif data_type == 'AMSR_E':
         print '{Grab_Data_Info} no support for AMSR_E data yet! you could add it!'
@@ -119,7 +118,7 @@ def grab_info(filepath, data_type = False, CustGroupings = None):
         setattr(info,params[i],string[i])
     
     # ................................................................................
-    # perform additional data gathering only if data has no info.period atribute. Images with
+    # perform additional data gathering only if data has no info.period attribute. Images with
     # this attribute represent data that is produced from many dates, not just one day.
     
     if not hasattr(info,'period'):
@@ -151,7 +150,7 @@ def grab_info(filepath, data_type = False, CustGroupings = None):
             info.season='Autumn'
         
     # bin by julian day if integer group width was input
-    if not CustGroupings == None:
+    if not CustGroupings is None:
 
         CustGroupings = core.enf_list(CustGroupings)
         for grouping in CustGroupings:

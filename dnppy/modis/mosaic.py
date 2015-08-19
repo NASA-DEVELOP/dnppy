@@ -11,46 +11,32 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.env.overwriteOutput = True
 
 
-def mosaic(filelist, outdir = None, pixel_type = "32_BIT_FLOAT",
-                 bands = "1", m_method = "LAST", m_colormap = "FIRST"):
-
+def mosaic(filelist, outdir = None, pixel_type = None, bands = "1",
+                                    m_method = "LAST", m_colormap = "FIRST"):
     """
-    Automatically identify appropriate files and mosaic them.
+    Automatically identify appropriate MODIS files and mosaic them.
 
-     This script will find and mosaic all MODIS tiles groups with different time names in a
-     directory. It will automatically identify the date ranges in the MODIS filenames and
-     iterate through the entire range while skipping dates for which there are not at least
-     two tiles. Users should be mindful of file suffixes from previous processing.
+    This script will find and mosaic all MODIS tiles groups with different time names in a
+    directory. It will automatically identify the date ranges in the MODIS filenames and
+    iterate through the entire range while skipping dates for which there are not at least
+    two tiles. Users should be mindful of file suffixes from previous processing.
 
-     This script centers around the 'arcpy.MosaicToNewRaster_management' tool
-     [http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000]
+    This script centers around the 'arcpy.MosaicToNewRaster_management' tool
+    [http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000]
 
-     Inputs:
-       filelist        the directory containing MODIS data or a list of modis files.
-       pixel_type      exactly as the input for the MosaicToNewRaster_management tool.
-                       defaults to "32_BIT_FLOAT"
-       bands           exactly as the input for the MosaicToNewRaster_management tool.
-                       defaults to 1
-       m_method        exactly as the input for the MosaicToNewRaster_management tool.
-                       defaults to "LAST"
-       m_colormap      exactly as the input for the MosaicToNewRaster_management tool.
-                       defaults to "FIRST"
-       outdir          the directory to save output files to. If none is specified, a
-                       default directory will be created as '[indir]_Mosaicked'
+    :param filelist:    the directory containing MODIS data or a list of modis files.
+    :param pixel_type:  exactly as the input for the MosaicToNewRaster_management tool.
+                        defaults to "32_BIT_FLOAT"
+    :param bands:       exactly as the input for the MosaicToNewRaster_management tool.
+                        defaults to 1
+    :param m_method:    exactly as the input for the MosaicToNewRaster_management tool.
+                        defaults to "LAST"
+    :param m_colormap:  exactly as the input for the MosaicToNewRaster_management tool.
+                        defaults to "FIRST"
+    :param outdir:      the directory to save output files to. If none is specified, a
+                        default directory will be created as '[indir]_Mosaicked'
 
-     Outputs:
-       failed          mosaic opperations which failed due to one or more missing tiles
-
-     Example usage:
-
-           import ND
-           indir=      r'C:\Users\jwely\Desktop\Shortcuts\Testbed\Test tiles\MODIS LST\2013\day'
-           pixel_type= "16_BIT_UNSIGNED"
-           bands=      "1"
-           m_method=   "LAST"
-           m_colormap= "FIRST"
-
-           ND.mosaic_modis(indir, pixel_type, bands, m_method, m_colormap, 'day')
+    :return output_filelist: returns list of files created by this function.
     """
 
     # typically unchanged parameters of raster dataset. Change at will.
@@ -61,16 +47,19 @@ def mosaic(filelist, outdir = None, pixel_type = "32_BIT_FLOAT",
     if outdir is not None:
         OUT = outdir
 
+    if pixel_type is None:
+        pixel_type = "32_BIT_FLOAT"
+
     filelist = raster.enf_rastlist(filelist)
 
     # initialize empty lists for tracking
-    mosaiclist  = []
-    yearlist    = []
-    daylist     = []
-    productlist = []
-    tilelist    = []
-    suffixlist  = []
-    failed      = []
+    mosaiclist      = []
+    yearlist        = []
+    daylist         = []
+    productlist     = []
+    tilelist        = []
+    suffixlist      = []
+    output_filelist = []
 
     # grab info from all the files left in the filelist.
     for item in filelist:
@@ -122,8 +111,8 @@ def mosaic(filelist, outdir = None, pixel_type = "32_BIT_FLOAT",
                     
                         # if user did not specify an outdir, make folder next to first mosaic file
                         if not outdir:
-                            head, tail  = os.path.split(mosaiclist[0])
-                            OUT         = os.path.join(head, 'Mosaic')
+                            head, tail = os.path.split(mosaiclist[0])
+                            OUT = os.path.join(head, 'Mosaic')
 
                         # make the output directory if it doesnt exist already    
                         if not os.path.isdir(OUT):
@@ -141,26 +130,21 @@ def mosaic(filelist, outdir = None, pixel_type = "32_BIT_FLOAT",
                             arcpy.MosaicToNewRaster_management(mosaiclist, OUT,
                                 outname, coordinatesys, pixel_type, cellsize, bands,
                                 m_method, m_colormap)
-                            
-                            # make sure the mosaic list is empty!
-                            print("mosaiced " + outname)
+                            print("mosaiced {0}".format(outname))
                             
                         except:
-                            print("Failed to mosaic files! " + outname)
-                            failed = failed + mosaiclist
+                            print("Failed to create mosaic at {0}".format(outname))
                             
                     # do not attempt a mosaic if only one tile on given day exists!    
                     elif len(mosaiclist)==1:
                         print("More than one file is required for mosaicing!: "+ str(search))
-                        failed = failed + mosaiclist
 
                     # delete the list of search parameters for this mosaic operation
                     del search[:]
                     del mosaiclist[:]
 
-                    
     print("Finished mosaicing all tiles! \n")
-    return failed
+    return output_filelist
 
 
 # testing area
