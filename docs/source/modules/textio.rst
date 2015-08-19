@@ -1,9 +1,8 @@
 textio
 ======
 
-The textio module, read like "text I/O", is a repository of functions for reading specific `text` data formats as they are served up from their respective DAACs. Custom text file formats are common in historical weather data and other ground based data collection networks. This module aims to convert them to something more standardized. Currently, custom ``text_data_objects`` are used, but migrating to something based on standard `json`_ is envisioned.
-
-.. _json: http://json.org/
+.. automodule:: dnppy_install.textio
+    :members:
 
 Examples
 --------

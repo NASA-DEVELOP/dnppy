@@ -1,14 +1,4 @@
-"""
-solar object class, built in my spare time for a personal project.
-
-
-Distributed with the dnppy module, with permission from its original
-author, Jeff Ely.
-"""
-
-
-__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
-
+__author__ = "Jwely"
 
 from datetime import datetime, timedelta
 from numpy import radians, ndarray, sin, cos, degrees, arctan2, arcsin, tan, arccos

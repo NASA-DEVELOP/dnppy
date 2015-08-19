@@ -1,13 +1,16 @@
 """
-This text I/O (textio) module has been added as a place to put scripts
-and functions realated to reading very speficic customized data formats
+The textio module, read like "text I/O", is a repository of functions for reading specific `text`
+data formats as they are served up from their respective DAACs. Custom text file formats are
+common in historical weather data and other ground based data collection networks. This module
+aims to convert them to something more standardized. Currently, custom ``text_data_objects``
+are used, but migrating to something based on standard `json`_ is envisioned.
 
-Any function in this module may read from any number of very specifically
-formatted text formats (usually weather data), but all of them return
-a "text file object" or "tfo"
+.. _json: http://json.org/
+
+Requires ``arcpy``: No
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+__author__ = ["Jwely"]
 
 from ioconfig import *
 from read_csv import *

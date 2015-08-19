@@ -1,18 +1,13 @@
 """
-======================================================================================
-                                   dnppy.landsat
-======================================================================================
- The "time_series" module is part of the "dnppy" package (develop national program py).
- This module houses a time_series class, which has bundled many methods for quick and
- easy handling of time_series data, usually on the scale of days to years, but can also
- handle hourly, minutely, and 1 second resolution time_data pretty well.
+The time_series module is centered around the time_series class. One or more time_series objects
+should be central to any data analysis task that examines temporal relationships in data sets of
+raster or tabular format. This module also houses the rast_series class, which is an extension of
+time_series for handling filepaths to raster data.
 
- If you wrote a function you think should be added to this module, or have an idea for one
- you wish was available, please email the Geoinformatics Fellow class or code it up yourself!
-
+Requires ``arcpy``: Requires raster module, which depends upon arcpy.
 """
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+__author__ = ["Jwely"]
 
 
 # local imports

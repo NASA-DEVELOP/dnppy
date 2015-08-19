@@ -43,7 +43,7 @@ def upgrading(now_vers, up_vers):
 
 
 def setup():
-    """performs setup of dnppy by copying files to site-packages """
+    """ performs setup of dnppy by copying files to site-packages """
 
     up_vers = dnppy_install.__version__
 
