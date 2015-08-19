@@ -36,7 +36,7 @@ Structure
 Each of the distinct directives results in a few different directories within dnppy. The package has the following file structure::
 
     dnppy
-        \dnppy_install
+        \dnppy
         \docs
         \undeployed
             \legacy
@@ -45,9 +45,9 @@ Each of the distinct directives results in a few different directories within dn
         \dev
 
 
-.. rubric:: \\dnppy_install
+.. rubric:: \\dnppy
 
-Contains each module of dnppy which is installed on setup as ``dnppy``!
+Contains each module of dnppys main library which is installed on setup as ``dnppy``!
 :doc:`Read more about the modules <modulesum>`
 
 .. rubric:: \\docs
@@ -61,7 +61,7 @@ This folder holds code that is packaged with dnppy for good record keeping, but 
 
 .. rubric:: \\legacy
 
-This is old python code from before our days of configuration management that might have very useful snippets to pull into dnppy_install.
+This is old python code from before our days of configuration management that might have very useful snippets to pull into dnppy.
 
 .. rubric:: \\proj_code
 

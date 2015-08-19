@@ -1,6 +1,6 @@
 __author__ = 'jwely'
 
-from dnppy_install import core
+from dnppy import core
 from download_url import download_url
 import os, time
 

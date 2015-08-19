@@ -145,9 +145,9 @@ class scene:
 
 if __name__ == "__main__":
 
-    MTL_8 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy_install\landsat\test_meta\LC80140342014347LGN00_MTL.txt"
-    MTL_7 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy_install\landsat\test_meta\LE70140342014323EDC00_MTL.txt"
-    MTL_5 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy_install\landsat\test_meta\LT50140342011307EDC00_MTL.txt"
+    MTL_8 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy\landsat\test_meta\LC80140342014347LGN00_MTL.txt"
+    MTL_7 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy\landsat\test_meta\LE70140342014323EDC00_MTL.txt"
+    MTL_5 = r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy\landsat\test_meta\LT50140342011307EDC00_MTL.txt"
 
     lsc = scene(MTL_8)
     for a in lsc: print a

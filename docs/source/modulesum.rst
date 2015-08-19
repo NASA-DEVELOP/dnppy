@@ -19,45 +19,45 @@ Module Summary
 
 .. rubric:: :doc:`convert <modules/convert>`
 
-.. automodule:: dnppy_install.convert
+.. automodule:: dnppy.convert
     :members:
 
 .. rubric:: :doc:`core <modules/core>`
 
-.. automodule:: dnppy_install.core
+.. automodule:: dnppy.core
     :members:
 
 .. rubric:: :doc:`download <modules/download>`
 
-.. automodule:: dnppy_install.download
+.. automodule:: dnppy.download
     :members:
 
 .. rubric:: :doc:`landsat <modules/landsat>`
 
-.. automodule:: dnppy_install.landsat
+.. automodule:: dnppy.landsat
     :members:
 
 .. rubric:: :doc:`modis <modules/modis>`
 
-.. automodule:: dnppy_install.modis
+.. automodule:: dnppy.modis
     :members:
 
 .. rubric:: :doc:`raster <modules/raster>`
 
-.. automodule:: dnppy_install.raster
+.. automodule:: dnppy.raster
     :members:
 
 .. rubric:: :doc:`solar <modules/solar>`
 
-.. automodule:: dnppy_install.solar
+.. automodule:: dnppy.solar
     :members:
 
 .. rubric:: :doc:`textio <modules/textio>`
 
-.. automodule:: dnppy_install.textio
+.. automodule:: dnppy.textio
     :members:
 
 .. rubric:: :doc:`time_series <modules/time_series>`
 
-.. automodule:: dnppy_install.time_series
+.. automodule:: dnppy.time_series
     :members:

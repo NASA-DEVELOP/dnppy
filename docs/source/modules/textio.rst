@@ -1,7 +1,7 @@
 textio
 ======
 
-.. automodule:: dnppy_install.textio
+.. automodule:: dnppy.textio
     :members:
 
 Examples

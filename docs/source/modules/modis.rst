@@ -1,7 +1,7 @@
 modis
 =====
 
-.. automodule:: dnppy_install.modis
+.. automodule:: dnppy.modis
     :members:
 
 

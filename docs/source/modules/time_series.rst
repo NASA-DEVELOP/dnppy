@@ -1,7 +1,7 @@
 time_series
 ===========
 
-.. automodule:: dnppy_install.time_series
+.. automodule:: dnppy.time_series
     :members:
 
 Examples

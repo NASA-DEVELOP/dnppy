@@ -19,75 +19,42 @@ This is a barebones install script to install the dnppy module
 import os
 import shutil
 import time
-import dnppy_install
 import install_dependencies
-
-
-def upgrading(now_vers, up_vers):
-    """
-    compares two version strings and returns True if up_vers is more recent than
-    now_vers
-    """
-    now    = now_vers.split('.')
-    up     = up_vers.split('.')
-    length = min([len(now),len(up)])
-
-    for i in range(length):
-        now[i] = now[i].ljust(5,'0')
-        up[i]  = up[i].ljust(5,'0')
-
-    if int(''.join(up)) >= int(''.join(now)):
-        return True
-    else:
-        return False
 
 
 def setup():
     """ performs setup of dnppy by copying files to site-packages """
 
-    up_vers = dnppy_install.__version__
+    import dnppy
 
     library_path, _ = os.path.split(os.__file__)
-    source_path, _  = os.path.split(dnppy_install.__file__)
+    source_path, _  = os.path.split(dnppy.__file__)
     dest_path       = os.path.join(library_path, 'site-packages', 'dnppy')
-    dest_path2      = dest_path + up_vers
+    dest_path2      = dest_path + dnppy.__version__
 
     if os.path.isdir(dest_path):
         try:
-            import dnppy
-            now_vers = dnppy.__version__
 
-            if upgrading(now_vers, up_vers):
-                print("\nUpdating from dnppy version [{0}] to version [{1}]...".format(now_vers, up_vers))
+            print("\nUpdating to version [{0}]...".format(dnppy.__version__))
 
-                shutil.rmtree(dest_path)
-                shutil.copytree(source_path, dest_path)
+            shutil.rmtree(dest_path)
+            shutil.copytree(source_path, dest_path)
 
-                try: shutil.rmtree(dest_path2)
-                except: pass
+            try: shutil.rmtree(dest_path2)
+            except: pass
 
-                shutil.copytree(source_path, dest_path2)
-            else:
-                print("you are trying to replace your dnppy with an older version!")
-                print("Are you sure you wish to downgrade")
-                downgrade = raw_input("from version [{0}] to [{1}]? (y/n): ".format(now_vers, up_vers))
-                if downgrade == 'y' or downgrade == 'Y':
-                    shutil.rmtree(dest_path)
-                    shutil.copytree(source_path, dest_path)
-                    shutil.rmtree(dest_path2)
-                    shutil.copytree(source_path, dest_path2)
-                else:
-                    print("Setup aborted!")
+            shutil.copytree(source_path, dest_path2)
+
 
         # handles the case where dnppy is installed, but cannot import for some reason.
         except:
-            print("installing dnppy version [{0}]".format(up_vers))
+            print("installing dnppy version [{0}]".format(dnppy.__version__))
             shutil.rmtree(dest_path)
             shutil.rmtree(dest_path2)
             shutil.copytree(source_path, dest_path)
             shutil.copytree(source_path, dest_path2)
     else:
-        print("installing dnppy version [{0}]".format(up_vers))
+        print("installing dnppy version [{0}]".format(dnppy.__version__))
         shutil.copytree(source_path, dest_path)
         shutil.copytree(source_path, dest_path2)
 

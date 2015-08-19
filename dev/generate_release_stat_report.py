@@ -6,7 +6,7 @@ import datetime
 def view_release_stats():
     """
     Simple script to track downloads of dnppy assets. Generates
-    textfile report with some key stats in it that help indicate
+    text file report with some key stats in it that help indicate
     the number of downloads, and whether our user base is mostly
     32 or 64 bit.
     """

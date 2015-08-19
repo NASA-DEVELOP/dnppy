@@ -8,7 +8,7 @@ Please consult the dnppy documentation pages for further information!
 """
 
 # dnppy version. follows [major revision].[year].[minor revision]
-__version__ = "1.15.2"
+__version__ = "1.15.3"
 
 # author list
 __author__ = ["Jwely",
@@ -22,7 +22,7 @@ __author__ = ["Jwely",
 
 
 # prevents module import issues during installation.
-if not __name__ == "dnppy_install":
+if not __name__ == "dnppy":
 
     #from test import *
     from R_dnppy import *

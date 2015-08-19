@@ -37,7 +37,7 @@ Its easiest to check the source for these very doc pages.
     3. Back on the help page, notice that there is a small "source" button next to every function description.
     4. Now check out the `source code`_ for the ``create_outname`` function.
 
-.. _source code: https://nasa-develop.github.io/dnppy/_modules/dnppy_install/core/create_outname.html#create_outname
+.. _source code: https://nasa-develop.github.io/dnppy/_modules/dnppy/core/create_outname.html#create_outname
 .. _core module help page: https://nasa-develop.github.io/dnppy/modules/core.html
 .. _generate the core module help page: https://nasa-develop.github.io/dnppy/_sources/modules/core.txt
 
@@ -45,7 +45,7 @@ You will notice in the source code for the core module help page a statement tha
 
 .. code-block:: rst
 
-    .. automodule:: dnppy_install.core.create_outname
+    .. automodule:: dnppy.core.create_outname
         :members:
 
 Which invokes the automodule chain and parses the docstrings of the ``create_outname`` function. In order for the parser to successfully produce the pretty outputs, the docstrings should follow syntax such as that listed below.

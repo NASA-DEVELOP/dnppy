@@ -24,6 +24,7 @@ everything looks good, commit to the master branch, and updates should go
 live to "https://nasa-develop.github.io/dnppy/" within two minutes.
 """
 
+
 def get_sphinx():
     """ subfunction to make sure modules are available """
     try: import sphinx

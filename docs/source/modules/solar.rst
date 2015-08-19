@@ -1,7 +1,7 @@
 solar
 =====
 
-.. automodule:: dnppy_install.solar
+.. automodule:: dnppy.solar
     :members:
 
 Examples

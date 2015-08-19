@@ -88,4 +88,4 @@ def grab_meta(filename):
 
 
 if __name__ == "__main__":
-    m = grab_meta(r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy_install\landsat\test_meta\LT50140342011307EDC00_MTL.txt")
+    m = grab_meta(r"C:\Users\Jeff\Desktop\Github\dnppy\dnppy\landsat\test_meta\LT50140342011307EDC00_MTL.txt")

@@ -1,7 +1,7 @@
 raster
 ======
 
-.. automodule:: dnppy_install.raster
+.. automodule:: dnppy.raster
     :members:
 
 Examples

@@ -1,7 +1,7 @@
 download
 ========
 
-.. automodule:: dnppy_install.download
+.. automodule:: dnppy.download
     :members:
 
 Examples
@@ -34,43 +34,43 @@ Code Help
 
 Auto-documentation for functions and classes within this module is generated below!
 
-.. automodule:: dnppy_install.download.download_filelist
+.. automodule:: dnppy.download.download_filelist
     :members:
 
-.. automodule:: dnppy_install.download.download_url
+.. automodule:: dnppy.download.download_url
     :members:
 
-.. automodule:: dnppy_install.download.download_urls
+.. automodule:: dnppy.download.download_urls
     :members:
 
-.. automodule:: dnppy_install.download.fetch_GPM_IMERG
+.. automodule:: dnppy.download.fetch_GPM_IMERG
     :members:
 
-.. automodule:: dnppy_install.download.fetch_Landsat8
+.. automodule:: dnppy.download.fetch_Landsat8
     :members:
 
-.. automodule:: dnppy_install.download.fetch_Landsat_WELD
+.. automodule:: dnppy.download.fetch_Landsat_WELD
     :members:
 
-.. automodule:: dnppy_install.download.fetch_MODIS
+.. automodule:: dnppy.download.fetch_MODIS
     :members:
 
-.. automodule:: dnppy_install.download.fetch_MPE
+.. automodule:: dnppy.download.fetch_MPE
     :members:
 
-.. automodule:: dnppy_install.download.fetch_SRTM
+.. automodule:: dnppy.download.fetch_SRTM
     :members:
 
-.. automodule:: dnppy_install.download.fetch_TRMM
+.. automodule:: dnppy.download.fetch_TRMM
     :members:
 
-.. automodule:: dnppy_install.download.list_http_e4ftl01
+.. automodule:: dnppy.download.list_http_e4ftl01
     :members:
 
-.. automodule:: dnppy_install.download.list_http_waterweather
+.. automodule:: dnppy.download.list_http_waterweather
     :members:
 
-.. automodule:: dnppy_install.download.list_ftp
+.. automodule:: dnppy.download.list_ftp
     :members:
 
 

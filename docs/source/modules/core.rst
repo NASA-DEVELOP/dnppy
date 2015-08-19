@@ -1,7 +1,7 @@
 core
 ====
 
-.. automodule:: dnppy_install.core
+.. automodule:: dnppy.core
     :members:
 
 Examples
@@ -31,26 +31,26 @@ Code Help
 
 Auto-documentation for functions and classes within this module is generated below!
 
-.. automodule:: dnppy_install.core.create_outname
+.. automodule:: dnppy.core.create_outname
     :members:
 
-.. automodule:: dnppy_install.core.enf_filelist
+.. automodule:: dnppy.core.enf_filelist
     :members:
 
-.. automodule:: dnppy_install.core.enf_list
+.. automodule:: dnppy.core.enf_list
     :members:
 
-.. automodule:: dnppy_install.core.exists
+.. automodule:: dnppy.core.exists
     :members:
 
-.. automodule:: dnppy_install.core.install_from_wheel
+.. automodule:: dnppy.core.install_from_wheel
     :members:
 
-.. automodule:: dnppy_install.core.list_files
+.. automodule:: dnppy.core.list_files
     :members:
 
-.. automodule:: dnppy_install.core.move
+.. automodule:: dnppy.core.move
     :members:
 
-.. automodule:: dnppy_install.core.rename
+.. automodule:: dnppy.core.rename
     :members:

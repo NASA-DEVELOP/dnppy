@@ -4,6 +4,7 @@ from download_url import download_url
 import os
 import zipfile
 
+
 def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = None):
     """
     downloads data from the Shuttle Radar Topography Mission (SRTM)

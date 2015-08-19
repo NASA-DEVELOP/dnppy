@@ -1,6 +1,6 @@
 __author__ = 'jwely'
 
-from dnppy_install import core
+from dnppy import core
 from list_http_e4ftl01 import list_http_e4ftl01
 from download_url import download_url
 import os

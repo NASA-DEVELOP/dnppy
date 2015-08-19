@@ -7,4 +7,4 @@ NASA DEVELOP project teams contribute specialized code to this directory for acc
 This repository is filled with unstructured code for a general purpose that could be useful to refactor and add to the dnppy framework in the near future.
 
 ####/legacy
-This is old python code from before our days of configuration management that might have very useful snippets to pull into dnppy_install.
+This is old python code from before our days of configuration management that might have very useful snippets to pull into dnppy.

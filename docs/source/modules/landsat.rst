@@ -1,7 +1,7 @@
 landsat
 =======
 
-.. automodule:: dnppy_install.landsat
+.. automodule:: dnppy.landsat
     :members:
 
 Examples

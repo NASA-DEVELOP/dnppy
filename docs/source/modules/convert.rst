@@ -1,7 +1,7 @@
 convert
 =======
 
-.. automodule:: dnppy_install.convert
+.. automodule:: dnppy.convert
     :members:
 
 Examples
