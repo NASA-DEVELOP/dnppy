@@ -1,5 +1,5 @@
 
-#standard imports
+# standard imports
 from grab_meta import grab_meta
 from dnppy import solar
 import arcpy
@@ -7,13 +7,8 @@ import datetime
 import numpy as np
 import math
 import os
-if arcpy.CheckExtension("Spatial") == "Available":
-    arcpy.CheckOutExtension("Spatial")
-else:
-    raise("You must enable arcpy spatial extension to use this function!")
 
-
-__all__ = ['surface_reflectance']      # complete
+__all__ = ['surface_reflectance']
 
 
 def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = False, kt = 1.0):

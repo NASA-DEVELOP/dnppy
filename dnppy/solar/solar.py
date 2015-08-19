@@ -3,6 +3,7 @@ __author__ = "Jwely"
 from datetime import datetime, timedelta
 from numpy import radians, ndarray, sin, cos, degrees, arctan2, arcsin, tan, arccos
 
+
 class solar:
     """
     Object class for handling solar calculations. Many equations are taken from the

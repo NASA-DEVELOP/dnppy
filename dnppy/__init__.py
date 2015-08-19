@@ -21,17 +21,17 @@ __author__ = ["Jwely",
               ]
 
 
-from R_dnppy import *
-from convert import *
-from core import *
-from download import *
-from landsat import *
-from modis import *
-from radar import *
-from raster import *
-from solar import *
-from textio import *
-from time_series import *
+#from R_dnppy import *
+#from convert import *
+#from core import *
+#from download import *
+#from landsat import *
+#from modis import *
+#from radar import *
+#from raster import *
+#from solar import *
+#from textio import *
+#from time_series import *
 
 
 
