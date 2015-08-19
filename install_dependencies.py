@@ -170,11 +170,12 @@ def main():
                          release_address + "Shapely-1.5.9-cp27-none-win32.whl"]
     }
 
-    pip_versions = {"wheel": None,      # for installing other dependencies
-                    "requests": None,   # for better web interfacing
-                    "psutil": None,     # for killing processes which might lock files we want to modify
-                    "urllib3": None,    # magical url library
-                    "mock": None,       # used to fake arcpy imports in testing environments
+    pip_versions = {"matplotlib": None,  # for making plots! users with arcpy already have this!
+                    "wheel": None,       # for installing other dependencies
+                    "requests": None,    # for better web interfacing
+                    "psutil": None,      # for killing processes which might lock files we want to modify
+                    "urllib3": None,     # magical url library
+                    "mock": None,        # used to fake arcpy imports in testing environments
     }
 
     # installs python packages with simple pip install

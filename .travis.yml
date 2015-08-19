@@ -9,7 +9,7 @@ before_install:
     - sudo rm -rf /dev/shm
     - sudo ln -s /run/shm /dev/shm
 install:
-    - conda install --yes python="2.7" psutil sphinx numpy scipy gdal cython h5py pycurl shapely mock
+    - conda install --yes python="2.7" psutil sphinx numpy scipy gdal cython h5py pycurl shapely mock matplotlib
     - pip install --user git+https://github.com/Syntaf/travis-sphinx.git
 
 script:
