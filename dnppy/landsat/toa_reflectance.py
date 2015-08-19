@@ -1,5 +1,5 @@
 
-#standard imports
+# standard imports
 from grab_meta import grab_meta
 from dnppy import core
 import math
@@ -13,50 +13,49 @@ __all__=['toa_reflectance_8',       # complete
          'toa_reflectance_457']     # complete
 
 
-def toa_reflectance_8(band_nums, meta_path, outdir = False):
-
+def toa_reflectance_8(band_nums, meta_path, outdir = None):
     """
-    Converts Landsat 8 bands to Top-of-Atmosphere reflectance.
+    Converts Landsat 8 bands to Top-of-Atmosphere reflectance. To be performed
+    on raw Landsat 8 level 1 data. See link below for details
+    see here [http://landsat.usgs.gov/Landsat8_Using_Product.php]
 
-     To be performed on raw Landsat 8 level 1 data. See link below for details
-     see here [http://landsat.usgs.gov/Landsat8_Using_Product.php]
+    :param band_nums:   A list of desired band numbers such as [3,4,5]
+    :param meta_path:   The full filepath to the metadata file for those bands
+    :param outdir:      Output directory to save converted files. If left False it will save ouput
+                        files in the same directory as input files.
 
-     Inputs:
-       band_nums   A list of desired band numbers such as [3,4,5]
-       meta_path   The full filepath to the metadata file for those bands
-       outdir      Output directory to save converted files. If left False it will save ouput
-                       files in the same directory as input files.
+    :return outlist:    list of files created by this function
     """
 
     outlist = []
 
-    #enforce the list of band numbers and grab metadata from the MTL file
+    # enforce the list of band numbers and grab metadata from the MTL file
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
     meta_path = os.path.abspath(meta_path)
     meta = grab_meta(meta_path)
 
-    #cycle through each band in the list for calculation, ensuring each is in the list of OLI bands
+    # cycle through each band in the list for calculation, ensuring each is in the list of OLI bands
     for band_num in band_nums:
         if band_num in OLI_bands:
 
-            #scrape data from the given file path and attributes in the MTL file
+            # scrape data from the given file path and attributes in the MTL file
             band_path = meta_path.replace("MTL.txt","B{0}.tif".format(band_num))
             Qcal = arcpy.Raster(band_path)                        
             Mp   = getattr(meta,"REFLECTANCE_MULT_BAND_{0}".format(band_num)) # multiplicative scaling factor
             Ap   = getattr(meta,"REFLECTANCE_ADD_BAND_{0}".format(band_num))  # additive rescaling factor
             SEA  = getattr(meta,"SUN_ELEVATION")*(math.pi/180)       # sun elevation angle theta_se
 
-            #get rid of the zero values that show as the black background to avoid skewing values
+            # get rid of the zero values that show as the black background to avoid skewing values
             null_raster = arcpy.sa.SetNull(Qcal, Qcal, "VALUE = 0")
 
-            #calculate top-of-atmosphere reflectance
+            # calculate top-of-atmosphere reflectance
             TOA_ref = (((null_raster * Mp) + Ap)/(math.sin(SEA)))
 
 
-            #save the data to the automated name if outdir is given or in the parent folder if not
-            if outdir:
+            # save the data to the automated name if outdir is given or in the parent folder if not
+            if outdir is not None:
                 outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, band_path, "TOA_Ref", "tif")
             else:
@@ -67,7 +66,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
             outlist.append(outname)
             print("Saved output at {0}".format(outname))
 
-        #if listed band is not an OLI sensor band, skip it and print message
+        # if listed band is not an OLI sensor band, skip it and print message
         else:
             print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
@@ -75,19 +74,18 @@ def toa_reflectance_8(band_nums, meta_path, outdir = False):
     return outlist
 
 
-def toa_reflectance_457(band_nums, meta_path, outdir = False):
-
+def toa_reflectance_457(band_nums, meta_path, outdir = None):
     """
     This function is used to convert Landsat 4, 5, or 7 pixel values from
-    digital numbers to Top-of-Atmosphere Reflectance.
+    digital numbers to Top-of-Atmosphere Reflectance. To be performed on raw
+    Landsat 4, 5, or 7 data.
 
-    To be performed on raw Landsat 4, 5, or 7 data.
+    :param band_nums:   A list of desired band numbers such as [3,4,5]
+    :param meta_path:   The full filepath to the metadata file for those bands
+    :param outdir:      Output directory to save converted files. If left False it will save ouput
+                        files in the same directory as input files.
 
-    Inputs:
-        band_nums   A list of desired band numbers such as [3,4,5]
-        meta_path   The full filepath to the metadata file for those bands
-        outdir      Output directory to save converted files. If left False it will save ouput
-                    files in the same directory as input files.
+    :return outlist:    list of files created by this function
     """
    
     outlist = []
@@ -95,16 +93,16 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
 
-    #metadata format was changed August 29, 2012. This tool can process either the new or old format
+    # metadata format was changed August 29, 2012. This tool can process either the new or old format
     f = open(meta_path)
     MText = f.read()
 
     meta_path = os.path.abspath(meta_path)
     metadata = grab_meta(meta_path)
     
-    #the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
-    #if this is not present, the meta data is considered new.
-    #Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer
+    # the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
+    # if this is not present, the meta data is considered new.
+    # Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer
     if "PRODUCT_CREATION_TIME" in MText:
         Meta = "oldMeta"
         Band6length = 2
@@ -112,7 +110,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
         Meta = "newMeta"
         Band6length = 8
 
-    #The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded
+    # The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded
     if Meta == "newMeta":
         TileName = getattr(metadata, "LANDSAT_SCENE_ID")
         year = TileName[9:13]
@@ -124,8 +122,8 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
         jday = TileName[17:20]
         date = getattr(metadata, "ACQUISITION_DATE")
 
-    #the spacecraft from which the imagery was capture is identified
-    #this info determines the solar exoatmospheric irradiance (ESun) for each band
+    # the spacecraft from which the imagery was capture is identified
+    # this info determines the solar exoatmospheric irradiance (ESun) for each band
     spacecraft = getattr(metadata, "SPACECRAFT_ID")
     
     if "7" in spacecraft:
@@ -141,11 +139,11 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
         arcpy.AddError("This tool only works for Landsat 4, 5, or 7")
         raise arcpy.ExecuteError()
 
-    #determing if year is leap year and setting the Days in year accordingly
+    # determing if year is leap year and setting the Days in year accordingly
     if float(year) % 4 == 0: DIY = 366.
     else: DIY=365.
 
-    #using the date to determing the distance from the sun
+    # using the date to determining the distance from the sun
     theta = 2 * math.pi * float(jday)/DIY
 
     dSun2 = (1.00011 + 0.034221 * math.cos(theta) + 0.001280 * math.sin(theta) +
@@ -153,7 +151,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
 
     SZA = 90. - float(getattr(metadata, "SUN_ELEVATION"))
     
-    #Calculating values for each band
+    # Calculating values for each band
     for band_num in band_nums:
         if band_num in TM_ETM_bands:
 
@@ -163,7 +161,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
          
             null_raster = arcpy.sa.SetNull(Oraster, Oraster, "VALUE = 0")
 
-            #using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers
+            # using the oldMeta/newMeta indices to pull the min/max for radiance/Digital numbers
             if Meta == "newMeta":
                 LMax    = getattr(metadata, "RADIANCE_MAXIMUM_BAND_{0}".format(band_num))
                 LMin    = getattr(metadata, "RADIANCE_MINIMUM_BAND_{0}".format(band_num))  
@@ -179,11 +177,11 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
             Oraster = 0
             del null_raster
     
-            #Calculating temperature for band 6 if present
+            # Calculating temperature for band 6 if present
             Refraster = (math.pi * Radraster * dSun2) / (ESun[int(band_num[0])-1] * math.cos(SZA*(math.pi/180)))
 
-            #construc output names for each band based on whether outdir is set (default is False)
-            if outdir:
+            # construc output names for each band based on whether outdir is set (default is False)
+            if outdir is not None:
                 outdir = os.path.abspath(outdir)
                 BandPath = core.create_outname(outdir, pathname, "TOA_Ref", "tif")
             else:
@@ -196,7 +194,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = False):
             del Refraster, Radraster
             print("Reflectance Calculated for Band {0}".format(band_num))
 
-        #if listed band is not a TM/ETM+ sensor band, skip it and print message
+        # if listed band is not a TM/ETM+ sensor band, skip it and print message
         else:
             print("Can only perform reflectance conversion on TM/ETM+ sensor bands")
             print("Skipping band {0}".format(band_num))

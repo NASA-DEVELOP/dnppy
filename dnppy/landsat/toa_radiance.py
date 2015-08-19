@@ -4,7 +4,7 @@ from grab_meta import grab_meta
 from dnppy import core
 import arcpy
 import os
-if arcpy.CheckExtension('Spatial')=='Available':
+if arcpy.CheckExtension('Spatial') == 'Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
 
@@ -12,17 +12,18 @@ __all__=['toa_radiance_8',          # complete
          'toa_radiance_457']        # complete
 
 
-def toa_radiance_8(band_nums, meta_path, outdir = False):
+def toa_radiance_8(band_nums, meta_path, outdir = None):
     """
-    Top of Atmosphere radiance (in Watts/(square meter * steradians * micrometers)) conversion for landsat 8 data
-
-    To be performed on raw Landsat 8 level 1 data. See link below for details
+    Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))
+    conversion for landsat 8 data. To be performed on raw Landsat 8
+    level 1 data. See link below for details:
     see here http://landsat.usgs.gov/Landsat8_Using_Product.php
 
-    Inputs:
-    band_nums   A list of desired band numbers such as [3, 4, 5]
-    meta_path   The full filepath to the metadata file for those bands
-    outdir      Output directory to save converted files.
+    :param band_nums:   A list of desired band numbers such as [3, 4, 5]
+    :param meta_path:   The full filepath to the metadata file for those bands
+    :param outdir:      Output directory to save converted files.
+
+    :return outlist:    list of filepaths created by this function.
     """
 
     meta_path = os.path.abspath(meta_path)
@@ -53,7 +54,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
             TOA_rad = (null_raster * Ml) + Al
             del null_raster
             
-            #create the output name and save the TOA radiance tiff
+            # create the output name and save the TOA radiance tiff
             if "\\" in meta_path:
                 name = meta_path.split("\\")[-1]
             elif "//" in meta_path:
@@ -61,7 +62,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
                 
             rad_name = name.replace("_MTL.txt", "_B{0}".format(band_num))
 
-            if outdir:
+            if outdir is not None:
                 outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, rad_name, "TOA_Rad", "tif")
             else:
@@ -81,15 +82,17 @@ def toa_radiance_8(band_nums, meta_path, outdir = False):
 
 
 
-def toa_radiance_457(band_nums, meta_path, outdir = False):
+def toa_radiance_457(band_nums, meta_path, outdir = None):
     """
-    Top of Atmosphere radiance (in Watts/(square meter * steradians * micrometers)) conversion
-    for Landsat 4, 5, and 7 data. To be performed on raw Landsat 4, 5, or 7 level 1 data. 
+    Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))
+    conversion for Landsat 4, 5, and 7 data. To be performed on raw
+    Landsat 4, 5, or 7 level 1 data.
 
-     Inputs:
-       band_nums   A list of desired band numbers such as [3, 4, 5]
-       meta_path   The full filepath to the metadata file for those bands
-       outdir      Output directory to save converted files.
+    :param band_nums:   A list of desired band numbers such as [3, 4, 5]
+    :param meta_path:   The full filepath to the metadata file for those bands
+    :param outdir:      Output directory to save converted files.
+
+    :return outlist:    list of filepaths created by this function.
     """
 
     outlist = []
@@ -177,7 +180,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = False):
             band_rad = "{0}_B{1}".format(TileName, band_num)
 
             #create the output name and save the TOA radiance tiff
-            if outdir:
+            if outdir is not None:
                 outdir = os.path.abspath(outdir)
                 outname = core.create_outname(outdir, band_rad, "TOA_Rad", "tif")
             else:

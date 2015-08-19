@@ -5,22 +5,33 @@ from dnppy import solar
 
 import inspect
 
-class landsat_metadata_obj():
+class landsat_metadata():
     """
     A landsat metadata object. This class builds is attributes
     from the names of each tag in the xml formatted .MTL files that
     come with landsat data. So, any tag that appears in the MTL file
-    will populate as an attribute of landsat_metadata_obj by using the
-    grab_meta function.
+    will populate as an attribute of landsat_metadata.
 
-    There are however, several critical attributes
-    that keep a common naming convention between all landsat versions,
-    so they are initialized in this class for good record keeping.
+    You can access explore these attributes by using, for example
+
+    .. code-block:: python
+
+        from dnppy import landsat
+        meta = landsat.landsat_metadata(my_filepath) # create object
+
+        from pprint import pprint                    # import pprint
+        pprint(vars(m))                              # pretty print output
+        scene_id = meta.LANDSAT_SCENE_ID             # access specific attribute
 
     :param filename: the filepath to an MTL file.
     """
 
     def __init__(self, filename):
+        """
+        There are several critical attributes that keep a common
+        naming convention between all landsat versions, so they are
+        initialized in this class for good record keeping and reference
+        """
 
         # custom attribute additions
         self.FILEPATH           = filename
@@ -51,10 +62,10 @@ class landsat_metadata_obj():
         self.EARTH_SUN_DISTANCE = None    # calculated for Landsats before 8.
 
         # read the file and populate the MTL attributes
-        self.read(filename)
+        self._read(filename)
 
 
-    def read(self, filename):
+    def _read(self, filename):
         """ reads the contents of an MTL file """
 
         # if the "filename" input is actually already a metadata class object, return it back.
@@ -107,17 +118,20 @@ class landsat_metadata_obj():
 
 def grab_meta(filename):
     """
-    Legacy metadata function simply wraps the newer landsat_metadata_obj class.
-    You should use ``landsat_metadata_obj`` instead of this function, and can
+    Legacy metadata function simply wraps the newer landsat_metadata class.
+    You should use ``landsat_metadata`` instead of this function, and can
     refer to that class for further explanation.
 
-    :param filename:                filepath to an MTL file
-    :return landsat_metadata_obj:   metadata object with MTL attributes.
+    :param filename:            filepath to an MTL file
+    :return landsat_metadata:   metadata object with MTL attributes.
     """
 
-    return landsat_metadata_obj(filename)
+    return landsat_metadata(filename)
 
 
 if __name__ == "__main__":
     m = grab_meta("metadata/LT50140342011307EDC00_MTL.txt")
     m2 = grab_meta("metadata/LC80140342014347LGN00_MTL.txt")
+
+    from pprint import pprint
+    pprint(vars(m))

@@ -16,14 +16,15 @@ __all__=['make_cloud_mask_457',     # complete
          'apply_cloud_mask']        # complete
 
 
-def make_cloud_mask_8(BQA_path, outdir = False):
+def make_cloud_mask_8(BQA_path, outdir = None):
     """
     Creates a cloud mask tiff file from the Landsat 8 Quality Assessment Band (BQA) file.
     Requires only the BQA tiff file included in the dataset.
 
-    Inputs:    
-      BQA_path    The full filepath to the BQA file for the raw Landsat 8 dataset
-      outdir      Output directory to save cloudless band tifs and the cloud mask
+    :param BQA_path:    The full filepath to the BQA file for the raw Landsat 8 dataset
+    :param outdir:      Output directory to save cloudless band tifs and the cloud mask
+
+    :return cloud_mask_path: filepath to newly created cloud mask
     """
 
     #define the range of values in the BQA file to be reclassified as cloud (0) or not cloud (1)
@@ -37,35 +38,36 @@ def make_cloud_mask_8(BQA_path, outdir = False):
     TileName = name_ext.replace("_BQA", "")
 
     #create an output name and save the mask tiff
-    if outdir:
+    if outdir is not None:
         outdir = os.path.abspath(outdir)
-        CloudMask_path = core.create_outname(outdir, TileName, "Mask", "tif")
+        cloud_mask_path = core.create_outname(outdir, TileName, "Mask", "tif")
     else:
-        folder = BQA_path.replace(BQA_split, "")
-        CloudMask_path = core.create_outname(folder, TileName, "Mask", "tif")
+        folder = os.path.dirname(BQA)
+        cloud_mask_path = core.create_outname(folder, TileName, "Mask", "tif")
         
-    outReclass.save(CloudMask_path)
+    outReclass.save(cloud_mask_path)
 
-    return CloudMask_path
+    return cloud_mask_path
 
 
 
-def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
+def make_cloud_mask_457(B2_TOA_Ref, outdir = None, Filter5Thresh = 2.0, Filter6Thresh = 2.0):
     """
     Creates a binary mask raster for removal of cloud-covered pixels in raw Landsat 4, 5, and 7 bands.
 
     To be performed on Landsat 4, 5, or 7 data. Must be processed first with landsat.toa_reflectance_457
     for bands 2, 3, 4, and 5 and landsat.atsat_bright_temp_457 for band 6.
 
-    *Note that for this function to run properly, bands 2, 3, 4, 5, and 6 must each be in the same folder
+    Note that for this function to run properly, bands 2, 3, 4, 5, and 6 must each be in the same folder
     and have the correct naming convention output by the landsat.toa_reflectance_457 and landsat.atsat_bright_temp_457
     functions (e.g. LT50410362011240PAC01_B2_TOA_Ref.tif, LT50410362011240PAC01_B6_Temp.tif).
 
-    Inputs:
-      B2_TOA-Ref.tif    The full filepath to the band 2 top-of-atmosphere reflectance tiff file
-      outdir            Output directory to the cloud mask and TOA band tiffs
-      Filter5Thresh     Optional threshold value for Filter #5, default set at 2
-      Filter6Thresh     Optional threshold value for Filter #6, default set at 2
+    :param B2_TOA_Ref:      The full filepath to the band 2 top-of-atmosphere reflectance tiff file
+    :param outdir:          Output directory to the cloud mask and TOA band tiffs
+    :param Filter5Thresh:   Optional threshold value for Filter #5, default set at 2
+    :param Filter6Thresh:   Optional threshold value for Filter #6, default set at 2
+
+    :return cloudmask457: filepath to newly created cloud mask
     """
 
     #discern if Landsat 4/5 or 7 for band 6 and designate rasters for bands 2, 3, 4, 5, and 6
@@ -73,15 +75,17 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
         band_6 = "6"
     elif "LE7" in B2_TOA_Ref:
         band_6 = "6_VCID_1"
+    else:
+        band_6 = None
 
     B2_path = os.path.abspath(B2_TOA_Ref)
 
     Band2 = arcpy.Raster(B2_path)
 
-    band_path3 = B2_path.replace("B2_TOA_Ref.tif","B3_TOA_Ref.tif")
-    band_path4 = B2_path.replace("B2_TOA_Ref.tif","B4_TOA_Ref.tif")
-    band_path5 = B2_path.replace("B2_TOA_Ref.tif","B5_TOA_Ref.tif")
-    band_path6 = B2_path.replace("B2_TOA_Ref.tif","B{0}_ASBTemp.tif".format(band_6))
+    band_path3 = B2_path.replace("B2_TOA_Ref.tif", "B3_TOA_Ref.tif")
+    band_path4 = B2_path.replace("B2_TOA_Ref.tif", "B4_TOA_Ref.tif")
+    band_path5 = B2_path.replace("B2_TOA_Ref.tif", "B5_TOA_Ref.tif")
+    band_path6 = B2_path.replace("B2_TOA_Ref.tif", "B{0}_ASBTemp.tif".format(band_6))
 
     Band3 = arcpy.Raster(band_path3)
     Band4 = arcpy.Raster(band_path4)
@@ -92,18 +96,16 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
 
     name = os.path.split(B2_path)[1]
 
-    if outdir == False:
+    if outdir is None:
         outdir = os.path.split(B2_path)[0]
             
     #Establishing location of gaps in data. 0 = Gap, 1 = Data
     #This will be used multiple times in later steps
-    arcpy.AddMessage("Creating Gap Mask")
-    print "Creating Gap Mask"
+    print("Creating Gap Mask")
     GapMask = ((Band2 > 0) * (Band3 > 0) * (Band4 > 0)*(Band5 > 0) * (Band6 > 0))
-    GapMask.save(outdir+"\\GapMask.tif")
+    GapMask.save(os.path.join(outdir,"GapMask.tif"))
 
-    arcpy.AddMessage("First pass underway")
-    print "First pass underway"
+    print("First pass underway")
 
     #Filter 1 - Brightness Threshold--------------------------------------------
     Cloudmask = Band3 > .08
@@ -111,32 +113,32 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
     #Filter 2 - Normalized Snow Difference Index--------------------------------
     NDSI = (Band2 - Band5)/(Band2 + Band5)
     Snow = (NDSI > .6) * Cloudmask
-    Cloudmask = (NDSI < .6) * Cloudmask
+    Cloudmask *= (NDSI < .6)
 
     #Filter 3 - Temperature Threshold-------------------------------------------
-    Cloudmask = (Band6 < 300) * Cloudmask
+    Cloudmask *= (Band6 < 300)
 
     #Filter 4 - Band 5/6 Composite----------------------------------------------
-    Cloudmask = (((1-Band5) * Band6) < 225) * Cloudmask
+    Cloudmask *= (((1-Band5) * Band6) < 225)
     Amb = (((1 - Band5) * Band6) > 225)
 
     #Filter 5 - Band 4/3 Ratio (eliminates vegetation)--------------------------
     #bright cloud tops are sometimes cut out by this filter. original threshold was
     #raising this threshold will make the algorithm more aggresive
-    Cloudmask = ((Band4/Band3) < Filter5Thresh) * Cloudmask
-    Amb = ((Band4/Band3) > Filter5Thresh) * Amb
+    Cloudmask *= ((Band4/Band3) < Filter5Thresh)
+    Amb *= ((Band4/Band3) > Filter5Thresh)
 
     #Filter 6 - Band 4/2 Ratio (eliminates vegetation)--------------------------
     #bright cloud tops are sometimes cut out by this filter. original threshold was
     #raising this threshold will make the algorithm more aggresive
-    Cloudmask = ((Band4/Band2) < Filter6Thresh) * Cloudmask
-    Amb = ((Band4/Band2) > Filter6Thresh) * Amb
+    Cloudmask *= ((Band4/Band2) < Filter6Thresh)
+    Amb *= ((Band4/Band2) > Filter6Thresh)
 
     #Filter 7 - Band 4/5 Ratio (Eliminates desert features)---------------------
     #   DesertIndex recorded
     DesertIndMask = ((Band4/Band5) > 1.0)
-    Cloudmask = DesertIndMask * Cloudmask
-    Amb = ((Band4/Band5) < 1.0) * Amb
+    Cloudmask *= DesertIndMask
+    Amb *= ((Band4/Band5) < 1.0)
 
     #Filter 8  Band 5/6 Composite (Seperates warm and cold clouds)--------------
     WarmCloud = (((1 - Band5) * Band6) > 210) * Cloudmask
@@ -148,10 +150,10 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
         arcpy.CalculateStatistics_management(DesertGap,ignore_values = "0")
         DesertIndex = DesertGap.mean - 1
     except:
-        DesertGap.save(outdir + "\\Desert.tif")
+        DesertGap.save(os.path.join(outdir, "Desert.tif"))
         arcpy.CalculateStatistics_management(DesertGap,ignore_values = "0")
-        DesertIndex=DesertGap.mean - 1
-        os.remove(outdir + "\\Desert.tif")
+        DesertIndex = DesertGap.mean - 1
+        os.remove(os.path.join(outdir, "Desert.tif"))
     del DesertIndMask, DesertGap, NDSI
 
     #Calculating percentage of the scene that is classified as Snow
@@ -161,10 +163,10 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
         ColdCloudMean = ColdCloudGap.mean - 1
         del ColdCloudGap
     except:
-        ColdCloudGap.save(outdir + "\\ColdCloud.tif")
+        ColdCloudGap.save(os.path.join(outdir, "ColdCloud.tif"))
         arcpy.CalculateStatistics_management(ColdCloudGap,ignore_values = "0")
         ColdCloudMean = ColdCloudGap.mean - 1
-        os.remove(outdir + "\\ColdCloud.tif")
+        os.remove(os.path.join(outdir, "ColdCloud.tif"))
         del ColdCloudGap
 
     del Band2, Band3, Band4, Band5
@@ -175,10 +177,10 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
         SnowPerc = SnowGap.mean - 1
         del SnowGap
     except:
-        SnowGap.save(outdir + "\\Snow.tif")
+        SnowGap.save(os.path.join(outdir, "Snow.tif"))
         arcpy.CalculateStatistics_management(SnowGap,ignore_values = "0")
         SnowPerc = SnowGap.mean - 1
-        os.remove(outdir + "\\Snow.tif")
+        os.remove(os.path.join(outdir, "Snow.tif"))
         del SnowGap
     del Snow
     del GapMask
@@ -195,37 +197,37 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
 
     #Collecting statistics for Cloud pixel Temperature values. These will be used in later conditionals
     Tempclouds = Cloudmask * Band6
-    Tempclouds.save(outdir + "\\TempClouds.tif")
+    Tempclouds.save(os.path.join(outdir, "TempClouds.tif"))
     del Tempclouds
 
     #Converting TempClouds to a text file and writing its non-zero/NAN values to a list
-    outtxt = outdir + "\\tempclouds.txt"
-    arcpy.RasterToASCII_conversion(outdir + "\\TempClouds.tif", outtxt)
+    outtxt = os.path.join(outdir, "tempclouds.txt")
+    arcpy.RasterToASCII_conversion(os.path.join(outdir, "TempClouds.tif"), outtxt)
 
     f = open(outtxt)
-    list = []
+    alist = []
     lines = f.readlines()[6:]
     for line in lines:
         for x in line.split(' '):
             try:
                 x = float(x)
                 if x > 0:
-                    list.append(x)
+                    alist.append(x)
             except ValueError:
                 pass
     f.close()
 
     #Band6clouds = Band6array[np.where(Band6array > 0)]
     #del Band6array
-    TempMin = min(list)
-    TempMax = max(list)
-    TempMean = numpy.mean(list)
-    TempStd = numpy.std(list)
-    TempSkew = stats.skew(list)
-    Temp98perc = numpy.percentile(list, 98.75)
-    Temp97perc = numpy.percentile(list, 97.50)
-    Temp82perc = numpy.percentile(list, 82.50)
-    del list
+    TempMin = min(alist)
+    TempMax = max(alist)
+    TempMean = numpy.mean(alist)
+    TempStd = numpy.std(alist)
+    TempSkew = stats.skew(alist)
+    Temp98perc = numpy.percentile(alist, 98.75)
+    Temp97perc = numpy.percentile(alist, 97.50)
+    Temp82perc = numpy.percentile(alist, 82.50)
+    del alist
 
     #delete all intermediary files in the output directory
     for file in os.listdir(outdir):
@@ -273,7 +275,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
             Cloudmask = Cloudmask + warmAmbmask + coldAmbmask
             arcpy.AddMessage("Upper Threshold Used")
         elif ThermEffect2 < .4 and coldAmb.mean < 295:
-            Cloudmask = Cloudmask + coldAmbmask
+            Cloudmask += coldAmbmask
             arcpy.AddMessage("Lower Threshold Used")
 
     #switch legend to 1=good data 0 = cloud pixel
@@ -299,19 +301,19 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = False, Filter5Thresh = 2.0, Filter6
 
 
 
-def apply_cloud_mask(mask_path, folder, outdir = False):
+def apply_cloud_mask(mask_path, folder, outdir = None):
     """
     Removal of cloud-covered pixels in Landsat 4, 5, 7, or 8 bands using the mask created with
     landsat.make_cloud_mask_8 or landsat.make_cloud_mask_457.
 
-    Inputs:
-      folder        The folder containing the raw or processed band tiffs to remove clouds from  
-      mask_path     The full filepath to the mask file created by make_cloud_mask_8 or make_cloud_mask_457
-      outdir        Output directory to save cloudless band tiffs
-                    *If left False the output tiffs will be saved in "folder"
+    :param folder:        The folder containing the raw or processed band tiffs to remove clouds from
+    :param mask_path:     The full filepath to the mask file created by make_cloud_mask_8 or make_cloud_mask_457
+    :param outdir:        Output directory to save cloudless band tiffs, default is same as "folder"
+
+    :return no_clouds_list: list of files created by this function with cloud mask applied.
     """
 
-    noclds_list = []
+    no_clouds_list = []
 
     #enforce the input band numbers as a list of strings
     mpath = os.path.abspath(mask_path)
@@ -330,7 +332,7 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
         #for each band (number 1-9) tif whose id matches the mask's, create an output name and append to the in and output lists
         if (band_name in band) and (band[-4:] == ".tif" or band[-4:] == ".TIF") and ("NoClds" not in band) and ("BQA" not in band):
             name = band.replace(".tif", "")
-            if outdir:
+            if outdir is not None:
                 outname = core.create_outname(outdir, name, "NoClds", "tif")
             else:
                 outname = core.create_outname(folder, name, "NoClds", "tif")
@@ -339,12 +341,12 @@ def apply_cloud_mask(mask_path, folder, outdir = False):
 
     #loop through the input list and apply the con to each file, saving to the corresponding path in the output list
     y = 0
-    for file in inlist:
-        outcon = arcpy.sa.Con(mask_path, file, "", "VALUE = 1")
+    for afile in inlist:
+        outcon = arcpy.sa.Con(mask_path, afile, "", "VALUE = 1")
         outcon.save(outlist[y])
-        noclds_list.append(outlist[y])
-        y = y + 1
+        no_clouds_list.append(outlist[y])
+        y += 1
         if y > (len(inlist) - 1):
             break
 
-    return noclds_list
+    return no_clouds_list

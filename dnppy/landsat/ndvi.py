@@ -1,6 +1,5 @@
 
 #standard imports
-from dnppy import core
 import os
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
@@ -11,16 +10,18 @@ __all__=['ndvi_8',                  # complete
          'ndvi_457']                # complete
 
 
-def ndvi_8(Band5, Band4, outdir = False):
+def ndvi_8(Band5, Band4, outdir = None):
     """
-    calculates a normalized difference vegetation index on Landsat 8 OLI data.
+    Simple calculator of Normalized difference vegetation index on some Landsat 8 OLI
+    data. Output file will have same name as inputs with "NDVI" in place of "B5", so
+    inputs of files "LC80140342014347LGN00_B5.tif" and "LC80140342014347LGN00_B4.tif"
+    will generate a file named "LC80140342014347LGN00_NDVI.tif"
 
-    To be performed on raw or processed Landsat 8 OLI data, preferably TOA or Surface Reflectance.
+    :param Band5:   The full filepath to the band 5 tiff file, the OLI NIR band
+    :param Band4:   The full filepath to the band 4 tiff file, the OLI Visible Red band
+    :param outdir:  directory to store output "NDVI" tiff.
 
-    Inputs:
-      Band5          The full filepath to the band 5 tiff file, the OLI NIR band
-      Band4          The full filepath to the band 4 tiff file, the OLI Visible Red band
-      outdir      Output directory to save NDVI tifs
+    :return outname:  name of output file created by this function
     """
 
     Band4 = os.path.abspath(Band4)
@@ -33,32 +34,32 @@ def ndvi_8(Band5, Band4, outdir = False):
     #Calculate the NDVI
     L8_NDVI = (NIR - Red)/(NIR + Red)
 
-    #Create the output name and save the NDVI tiff
-    name = os.path.split(Band4)[1]
-    ndvi_name = name.replace("_B4","")
-    
-    if outdir:
-        outdir = os.path.abspath(outdir)
-        outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
+    # find output directory
+    tail = os.path.basename(Band5).replace("_B5", "_NDVI")
+    if outdir is None:
+        head = os.path.dirname(Band5)
+        outname = os.path.join(head, tail)
     else:
-        folder = os.path.split(Band4)[0]
-        outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
-    
+        outname = os.path.join(outdir, tail)
+
     L8_NDVI.save(outname)
         
     print("saved ndvi_8 at {0}".format(outname))
     return outname
 
-def ndvi_457(Band4, Band3, outdir = False):
+
+def ndvi_457(Band4, Band3, outdir = None):
     """
-    calculates a normalized difference vegetation index on Landsat 4/5/7 TM/ETM+ data.
+    Simple calculator of Normalized difference vegetation index on some Landsat 4/5/7 ETM/+
+    data. Output file will have same name as inputs with "NDVI" in place of "B5", so
+    inputs of files "LC70140342014347LGN00_B4.tif" and "LC70140342014347LGN00_B3.tif"
+    will generate a file named "LC70140342014347LGN00_NDVI.tif"
 
-    To be performed on raw or processed Landsat 4/5/7/ TM/ETM+ data, preferably TOA or Surface Reflectance.
+    :param Band4:   The full filepath to the band 4 tiff file, the OLI NIR band
+    :param Band3:   The full filepath to the band 3 tiff file, the OLI Visible Red band
+    :param outdir:  directory to store output "NDVI" tiff.
 
-    Inputs:
-      Band4          The full filepath to the band 4 tiff file, the TM/ETM+ NIR band
-      Band3          The full filepath to the band 3 tiff file, the TM/ETM+ Visible Red band
-      outdir      Output directory to save NDVI tifs
+    :return outname:  name of output file created by this function
     """
 
     Band3 = os.path.abspath(Band3)
@@ -71,18 +72,15 @@ def ndvi_457(Band4, Band3, outdir = False):
     #Calculate the NDVI
     L457_NDVI = (NIR - Red)/(NIR + Red)
 
-    #Create the output name and save the NDVI tiff
-    name = os.path.split(Band3)[1]
-    ndvi_name = name.replace("_B3","")
-
-    if outdir:
-        outdir = os.path.abspath(outdir)
-        outname = core.create_outname(outdir, ndvi_name, "NDVI", "tif")
+    # find output directory
+    tail = os.path.basename(Band3).replace("_B3", "_NDVI")
+    if outdir is None:
+        head = os.path.dirname(Band3)
+        outname = os.path.join(head, tail)
     else:
-        folder = os.path.split(Band3)[0]
-        outname = core.create_outname(folder, ndvi_name, "NDVI", "tif")
-    
+        outname = os.path.join(outdir, tail)
+
     L457_NDVI.save(outname)
-        
+
     print("saved ndvi_457 at {0}".format(outname))
     return outname

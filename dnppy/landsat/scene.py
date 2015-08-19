@@ -7,7 +7,7 @@ if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
 
-__author__ = ["Jeffry Ely, jeff.ely.08@gmail.com"]
+__author__ = ["Jwely"]
 
 
 class scene:
@@ -139,8 +139,6 @@ class scene:
 
         pass
 
-
-        
 
 
 if __name__ == "__main__":

@@ -20,4 +20,3 @@ from surface_reflectance import *
 from surface_temp import *
 from toa_radiance import *
 from toa_reflectance import *
-from fetch_test_data import *
