@@ -15,8 +15,8 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     :param ll_lon:      longitude of lower left corner
     :param ur_lat:      latitude of upper right corner
     :param ur_lon:      longitude of upper right corner
-    :param product:     short name of product you want. See link below
-                        https://lpdaac.usgs.gov/products/measures_products_table
+    :param product:     short name of product you want. See http://e4ftl01.cr.usgs.gov/SRTM/ .
+                        do not include the version number. Example: "SRTMGL1"
     :param outdir:      local directory to save downloaded files
     :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles.
 

@@ -49,7 +49,7 @@ Auto-documentation for functions and classes within this module is generated bel
 .. automodule:: dnppy_install.download.fetch_Landsat8
     :members:
 
-.. automodule:: dnppy_install.download.fetch_LandsatWELD
+.. automodule:: dnppy_install.download.fetch_Landsat_WELD
     :members:
 
 .. automodule:: dnppy_install.download.fetch_MODIS
