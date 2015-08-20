@@ -5,6 +5,9 @@ import gdal
 def _convert_dtype(numpy_dtype_string):
     """
     converts numpy dtype to a gdal data type object
+
+    :param numpy_dtype_string
+    :return gdal_datatype_object:
     """
 
     ndt = str(numpy_dtype_string)

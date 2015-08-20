@@ -8,10 +8,10 @@ from _gdal_dataset_to_tif import *
 
 def extract_SMOS_NetCDF(netcdf_list, layer_indexs, outdir, resolution):
     """
-    extracts SMOS data from its native NetCDF format.
+    Extracts SMOS data from its native NetCDF format.
 
     :param netcdf_list:     list of hdf files or directory with netcdfs
-    :param layer_indexs:    list of integer layer indexs
+    :param layer_indexs:    list of integer layer indices
     :param outdir:          directory to place outputs
     :param resolution:      Presently ONLY supports input of "25k"
 
