@@ -103,6 +103,10 @@ And function, class, and method definitions would look something like this.
 
 Magic methods are special methods that allow custom classes to interact with python syntax in an almost "magical" way. They are always surrounded by double underscores, such as the very common ``__init__`` in the example above that governs the initialization behavior of a class. A great guide exists on the topic already by `Rafe Kettler`_.
 
+.. rubric:: Private Methods
+
+Private methods are a user defined functions and classes that should not be accessed directly by a user, but instead should be accessed by other functions and classes. These private methods are named with a single leading underscore ``_`` out front. Because this documentation is directed towards both users and developers, you might find some of these methods, such as ``_extract_HDF_layer_data`` in the convert module. If you're just looking to quickly extract some kind of HDF data, this function is `not` what you're looking for. If you know there isn't any existing support for your datatype, and it is of an HDF5 format, then this function will likely be exactly what you want to build upon with another function of your own.
+
 .. rubric:: Keywords
 
 Python keywords are all the short little words that have special meaning to python. These words can not be turned into variable names, as they are already reserved for the very specific function they serve in python. Keywords include things like "if, and, import, return, pass, def, class" and several others. This `zetcode tutorial`_ has some really great examples on each keyword and how they are used.
@@ -122,7 +126,6 @@ When calling `list_files`, you could specify all four arguments in the order the
     my_files = core.list_files(False, my_dir, DoesNotContain = ['dont_want','also_dont_want'])
 
 without needing to give the ``Contains`` argument a value. This comes in handy for functions with 4 or more inputs where it can be tedious to pass every conceivable argument every time.
-
 
 
 .. _learn X in Y minutes: http://learnxinyminutes.com/docs/python/
