@@ -622,7 +622,7 @@ class time_series():
 
     def _build_time(self, time_header, fmt, start_date = False):
         """
-        This internal use function is called twice by "define_time". Once two turn
+        This internal use function is called twice by "define_time". Once to turn
         all the datestamps into datetime objects, then a second time once the entire
         dataset has been sorted in ascending time order by those datetime objects.
 
