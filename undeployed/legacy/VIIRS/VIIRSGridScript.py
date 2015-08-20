@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Name:        VIIRS Grid Tool
-# Purpose:     This tool grids and georeferences VIIRS extract_HDF_layer data files from
+# Purpose:     This tool grids and georeferences VIIRS HDF data files from
 #              the NOAA CLASS website
 # Author:     Quinten Geddes Quinten.A.Geddes@nasa.gov
 #               NASA DEVELOP Program
@@ -21,22 +21,22 @@ arcpy.env.overwriteOutput = True
 #Variables-------------------------------------------------------------Variables
 
 
-HDFfile      = arcpy.GetParameterAsText(0) #extract_HDF_layer file including
-ArrayName    = arcpy.GetParameterAsText(1) #Data array in the extract_HDF_layer file that the user wishes to interpolate
-psize        = float(arcpy.GetParameterAsText(2)) #Desired pixel size in degrees or meters if Project to UTM is True
-Extent       = arcpy.GetParameterAsText(3)
-SampleMethodInput = arcpy.GetParameterAsText(4)
-ProjectToUTM = arcpy.GetParameterAsText(5) #Whether or not the user wants to project to UTM coordinates
-ZoneNumber   = arcpy.GetParameterAsText(6)
-Hemisphere   = arcpy.GetParameterAsText(7)
-OutputFolder = arcpy.GetParameterAsText(8) #Folder to which GeoTIFF files will be saved
+HDFfile             = arcpy.GetParameterAsText(0)       #extract_HDF_layer file including
+ArrayName           = arcpy.GetParameterAsText(1)       #Data array in the extract_HDF_layer file that the user wishes to interpolate
+psize               = float(arcpy.GetParameterAsText(2))#Desired pixel size in degrees or meters if Project to UTM is True
+Extent              = arcpy.GetParameterAsText(3)
+SampleMethodInput   = arcpy.GetParameterAsText(4)
+ProjectToUTM        = arcpy.GetParameterAsText(5)       #Whether or not the user wants to project to UTM coordinates
+ZoneNumber          = arcpy.GetParameterAsText(6)
+Hemisphere          = arcpy.GetParameterAsText(7)
+OutputFolder        = arcpy.GetParameterAsText(8)       #Folder to which GeoTIFF files will be saved
 
 
-blockSize=500   #Length of each side of the iterating block.
-                #This is related to memory limits and processing speed
-sdistance = blockSize*psize*.6  #Determines size of sample taken from original
-                                #data used to interpolate output block
-                                #of size blockSize x blockSize
+blockSize=500   # Length of each side of the iterating block.
+                # This is related to memory limits and processing speed
+sdistance = blockSize * psize * .6  # Determines size of sample taken from original
+                                    # data used to interpolate output block
+                                    # of size blockSize x blockSize
 
 #Variables-------------------------------------------------------------Variables
 
@@ -44,6 +44,7 @@ sdistance = blockSize*psize*.6  #Determines size of sample taken from original
 
 #Functions-------------------------------------------------------------Functions
 def LLtoUTM(Lat, Long):
+    """ this function has been absorbed into dnppy """
 #This function converts lat/long to UTM coords.  Equations from USGS Bulletin 1532
 #East Longitudes are positive, West longitudes are negative.
 #North latitudes are positive, South latitudes are negative
@@ -92,24 +93,29 @@ def LLtoUTM(Lat, Long):
                                            +600*C
                                            -330*eccPrimeSquared)*A*A*A*A*A*A/720)))
 
-    if Hemisphere=="S":
-        UTMNorthing = UTMNorthing + 10000000.0; #10000000 meter offset for southern hemisphere
-    return (UTMNorthing,UTMEasting)
+    if Hemisphere == "S":
+        UTMNorthing += 10000000.0; #10000000 meter offset for southern hemisphere
+    return (UTMNorthing, UTMEasting)
 
-VLLtoUTM=numpy.vectorize(LLtoUTM)
 
-#this function used to find points within sdistance of a point (y,x)
+VLLtoUTM = numpy.vectorize(LLtoUTM)
+
+#this function used to find points within "sdistance" of a point (y,x)
 #returns a one dimensional array with the Y,X coordinates of qualifying points
-#and the assosicated data values
-def findpoints(y,x,Data, nodata):
-    subLatInd= numpy.where(abs(numpy.array(DataGridY)-y)<sdistance)
-    subLong= numpy.array(DataGridX)[subLatInd]
-    blockInd = numpy.where(abs(subLong- x)<sdistance)
-    blocklong = subLong[blockInd]
-    blocklat  = numpy.array(DataGridY)[subLatInd][blockInd]
-    blockz= numpy.array(Data)[subLatInd][blockInd]
-    nodatamask=numpy.where(eval(nodata))
+#and the associated data values
+
+def findpoints(y, x, Data, nodata):
+    subLatInd   = numpy.where(abs(numpy.array(DataGridY)-y)<sdistance)
+    subLong     = numpy.array(DataGridX)[subLatInd]
+    blockInd    = numpy.where(abs(subLong- x) < sdistance)
+    blocklong   = subLong[blockInd]
+    blocklat    = numpy.array(DataGridY)[subLatInd][blockInd]
+    blockz      = numpy.array(Data)[subLatInd][blockInd]
+    nodatamask  = numpy.where(eval(nodata))
+
     return blocklat[nodatamask], blocklong[nodatamask], blockz[nodatamask]
+
+
 #Functions-------------------------------------------------------------Functions
 
 #Check to make sure pixel units are appropriate for output coordinate system
@@ -117,6 +123,7 @@ if ProjectToUTM=="true" and psize<10:
     msg="Pixel Size must be in meters for UTM Projection"
     arcpy.AddError(msg)
     raise arcpy.ExecuteError
+
 if ProjectToUTM =="false" and psize>10:
     msg="Pixel Size must be in decimal degrees for WGS84 grid"
     arcpy.AddError(msg)
@@ -185,7 +192,7 @@ if ProjectToUTM == "true":
         ESPGh="6"
     elif Hemisphere=="S":
         ESPGh="7"
-    ESPG = "32{0}{1}".format(ESPGh,ZoneNumber)
+    ESPG = "32{0}{1}".format(ESPGh, ZoneNumber)
 
 else:
     DataGridY = Latitude
@@ -216,8 +223,8 @@ except:
     raise arcpy.ExecuteError
 #calculating the Y and X values for each row and column respectively
 #for the output grid
-def makerowcoord(rown,maxval): return float(maxval - (rown*psize))
-def makecolcoord(coln,minval): return float(minval + (coln*psize))
+def makerowcoord(rown, maxval): return float(maxval - (rown*psize))
+def makecolcoord(coln, minval): return float(minval + (coln*psize))
 Vmakerowcoord=numpy.vectorize(makerowcoord)
 Vmakecolcoord=numpy.vectorize(makecolcoord)
 nrows,ncols=numpy.arange(rows),numpy.arange(cols)
@@ -240,7 +247,7 @@ NeedForInterp=sampledict[SampleMethod]
 #For each band an output array is created
 #The output array is written by blocks of size "blockSize" by "blockSize".
 #The extent of these blocks correspond output grid coordinates.
-#Data points are retreived from the input extract_HDF_layer that have lat longs that
+#Data points are retrieved from the input HDF that have lat longs that
 #fall within the extent of these blocks plus some slop.
 #These collected data points are then used to interpolate and
 #fill a block of the output array

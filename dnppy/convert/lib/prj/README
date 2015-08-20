@@ -1,0 +1,4 @@
+This folder contains custom prj files downloaded from spatialreference.org
+a file must be in this folder for entries in the datatype_library when
+using the SR-ORG identifier. Use EPSG identifiers whenever possible, as these
+can be easily loaded from maintained gdal libraries.

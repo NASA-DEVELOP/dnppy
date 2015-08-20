@@ -13,3 +13,6 @@ docs/build
 
 # the users pycharm workspace
 .idea/
+*.whl
+dnppy_stat_report.txt
+

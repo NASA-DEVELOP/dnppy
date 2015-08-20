@@ -1,0 +1,9 @@
+Unique_Name, projectionID, A, B, C, D, E, F, download_source
+GPM_IMERG_0.1_GLOBAL, EPSG-4326, -179.95, 0.0, 0.1, -89.95, 0.1, 0.0, "ftp://jsimpson.pps.eosdis.nasa.gov"
+GPM_IMERG_0.15_GLOBAL,EPSG-4326, -179.95, 0.0, 0.15, -89.95, 0.15, 0.0, "ftp://jsimpson.pps.eosdis.nasa.gov"
+TRMM_0.25_GLOBAL, EPSG-4326, -179.875, 0.0, 0.25, -49.85, 0.25, 0.0, "ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/"
+TRMM_0.5_GLOBAL, EPSG-4326, -179.875, 0.0, 0.5, -49.85, 0.5, 0.0, "ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/"
+TRMM_1.0_GLOBAL, EPSG-4326, -179.875, 0.0, 1.0, -49.85, 1.0, 0.0, "ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/"
+TRMM_5.0_GLOBAL, EPSG-4326, -179.875, 0.0, 5.0, -49.85, 5.0, 0.0, "ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/"
+SMOS_25k_GLOBAL, EPSG-4326, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, "cp34-bec.cmima.csic.es/land-datasets/"
+MPE_HRAP_CONUS, SR-ORG-7744, -2767773.750000, 7828.068359, 0.0, 1666070.375000, 0.0, -7824.255859, "http://water.weather.gov/precip/p_download_new"

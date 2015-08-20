@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 import os
 import gzip
 
-
 __all__ = ["fetch_TRMM"]
 
 
@@ -80,6 +79,6 @@ def fetch_TRMM(start_dto, end_dto, outdir, product_string):
 
 if __name__ == "__main__":
 
-    start = datetime(2014,1,1)
-    end   = datetime(2014,1,2)
+    start = datetime(2014, 1 ,1)
+    end   = datetime(2014, 1, 2)
     outfiles = fetch_TRMM(start, end, r"C:\Users\jwely\Desktop\troubleshooting\test", "3B42")

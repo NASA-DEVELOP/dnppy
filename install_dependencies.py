@@ -68,6 +68,8 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     :return:
     """
 
+    import pip
+
     # determine if the module is already good or not
     isready = check_mod(module_name, version)
 
@@ -88,9 +90,8 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
             f.close()
             del connection
 
-        # now use pip to install the wheel file
-        import pip
 
+        # now use pip to install the wheel file
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
 
