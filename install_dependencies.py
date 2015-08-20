@@ -10,11 +10,12 @@ Several modules that do not successfully install with pip alone are installed
 by fetching binaries from the dnppy release assets.
 """
 
-
 import urllib
 import os
 import platform
-#import pip               installs pip, then imports it
+# import pip               installs pip, then imports it
+# import psutil            installs psutil, then imports it
+
 
 def get_pip():
     """ ensures pip is installed"""
@@ -32,14 +33,33 @@ def get_pip():
 
         # run pip and clean up.
         import install_pip
+
         os.system("install_pip.py")
         os.remove("install_pip.py")
-    return
+
+
+def check_process_lock():
+    """
+    raises an exception if processes which may lock dependencies from being
+    upgraded are presently running
+    """
+    import psutil
+
+    bad_list = ["ArcGIS", "ArcMap"]
+
+    for proc in psutil.process_iter():
+        try:
+            name = proc.name()
+            if any([k in name for k in bad_list]):
+                raise RuntimeError("Terminate {0} and try running setup again!".format(name))
+
+        except psutil.AccessDenied:
+            pass
 
 
 def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     """
-    function for installing python packages from wheel files hosted in dnppys assets
+    function for installing python packages from wheel files hosted in dnppy's assets
 
     :param module_name:         name of the module
     :param version:             version, use None if no version is preferred
@@ -51,21 +71,9 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
     import pip
 
     # determine if the module is already good or not
-    try:
-        module = __import__(module_name)
+    isready = check_mod(module_name, version)
 
-        if version is not None:
-            if module.__version__ == version:
-                isready = True
-            else:
-                pip.main(["uninstall", module_name])
-                isready = False
-        else:
-            isready = True
-    except:
-        isready = False
-
-    if isready is False:
+    if not isready:
         print("gathering {0} assets".format(module_name))
 
         # determine if python running is 32 or 64 bit
@@ -74,7 +82,7 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
         else:
             dlurl = wheel32link
 
-        # write the file right next to this setupfile
+        # write the file right next to this setup file
         with open(os.path.basename(dlurl), "wb+") as f:
             connection = urllib.urlopen(dlurl)
             page = connection.read()
@@ -82,45 +90,40 @@ def get_mod_from_assets(module_name, version, wheel64link, wheel32link):
             f.close()
             del connection
 
-        # now use pip to install the gdal wheel file
+
+        # now use pip to install the wheel file
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(dlurl))
         pip.main(["install", path])
-        os.remove(path)
-    return
 
 
-def get_mod_with_pip(modulename, version = None):
+def get_mod_with_pip(module_name, version = None):
     """
     attempts pip install of all dependencies in the input list of
     tupled package names and version numbers (package, version).
     use "None" to leave version unspecified.
     """
 
-    try:
-        newmodule = __import__(modulename)
-
-    except:
+    if check_mod(module_name, version) is False:
         import pip
 
         if version is not None:
-            pip.main(["install", modulename + "==" + version])
+            pip.main(["install", module_name + "==" + version])
         else:
-            pip.main(["install", modulename])
-    return
+            pip.main(["install", module_name])
 
 
-def check_mod(modulename, version = None):
+def check_mod(module_name, version = None):
     """
     returns true if module of input version can be imported
     """
 
     try:
-        newmodule = __import__(modulename)
+        new_module = __import__(module_name)
     except:
         return False
 
     if version is not None:
-        if newmodule.__version__ == version:
+        if new_module.__version__ == version:
             return True
         else:
             return False
@@ -137,38 +140,55 @@ def main():
     get_pip()
 
     # list of assets to install, add to assets here.
-              # module : [version,
-              #           64 bit asset link,
-              #           32 bit asset link]
+    # {module : [version,
+    #           64 bit asset link,
+    #           32 bit asset link]}
 
-    asset_order = ["numpy", "cython", "scipy", "gdal", "h5py"] # installs assets below in this order
+    # installs assets in the order listed here
+    asset_order = ["cython", "scipy", "numpy", "gdal", "pycurl", "shapely", "h5py"]
+    release_address = "https://github.com/nasa/dnppy/releases/download/1.15.2/"
 
-    assets = {"cython":[None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/Cython-0.22-cp27-none-win32.whl"],
-              "scipy":[None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/scipy-0.15.1-cp27-none-win32.whl"],
-              "gdal" : [None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/GDAL-1.11.2-cp27-none-win32.whl"],
-              "numpy": ["1.9.2",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/numpy-1.9.2.mkl-cp27-none-win32.whl"],
-              "h5py":  [None,
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win_amd64.whl",
-                        "https://github.com/nasa/dnppy/releases/download/1.15.2/h5py-2.5.0-cp27-none-win32.whl"]}
+    assets = {"cython": [None,
+                         release_address + "Cython-0.22-cp27-none-win_amd64.whl",
+                         release_address + "Cython-0.22-cp27-none-win32.whl"],
+              "scipy":  [None,
+                         release_address + "scipy-0.15.1-cp27-none-win_amd64.whl",
+                         release_address + "scipy-0.15.1-cp27-none-win32.whl"],
+              "gdal":   [None,
+                         release_address + "GDAL-1.11.2-cp27-none-win_amd64.whl",
+                         release_address + "GDAL-1.11.2-cp27-none-win32.whl"],
+              "numpy":  ["1.9.2",
+                         release_address + "numpy-1.9.2.mkl-cp27-none-win_amd64.whl",
+                         release_address + "numpy-1.9.2.mkl-cp27-none-win32.whl"],
+              "h5py":   [None,
+                         release_address + "h5py-2.5.0-cp27-none-win_amd64.whl",
+                         release_address + "h5py-2.5.0-cp27-none-win32.whl"],
+              "pycurl": [None,
+                         release_address + "pycurl-7.19.5.1-cp27-none-win_amd64.whl",
+                         release_address + "pycurl-7.19.5.1-cp27-none-win32.whl"],
+              "shapely":[None,
+                         release_address + "Shapely-1.5.9-cp27-none-win_amd64.whl",
+                         release_address + "Shapely-1.5.9-cp27-none-win32.whl"]
+    }
 
-    pip_versions = {"wheel" : None,
-                    "requests": None,
-                    }
+    pip_versions = {"matplotlib": None,  # for making plots! users with arcpy already have this!
+                    "wheel": None,       # for installing other dependencies
+                    "requests": None,    # for better web interfacing
+                    "psutil": None,      # for killing processes which might lock files we want to modify
+                    "urllib3": None,     # magical url library
+                    "mock": None,        # used to fake arcpy imports in testing environments
+    }
 
-    # installs assets
+    # installs python packages with simple pip install
     for mod in pip_versions:
         get_mod_with_pip(mod, pip_versions[mod])
+
+    # checks for process that might lock files from modification
+    check_process_lock()
+
+    # installs modules from asset wheel files
     for mod in asset_order:
         get_mod_from_assets(mod, *assets[mod])
-
 
     # perform a check
     checks = {}
@@ -194,6 +214,7 @@ def main():
 
 
     # prints status updates
+    print("Checking libraries!")
     print("library name    ready?")
     for key in checks:
         print("  {0}{1}".format(key.ljust(14), checks[key]))
@@ -205,6 +226,6 @@ def main():
 
 
 if __name__ == "__main__":
-
     # run main
     main()
+

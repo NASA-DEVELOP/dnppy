@@ -1,4 +1,18 @@
+# filter by file extension
 *.pyc
+*.whl
+*.xml
+*.tif
+*.TIF
+
+# specific files and folders
+docs/build
+*dnppy_stat_report.txt
+*make_html.bat
+*arc.dir
+
+# the users pycharm workspace
 .idea/
 *.whl
 dnppy_stat_report.txt
+

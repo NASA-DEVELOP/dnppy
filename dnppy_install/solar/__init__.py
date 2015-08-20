@@ -1,2 +1,0 @@
-
-from solar import *

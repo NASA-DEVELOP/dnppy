@@ -1,27 +1,44 @@
 NASA OPEN SOURCE AGREEMENT VERSION 1.3
 
-THIS OPEN SOURCE AGREEMENT (ìAGREEMENTî) DEFINES THE RIGHTS OF USE, REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY").  THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR REDISTRIBUTIONS OF THE SUBJECT SOFTWARE.  ANYONE WHO USES, REPRODUCES, DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT. 
+THIS OPEN SOURCE AGREEMENT (‚ÄúAGREEMENT‚Äù) DEFINES THE RIGHTS OF USE, REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY").  THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR REDISTRIBUTIONS OF THE SUBJECT SOFTWARE.  ANYONE WHO USES, REPRODUCES, DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT. 
 
-Government Agency: National Aeronautics and Space Administration  
+Government Agency: National Aeronautics and Space Administration
+
 Government Agency Original Software Designation: LAR-18583-1
+
 Government Agency Original Software Title: DEVELOP National Program Python Package
+
 Government Agency Point of Contact for Original Software: Jeffry Ely
+
 
 1.	DEFINITIONS
 
-A.	ìContributorî means Government Agency, as the developer of the Original Software, and any entity that makes a Modification.
-B.	ìCovered Patentsî mean patent claims licensable by a Contributor that are necessarily infringed by the use or sale of its Modification alone or when combined with the Subject Software.
-C.	 ìDisplayî means the showing of a copy of the Subject Software, either directly or by means of an image, or any other device.
-D.	ìDistributionî means conveyance or transfer of the Subject Software, regardless of means, to another.
-E.	 ìLarger Workî means computer software that combines Subject Software, or portions thereof, with software separate from the Subject Software that is not governed by the terms of this Agreement.
-F.	 ìModificationî means any alteration of, including addition to or deletion from, the substance or structure of either the Original Software or Subject Software, and includes derivative works, as that term is defined in the Copyright Statute, 17 USC 101.  However, the act of including Subject Software as part of a Larger Work does not in and of itself constitute a Modification.
-G.	ìOriginal Softwareî means the computer software first released under this Agreement by Government Agency with Government Agency designation LAR-18583-1 and entitled DEVELOP National Program Python Package, including source code, object code and accompanying documentation, if any.
-H.	ìRecipientî means anyone who acquires the Subject Software under this Agreement, including all Contributors.
-I.	ìRedistributionî means Distribution of the Subject Software after a Modification has been made.
-J.	ìReproductionî means the making of a counterpart, image or copy of the Subject Software.
-K.	ìSaleî means the exchange of the Subject Software for money or equivalent value.
-L.	ìSubject Softwareî means the Original Software, Modifications, or any respective parts thereof.
-M.	ìUseî means the application or employment of the Subject Software for any purpose.
+A.	‚ÄúContributor‚Äù means Government Agency, as the developer of the Original Software, and any entity that makes a Modification.
+
+B.	‚ÄúCovered Patents‚Äù mean patent claims licensable by a Contributor that are necessarily infringed by the use or sale of its Modification alone or when combined with the Subject Software.
+
+C.	 ‚ÄúDisplay‚Äù means the showing of a copy of the Subject Software, either directly or by means of an image, or any other device.
+
+D.	‚ÄúDistribution‚Äù means conveyance or transfer of the Subject Software, regardless of means, to another.
+
+E.	 ‚ÄúLarger Work‚Äù means computer software that combines Subject Software, or portions thereof, with software separate from the Subject Software that is not governed by the terms of this Agreement.
+
+F.	 ‚ÄúModification‚Äù means any alteration of, including addition to or deletion from, the substance or structure of either the Original Software or Subject Software, and includes derivative works, as that term is defined in the Copyright Statute, 17 USC 101.  However, the act of including Subject Software as part of a Larger Work does not in and of itself constitute a Modification.
+
+G.	‚ÄúOriginal Software‚Äù means the computer software first released under this Agreement by Government Agency with Government Agency designation LAR-18583-1 and entitled DEVELOP National Program Python Package, including source code, object code and accompanying documentation, if any.
+
+H.	‚ÄúRecipient‚Äù means anyone who acquires the Subject Software under this Agreement, including all Contributors.
+
+I.	‚ÄúRedistribution‚Äù means Distribution of the Subject Software after a Modification has been made.
+
+J.	‚ÄúReproduction‚Äù means the making of a counterpart, image or copy of the Subject Software.
+
+K.	‚ÄúSale‚Äù means the exchange of the Subject Software for money or equivalent value.
+
+L.	‚ÄúSubject Software‚Äù means the Original Software, Modifications, or any respective parts thereof.
+
+M.	‚ÄúUse‚Äù means the application or employment of the Subject Software for any purpose.
+
 
 2.	GRANT OF RIGHTS
 
@@ -42,7 +59,7 @@ B.	Under Patent Rights:  Subject to the terms and conditions of this Agreement, 
 4.	Sale
 5.	Offer for Sale
 
-C.	The rights granted under Paragraph B. also apply to the combination of a Contributorís Modification and the Subject Software if, at the time the Modification is added by the Contributor, the addition of such Modification causes the combination to be covered by the Covered Patents.  It does not apply to any other combinations that include a Modification.
+C.	The rights granted under Paragraph B. also apply to the combination of a Contributor‚Äôs Modification and the Subject Software if, at the time the Modification is added by the Contributor, the addition of such Modification causes the combination to be covered by the Covered Patents.  It does not apply to any other combinations that include a Modification.
 
 D.	The rights granted in Paragraphs A. and B. allow the Recipient to sublicense those same rights.  Such sublicense must be under the same terms and conditions of this Agreement.
 
@@ -55,17 +72,17 @@ A.	Distribution or Redistribution of the Subject Software must be made under thi
 
 B.	Each Recipient must ensure that the following copyright notice appears prominently in the Subject Software:
 
-Copyright ” 2013 United States Government as represented by  the National Aeronautics and Space Administration.  No copyright is claimed in the United States under Title 17, U.S.Code. All Other Rights Reserved.
+Copyright √ì 2013 United States Government as represented by  the National Aeronautics and Space Administration.  No copyright is claimed in the United States under Title 17, U.S.Code. All Other Rights Reserved.
 
 C.	Each Contributor must characterize its alteration of the Subject Software as a Modification and must identify itself as the originator of its Modification in a manner that reasonably allows subsequent Recipients to identify the originator of the Modification.  In fulfillment of these requirements, Contributor must include a file (e.g., a change log file) that describes the alterations made and the date of the alterations, identifies Contributor as originator of the alterations, and consents to characterization of the alterations as a Modification, for example, by including a statement that the Modification is derived, directly or indirectly, from Original Software provided by Government Agency. Once consent is granted, it may not thereafter be revoked.
 
 D.	A Contributor may add its own copyright notice to the Subject Software.  Once a copyright notice has been added to the Subject Software, a Recipient may not remove it without the express permission of the Contributor who added the notice.
 
-E.	A Recipient may not make any representation in the Subject Software or in any promotional, advertising or other material that may be construed as an endorsement by Government Agency or by any prior Recipient of any product or service provided by Recipient, or that may seek to obtain commercial advantage by the fact of Government Agency's or a prior Recipientís participation in this Agreement.  
+E.	A Recipient may not make any representation in the Subject Software or in any promotional, advertising or other material that may be construed as an endorsement by Government Agency or by any prior Recipient of any product or service provided by Recipient, or that may seek to obtain commercial advantage by the fact of Government Agency's or a prior Recipient‚Äôs participation in this Agreement.  
 
-F.	In an effort to track usage and maintain accurate records of the Subject Software, each Recipient, upon receipt of the Subject Software, is requested to provide Government Agency, by e-mail to the Government Agency Point of Contact listed in clause 5.F., the following information: First and Last Name; Email Address; and Affiliation.  Recipientís name and personal information shall be used for statistical purposes only. Once a Recipient makes a Modification available, it is requested that the Recipient inform Government Agency, by e-mail to the Government Agency Point of Contact listed in clause 5.F., how to access the Modification.
+F.	In an effort to track usage and maintain accurate records of the Subject Software, each Recipient, upon receipt of the Subject Software, is requested to provide Government Agency, by e-mail to the Government Agency Point of Contact listed in clause 5.F., the following information: First and Last Name; Email Address; and Affiliation.  Recipient‚Äôs name and personal information shall be used for statistical purposes only. Once a Recipient makes a Modification available, it is requested that the Recipient inform Government Agency, by e-mail to the Government Agency Point of Contact listed in clause 5.F., how to access the Modification.
 
-G.	Each Contributor represents that that its Modification is believed to be Contributorís original creation and does not violate any existing agreements, regulations, statutes or rules, and further that Contributor has sufficient rights to grant the rights conveyed by this Agreement.
+G.	Each Contributor represents that that its Modification is believed to be Contributor‚Äôs original creation and does not violate any existing agreements, regulations, statutes or rules, and further that Contributor has sufficient rights to grant the rights conveyed by this Agreement.
 
 H.	A Recipient may choose to offer, and to charge a fee for, warranty, support, indemnity and/or liability obligations to one or more other Recipients of the Subject Software.  A Recipient may do so, however, only on its own behalf and not on behalf of Government Agency or any other Recipient.  Such a Recipient must make it absolutely clear that any such warranty, support, indemnity and/or liability obligation is offered by that Recipient alone.  Further, such Recipient agrees to indemnify Government Agency and every other Recipient for any liability incurred by them as a result of warranty, support, indemnity and/or liability offered by such Recipient.
 
@@ -75,7 +92,7 @@ J.	Notwithstanding any provisions contained herein, Recipient is hereby put on n
 
 4.	DISCLAIMER OF WARRANTIES AND LIABILITIES; WAIVER AND INDEMNIFICATION
 
-A.	No Warranty: THE SUBJECT SOFTWARE IS PROVIDED ìAS ISî WITHOUT ANY WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT ìAS IS.î
+A.	No Warranty: THE SUBJECT SOFTWARE IS PROVIDED ‚ÄúAS IS‚Äù WITHOUT ANY WARRANTY OF ANY KIND, EITHER EXPRESSED, IMPLIED, OR STATUTORY, INCLUDING, BUT NOT LIMITED TO, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL CONFORM TO SPECIFICATIONS, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR FREEDOM FROM INFRINGEMENT, ANY WARRANTY THAT THE SUBJECT SOFTWARE WILL BE ERROR FREE, OR ANY WARRANTY THAT DOCUMENTATION, IF PROVIDED, WILL CONFORM TO THE SUBJECT SOFTWARE. THIS AGREEMENT DOES NOT, IN ANY MANNER, CONSTITUTE AN ENDORSEMENT BY GOVERNMENT AGENCY OR ANY PRIOR RECIPIENT OF ANY RESULTS, RESULTING DESIGNS, HARDWARE, SOFTWARE PRODUCTS OR ANY OTHER APPLICATIONS RESULTING FROM USE OF THE SUBJECT SOFTWARE.  FURTHER, GOVERNMENT AGENCY DISCLAIMS ALL WARRANTIES AND LIABILITIES REGARDING THIRD-PARTY SOFTWARE, IF PRESENT IN THE ORIGINAL SOFTWARE, AND DISTRIBUTES IT ‚ÄúAS IS.‚Äù
 
 B.	Waiver and Indemnity:  RECIPIENT AGREES TO WAIVE ANY AND ALL CLAIMS AGAINST THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT.  IF RECIPIENT'S USE OF THE SUBJECT SOFTWARE RESULTS IN ANY LIABILITIES, DEMANDS, DAMAGES, EXPENSES OR LOSSES ARISING FROM SUCH USE, INCLUDING ANY DAMAGES FROM PRODUCTS BASED ON, OR RESULTING FROM, RECIPIENT'S USE OF THE SUBJECT SOFTWARE, RECIPIENT SHALL INDEMNIFY AND HOLD HARMLESS THE UNITED STATES GOVERNMENT, ITS CONTRACTORS AND SUBCONTRACTORS, AS WELL AS ANY PRIOR RECIPIENT, TO THE EXTENT PERMITTED BY LAW.  RECIPIENT'S SOLE REMEDY FOR ANY SUCH MATTER SHALL BE THE IMMEDIATE, UNILATERAL TERMINATION OF THIS AGREEMENT.
 
