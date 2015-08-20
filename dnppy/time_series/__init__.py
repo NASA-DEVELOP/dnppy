@@ -10,7 +10,7 @@ __author__ = ["Jwely"]
 
 
 # local imports
-from time_series_class import *
-from rast_series_class import *
+from time_series import *
+from rast_series import *
 
 

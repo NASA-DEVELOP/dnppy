@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 
-class time_series_class():
+class time_series():
     """
     A subsettable time series object
 
@@ -40,7 +40,7 @@ class time_series_class():
     def __init__(self, name = "name", units = None, subsetted = False,
                  disc_level = 0, parent = None):
         """
-        initializes the time series
+        Initializes the time series
 
         Attributes:
             self.name           # the name of this time series
@@ -87,7 +87,7 @@ class time_series_class():
         self.start_dto      = []          # datetime_object that mono rising times start from (dto)
         self.mean_interval  = 0           # average number of seconds between data points (float)
 
-        self.subsets        = []          # object list containing constituent time_seires
+        self.subsets        = []          # object list containing constituent time_series
 
         self.row_data       = []          # row wise dataset
         self.col_data       = []          # column wise dataset, built as dict
@@ -111,17 +111,17 @@ class time_series_class():
         Time series whos first row is:
         ['20010101', '045316', '1', '20010101045316', 366]
 
-        With no discretezation layers
+        With no discretization layers
         command       : result
         ts[0]         : ['20010101', '045316', '1', '20010101045316', 366]
         ts[0][0]      : 20010101
 
-        with one discretezation layer
+        with one discretization layer
         ts[0]         : <__main__.time_series instance at 0x00000000023CEB48>
         ts[0][0]      : ['20010101', '045316', '1', '20010101045316', 366]
         ts[0][0][0]   : 20010101
 
-        with two discretezation layers
+        with two discretization layers
         ts[0]         : <__main__.time_series instance at 0x00000000023CEB48>
         ts[0][0]      : <__main__.time_series instance at 0x00000000023CCA48>
         ts[0][0][0]   : ['20010101', '045316', '1', '20010101045316', 366]
@@ -168,10 +168,10 @@ class time_series_class():
 
     def _get_atts_from(self, parent_time_series):
         """
-        Allows bulk setting of attributes. usefull for allowing a subset to inherit
+        Allows bulk setting of attributes. Useful for allowing a subset to inherit
         information from its parent time_series
 
-        internal use only
+        :param parent_time_series:  a time_series object from which to inherit
         """
 
         self.fmt            = parent_time_series.fmt
@@ -184,7 +184,12 @@ class time_series_class():
 
     @staticmethod
     def _fmt_to_units(in_fmt):
-        """ converts fmt strings to unit names of associated datetime attributes """
+        """
+        converts fmt strings to unit names of associated datetime attributes
+
+        :param fmt:    datetime object style unit characters like %Y or %m
+        :return units: english version of input format. Example %Y -> "year"
+        """
 
         fmtlist =  ["%Y", "%m", "%b", "%d", "%j", "%H", "%M", "%S"]
         unitlist = ["year","month","month","day","day","hour","minute","second"]
@@ -201,7 +206,12 @@ class time_series_class():
 
     @staticmethod
     def _units_to_fmt(units):
-        """ converts unit names to fmt strings used by datetime.stftime. internal use"""
+        """
+        converts unit names to fmt strings used by datetime.stftime.
+
+        :param units:   units are strings like "year", "month", "hour"
+        :return fmt:    returns "fmt" equivalent of english units
+        """
 
         fmtlist =  ["%Y", "%b", "%m", "%j", "%d", "%H", "%M", "%S"]
         unitlist = ["year","month","month","day","day","hour","minute","second"]
@@ -220,7 +230,7 @@ class time_series_class():
 
 
     def _extract_time(self, time_header):
-        """  special case of "extract_column" method for time domain. internal use """
+        """  special case of "extract_column" method for time domain. """
 
         self.time_header = time_header
         self.build_col_data()
@@ -238,13 +248,17 @@ class time_series_class():
         return self.time
 
     @staticmethod
-    def _center_datetime(self, datetime_obj, units):
+    def _center_datetime(datetime_obj, units):
         """
-        returns datetime obj that is centered on the "unit" of the input datetime obj
+        Returns datetime obj that is centered on the "unit" of the input datetime obj
 
         When grouping datetimes together, center times are important. This function allows
         a center time with units equal to the users input (years, months, days , ...) to be
-        generated from the first datetime of the time series
+        generated from the first datetime of the time series.
+
+        :param datetime_obj:     any datetime object
+        :param units:            units by which to center input datetime object
+        :return center_datetime: returns centered datetime object.
         """
 
         dto = datetime_obj
@@ -264,7 +278,12 @@ class time_series_class():
 
 
     def _units_to_seconds(self, units, dto = None):
-        """ converts other time units to seconds. internal use only"""
+        """
+        converts other time units to seconds
+
+        :param units:       some english unit such as "hour", "day", etc.
+        :return seconds:    the numer of seconds in an input unit
+        """
 
         # ensure proper unit formatting
         units = self._fmt_to_units(units)
@@ -288,7 +307,14 @@ class time_series_class():
 
     @staticmethod
     def _seconds_to_units(self, seconds, units):
-        """ converts seconds to other time units. internal use only"""
+        """
+        converts seconds to other time units
+
+        :param seconds:  number of seconds
+        :param units:    units to convert those seconds to
+
+        :return: time equivalent of input seconds expressed as input units
+        """
 
         if units == "second":
             return 1.0
@@ -305,7 +331,13 @@ class time_series_class():
 
     
     def _name_as_subset(self, binned = False):
-        """ uses time series object to descriptively name itself. internal use only"""
+        """
+        uses time series object to descriptively name itself. Naming
+        subsets as bins will name them based only on smallest unit of
+        discretization.
+
+        :param binned:  set to True to name subsets as bins
+        """
 
         subset_units = self.units
         
@@ -340,7 +372,12 @@ class time_series_class():
 
 
     def rename_header(self, header_name, new_header_name):
-        """ renames a header and updates data structures"""
+        """
+        renames a header and updates data structures
+
+        :param header_name:     name of an existing header
+        :param new_header_name: new name of that header
+        """
 
         if header_name in self.headers:
             self.headers[self.headers.index(header_name)] = new_header_name
@@ -356,7 +393,7 @@ class time_series_class():
 
 
     def enf_unique_headers(self):
-        """appends digits to duplicate headers so each column has a unique name"""
+        """ Appends digits to duplicate headers so each column has a unique name """
 
         # build list of duplicate values
         duplicates = []
@@ -364,7 +401,7 @@ class time_series_class():
             if i > 0  and header in self.headers[:(i-1)] and not header in duplicates:
                 duplicates.append(header)
 
-        # for each duplicate name, number each occurance
+        # for each duplicate name, number each occurrence
         for dup in duplicates:
             count = 0
             for i,header in enumerate(self.headers):
@@ -375,7 +412,11 @@ class time_series_class():
                     
             
     def from_tdo(self, tdo):
-        """ reads time series data from a dnppy.text_data_class object"""
+        """
+        reads time series data from a dnppy.text_data_class object
+
+        :param tdo:     a dnppy.text_data_class object containing time data
+        """
 
         self.headers  = tdo.headers
         self.enf_unique_headers()
@@ -394,7 +435,7 @@ class time_series_class():
 
         time_series_object.from_tdo(text_data_object)
 
-        to read csvs straight to a time_series object, it must have headers.
+        To read csvs straight to a time_series object, it must have headers.
         """
 
         tdo = textio.read_csv(filepath, True, delim)
@@ -408,6 +449,7 @@ class time_series_class():
         """
         Writes the row data of this time_series to a csv file.
 
+        :param csv_path: filepath at which to create new csv file.
         """
 
         # disallow overwriting the csv used as input. Added by request
@@ -426,7 +468,14 @@ class time_series_class():
 
 
     def from_list(self, data, headers, time_header, fmt):
-        """ creates the time series data from a list"""
+        """
+        creates the time series data from a list
+
+        :param data:            list of lists making up rows and columns of data
+        :param headers:         list of headers (column names)
+        :param time_header:     string of header over the column representing time
+        :param fmt:             the format of data in that time column
+        """
 
         self.row_data = data
         self.headers  = headers
@@ -452,7 +501,10 @@ class time_series_class():
         """
         Removes rows where the specified column has an invalid number
         or is outside the defined thresholds (above high_thresh or below low_thresh)
-        :type self: time_series_class
+
+        :param col_header:  name of column to clean
+        :param high_thresh: maximum valid value of data in that column
+        :param low_thresh:  minimum valid value of data in that column
         """
 
 
@@ -511,7 +563,13 @@ class time_series_class():
 
 
     def rebuild(self, destroy_subsets = False):
-        """ reconstructs the time series from its constituent subsets"""
+        """
+        Reconstructs the time series from its constituent subsets
+
+        :param destroy_subsets: Set to TRUE to destroy the existing subsets
+                                of the time series, which will allow them to
+                                rebuilt in a different manner.
+        """
 
         # handles time series with multiple levels of discretezation
         while self.subsets[0].subsetted:
@@ -535,7 +593,13 @@ class time_series_class():
 
 
     def merge_cols(self, header1, header2):
-        """merges two columns together (string concatenation) into a new column"""
+        """
+        merges two columns together (string concatenation) into a new column.
+        The new column will be named [header1]_[header2].
+
+        :param header1: the name of the 1st column to merge
+        :param header2: the name of the 2nd column to merge
+        """
 
         new_header  = "_".join([header1, header2])
 
@@ -564,6 +628,10 @@ class time_series_class():
 
         This is to ensure all time values are in terms of the correct start time,
         which can be no later than the earliest entry in the dataset.
+
+        :param time_header: name of column with time data in it
+        :param fmt:         the fmt string to interpret time data into datetime objects
+        :param start_date:  The date to count up from.
         """
         
         # set format
@@ -616,16 +684,20 @@ class time_series_class():
         
     def define_time(self, time_header, fmt, start_date = False):
         """
-        Converts time strings into time objects for standardized processing
+        Converts time strings into time objects for standardized processing. For tips
+        on how to use 'fmt' variable, see
+        [https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior]
 
-        for tips on how to use 'fmt' variable, see url below:
-        https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
+        Time header variable can be either the header string, or a column index num
 
-        time header variable can be either the header string, or a column index num
+        Creates
+            A converted list of time objects (self.time_dom)
+            A new list of monotonically increasing decimal days (self.time_dec_days)
+            A new list of monotonically increasing second values (self.time_seconds)
 
-        Creates two things:
-            a converted list of time objects
-            a new list of monotonically increasing decimal days
+        :param time_header: name of column with time data in it
+        :param fmt:         the fmt string to interpret time data into datetime objects
+        :param start_date:  The date to count up from.
         """
 
         # build time vectors for the first time
@@ -665,17 +737,17 @@ class time_series_class():
         splits the time series into individual time chunks
 
         used for taking advanced statistics, usually periodic
-        in nature. Also usefull for exploiting temporal relationships
+        in nature. Also useful for exploiting temporal relationships
         in a dataset for a variety of purposes including data
         sanitation, periodic curve fitting, etc.
 
-        subset_units
+        :param subset_units:
             subset_units follows convention of fmt. For example:
             %Y  groups files by year
             %m  groups files by month
             %j  groups file by julian day of year
 
-        overlap_width
+        :param overlap_width:
             this variable can be set to greater than 0
             to allow "window" type statistics, so each subset may contain 
             data points from adjacent subsets.
@@ -690,22 +762,21 @@ class time_series_class():
             you should use this function to subset by year, then use the
             "group_bins" function to bin each year by month. so,
 
-            instead of
-                ts.subset("%Y")
-                ts.subset("%b")
+        .. code-block:: python
 
-            use
-                ts.subset("%Y")
-                ts.group_bins("%b")
+                ts.subset("%b")     # subset by month
 
-        cust_center_time
+                ts.subset("%Y")     # subset by year
+                ts.group_bins("%b") # bin by month
+
+        :param cust_center_time:
             Allows a custom center time to be used! This was added so that
-            days could be centered around a specific daily aquisition time.
-            for example, its often usefull to define a day as
-            satellite data aquisition time +/- 12 hours.
+            days could be centered around a specific daily acquisition time.
+            for example, its often useful to define a day as
+            satellite data acquisition time +/- 12 hours.
             if used, "cust_center_time" must be a datetime object!
 
-        discard_old
+        :param discard_old:
             By default, performing a subsetting on a time series that already
             has subsets does not subset the master time series, but instead
             the lowest level subsets. Setting "discard_old" to "True" will
@@ -798,7 +869,7 @@ class time_series_class():
 
                 # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
-                    new_subset = time_series_class(units = subset_units, parent = self)
+                    new_subset = time_series(units = subset_units, parent = self)
                     new_subset.center_time = center_time
                     new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
@@ -812,7 +883,7 @@ class time_series_class():
 
     def group_bins(self, fmt_units, overlap_width = 0, cyclical = True):
         """
-        sorts the time series into time chunks by common bin_unit
+        Sorts the time series into time chunks by common bin_unit
 
         used for grouping data rows together. For example, if one used
         this function on a 5 year dataset with a bin_unit of month,
@@ -820,19 +891,21 @@ class time_series_class():
         month), which each set containing all entries for that month,
         regardless of what year they occurred in.
 
-        fmt_units follows convention of fmt. For example:
-        %Y  groups files by year
-        %m  groups files by month
-        %j  groups file by julian day of year
+        :param fmt_units:
+            %Y  groups files by year
+            %m  groups files by month
+            %j  groups file by julian day of year
 
-        similarly to "make_subsets" the "overlap_width" variable can be
-        set to greater than 1 to allow "window" type statistics, so
-        each subset may contain data points from adjacent subsets.
-        However, for group_bins, overlap_width must be an integer.
+        :param overlap_width:
+            similarly to "make_subsets" the "overlap_width" variable can be
+            set to greater than 1 to allow "window" type statistics, so
+            each subset may contain data points from adjacent subsets.
+            However, for group_bins, overlap_width must be an integer.
 
-        "cyclical" of "True" will allow end points to be considered adjacent.
-        So, for example, January will be considered adjacent to December,
-        day 1 will be considered adjacent to day 365.
+        :param cyclical:
+            "cyclical" of "True" will allow end points to be considered adjacent.
+            So, for example, January will be considered adjacent to December,
+            day 1 will be considered adjacent to day 365.
         """
 
         ow = int(overlap_width)
@@ -861,7 +934,7 @@ class time_series_class():
             for i in xrange(min(grouping),max(grouping) + 1):
 
                 subset_units    = self._fmt_to_units(fmt)
-                new_subset      = time_series_class( units = subset_units, parent = self)
+                new_subset      = time_series( units = subset_units, parent = self)
 
                 # only take rows whos grouping is within ow of i
                 subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
@@ -902,6 +975,9 @@ class time_series_class():
         self.temperature_min_i      # index value where minimum occurs
         self.temperature_avg        # average
         self.temperature_std        # standard deviation
+
+        :param col_header:      name of column on which to take statistics
+        :return statistics:     a dictionary of the column statistical values
         """
 
         print("calculating stats for time_series '{0}', col '{1}'".format(self.name,col_header))
@@ -950,11 +1026,15 @@ class time_series_class():
         daily summaries of temperature statistics. To do this, the syntax would look
         like this:
 
-            >>> temperature_ts.make_subsets(%d)
-            >>> daily_sum_ts = temperature_ts.subset_stats("Temp")
+        .. code-block:: python
+
+            temperature_ts.make_subsets(%d)
+            daily_sum_ts = temperature_ts.subset_stats("Temp")
+
+        This function is not yet finished.
         """
 
-        print("this function is unfinished") # flag
+        print("This function is unfinished") # flag
         return
         
     
@@ -965,7 +1045,12 @@ class time_series_class():
 
         Accepts custom title input and y-axis label. If a save_path is
         specified, it will save the plot to that path and close it automatically.
-        :type self: time_series_class
+
+        :param col_headers: list of columns to plot
+        :param title:       title to place on plot
+        :param xlabel:      label for x axis
+        :param ylabel:      label for y axis
+        :param save_path:   filepath at which to save figure as image.
         """
 
         # figure out temporal resolution of data to appropiately label x-axis
@@ -1018,7 +1103,10 @@ class time_series_class():
 
 
     def normalize(self, col_header):
-        """ used to normalize specific columns in the time series"""
+        """
+        Used to normalize specific columns in the time series. Normalization
+        will scale all value in the time series to be between 0 and 1
+        """
         
         # make sure data is cleaned for numerical formatting
         self.clean(col_header)
@@ -1042,7 +1130,7 @@ class time_series_class():
 
 
     def add_mono_time(self):
-        """Adds a monotonically increasing time column with units of decimal days"""
+        """ Adds a monotonically increasing time column with units of decimal days """
 
         # add an entry to every row item in row_data, then rebuild column data
         if "decimal_days" not in self.headers:
@@ -1062,8 +1150,13 @@ class time_series_class():
 
     def interp_col(self, time_obj, col_header):
         """
-        for input column, interpolate values to estimate value at input time_obj.
-        input time_obj may also be of datestring matching declared fmt
+        For input column, interpolate values to estimate value at input time_obj.
+        input time_obj may also be of datestring matching declared fmt.
+
+        :param time_obj:    A datetime object
+        :param col_header:  The name of the column to interpolate at time (time_obj)
+
+        :return interp_y:   The interpolated value of input column at input time
         """
 
         # start by cleaning data by input column
@@ -1118,7 +1211,7 @@ if __name__ == "__main__":
     print(tdo.headers)                              # print the headers
     print(tdo.row_data[0])                          # print the first row
 
-    ts = time_series_class('weather_data')                # initialize a time series named "weather_data"
+    ts = time_series('weather_data')                # initialize a time series named "weather_data"
     ts.from_tdo(tdo)                                # populate it with the contents of the tdo
 
     print ts.headers                                # view the headers of this time series
