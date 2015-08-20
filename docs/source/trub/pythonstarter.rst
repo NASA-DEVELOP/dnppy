@@ -10,9 +10,23 @@ There are lots of python tutorials out there, and users just getting started wit
 * `Learn Python`_
 * `Think like a computer scientist`_
 
-Additionally, we will cover a few intermediate topics here to help users better understand what goes on behind the scenes.
-
 .. note:: You can start writing python code with the default interpreter called "IDLE"
+
+
+The right mindset
+-----------------
+
+For starters, programming is usually pretty exciting with the right mindset. It's a rapidly accelerated environment where you get the chance to discover new things and apply your knowledge to solve immediate problems. You can spend hours making a computer accomplish a task that would only take you 15 minutes to do manually, but once you're finished you will have a complete understanding of the task, and be able to do it `thousands` of times faster from this moment forward. Once you use programming to accomplish a task, you can build upon it to solve slightly more complex tasks, and then continue to build upon that.
+
+Sometimes new programmers struggle with the fact that something very intuitive for a human is NOT intuitive for the computer. You know what you want to do, but communicating this through the keyboard seems impossible. This is why we call them programming `languages`. Python is a language, and one can learn programming is the same way one learns a spoken language. First, you'll need to observe the work of other people through very simple tutorials. Next, you'll need to find answers to extremely simple questions like:
+
+* `"how do I manipulate this variable?"`
+* `"how do I do something to every item in a set of items?"`
+* `"how do I define a function and refer to it later?"`
+
+This is the programming equivalent of a parent telling a baby what color things are, and what noises an animal might make, but in this case you are the baby and it's your responsibility to `ask` what color the grass is and what noise the sheep makes. The best way to learn is to make an attempt at each small coding task one at a time, think of the simplest question you can ask, then just type that question into google. Writing software is 10% programming, and 90% Googling.
+
+You can definitely do it, and the tutorials above can guide you through the first stages.
 
 Frequent Pitfalls
 -----------------

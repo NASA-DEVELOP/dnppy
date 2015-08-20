@@ -42,10 +42,9 @@ Contents
     :caption: Developers
 
     dev_pages/development
+    dev_pages/dev_goals
     dev_pages/contrib_git
     dev_pages/doc
-    dev_pages/contact
-    dev_pages/wishlist
 
 
 .. toctree::
@@ -54,7 +53,6 @@ Contents
     trub/git
     trub/pythonstarter
     trub/faq
-    trub/issues
 
 Indices and tables
 ------------------

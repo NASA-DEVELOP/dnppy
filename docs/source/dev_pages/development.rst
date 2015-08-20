@@ -1,46 +1,24 @@
 Developers Starter
 ==================
 
-Firstly, if you haven't read through the entirety of the "Getting Started" sections, please do so before contributing to dnppy.
+Firstly, if you haven't read through the entirety of the "Getting Started" sections, please do so before contributing to dnppy. Secondly, if you're a burgeoning self taught programmer, head over to the :doc:`python quick start page <../trub/pythonstarter>` for some good primers.
 
+The way dnppy is developed is a little bit unique because it is so tightly integrated with the DEVELOP program. In the immediate future, the primary users will be internal to the DEVELOP program, though we expect this to change as dnppy matures. Future developers are likely to include a number of Geoinformatics Fellows who come in at an intermediate level of programming skill. These factors dictate a customized approach to further development of dnppy.
 
-The way dnppy is developed is a little bit unique because it is so tightly integrated with the DEVELOP program. In the immediate future, the primary users will be internal to the DEVELOP program, though we expect this to change as dnppy matures. Future developers are likely to include a number of Geoinformatics Fellows who are themselves at an intermediate level of programming skill. These factors dictate a customized approach to further development of dnppy.
+Contributing Through GitHub
+---------------------------
+All contributions, bugs, issues, everything to do with `dnppy`_ is managed through the `nasa-develop github`_. There is a set of best practices to go along with it that warrants is own page on :doc:`GitHub best practices <contrib_git>`
 
+.. _dnppy: https://github.com/NASA-DEVELOP/dnppy
+.. _nasa-develop github: https://github.com/NASA-DEVELOP
 
-Environment
------------
+Integrated Development Environment
+----------------------------------
 There are a few recommendations that can be made to those working to enhance their programming skills and get deeper into development. One of those is to spend some time selecting, and getting comfortable with an Integrated Development Environment (IDE).
 
 We highly recommend users download `PyCharm`_ by JetBrains to work on sets of python code, but especially if working on dnppy. PyCharm gives the user tips and warnings when coding best practices are violated, which can encourage you to adopt more professional practice and learn things you didn't even think to ask about! It also has powerful refactoring tools and great error catching on the fly to help you spend less time fixing small mistakes. Pycharm works well on both Windows and Linux.
 
 .. _PyCharm: https://www.jetbrains.com/pycharm/
-
-
-Contributing through GitHub
----------------------------
-All contributions to dnppy are managed through github, and there is a set of best practices to go along with it that warrants is own page on :doc:`GitHub best practices <contrib_git>`
-
-
-Functional Coding Conventions
------------------------------
-There are a few conventions future developers should try to follow when contributing that go slightly beyond stylistic preference.
-
-.. rubric:: Printing string output
-
-In python 2.7, users can use ``print "my string"``, but in python 3.0 this is no longer acceptable! The ``print`` keyword has become a function in python 3.0. Furthermore, in line substitutions abide by slightly different rules. So, in order to institute good practice for the inevitable update to python 3.0+ it costs us very little to write print statements that work in `both` 2.7 and 3.0. Therefore we use the ``format`` method on a string.
-
-.. code-block:: python
-
-    my_name = "Jwely"
-    my_age = 26
-
-    print "my name is " + my_name + " and my age is " + str(my_age)     # this is BAD
-    print("my name is {0} and my age is {1}".format(my_name, my_age))   # this is GOOD
-
-Notice that you do not need to cast ``my_age`` as a string when using the ``format`` method, as it takes care of this on its own.
-
-You may find violations of this rule within dnppy, if you do, please fix it!
-
 
 Stylistic Coding Conventions
 ----------------------------

@@ -19,9 +19,8 @@ These documentation pages are made into pretty html and css from a couple of dif
         design.rst
         index.rst
         install.rst
+        modulesum.rst
         overview.rst
-        whatnow.rst
-
 
 Documenting new additions
 -------------------------
@@ -61,7 +60,7 @@ Which invokes the automodule chain and parses the docstrings of the ``create_out
         :rtype: returns int
         """
 
-The auto documentation tool chain will generate this:
+For the code above defining a dummy function called ``foo``, the auto documentation tool chain will generate this:
 
 .. py:function:: foo(self, x, y)
   :noindex:
