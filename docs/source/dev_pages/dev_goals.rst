@@ -7,7 +7,7 @@ Shed arcpy
 
 The arcpy module is available only to users who purchase ESRI's ArcMap software. It's principle advantage over most other GIS programming tools or API's out there is that the user and help documentation is really good, and the "model builder" interface is a good baby step towards python programming, so it's a good place for burgeoning GIS programmers to start learning. Conversely, the gdal library is very powerful cross platform library with python bindings, but has disjointed documentation that can be intimidating and confusing.
 
-dnppy's long term goal is to package the power of gdal into more easily understood functional wrappers akin to arcpy functions. Priority should always be placed on meeting the immediate needs of the GIS community, but the addition of new arcpy dependent functions should be avoided.
+dnppy's long term goal is to package the power of gdal into more easily understood functional wrappers akin to arcpy functions. Priority should always be placed on meeting the immediate needs of the GIS community and NASA data users, but the addition of new arcpy dependent functions should be avoided.
 
 .. rubric:: Intro to ``gdal``
 
