@@ -34,13 +34,4 @@ from gap_fill_temporal import *
 from gap_fill_interpolate import *
 
 
-# this code will test the raster module
-# it assumes that some data is available in a dnppy_test directory
-# this code should be migrated to a more permanent testing framework
-if __name__ == "__main__":
-
-    import os
-
-    test_dir = r"C:\dnppy_test"
-    va_shape = os.path.join(test_dir, 'VA_Orig.shp')
 
