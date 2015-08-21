@@ -1,6 +1,7 @@
 # local imports
 
 from dnppy import raster
+from modis_metadata import modis_metadata
 
 import os
 
@@ -63,7 +64,7 @@ def mosaic(filelist, outdir = None, pixel_type = None, bands = "1",
 
     # grab info from all the files left in the filelist.
     for item in filelist:
-        info = raster.grab_info(item, 'MODIS', 365)
+        info = modis_metadata(item)
         yearlist.append(int(info.year))
         daylist.append(int(info.j_day))
 
@@ -119,7 +120,7 @@ def mosaic(filelist, outdir = None, pixel_type = None, bands = "1",
                             os.makedirs(OUT)
 
                         # grab suffix from input files for better naming of output files
-                        info = raster.grab_info(mosaiclist[0],False,True)
+                        info = modis_metadata(mosaiclist[0])
                         
                         # define the output name based on input criteria
                         path, filename   = os.path.split(mosaiclist[0])

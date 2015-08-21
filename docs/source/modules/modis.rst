@@ -46,6 +46,9 @@ Code Help
 
 Auto-documentation for functions and classes within this module is generated below!
 
+.. automodule:: dnppy.modis.modis_metadata
+    :members:
+
 .. automodule:: dnppy.modis.define_projection
     :members:
 

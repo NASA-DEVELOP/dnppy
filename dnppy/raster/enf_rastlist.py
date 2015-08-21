@@ -7,9 +7,11 @@ from is_rast import is_rast
 import os
 
 def enf_rastlist(filelist):
-
     """
-    ensures a list of inputs filepaths contains only valid raster types
+    Ensures a list of inputs filepaths contains only valid raster types
+
+    :param filelist:        a list of filepaths that contains some raster filetypes
+    :return new_filelist:   a list of filepaths with all non-raster files removed
     """
 
     # first place the input through the same requirements of any filelist

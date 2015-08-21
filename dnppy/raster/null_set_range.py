@@ -9,16 +9,15 @@ import arcpy
 
 def null_set_range(rastlist, high_thresh = None, low_thresh = None, NoData_Value = None):
     """
-    Changes values within a certain range to NoData
+    Changes values within a certain range to NoData. similar to ``raster.null_define``,
+    but can take an entire range of values to set to NoData. useful in filtering
+    obviously erroneous high or low values from a raster dataset.
 
-     similar to raster.null_define, but can take an entire range of values to set to NoData.
-     useful in filtering obviously erroneous high or low values from a raster dataset.
+    :param rastlist:     list of rasters for which to set no dta values
+    :param high_thresh:  will set all values above this to  NoData
+    :param low_thresh:   will set all values below this to NoData
 
-     inputs:
-       rastlist     list of files for which to set NoData values. easily created with
-                    "core.list_files" function
-       high_thresh  will set all values above this to  NoData
-       low_thresh   will set all values below this to NoData
+    :return rastlist:    list of all rasters modified by this function
     """
 
     # sanitize filelist input

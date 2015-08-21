@@ -1,9 +1,19 @@
+
+__author__ = "Jwely"
 __all__ = ["raster_fig"]
 
 # standard imports
 import matplotlib.pyplot as plt
 
+
 class raster_fig:
+    """
+    raster_fig objects are used for heads up displays of raster
+    data to the user.
+
+    :param numpy_rast:  a numpy array representing araster dataset
+    :param title:       title to put on the raster figure plot
+    """
 
     def __init__(self, numpy_rast, title = False):
         """ initializes the raster figure """
@@ -32,7 +42,12 @@ class raster_fig:
 
 
     def update_fig(self, numpy_rast, title = False):
-        """ Function to update a figure that already exists """
+        """
+        Function to update a figure that already exists.
+
+        :param numpy_rast:  a numpy array representing a raster dataset
+        :param title:       title to put on the raster figure object
+        """
 
         if title:
             self.fig.suptitle(title, fontsize = 20)
@@ -43,7 +58,7 @@ class raster_fig:
 
 
     def close_fig(self):
-        """closes an active figure"""
+        """ closes an active figure """
 
         plt.close(self.fig)
         return

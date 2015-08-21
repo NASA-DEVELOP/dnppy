@@ -1,4 +1,4 @@
-### Docs [![Build Status](https://travis-ci.org/NASA-DEVELOP/dnppy.svg?branch=master)](https://travis-ci.org/NASA-DEVELOP/dnppy)
+### Docs [![Build Status](https://travis-ci.org/NASA-DEVELOP/dnppy.svg?branch=raster-dev)](https://travis-ci.org/NASA-DEVELOP/dnppy)
 
 https://nasa-develop.github.io/dnppy/
 

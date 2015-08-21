@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-__all__ = ["new_mosaci"]
+__all__ = ["new_mosaic"]
 
 from enf_rastlist import enf_rastlist
 from to_numpy import to_numpy
@@ -16,11 +16,13 @@ def new_mosaic(rasterpaths, output_path, mosaic_method = None, cell_size = None,
 
     http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000
 
-    rasterpaths         list of complete filepaths to raster data to mosaic
-    output_path         place to save new mosaic raster dataset
-    mosaic_method       options are "FIRST", "LAST", "BLEND", "MEAN", "MINIMUM","MAXIMUM"
-    cell_size           of format "[cellwidth] [cellheight]" in the appropriate linear units,
-                        usually meters.
+    :param rasterpaths:     list of complete filepaths to raster data to mosaic
+    :param output_path:     place to save new mosaic raster dataset
+    :param mosaic_method:   options are "FIRST", "LAST", "BLEND", "MEAN", "MINIMUM","MAXIMUM"
+    :param cell_size:       of format "[cellwidth] [cellheight]" in the appropriate linear units,
+                            usually meters.
+
+    :return output_path:    returns filepath to new file, same as input ``output_path``
     """
 
     # set up input parameters
