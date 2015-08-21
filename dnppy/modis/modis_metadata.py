@@ -1,7 +1,11 @@
 __author__ = 'jwely'
 
+__all__ = ["modis_metadata"]
+
+
 import os
 from datetime import datetime
+
 
 class modis_metadata():
     """
@@ -106,8 +110,10 @@ if __name__ == "__main__":
 
     fpath = r"MYD11A1.A2013121.h11v05.041.2013122220607.hdf"
     mm = modis_metadata(fpath)
-    print mm.__dict__
+    from pprint import pprint
+    pprint(mm.__dict__)
 
     fpath = r"MOD11_L2.A2015001.1105.041.2015005192527.hdf"
     mm = modis_metadata(fpath)
-    print mm.__dict__
+    from pprint import pprint
+    pprint(mm.__dict__)

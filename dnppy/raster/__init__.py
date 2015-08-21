@@ -20,7 +20,6 @@ from degree_days_accum import *
 from enf_rastlist import *
 from from_numpy import *
 from to_numpy import *
-from grab_info import *
 from in_dir import *
 from is_rast import *
 from many_stats import *

@@ -14,3 +14,4 @@ __author__ = ["Jwely"]
 from mosaic import *
 from define_projection import *
 from extract_from_hdf import *
+from modis_metadata import *
