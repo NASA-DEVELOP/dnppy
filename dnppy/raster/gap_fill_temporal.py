@@ -22,8 +22,7 @@ def gap_fill_temporal(rasterlist, outdir = None, continuous = True,
     if a void was filled with data that's 5 days old, the "age" raster will have a value of
     "5" at that location.
 
-    Inputs:
-    :param rasterlist:      a list of filepaths for rasters with which to fill gaps. THESE IMAGES
+    :param rasterlist:      A list of filepaths for rasters with which to fill gaps. THESE IMAGES
                             MUST BE ORDERED FROM OLDEST TO NEWEST (ascending time).
     :param outdir:          the path to the desired output folder, if left "None", outputs will be
                             saved right next to respective inputs.
@@ -36,7 +35,7 @@ def gap_fill_temporal(rasterlist, outdir = None, continuous = True,
                             in the input rasterlist.
     :param numpy_datatype   the numpy datatype of the output raster. usually "float32"
 
-    :returns            a list of filepaths to new files created by this function.
+    :return output_filelist: returns a list of filepaths to new files created by this function.
     """
 
     # enforce the list of rasters to ensure it's sanitized
@@ -84,7 +83,7 @@ def gap_fill_temporal(rasterlist, outdir = None, continuous = True,
 
 
 if __name__ == "__main__":
-    from null_set_range import *
+
     rastdir = r"C:\Users\jwely\Desktop\troubleshooting\Bender_TX_data\2010-11"
     rastlist = core.list_files(True, rastdir,["LST"], ["gft"])
     outlist = gap_fill_temporal(rastlist, NoData_Value = -1)

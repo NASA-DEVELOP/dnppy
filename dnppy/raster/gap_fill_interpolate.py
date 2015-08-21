@@ -1,5 +1,7 @@
+
 __author__ = 'jwely'
 __all__ = ["gap_fill_interpolate"]
+
 from dnppy import core
 from to_numpy import to_numpy
 from is_rast import is_rast
@@ -20,20 +22,18 @@ def gap_fill_interpolate(in_rasterpath, out_rasterpath, model = None,
     WARNING: This script is processing intensive and may take a while to run
     even for modestly sized datasets.
 
-    inputs:
-        in_rasterpath       input filepath to raster to fill gaps
-        out_rasterpath      filepath to store output gap filled raster in
-        model               type of kriging model to run, options include
-                                "SPHERICAL", "CIRCULAR", "EXPONENTIAL",
-                                 "GAUSSIAN", and "LINEAR"
-        max_cell_dist       the maximum number of cells to interpolate between,
+    :param in_rasterpath:   input filepath to raster to fill gaps
+    :param out_rasterpath:  filepath to store output gap filled raster in
+    :param model:           type of kriging model to run, options include
+                            "SPHERICAL", "CIRCULAR", "EXPONENTIAL",
+                            "GAUSSIAN", and "LINEAR"
+    :param max_cell_dist:   The maximum number of cells to interpolate between,
                             data gaps which do not have at least "min_points"
                             points within this distance will not be filled.
-        min_points          minimum number of surrounding points to use in determining
+    :param min_points:      Minimum number of surrounding points to use in determining
                             value at missing cell.
 
-    returns:
-        out_rasterpath      returns path to created file
+    :return out_rasterpath: Returns path to file created by this function
     """
 
     # check inputs
@@ -119,7 +119,7 @@ def gap_fill_interpolate(in_rasterpath, out_rasterpath, model = None,
     return out_rasterpath
 
 
-
+# testing area
 if __name__ == "__main__":
 
     inraster  = r"C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\mosaic\test_mosaic_gaps.tif"
