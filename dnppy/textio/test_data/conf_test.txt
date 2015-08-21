@@ -1,0 +1,9 @@
+param_name                              ; param_type       ; param_value
+test long title for just one single str ; <type 'str'>     ; some test string
+test_bool                               ; <type 'bool'>    ; True
+test_float                              ; <type 'float'>   ; 1.12345
+test_int                                ; <type 'int'>     ; 1
+test_long                               ; <type 'long'>    ; 1000000000000000000
+test_list                               ; <type 'list'>    ; ['a', 'b', 75, 'd']
+test_dict                               ; <type 'dict'>    ; {'string_key': 0, 1: 'string_value'}
+test_tuple                              ; <type 'tuple'>   ; (1, 2)
