@@ -33,7 +33,7 @@ class text_data():
         header is a unique string so a column-wise dictionary can be built.
 
         For example, a text file with headers ``["name", "tag", "tag", "tag"]`` will
-        be changed to have headers ``["name", "tag1", "tag2", "tag3"].
+        be changed to have headers ``["name", "tag1", "tag2", "tag3"]``.
 
         :param headers:     list of string elements intended for use as headers.
         """
