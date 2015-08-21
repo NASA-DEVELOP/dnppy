@@ -1,4 +1,3 @@
-__author__ = 'jwely'
 
 __all__ = ["clip_and_snap"]
 
@@ -9,31 +8,30 @@ import os
 import arcpy
 import shutil
 
+
 def clip_and_snap(snap_raster, rastname, outname, NoData_Value = None):
     """
     Ensures perfect coincidence between a snap_raster and any input rasters
 
-     This script is primarily intended for calling by the "raster.spatially_match" function
-     but may be called independently.
+    This script is primarily intended for calling by the "raster.spatially_match" function
+    but may be called independently.
 
-     it is designed to input a reference image and a working image. The working image must
-     be in exactly the same projection and spatial resolution as the reference image. This
-     script will simply ensure the tif files are perfectly coincident, and that the total image
-     extents are identical. This is important when performing numpy manipulations on matrices
-     derived from different datasets manipulated in different ways to ensure alignment.
+    it is designed to input a reference image and a working image. The working image must
+    be in exactly the same projection and spatial resolution as the reference image. This
+    script will simply ensure the tif files are perfectly coincident, and that the total image
+    extents are identical. This is important when performing numpy manipulations on matrices
+    derived from different datasets manipulated in different ways to ensure alignment.
 
-     This script makes modifications to the original raster file, so save a backup if you are
-     unsure how to use this.
+    This script makes modifications to the original raster file, so save a backup if you are
+    unsure how to use this.
 
-     inputs:
-       snap_raster     filepath and name of reference raster whos extent will be taken on by
-                       the input rastername
-       rastname        name of raster which should be snapped to the snap_raster
-       NoData_Value    Value desired to represent NoData in the saved image.
+    :param snap_raster      filepath and name of reference raster whos extent will be taken on by
+                            the input rastername
+    :param rastname:        name of raster which should be snapped to the snap_raster
+    :param NoData_Value:    Value desired to represent NoData in the saved image.
 
-     outputs:
-       snap_meta       metadata of the snap_raster file as output by to_numpy
-       meta            metadata of the rastername file as output by to_numpy
+    :return snap_meta:      metadata of the snap_raster file as output by to_numpy
+    :return meta:           metadata of the rastername file as output by to_numpy
     """
 
     # grab metadata for rastname
