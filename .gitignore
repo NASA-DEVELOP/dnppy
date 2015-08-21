@@ -11,6 +11,9 @@ docs/build
 *make_html.bat
 *arc.dir
 
+# ignore files with test tag.
+*_test*
+
 # the users pycharm workspace
 .idea/
 *.whl
