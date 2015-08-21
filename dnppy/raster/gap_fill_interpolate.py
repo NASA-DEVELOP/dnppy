@@ -76,7 +76,6 @@ def gap_fill_interpolate(in_rasterpath, out_rasterpath, model = None,
             bad_row_FIDs.append(row.FID)
     del rows
 
-
     # go back through the list and perform the deletions
     numbad = len(bad_row_FIDs)
     print("Deleting {0} points with NoData values".format(numbad))
