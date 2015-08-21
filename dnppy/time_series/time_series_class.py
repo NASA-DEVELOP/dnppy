@@ -355,25 +355,6 @@ class time_series_class():
         return
 
 
-    def enf_unique_headers(self):
-        """appends digits to duplicate headers so each column has a unique name"""
-
-        # build list of duplicate values
-        duplicates = []
-        for i,header in enumerate(self.headers):
-            if i > 0  and header in self.headers[:(i-1)] and not header in duplicates:
-                duplicates.append(header)
-
-        # for each duplicate name, number each occurance
-        for dup in duplicates:
-            count = 0
-            for i,header in enumerate(self.headers):
-                if header == dup:
-                    self.headers[i] = header + (str(count))
-                    count += 1
-        return
-                    
-            
     def from_tdo(self, tdo):
         """ reads time series data from a dnppy.text_data_class object"""
 
