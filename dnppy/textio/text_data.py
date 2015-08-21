@@ -32,6 +32,10 @@ class text_data():
         """ Appends digits to duplicate items in a list. Used to ensure each
         header is a unique string so a column-wise dictionary can be built.
 
+        For example, a text file with headers ``["name", "tag", "tag", "tag"]`` will
+        be changed to have headers ``["name", "tag1", "tag2", "tag3"].
+
+        :param headers:     list of string elements intended for use as headers.
         """
 
         # build list of duplicate values
@@ -164,7 +168,7 @@ class text_data():
     def read_json(self, json_filepath, row_wise = None, col_wise = None):
         """
         Reads the contents of this tdo from a json file created by the
-        `` text_data.write_json()``  function. Please note that this text_data
+        ``text_data.write_json()``  function. Please note that this text_data
         class is designed for use with tabular type data, so this should
         function will not read ALL json files in a satisfactory manner.
         Users wishing to read json files in a general sense should  simply
