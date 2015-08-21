@@ -19,14 +19,17 @@ def to_numpy(raster, numpy_datatype = None):
      to save the raster after desired manipulations have been performed.
      also see raster.from_numpy function in this module.
 
-     inputs:
-       Raster              Any raster supported by the arcpy.RasterToNumPyArray function
-       numpy_datatype      must be a string equal to any of the types listed at the following
-                           address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
-                           for example: 'uint8' or 'int32' or 'float32'
-     outputs:
-       numpy_rast          the numpy array version of the input raster
-       Metadata            An object with the following attributes.
+     :param Raster:         Any raster supported by the arcpy.RasterToNumPyArray function
+     :param numpy_datatype: must be a string equal to any of the types listed at the following
+                            address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
+                            for example: 'uint8' or 'int32' or 'float32'
+
+     :returns numpy_rast:   the numpy array version of the input raster
+     :returns Metadata:     An object with the following attributes...
+
+           ================ ===========================================================
+            attribute       description
+           ================ ===========================================================
            .Xmin            the left edge
            .Ymin            the bottom edge
            .Xmax            the right edge
@@ -37,15 +40,14 @@ def to_numpy(raster, numpy_datatype = None):
            .cellHeight      resolution in y direction
            .projection      the projection information to give the raster
            .NoData_Value    the numerical value which represents NoData in this raster
+           ================ ===========================================================
 
-     Usage example:
-       call this function with  " rast,Metadata = to_numpy(Raster) "
-       perform numpy manipulations as you please
-       then save the array with " raster.from_numpy(rast,Metadata,output)   "
+     Usage example
+
+        call this function with  ``rast,Metadata = to_numpy(Raster)``
+        perform numpy manipulations as you please
+        then save the array with ``raster.from_numpy(rast,Metadata,output)``
     """
-
-    # create a metadata object and assign attributes to it
-
 
     # perform some checks to convert to supported data format
     if not is_rast(raster):
@@ -98,7 +100,6 @@ def to_numpy(raster, numpy_datatype = None):
         mask[numpy_rast == meta.NoData_Value] = True     # mask
         numpy_rast = numpy.ma.masked_array(numpy_rast, mask,
                                            dtype = numpy_datatype)
-
 
     return numpy_rast, meta
 

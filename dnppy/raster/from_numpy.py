@@ -9,22 +9,23 @@ import numpy
 def from_numpy(numpy_rast, metadata, outpath, NoData_Value = None):
     """
     Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling
-    
-     this is just a wrapper for the NumPyArrayToRaster function within arcpy. It is used in
-     conjunction with to_numpy to streamline reading image files in and out of numpy
-     arrays. It also ensures that all spatial referencing and projection info is preserved
-     between input and outputs of numpy manipulations.
 
-     inputs:
-       numpy_rast          the numpy array version of the input raster
-       metadata            The variable exactly as output from "to_numpy"
-       outpath             output filepath of the individual raster
-       NoData_Value        the no data value of the output raster
+    this is just a wrapper for the NumPyArrayToRaster function within arcpy. It is used in
+    conjunction with to_numpy to streamline reading image files in and out of numpy
+    arrays. It also ensures that all spatial referencing and projection info is preserved
+    between input and outputs of numpy manipulations.
 
-     Usage example:
-       call to_numpy with  "rast,metadata = to_numpy(Raster)"
-       perform numpy manipulations as you please
-       then save the array with "raster.from_numpy(rast, metadata, output)"
+    :param numpy_rast:      The numpy array version of the input raster
+    :param metadata:        The variable exactly as output from "to_numpy"
+    :param outpath:         Output filepath of the individual raster
+    :param NoData_Value:    The no data value of the output raster
+
+    :return outpath:        Same as input outpath, filepath to created file.
+
+    Usage example
+    call to_numpy with  "rast,metadata = to_numpy(Raster)"
+    perform numpy manipulations as you please
+    then save the array with "raster.from_numpy(rast, metadata, output)"
     """
 
     numpy_rast = numpy_rast.astype(metadata.numpy_datatype)
@@ -71,4 +72,4 @@ def from_numpy(numpy_rast, metadata, outpath, NoData_Value = None):
     
     print("Saved output file as {0}".format(outpath))
 
-    return
+    return outpath
