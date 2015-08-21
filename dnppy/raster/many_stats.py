@@ -11,25 +11,24 @@ from raster_fig import raster_fig
 import numpy
 import os
 
+# FIXME: this function has an outstanding bug report against it. check issues
+
 def many_stats(rasterlist, outdir, outname, saves = None, low_thresh = None,
                     high_thresh = None, numtype = 'float32', NoData_Value = -9999):
     """
-    Take statistics across many input rasters
-    
-     this function is used to take statistics on large groups of rasters with identical
-     spatial extents. Similar to Rolling_Raster_Stats
+    Take statistics across many input rasters. This function is used to take
+    statistics on large groups of rasters with identical spatial extents.
 
-     Inputs:
-        rasterlist      list of raster filepaths for which to take statistics
-        outdir          directory where output should be stored.
-        outname         output name filename string that will be used in output filenames
-        saves           which statistics to save in a raster. In addition to the options
-                        supported by 
-                           
-                        Defaults to all three ['AVG','NUM','STD'].
-        low_thresh      values below low_thresh are assumed erroneous and set to NoData
-        high_thresh     values above high_thresh are assumed erroneous and set to NoData.
-        numtype         type of numerical value. defaults to 32bit float.
+    :param rasterlist:      list of raster filepaths for which to take statistics
+    :param outdir:          directory where output should be stored.
+    :param outname:         output name filename string that will be used in output filenames
+    :param saves:           which statistics to save in a raster. Defaults to all
+                            three ['AVG','NUM','STD'].
+    :param low_thresh:      values below low_thresh are assumed erroneous and set to NoData
+    :param high_thresh:     values above high_thresh are assumed erroneous and set to NoData.
+    :param numtype:         type of numerical value. defaults to 32bit float.
+
+    This function does not return anything.
     """
 
     if saves is None:

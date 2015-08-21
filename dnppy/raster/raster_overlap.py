@@ -1,3 +1,4 @@
+__author__ = "Jwely"
 __all__ = ["raster_overlap"]
 
 
@@ -5,34 +6,33 @@ from to_numpy import to_numpy
 from from_numpy import from_numpy
 from is_rast import is_rast
 from clip_and_snap import clip_and_snap
-from null_define import null_define
 
-import numpy
+
 import arcpy
 
 
 def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
     """
-    Finds overlaping area between two raster images.
-     
-    this function examines two images and outputs a raster identifying pixels where both
-    rasters have non-NoData values. Output raster has 1's where both images have data and
+    Finds overlaping area between two raster images. this function examines
+    two images and outputs a raster identifying pixels where both rasters have
+    non-NoData values. Output raster has 1's where both images have data and
     0's where one or both images are missing data.
 
-    inputs:
-        file_A      the first file
-        file_B      the second file
-        outpath     the output filename for the desired output. must end in ".tif"
-        NoData_A    the NoData value of file A
-        NoData_B    the NoData value of file B
+    :param file_A:      the first file
+    :param file_B:      the second file
+    :param outpath:     the output filename for the desired output. must end in ".tif"
+    :param NoData_A:    the NoData value of file A
+    :param NoData_B:    the NoData value of file B
+
+    :return outpath:    filepath to raster created by this function.
 
     This function automatically invokes
-        clip_and_snap
-        null_define
+        * clip_and_snap
+        * null_define
     """
     
     if not is_rast(file_A) or not is_rast(file_B):
-        raise Exception(' both inputs must be rasters!')
+        raise Exception('both inputs must be rasters!')
 
 
     # load the rasters as numpy arays.
@@ -66,4 +66,4 @@ def raster_overlap(file_A, file_B, outpath, NoData_A = None, NoData_B = None):
                                      outpath.replace(".tif",".shp"),
                                      'NO_SIMPLIFY')
     
-    return metaA, metaB
+    return outpath
