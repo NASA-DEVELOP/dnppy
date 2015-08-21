@@ -33,7 +33,7 @@ def gap_fill_temporal(rasterlist, outdir = None, continuous = True,
                             output raster 2, which might contain some fill values from raster 1, and so
                             forth. If "False" an output raster will only be generated for the LAST raster
                             in the input rasterlist.
-    :param numpy_datatype   the numpy datatype of the output raster. usually "float32"
+    :param numpy_datatype:  the numpy datatype of the output raster. usually "float32"
 
     :return output_filelist: returns a list of filepaths to new files created by this function.
     """

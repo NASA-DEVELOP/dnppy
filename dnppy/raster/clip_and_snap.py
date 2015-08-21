@@ -25,8 +25,8 @@ def clip_and_snap(snap_raster, rastname, outname, NoData_Value = None):
     This script makes modifications to the original raster file, so save a backup if you are
     unsure how to use this.
 
-    :param snap_raster      filepath and name of reference raster whos extent will be taken on by
-                            the input rastername
+    :param snap_raster:     filepath and name of reference raster whos extent will be taken on by
+                            the input rastername.
     :param rastname:        name of raster which should be snapped to the snap_raster
     :param NoData_Value:    Value desired to represent NoData in the saved image.
 

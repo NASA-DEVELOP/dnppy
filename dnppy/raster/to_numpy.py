@@ -13,40 +13,19 @@ def to_numpy(raster, numpy_datatype = None):
 
     """
     Wrapper for arcpy.RasterToNumpyArray with better metadata handling
-    
-     This is just a wraper for the RasterToNumPyArray function within arcpy, but it also
-     extracts out all the spatial referencing information that will probably be needed
-     to save the raster after desired manipulations have been performed.
-     also see raster.from_numpy function in this module.
 
-     :param Raster:         Any raster supported by the arcpy.RasterToNumPyArray function
-     :param numpy_datatype: must be a string equal to any of the types listed at the following
-                            address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
-                            for example: 'uint8' or 'int32' or 'float32'
+    This is just a wraper for the RasterToNumPyArray function within arcpy, but it also
+    extracts out all the spatial referencing information that will probably be needed
+    to save the raster after desired manipulations have been performed.
+    also see raster.from_numpy function in this module.
 
-     :returns numpy_rast:   the numpy array version of the input raster
-     :returns Metadata:     An object with the following attributes...
+    :param raster:         Any raster supported by the arcpy.RasterToNumPyArray function
+    :param numpy_datatype: must be a string equal to any of the types listed at the following
+                           address [http://docs.scipy.org/doc/numpy/user/basics.types.html]
+                           for example: 'uint8' or 'int32' or 'float32'
 
-           ================ ===========================================================
-            attribute       description
-           ================ ===========================================================
-           .Xmin            the left edge
-           .Ymin            the bottom edge
-           .Xmax            the right edge
-           .Ymax            the top edge
-           .Xsize           the number of columns
-           .Ysize           the number of rows
-           .cellWidth       resolution in x direction
-           .cellHeight      resolution in y direction
-           .projection      the projection information to give the raster
-           .NoData_Value    the numerical value which represents NoData in this raster
-           ================ ===========================================================
-
-     Usage example
-
-        call this function with  ``rast,Metadata = to_numpy(Raster)``
-        perform numpy manipulations as you please
-        then save the array with ``raster.from_numpy(rast,Metadata,output)``
+    :return numpy_rast:   the numpy array version of the input raster
+    :return Metadata:     a metadata object. see ``raster.metadata``
     """
 
     # perform some checks to convert to supported data format

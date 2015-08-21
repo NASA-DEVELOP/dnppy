@@ -12,7 +12,6 @@ def apply_linear_correction(rasterlist, factor, offset, suffix = 'lc',
                             outdir = None, floor = -999999):
     """
     Applies a linear correction to a raster dataset.
-
     New offset rasters are saved in the output directory with a suffix of "lc"
     unless one is specified. This may be used to apply any kind of linear relationship
     that can be described with "mx + b" such as conversion between between K,C, and F.
@@ -34,18 +33,18 @@ def apply_linear_correction(rasterlist, factor, offset, suffix = 'lc',
     return outputpath:  filepath to output files created by this function
 
     Example Usage
-        to convert from MODIS Land surface temperature from digital number to kelvin, you
-        must simply multiply by 0.02 as the stated scale factor listed at the link below
-        [https://lpdaac.usgs.gov/products/modis_products_table/myd11a1].
+    to convert from MODIS Land surface temperature from digital number to kelvin, you
+    must simply multiply by 0.02 as the stated scale factor listed at the link below
+    [https://lpdaac.usgs.gov/products/modis_products_table/myd11a1].
 
-        Now that it is in kelvin, converting to Celsius can be done by adding (-273.15)
-        So, use this function with::
+    Now that it is in kelvin, converting to Celsius can be done by adding (-273.15)
+    So, use this function with::
 
         factor = 0.02
         offset = -273.15
 
-        and one may convert MODIS land surface temperature digital numbers directly to
-        celsius!
+    and one may convert MODIS land surface temperature digital numbers directly to
+    celsius!
     """
 
     output_filelist = []
