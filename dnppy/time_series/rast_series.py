@@ -2,7 +2,7 @@
 # local imports
 from dnppy import core
 from dnppy import raster
-from time_series_class import time_series_class
+from time_series import time_series
 
 # standard imports
 import os
@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 __author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
 
 
-class rast_series_class(time_series_class):
+class rast_series(time_series):
     """
     This is an extension of the time_series class
 
@@ -22,13 +22,15 @@ class rast_series_class(time_series_class):
     for tracking the time domain are the same.
 
     some time_series methods for manipulating and viewing text data
-    will not apply to raster_series
+    will not apply to raster_series. It is unknown how they will behave.
     """
         
     def from_directory(self, directory, fmt, fmt_unmask = None):
         """
-        creates a list of all rasters in a directory, then
-        passes this list to self.from_rastlist
+        creates a list of all rasters in a directory, then passes this
+        list to self.from_rastlist
+
+        see ``from_rastlist``
         """
 
         filepaths = core.list_files(False, directory, ".tif")
@@ -40,19 +42,22 @@ class rast_series_class(time_series_class):
     
     def from_rastlist(self, filepaths, fmt, fmt_unmask = None):
         """
-        loads up a list of filepaths as a time series
-        if filenames contain variant characters that are not related
-        to date, a "fmt_unmask" may be used to isolate the datestrings
-        from the rest of the filenames by character index.
+        Loads up a list of filepaths as a time series. If filenames contain
+        variant characters that are not related to date and time, a
+        "fmt_unmask" may be used to isolate the datestrings from the rest
+        of the filenames by character index.
 
-        for an example filename
-            "MYD11A1.A2013001_day_clip_W05_C2014001_Avg_K_C_p_GSC.tif"
-        we only want the part with the year and julian day in it
-            "2013001"
-        so we can use
+        For an example filename ``"MYD11A1.A2013001_day_clip_W05_C2014001_Avg_K_C_p_GSC.tif"``
+        We only want the part with the year and julian day in it ``"2013001"``
+        So we can use
+
+        .. code-block:: python
+
             fmt        = "%Y%j"
             fmt_unmask = [10,11,12,13,14,15,16]
-        to indicate that we only want the 10th through 16th characters
+
+        To indicate that we only want the 10th through 16th characters of the filenames
+        to be used for anchoring each raster in a physical time.
         """
 
         self.headers = ['filepaths','filenames','fmt_names']
@@ -91,8 +96,6 @@ class rast_series_class(time_series_class):
         """
         Applies the dnppy.raster.many_stats() function to each
         of the lowest level subsets of this rast_series.
-
-        arguments are the same as dnppy.raster.many_stats()
         """
 
         self.outdir = outdir
@@ -115,21 +118,21 @@ class rast_series_class(time_series_class):
         splits the time series into individual time chunks
 
         used for taking advanced statistics, usually periodic
-        in nature. Also usefull for exploiting temporal relationships
+        in nature. Also useful for exploiting temporal relationships
         in a dataset for a variety of purposes including data
         sanitation, periodic curve fitting, etc.
 
-        subset_units
+        :param subset_units:
             subset_units follows convention of fmt. For example:
             %Y  groups files by year
             %m  groups files by month
             %j  groups file by julian day of year
 
-        overlap_width
+        :param overlap_width:
             this variable can be set to greater than 0
-            to allow "window" type statistics, so each subset may contain 
+            to allow "window" type statistics, so each subset may contain
             data points from adjacent subsets.
-            
+
             overlap_width = 1 is like a window size of 3
             overlap_width = 2 is like a window size of 5
 
@@ -140,22 +143,21 @@ class rast_series_class(time_series_class):
             you should use this function to subset by year, then use the
             "group_bins" function to bin each year by month. so,
 
-            instead of
-                ts.subset("%Y")
-                ts.subset("%b")
+        .. code-block:: python
 
-            use
-                ts.subset("%Y")
-                ts.group_bins("%b")
+                ts.subset("%b")     # subset by month
 
-        cust_center_time
+                ts.subset("%Y")     # subset by year
+                ts.group_bins("%b") # bin by month
+
+        :param cust_center_time:
             Allows a custom center time to be used! This was added so that
-            days could be centered around a specific daily aquisition time.
-            for example, its often usefull to define a day as
-            satellite data aquisition time +/- 12 hours.
+            days could be centered around a specific daily acquisition time.
+            for example, its often useful to define a day as
+            satellite data acquisition time +/- 12 hours.
             if used, "cust_center_time" must be a datetime object!
 
-        discard_old
+        :param discard_old:
             By default, performing a subsetting on a time series that already
             has subsets does not subset the master time series, but instead
             the lowest level subsets. Setting "discard_old" to "True" will
@@ -249,7 +251,7 @@ class rast_series_class(time_series_class):
 
                 # create the subset only if some data was found to populate it
                 if len(temp_data) > 0:
-                    new_subset = rast_series_class(units = subset_units, parent = self)
+                    new_subset = rast_series(units = subset_units, parent = self)
                     new_subset.center_time = center_time
                     new_subset.from_list(temp_data, self.headers, self.time_header, self.fmt)
                     new_subset.define_time(self.time_header, self.fmt)
@@ -263,7 +265,7 @@ class rast_series_class(time_series_class):
 
     def group_bins(self, fmt_units, overlap_width = 0, cyclical = True):
         """
-        sorts the time series into time chunks by common bin_unit
+        Sorts the time series into time chunks by common bin_unit
 
         used for grouping data rows together. For example, if one used
         this function on a 5 year dataset with a bin_unit of month,
@@ -271,19 +273,21 @@ class rast_series_class(time_series_class):
         month), which each set containing all entries for that month,
         regardless of what year they occurred in.
 
-        fmt_units follows convention of fmt. For example:
-        %Y  groups files by year
-        %m  groups files by month
-        %j  groups file by julian day of year
+        :param fmt_units:
+            %Y  groups files by year
+            %m  groups files by month
+            %j  groups file by julian day of year
 
-        similarly to "make_subsets" the "overlap_width" variable can be
-        set to greater than 1 to allow "window" type statistics, so
-        each subset may contain data points from adjacent subsets.
-        However, for group_bins, overlap_width must be an integer.
+        :param overlap_width:
+            similarly to "make_subsets" the "overlap_width" variable can be
+            set to greater than 1 to allow "window" type statistics, so
+            each subset may contain data points from adjacent subsets.
+            However, for group_bins, overlap_width must be an integer.
 
-        "cyclical" of "True" will allow end points to be considered adjacent.
-        So, for example, January will be considered adjacent to December,
-        day 1 will be considered adjacent to day 365.
+        :param cyclical:
+            "cyclical" of "True" will allow end points to be considered adjacent.
+            So, for example, January will be considered adjacent to December,
+            day 1 will be considered adjacent to day 365.
         """
 
         ow = int(overlap_width)
@@ -312,7 +316,7 @@ class rast_series_class(time_series_class):
             for i in xrange(min(grouping),max(grouping) + 1):
 
                 subset_units    = self._fmt_to_units(fmt)
-                new_subset      = rast_series_class( units = subset_units, parent = self)
+                new_subset      = rast_series( units = subset_units, parent = self)
 
                 # only take rows whos grouping is within ow of i
                 subset_rows = [j for j,g in enumerate(grouping) if g <= i+ow and g >=i-ow]
@@ -320,9 +324,11 @@ class rast_series_class(time_series_class):
                 # fix endpoints
                 if cyclical:
                     if i <= ow:
-                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g-cylen <= i+ow and g-cylen >=i-ow]
+                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if
+                                                     i+ow >= cylen - g - cylen >= i-ow]
                     elif i >= cylen - ow:
-                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if g+cylen <= i+ow and g+cylen >=i-ow]
+                        subset_rows = subset_rows + [j for j,g in enumerate(grouping) if
+                                                     i+ow >= cylen + g + cylen >= i-ow]
 
                 # grab row indeces from parent matrix to put in the subset
                 subset_data = [self.row_data[row] for row in subset_rows]
@@ -341,7 +347,7 @@ class rast_series_class(time_series_class):
 
 if __name__ == "__main__":
 
-    rs = rast_series_class()
+    rs = rast_series()
     
     rastdir  = r"C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic"
     fmt      = "%Y%j"
