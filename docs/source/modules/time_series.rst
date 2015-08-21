@@ -14,7 +14,7 @@ Users with text data, or sequential raster images with identical spatial extents
 This use case below is an example of using weather data downloaded from `this NOAA website`_. Firstly, take a look at the format of this `sample weather data`_, and take special note of the column labeled ``"YR--MODAHRMN"`` and the format of it.
 
 .. _this NOAA website: http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&cfg=cdo&theme=hourly&layers=1&node=gi
-.. _sample weather data: https://github.com/NASA-DEVELOP/dnppy/blob/master/dnppy/time_series/test_data/weather_dat.txt
+.. _sample weather data: https://github.com/NASA-DEVELOP/dnppy/blob/master/dnppy/time_series/test_data/weather_example.csv
 
 We want to parse this weather data, and perform a variety of manipulations on it, but first we have to get it into python. To see how this is done, open up your preferred interpreter (IDLE by default) and retype this code step by step.
 
