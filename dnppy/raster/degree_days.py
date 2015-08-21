@@ -33,7 +33,7 @@ def degree_days(T_base, Max, Min, NoData_Value, outpath = False, roof = False, f
     :return deg_days:       a numpy array of the output degree_days
     """
 
-    #FIXME: doesn't fit styleguide. does not operate in batch and return list of output filepaths
+    #FIXME: doesn't fit style guide. does not operate in batch and return list of output filepaths
 
     output_filelist = []
 
