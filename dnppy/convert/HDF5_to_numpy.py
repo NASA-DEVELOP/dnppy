@@ -5,13 +5,17 @@ import os
 
 def HDF5_to_numpy(hdfpath, layers = None):
     """
+    NOTE: This is functionally identical to ``_extract_HDF_layer_data``, but employs
+    an h5py based approach instead of gdal. It is experimental, and not yet used
+    anywhere.
+
     Extracts one or more layers from an HDF5 file and returns a dict of numpy arrays
 
-    :param hdfpath:         filepath to an HDF5 file
-    :param layers:          a list of integer values or layer names to extract
-                            leave "None" to return numpy arrays for ALL layers
+    :param hdfpath:     Filepath to an HDF5 file
+    :param layers:      A list of integer values or layer names to extract
+                        leave "None" to return numpy arrays for ALL layers
 
-    :return:                dict with band names as keys and numpy arrays as values
+    :return layer_dict: Dict with band names as keys and numpy arrays as values
     """
 
     with h5py.File(hdfpath, "r", driver = "core") as hdf:
@@ -47,7 +51,7 @@ def HDF5_to_numpy(hdfpath, layers = None):
 
 
 if __name__ == "__main__":
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
     output = HDF5_to_numpy(rasterpath, [2,3,5])
 
     print output.keys()

@@ -1,9 +1,9 @@
-__author__ = ['Quinten Geddes', 'jwely']
-__all__ = ["LLtoUTM"]
+__author__ = ['Qgeddes', 'Jwely']
+__all__ = ["ll_to_utm"]
 
 import numpy as np
 
-def LLtoUTM(lat, lon, utm_zone, hemisphere):
+def ll_to_utm(lat, lon, utm_zone, hemisphere):
     """
     Function converts lat/lon to UTM zone coordinates. Equations from USGS
     bulletin 1532. East and North are positive, South and West are negative.

@@ -1,32 +1,29 @@
 
-# standard imports
-import sys
-import os
+__all__ = ["extract_GCMO_NetCDF"]
 
-# dnppy imports
+# standard imports
+import os
 from dnppy import core
 
 # arcpy imports
 import arcpy
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
-    from arcpy.sa import *
-    from arcpy import env
     arcpy.env.overwriteOutput = True
 
 
-__all__ = ["GCMO_NetCDF"]
-
-
-def GCMO_NetCDF(netcdf_list, variable, outdir):
+def extract_GCMO_NetCDF(netcdf_list, variable, outdir):
     """
     Extracts all time layers from a "Global Climate Model Output" NetCDF layer
 
-    Inputs:
-        netcdf_list     list of netcdfs from CORDEX climate distribution
-        varaible        the climate variable of interest (tsmax, tsmin, etc)
-        outdir          output directory to save files.
+    :param netcdf_list:     List of netcdfs from CORDEX climate distribution
+    :param variable:        The climate variable of interest (tsmax, tsmin, etc)
+    :param outdir:          Output directory to save files.
+
+    :return output_filelist: returns list of files created by this function
     """
+
+    output_filelist = []
 
     if not os.path.exists(outdir):
         os.makedirs(outdir)
@@ -68,9 +65,10 @@ def GCMO_NetCDF(netcdf_list, variable, outdir):
                     print("extracting '{0}' from '{1}'".format(variable, dim_value))
 
                     outname = core.create_outname(outdir, netcdf, dimname, 'tif')
+                    output_filelist.append(outname)
                     
                     arcpy.MakeNetCDFRasterLayer_md(netcdf, variable, x_dim, y_dim, "temp",
                                                    band_dim, dim_value, valueSelectionMethod)
                     arcpy.CopyRaster_management("temp", outname, "", "", "", "NONE", "NONE", "")
                     
-    return
+    return output_filelist

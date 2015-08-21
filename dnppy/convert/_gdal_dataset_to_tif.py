@@ -2,7 +2,7 @@ __author__ = ['jwely']
 __all__ = ["_gdal_dataset_to_tif"]
 
 import gdal
-from convert_dtype import *
+from _convert_dtype import *
 
 def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
                          cust_geotransform = None, force_custom = False,
@@ -14,20 +14,20 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
     geotransform or custom ones. This function should be wrapped in another
     function for a specific datatype.
 
-    :param gdal_dataset:            a gdal.Dataset object
-    :param outpath:                 output filepath for this dataset (tif)
-    :param cust_projection:         a projection string, see datatype_library
-    :param cust_geotransform:       a geotransform array, see datatype_library
-    :param force_custom:            if True, forces the custom geotransform and
-                                    projections to be used even if valid
-                                    geotransforms and projections can be read
-                                    from the gdal.dataset. If False, custom
-                                    projections and geotransforms will be ignored
-                                    if valid variables can be pulled from the
-                                    gdal.dataset metadata.
-    :param nodata_value:            the value to set to Nodata
+    :param gdal_dataset:        A gdal.Dataset object
+    :param outpath:             Output filepath for this dataset (tif)
+    :param cust_projection:     A projection string, see datatype_library
+    :param cust_geotransform:   A geotransform array, see datatype_library
+    :param force_custom:        If True, forces the custom geotransform and
+                                projections to be used even if valid
+                                geotransforms and projections can be read
+                                from the gdal.dataset. If False, custom
+                                projections and geotransforms will be ignored
+                                if valid variables can be pulled from the
+                                gdal.dataset metadata.
+    :param nodata_value:        The value to set to Nodata
 
-    returns the local system filepath to output dataset.
+    :return outpath:            The local system filepath to output dataset
     """
 
     # set up the projection and geotransform

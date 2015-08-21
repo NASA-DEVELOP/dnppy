@@ -1,7 +1,7 @@
 __author__ = 'jwely'
 __all__ = ["nongrid_data"]
 
-from LLtoUTM import *
+from ll_to_utm import *
 import numpy
 import math
 from scipy import interpolate
@@ -15,8 +15,7 @@ class nongrid_data():
     These matrix like inputs are then processed into 1d-arrays with two
     sorting schemes.
 
-    The three arrays are represented as:
-        lat_array, lon_array, data_array
+    The three arrays are represented as (lat_array, lon_array, data_array)
 
     where each array is of equal shape, and the value of each row
     corresponds to the values in the same row of the other arrays.
@@ -25,6 +24,11 @@ class nongrid_data():
 
     This sorting is done to optimize processing time when building
     a gridded dataset from what is effectively assumed to be point data.
+
+    :param lat:          matrix of values representing latitude
+    :param lon:          matrix of values representing longitude
+    :param data:         matrix of values containing spatial data
+    :param hemisphere:   either "N" or "S"
     """
 
     def __init__(self, lat, lon, data, hemisphere):
@@ -32,11 +36,6 @@ class nongrid_data():
         each lat, lon and data input can be numpy arrays of any
         size, as long as all three inputs are identical shapes.
         please use inputs of "degree"
-
-        :param lat:          matrix of values representing latitude
-        :param lon:          matrix of values representing longitude
-        :param data:         matrix of values containing spatial data
-        :param hemisphere:   either "N" or "S"
         """
 
         print("Loading non-gridded dataset")
@@ -65,7 +64,7 @@ class nongrid_data():
 
         # converts lat lon points to utmx and utmy points
         print("Converting to UTM coordinates")
-        utmx, utmy = LLtoUTM(self.lat, self.lon, self.utm_zone, self.hemisphere)
+        utmx, utmy = ll_to_utm(self.lat, self.lon, self.utm_zone, self.hemisphere)
 
         # sorts the data (transformed into utm space) by utmx
         self.utmx = sorted(utmx)

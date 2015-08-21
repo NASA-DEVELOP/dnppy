@@ -7,17 +7,23 @@ from dnppy import textio
 
 def datatype_library():
     """
-    this function builds the datatype_library dict out of file
-    datatype_library.csv and returns it. Adding to this datatype
-    library should be done by editing the csv file, not this code.
+    This function builds the datatype_library dict out of file datatype_library.csv
+    and returns it. Adding to this datatype library should be done by editing
+    the csv file, not this code. Note that the standard format for names is
+    ``<product short name>_<resolution identifier>_<coverage area>``, such as
+    "TRMM_1.0_GLOBAL", or "GPM_IMERG_0.1_GLOBAL".
 
-    geotransform math used to create the array [A, B, C, D, E, F]
-            x = A + iB + jC
-            y = D + iE + jF
+    Geotransform math used to create the array [A, B, C, D, E, F]
 
-        where x,y are real spatial coordinates, nd i,j
-        are matrix indices. A, B, C, D, E, F and are
-        coefficients that make up the geotransformation array.
+    .. code-block:: python
+
+        x = A + iB + jC
+        y = D + iE + jF
+
+    Where x,y are real spatial coordinates, and i,j are matrix indices.
+    A, B, C, D, E, F and are coefficients that make up the geotransformation array.
+
+    :return datatype_library_dict: A dictionary
     """
 
     # empty dict
@@ -67,33 +73,22 @@ def datatype_library():
                                        geotransform = geotrans,
                                        projectionTXT = proj_text,
                                        downloadSource = dls)
-
     return datatype_dict
+
 
 
 class datatype():
     """
     simple class for dnppy supported download and convert
-    NASA/NOAA/WeatherService/USGS data types
-    """
+    NASA/NOAA/WeatherService/USGS data types.
 
+    :param name:            the product name (descriptive string)
+    :param projectionID:    (str) projection ID according to spatialreference.org
+    :param geotransform:    (list of floats) geotransform array, list of 6 float
+                            values in  the gdal ordering.
+    """
     def __init__(self, name= None, projectionID = None,
                  geotransform = None, projectionTXT = None, downloadSource = None):
-        """
-        Inputs:
-            name            (str) the product name, (descriptive)
-            projectionID    (str) projection ID according spatialreference.org
-            geotransform    (list floats) geotransform array, lsit of 6
-                                float values in the gdal ordering:
-
-                                x = A + iB + jC
-                                y = D + iE + jF
-
-                                where x,y are real spatial coordinates,
-                                and i,j are matrix indices.
-                                A, B, C, D, E, F and are coefficients that make
-                                up the geotransformation array.
-        """
 
         self.name = name
         self.projectionID = projectionID
@@ -102,20 +97,20 @@ class datatype():
         self.downloadSource = downloadSource
 
 
+    def __str__(self):
+        """ governs "print" behavior"""
+
+        str = "{0}, {1}, {2}, [{3}]".format(self.name, self.projectionID,
+                                          self.geotransform, self.downloadSource)
+        return str
+
 
 def main():
-    """ print summary of entire datatype library
-    """
-    datalib = datatype_library()
-    for entry in datalib:
-        print("{0}: from {1} \n\t\tprojectionID  = {2}\n\t\tprojectionTXT = {3} \n\t\tgeotransform  = {4}".format(
-              datalib[entry].name,
-              datalib[entry].downloadSource,
-              datalib[entry].projectionID,
-              datalib[entry].projectionTXT,
-              datalib[entry].geotransform))
+    """ print summary of entire datatype library """
 
-    return
+    datalib = datatype_library()
+    for data in datalib:
+        print(datalib[data])
 
 
 if __name__ == "__main__":

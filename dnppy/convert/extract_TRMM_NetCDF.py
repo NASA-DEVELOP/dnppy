@@ -10,16 +10,14 @@ if arcpy.CheckExtension('Spatial')=='Available':
 
 
 def TRMM_NetCDF(filelist, outdir):
-
     """
-     Function converts NetCDFs to tiffs. Designed to work with TRMM data downloaded
-     from GLOVIS
+    Function converts NetCDFs to tiffs. Designed to work with TRMM data
+    downloaded from GLOVIS
 
-     inputs:
-       filelist    list of '.nc' files to conver to tifs.
-       outdir      directory to which tif files should be saved
+    :param filelist:            list of '.nc' files to convert to tifs.
+    :param outdir:              directory to which tif files should be saved
 
-    returns an output filelist of local filepaths of extracted data.
+    :return output_filelist:    list of local filepaths of extracted data.
     """
 
     # Set up initial parameters.

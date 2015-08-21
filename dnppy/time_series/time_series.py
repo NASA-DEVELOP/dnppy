@@ -306,7 +306,7 @@ class time_series():
                 return 60.0 * 60.0 * 24.0 * 365.25
 
     @staticmethod
-    def _seconds_to_units(self, seconds, units):
+    def _seconds_to_units(seconds, units):
         """
         converts seconds to other time units
 
@@ -392,25 +392,6 @@ class time_series():
         return
 
 
-    def enf_unique_headers(self):
-        """ Appends digits to duplicate headers so each column has a unique name """
-
-        # build list of duplicate values
-        duplicates = []
-        for i,header in enumerate(self.headers):
-            if i > 0  and header in self.headers[:(i-1)] and not header in duplicates:
-                duplicates.append(header)
-
-        # for each duplicate name, number each occurrence
-        for dup in duplicates:
-            count = 0
-            for i,header in enumerate(self.headers):
-                if header == dup:
-                    self.headers[i] = header + (str(count))
-                    count += 1
-        return
-                    
-            
     def from_tdo(self, tdo):
         """
         reads time series data from a dnppy.text_data_class object

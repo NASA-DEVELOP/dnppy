@@ -11,7 +11,7 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
     all the data available in the HDF layer for use in further format conversion
     to better supported formats.
 
-    example:
+    For example -
     hdfpath = filepath to an hdf file. (any HDF 4 or 5 datatype)
     layer indexs = [1,2,3]
 
@@ -23,11 +23,12 @@ def _extract_HDF_layer_data(hdfpath, layer_indexs = None):
     Each of the values for those integer keys will simply be a gdal.dataset
     object.
 
-    this function is the first step in the chain for turning HDF data into
+    This function is the first step in the chain for turning HDF data into
     geotiff. the next step is to build an established datatype
 
     :param hdfpath          filepath to any HDF formated file
     :param layer_indexs     list of integer index values for layers to extract
+    :return out_info:       dict of metadata and gdal.dataset objects
     """
 
     # output dict
@@ -74,8 +75,8 @@ if __name__ == "__main__":
     #_extract_HDF_layer_data(rasterpath)
 
     # try GPM
-    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
-    #_extract_HDF_layer_data(rasterpath)
+    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B-HHR-L.MS.MRG.3IMERG.20150401-S233000-E235959.1410.V03E.RT-H5"
+    _extract_HDF_layer_data(rasterpath)
 
     # try TRMM
     #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\3B42.20140101.00.7.HDF"
@@ -86,13 +87,13 @@ if __name__ == "__main__":
     #_extract_HDF_layer_data(rasterpath)
 
     # try VIIRS
-    rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\GDNBO-SVDNB_npp_d20150626_t0132557_e0138361_b18964_c20150626174428799822_noaa_ops.h5"
-    stuff = _extract_HDF_layer_data(rasterpath, [2, 4])
+    #rasterpath = r"C:\Users\jwely\Desktop\troubleshooting\HDF_tests\GDNBO-SVDNB_npp_d20150626_t0132557_e0138361_b18964_c20150626174428799822_noaa_ops.h5"
+    #stuff = _extract_HDF_layer_data(rasterpath, [2, 4])
 
-    print stuff[2].GetProjection()
-    print stuff[2].GetGeoTransform()
-    lat = stuff[2].ReadAsArray()
-    lon = stuff[4].ReadAsArray()
-    print lat[0, 0],lat[0, -1],lat[-1, 0],lat[-1, -1]
-    print lon[0, 0],lon[0, -1],lon[-1, 0],lon[-1, -1]
+    #print stuff[2].GetProjection()
+    #print stuff[2].GetGeoTransform()
+    #lat = stuff[2].ReadAsArray()
+    #lon = stuff[4].ReadAsArray()
+    #print lat[0, 0],lat[0, -1],lat[-1, 0],lat[-1, -1]
+    #print lon[0, 0],lon[0, -1],lon[-1, 0],lon[-1, -1]
 

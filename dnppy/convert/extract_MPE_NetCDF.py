@@ -12,11 +12,11 @@ def extract_MPE_NetCDF(netcdf_list, layer_indexs, outdir, area):
     extracts SMOS data from its native NetCDF format.
 
     :param netcdf_list:     list of hdf files or directory with netcdfs
-    :param layer_indexs:    list of integer layer indexs
+    :param layer_indexs:    list of integer layer indices
     :param outdir:          directory to place outputs
-    :param area:            presently only suports "CONUS"
+    :param area:            presently only supports "CONUS"
 
-    :return:                a list of all files created as output
+    :return:                A list of all files created as output
     """
 
     netcdf_list = core.enf_filelist(netcdf_list)
