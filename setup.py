@@ -2,8 +2,8 @@
 
 
 # sets up dependencies that pip alone seems to frequently fail at.
-import install_dependencies
-install_dependencies.main()
+#import install_dependencies
+#install_dependencies.main()
 
 # standard setup
 from distutils.core import setup
@@ -22,8 +22,14 @@ setup(name='dnppy',
               ],
       author_email='jeff.ely.08@gmail.com',
       url='https://github.com/NASA-DEVELOP/dnppy',
+      download_url = "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip",
       packages=find_packages(),
       include_package_data = True,
+      entry_points= {'console_scripts' : ['install_dependencies=install_dependencies:main']}
      )
 
-print("setup finished")
+
+# quick setup that will work locally by running this script
+if __name__ == "__main__":
+    import pip
+    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
