@@ -22,7 +22,7 @@ setup(name='dnppy',
               ],
       author_email='jeff.ely.08@gmail.com',
       url='https://github.com/NASA-DEVELOP/dnppy',
-      download_url = "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip",
+      download_url = "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip",
       packages=find_packages(),
       include_package_data = True,
      )
