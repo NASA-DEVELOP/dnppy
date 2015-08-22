@@ -23,7 +23,13 @@ def get_pip():
     try:
         import pip
 
+        if pip.__version__ < "7.1.1":
+            raise ImportError       # just raise an import error for outdated version
+
+
     except ImportError:
+
+        # download pip installation file
         with open("install_pip.py", 'wb+') as f:
             connection = urllib.urlopen("https://bootstrap.pypa.io/get-pip.py")
             page = connection.read()
@@ -34,8 +40,13 @@ def get_pip():
         # run pip and clean up.
         import install_pip
 
+        # run then remove install_pip
         os.system("install_pip.py")
         os.remove("install_pip.py")
+
+        # use pip to upgrade itself
+        import pip
+        pip.main(["install", "--upgrade", "pip"])
 
 
 def check_process_lock():
@@ -171,7 +182,8 @@ def main():
                          release_address + "Shapely-1.5.9-cp27-none-win32.whl"]
     }
 
-    pip_versions = {"matplotlib": None,  # for making plots! users with arcpy already have this!
+    pip_versions = {"setuptools": None,  # installs setuptools? maybe not needed?
+                    "matplotlib": None,  # for making plots! users with arcpy already have this!
                     "wheel": None,       # for installing other dependencies
                     "requests": None,    # for better web interfacing
                     "psutil": None,      # for killing processes which might lock files we want to modify

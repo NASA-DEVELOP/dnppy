@@ -14,8 +14,8 @@ docs/build
 # ignore files with test tag.
 *_test*
 
-# the users pycharm workspace
+# the users workspace
 .idea/
-*.whl
+*install_pip.py
 dnppy_stat_report.txt
 

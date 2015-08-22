@@ -8,7 +8,7 @@ Please consult the dnppy documentation pages for further information!
 """
 
 # dnppy version. follows [major revision].[year].[minor revision]
-__version__ = "1.15.3"
+__version__ = "1.15.3b0"
 
 # author list
 __author__ = ["Jwely",
