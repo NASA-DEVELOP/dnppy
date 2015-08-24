@@ -9,7 +9,7 @@ __author__ = ["jwely",
               ]
 
 # local imports
-from _gdal_command import *
+from run_command import *
 from create_outname import *
 from enf_filelist import *
 from enf_list import *

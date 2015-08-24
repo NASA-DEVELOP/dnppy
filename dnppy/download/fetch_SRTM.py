@@ -21,9 +21,9 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
                         do not include the version number. Example: "SRTMGL1". Note
                         that version "002" data of .DEM format does not support mosaicing.
     :param outdir:      local directory to save downloaded files
-    :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles.
+    :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles as "SRTM_mosaic.tif"
 
-    :return tif_list:   a list of all successfully downloaded tif filepaths
+    :return tile_list:   a list of all successfully downloaded tif filepaths
                         for further manipulation
 
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
@@ -31,7 +31,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     """
 
     # build empty return list
-    tif_list = []
+    tile_list = []
 
     # build list of lat/lon pairs from input corners
     lat_lon_pairs = []
@@ -125,21 +125,19 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
 
         # clean up and add this file to output list
         os.remove(outpath)
-        tif_list.append(os.path.join(outdir,itemname))
+        tile_list.append(os.path.join(outdir,itemname))
+
+    print("Finished download and extraction of SRTM data")
 
     if mosaic is True:
 
         # use gdal to mosaic these raster together
-        mosaic_list = " ".join(tif_list)
         out_mosaic  = os.path.join(outdir, "SRTM_mosaic.tif")
-        core._gdal_command("gdalwarp", mosaic_list, out_mosaic)
+        core.run_command("gdalwarp", tile_list, out_mosaic)
+        return out_mosaic
 
-        #arcpy.MosaicToNewRaster_management(tif_list, outdir,
-        # "SRTM_mosaic.tif", number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
-
-    print("Finished download and extraction of SRTM data")
-
-    return tif_list
+    else:
+        return tile_list
 
 
 if __name__ == "__main__":
