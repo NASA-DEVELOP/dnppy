@@ -35,8 +35,8 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
 
     # build list of lat/lon pairs from input corners
     lat_lon_pairs = []
-    for i in range(int(ll_lat), int(ur_lat + 1) + 1):
-        for j in range(int(ll_lon), int(ur_lon + 1) + 1):
+    for i in range(int(ll_lat), int(ur_lat + 1)):
+        for j in range(int(ll_lon), int(ur_lon + 1)):
             lat_lon_pairs.append((i, j))
 
     print lat_lon_pairs
@@ -132,8 +132,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
         # use gdal to mosaic these raster together
         mosaic_list = " ".join(tif_list)
         out_mosaic  = os.path.join(outdir, "SRTM_mosaic.tif")
-        command = "gdalwarp {0} {1}".format(mosaic_list, out_mosaic)
-        core._gdal_command(command)
+        core._gdal_command("gdalwarp", mosaic_list, out_mosaic)
 
         #arcpy.MosaicToNewRaster_management(tif_list, outdir,
         # "SRTM_mosaic.tif", number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
@@ -146,6 +145,6 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
 if __name__ == "__main__":
 
     testdir = r"C:\Users\jwely\Desktop\troubleshooting\SRTM"
-    fetch_SRTM(46, -119, 47, -118, "SRTMGL3", testdir, mosaic = True)
+    fetch_SRTM(47, -118, 48, -118, "SRTMGL3", testdir, mosaic = True)
 
 
