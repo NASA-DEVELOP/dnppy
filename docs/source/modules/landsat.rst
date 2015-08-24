@@ -19,7 +19,7 @@ Here is some example syntax for delcaring the object, exploring attributes, and 
     meta = landsat.landsat_metadata(my_MTL_filepath) # create object
 
     from pprint import pprint                        # import pprint
-    pprint(vars(m))                                  # pretty print output
+    pprint(vars(meta))                               # pretty print meta contents
     scene_id = meta.LANDSAT_SCENE_ID                 # access specific attribute
 
 You can read more about ``landsat_metadata`` in the code help below!
