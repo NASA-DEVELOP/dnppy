@@ -51,7 +51,7 @@ where the geotransform itself is simply listed as::
 
     [A, B, C, D, E, F]
 
-In a raster image with adequate georeference information, this geotransform should be recognized by gdal when reading in any supported raster data format. Sometimes, the information is NOT embedded in a universal format, and the user has to define it based on the resolution and extents of the raster dataset. This is what we have done for a few NASA data formats in the ```datatype_library`_`` within the convert module.
+In a raster image with adequate georeference information, this geotransform should be recognized by gdal when reading in any supported raster data format. Sometimes, the information is NOT embedded in a universal format, and the user has to define it based on the resolution and extents of the raster dataset. This is what we have done for a few NASA data formats in the ```datatype_library`_`` within the :doc:`convert module <../modules/convert>`.
 
 .. _datatype_library: https://nasa-develop.github.io/dnppy/modules/convert.html#dnppy.convert.datatype_library.datatype_library
 .. _world files: https://en.wikipedia.org/wiki/World_file
