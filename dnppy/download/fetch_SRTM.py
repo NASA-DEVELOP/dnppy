@@ -1,5 +1,6 @@
 __author__ = 'jwely'
 
+from dnppy import core
 from download_url import download_url
 import os
 import zipfile
@@ -132,7 +133,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
         mosaic_list = " ".join(tif_list)
         out_mosaic  = os.path.join(outdir, "SRTM_mosaic.tif")
         command = "gdalwarp {0} {1}".format(mosaic_list, out_mosaic)
-        os.system(command)
+        core._gdal_command(command)
 
         #arcpy.MosaicToNewRaster_management(tif_list, outdir,
         # "SRTM_mosaic.tif", number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
