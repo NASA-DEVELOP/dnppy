@@ -32,4 +32,4 @@ setup(name='dnppy',
 if __name__ == "__main__":
     import pip
     # pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
-    pip.main(["install", "--upgrade", "dnppy"])
+    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])

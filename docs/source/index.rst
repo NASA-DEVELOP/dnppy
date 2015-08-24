@@ -36,6 +36,7 @@ Contents
     modules/download
     modules/landsat
     modules/modis
+    modules/radar
     modules/raster
     modules/solar
     modules/textio

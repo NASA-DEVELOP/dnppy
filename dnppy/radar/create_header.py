@@ -124,7 +124,7 @@ def create_header(folder):
                     elif "map info" in line:
                         sources.write(re.sub(line[47:66], "{lon}, {lat}".format(
                                                     lon=Longitude_list[Files_list.index(files[0:18])],
-                                                    lat=Latitude_list[Files_list.index(files[0:18])], line)))
+                                                    lat=Latitude_list[Files_list.index(files[0:18])]), line))
                     else:
                         sources.write(re.sub(line, line, line))
 

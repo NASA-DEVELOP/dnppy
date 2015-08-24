@@ -8,6 +8,7 @@ Examples
 --------
 
 .. rubric:: Building a header file for UAVSAR data
+
 UAVSAR data comes in .grd files that require a text header file with metadata information in order to be displayed in GIS or image processing software. This simple script will read in a folder containing the data and create a header file for each .grd file in it.
 
 .. code-block:: python
@@ -15,9 +16,7 @@ UAVSAR data comes in .grd files that require a text header file with metadata in
     from dnppy import radar
 
     folder = r"C:\folder"
-
     radar.create_header(folder)
-
 
 .. rubric:: Converting backscatter values to decibels
 
@@ -28,5 +27,13 @@ Raw radar data has units of backscatter for its given polarization, but it is of
     from dnppy import radar
 
     filename = r"C:\folder\file.grd"
-
     radar.decibel_convert(filename)
+
+Code Help
+---------
+
+.. automodule:: dnppy.radar.create_header
+    :members:
+
+.. automodule:: dnppy.radar.decibel_convert
+    :members:
