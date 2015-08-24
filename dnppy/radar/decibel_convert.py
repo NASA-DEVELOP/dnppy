@@ -1,27 +1,25 @@
 
-
 __author__ = ["Daniel Jensen, danieljohnjensen@gmail.com",
-                "Scott Baron"]
+              "Scott Baron",
+              "Jwely"]
 
-import arcpy
-from arcpy.sa import *
+from dnppy import raster
+import numpy
 
 
 def decibel_convert(filename):
     """
-    Converts the input UAVSAR .grd file into units of decibels.
+    Converts the input UAVSAR .grd file into units of decibels. Note
+    that a .hdr file must be created and accompany the .grd/.inc files for this to work
 
-    *Note that a .hdr file must be created and accompany the .grd/.inc files for this to work
-
-    Inputs:
-        file:   the full file path string for the .grd data file
+    :param filename:    the full file path string for the .grd data file
+    :return outname:    filepath to output file created by this function.
     """
 
     #arcpy.CheckOutExtension("Spatial")
 
-    inRaster = arcpy.Raster(filename)
-    dB_raster = 10 * Log10(inRaster)
+    inRaster, meta = raster.to_numpy(filename)
+    dB_raster = 10 * numpy.log10(inRaster)
     outname = filename.replace(".grd", "_dB.tif")
-    dB_raster.save(outname)
-
-    return
+    raster.from_numpy(dB_raster, meta, outname)
+    return outname
