@@ -42,6 +42,11 @@ Module Summary
 .. automodule:: dnppy.modis
     :members:
 
+.. rubric:: :doc:`radar <modules/radar>`
+
+.. automodule:: dnppy.radar
+    :members:
+
 .. rubric:: :doc:`raster <modules/raster>`
 
 .. automodule:: dnppy.raster
