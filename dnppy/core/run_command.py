@@ -17,8 +17,8 @@ def run_command(*command):
     :param command:  command can be virtually any number of string arguments in
                      any configuration of args, lists, and tuples. This function
                      will take all input strings in the order in which they are
-                     given and place a " " between each argument before passing
-                     it to the command line.
+                     given and place a space ``" "`` between each argument before
+                     passing it to the command line.
 
     .. code-block:: python
 
