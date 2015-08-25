@@ -15,6 +15,22 @@ def extract_GPM_IMERG(hdf_list, layer_indexs, outdir, resolution):
     :param resolution:      The size of a pixel in degrees, either
                             "0.1" or "0.15" depending on GPM product.
     :return:                a list of all files created as output
+
+    Typical contents of a GPM HDF are:
+
+    == =========== ================================ ==============
+    ID  layer shape Layer name                       data type
+    == =========== ================================ ==============
+    0  [3600x1800] HQobservationTime                (16-bit int)
+    1  [3600x1800] HQprecipSource                   (16-bit int)
+    2  [3600x1800] HQprecipitation                  (32-bit float)
+    3  [3600x1800] IRkalmanFilterWeight             (16-bit int)
+    4  [3600x1800] IRprecipitation                  (32-bit float)
+    5  [3600x1800] precipitationCal                 (32-bit float)
+    6  [3600x1800] precipitationUncal               (32-bit float)
+    7  [3600x1800] probabilityLiquidPrecipitation   (16-bit int)
+    8  [3600x1800] randomError                      (32-bit float)
+    == =========== ================================ ==============
     """
 
     hdf_list = core.enf_filelist(hdf_list)
