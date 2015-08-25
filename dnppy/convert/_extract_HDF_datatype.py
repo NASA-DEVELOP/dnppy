@@ -31,6 +31,7 @@ def _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype,
     output_filelist = []
 
     data = _extract_HDF_layer_data(hdf, layer_indexs)
+    layer_indexs = core.enf_list(layer_indexs)
 
     for layer_index in layer_indexs:
 
