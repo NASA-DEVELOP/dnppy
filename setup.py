@@ -6,28 +6,28 @@ install_dependencies.main()
 
 # standard setup
 from distutils.core import setup
-from setuptools import find_packages
 
-setup(name='dnppy',
-      version='1.15.3b0',
-      description='DEVELOP National Program Python Package',
-      author=["Jwely",
-              "djjensen",
-              "Syntaf",
-              "lancewatkins",
-              "lmakely",
-              "qgeddes",
-              "Scott Baron",
-              ],
-      author_email='jeff.ely.08@gmail.com',
-      url='https://github.com/NASA-DEVELOP/dnppy',
-      download_url = "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip",
-      packages=find_packages(),
-      include_package_data = True,
-     )
+setup(
+    name='dnppy',
+    version='1.15.3b1',
+    packages=['dev.test', 'dnppy', 'dnppy.tsa', 'dnppy.core', 'dnppy.modis', 'dnppy.radar', 'dnppy.solar',
+              'dnppy.raster', 'dnppy.textio', 'dnppy.convert', 'dnppy.landsat', 'dnppy.R_dnppy', 'dnppy.download'],
+    url='https://github.com/NASA-DEVELOP/dnppy',
+    download_url="https://github.com/NASA-DEVELOP/dnppy/archive/master.zip",
+    license='NASA OPEN SOURCE AGREEMENT VERSION 1.3',
+    author=["Jwely",
+            "djjensen",
+            "Syntaf",
+            "lancewatkins",
+            "lmakely",
+            "qgeddes",
+            "Scott Baron",
+            ],
+    author_email='',
+    description='DEVELOP National Program python package'
+)
 
 
-# quick setup that will work locally by running this script
 if __name__ == "__main__":
     import pip
-    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip"])
+    pip.main(["install", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
