@@ -31,9 +31,4 @@ setup(
 
 if __name__ == "__main__":
     import pip
-<<<<<<< Updated upstream
-    # pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
-    pip.main(["install", "--upgrade", "dnppy"])
-=======
-    pip.main(["install", "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip"])
->>>>>>> Stashed changes
+    pip.main(["install", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
