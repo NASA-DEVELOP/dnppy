@@ -3,9 +3,9 @@ __all__ = ["fetch_GPM_IMERG"]
 
 from list_ftp import list_ftp
 from download_url import download_url
-
 from datetime import datetime, timedelta
 import os
+
 
 def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1day"):
     """
@@ -14,17 +14,17 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
        http://pps.gsfc.nasa.gov/Documents/GPM_Data_Info_140616.pdf
 
-    :param start_dto:    datetime object for starting time of study boundary
-    :param end_dto:      datetime object for ending time of study boundary
-    :param outdir:       output directory to save the data
-    :param product:      either "early" , "late" or "final" for full HDF5 data stacks of the respective runs,
-                         which are all at 30minute resolutions. OR product can be set equal to "gis"
-                         (default) to find only tif averages of the precipitation estimates. This gis
-                         tif data is ONLY provided for data less than one year old.
-    :param time_res:     if "product"  is set to "gis", specify what time average period you want.
-                         options are "30min", "3hr", "1day", "3day", "7day". Defaults to "1day"
+    :param start_dto:   datetime object for starting time of study boundary
+    :param end_dto:     datetime object for ending time of study boundary
+    :param outdir:      output directory to save the data
+    :param product:     either "early" , "late" or "final" for full HDF5 data stacks of the respective runs,
+                        which are all at 30minute resolutions. OR product can be set equal to "gis"
+                        (default) to find only tif averages of the precipitation estimates. This gis
+                        tif data is ONLY provided for data less than one year old.
+    :param time_res:    if "product"  is set to "gis", specify what time average period you want.
+                        options are "30min", "3hr", "1day", "3day", "7day". Defaults to "1day"
 
-    :return output_list: Returns a list of filepaths to freshly downloaded files
+    :return:            Returns a list of filepaths to freshly downloaded files
 
     learn more at [http://pmm.nasa.gov/data-access/downloads/gpm]
     """
@@ -34,7 +34,7 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
     # username and password info, should eventually be some DEVELOP credential.
     # this information is not at all sensitive.
-    login = "jeff.ely.08@gmail.com"
+    login = "DEVELOP.Geoinformatics@gmail.com"
 
 
     # special filtering for gis type tif data to minimize data representation overlap.
@@ -106,9 +106,9 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
 if __name__ == "__main__":
 
-    start = datetime(2015, 4, 2)
-    end   = datetime(2015, 4, 3)
-    testdir = r"C:\Users\Jeff\Desktop\GPM_testing"
+    start = datetime(2015, 8, 1)
+    end   = datetime(2015, 12, 31)
+    testdir = r"C:\Users\jwely\Desktop\troubleshooting\GPM"
 
     prod = "late"
     time = "3day"
