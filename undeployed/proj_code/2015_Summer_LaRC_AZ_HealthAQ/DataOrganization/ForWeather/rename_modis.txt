@@ -1,0 +1,14 @@
+#-------------------------------------------------------------------------------
+# Name:        Rename.py
+# Purpose:     Renames MODIS Shapefiles with abreviated YEAR-DATE
+# Author:      Rocky Garcia
+# Created:     15/07/2015
+#-------------------------------------------------------------------------------
+import os
+from os import rename, listdir
+
+for filename in os.listdir("."):
+  if filename.startswith("MYD11A1."):
+    os.rename( filename, filename.split('.')[1] + '.' + filename.split('.')[-1])
+    print filename.split('.')[1] + '.' + filename.split('.')[-1]
+    #os.rename(filename, filename[8:])

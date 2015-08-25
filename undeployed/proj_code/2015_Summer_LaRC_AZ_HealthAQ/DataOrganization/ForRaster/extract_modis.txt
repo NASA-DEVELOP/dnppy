@@ -1,0 +1,10 @@
+#Extracts a .tif file from the .hdf files
+
+from dnppy import modis
+
+filelist = r"C:\Users\astuyves\Desktop\MODIS_data"
+layerlist = [0,4] #0 is day in land surface temp MODIS and 4 is night
+layernames=["daytime", "nightime"]
+outdir = r"C:\Users\astuyves\Desktop\MODIS_data\Extract"
+
+modis.extract_from_hdf(filelist, layerlist, layernames, outdir)

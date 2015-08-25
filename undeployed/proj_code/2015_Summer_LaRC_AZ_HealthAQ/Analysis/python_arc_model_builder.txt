@@ -1,0 +1,80 @@
+# ---------------------------------------------------------------------------
+# Model_Builder.py
+# Created by: Rocky Garcia
+# First create two File Geodatabases, 1 to pass files throuh and the other to
+# store files. Name the first GDB the 'Year' of the data. ex 2014.gdb
+# Store orginal shapefiles in input folder "Shapefiles"
+#
+# ---------------------------------------------------------------------------
+
+# Import arcpy module
+import arcpy
+
+arcpy.ImportToolbox("Model Functions")
+
+
+Sorted_Feature_Class = arcpy.GetParameterAsText(0)
+if Sorted_Feature_Class == '#' or not Sorted_Feature_Class:
+    Sorted_Feature_Class = "FNAME\%Name%_1" # provide a default value if
+                                            # unspecified, name %Name%_1
+
+Shapefiles = arcpy.GetParameterAsText(1)
+if Shapefiles == '#' or not Shapefiles:
+    Shapefiles = "" # provide a default value if unspecified, name folder
+                    # Shapefiles
+
+v_Name_ = arcpy.GetParameterAsText(2)
+if v_Name_ == '#' or not v_Name_:
+    v_Name_ = "C:YEAR.gdb\\%Name%" # provide a default value if unspecified use
+                                   # %Name% to create a new file with every
+                                   # iteration
+
+Field_Name = arcpy.GetParameterAsText(3)
+if Field_Name == '#' or not Field_Name:
+    Field_Name = "SFC_Temp" # provide a default value if unspecified
+
+Expression = arcpy.GetParameterAsText(4)
+if Expression == '#' or not Expression:
+    Expression = "OBJECTID <= 200" # Built in SQL Expression, 200 is 30% of 666
+
+Fields_to_Delete = arcpy.GetParameterAsText(5)
+
+# Local variables:
+Selected_200_Feature_Class = Sorted_Feature_Class
+Delete_succeeded__2_ = Selected_200_Feature_Class
+Delete_succeeded = Sorted_Feature_Class
+v_Name___2_ = v_Name_
+A2014_shp__2_ = v_Name___2_
+Union__2_ = A2014_shp__2_
+Feature_Class = Shapefiles
+Name = Shapefiles
+Expression__2_ = "[SrfcTmA] + [SrfcTmA_1] + [SrfcTmA_12]" # Add SrfcTmA_## for
+Field_Name__2_ = "SFC_Temp"                               # the number required
+
+# Process: Iterate Feature Classes
+arcpy.IterateFeatureClasses_mb(Shapefiles, "", "", "NOT_RECURSIVE")
+
+# Process: Sort
+arcpy.Sort_management(Feature_Class, Sorted_Feature_Class, "SrfcTmA DESCENDING", "UR")
+
+# Process: Delete
+arcpy.Delete_management(Sorted_Feature_Class, "")
+
+# Process: Select
+arcpy.Select_analysis(Sorted_Feature_Class, Selected_200_Feature_Class, Expression)
+
+# Process: Delete (2)
+arcpy.Delete_management(Selected_200_Feature_Class, "")
+
+# Process: Copy Features
+arcpy.CopyFeatures_management(Selected_200_Feature_Class, v_Name_, "", "0", "0", "0")
+
+# Process: Add Field
+arcpy.AddField_management(v_Name_, Field_Name__2_, "LONG", "", "", "", "", "NULLABLE", "NON_REQUIRED", "")
+
+# Process: Calculate Field
+arcpy.CalculateField_management(v_Name___2_, Field_Name, Expression__2_, "VB", "")
+
+# Process: Union
+arcpy.Union_analysis("C:\\YEAR.gdb\\%Name% #", Union__2_, "ALL", "", "GAPS")
+

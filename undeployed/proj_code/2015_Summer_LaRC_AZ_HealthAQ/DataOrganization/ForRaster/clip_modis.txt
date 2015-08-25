@@ -1,0 +1,9 @@
+#Clip raster to shapefile
+from dnppy import raster
+
+rasterlist = r"C:\Users\astuyves\Desktop\MODIS_data\Extract"
+shapefile = r"C:\Users\astuyves\Desktop\Test\Test_Stats\Shapefile\Maricopa.shp"
+outdir = r"C:\Users\astuyves\Desktop\MODIS_data\Clipped"
+
+raster.clip_to_shape(rasterlist, shapefile, outdir)
+

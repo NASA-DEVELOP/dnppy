@@ -1,0 +1,46 @@
+##########################################################
+#Script that will merge a csv with an existing shapefile
+#to add info into the attribute table. Joins by field, in
+#this case GISJOIN, which was added to csv with script 
+#"CensusAverages". This unique ID can be altered if either 
+#does not have GISJOIN
+#
+#Amy Stuyvesant
+#6/30/2015
+##########################################################
+
+require(raster)
+require(sp)
+require(rgdal)
+require(maptools)
+require(spatstat)
+
+###########################################################
+#Use: Just update the directory (TempDIR) and make sure
+#you use "/" and not "\"
+#
+#Also: Make sure the Census shapefile is in each folder. Make 
+#sure it is the same shapefile each time so that all the values
+#match
+##############################################################
+
+#set directory
+TempDIR <- "C:/Users/astuyves/Desktop/May-2015-07-20/May"
+setwd(TempDIR)
+
+#read in directory of csvs
+CSVList <- list.files(path = TempDIR, pattern = ".csv$")
+
+#merges new attribute surface temperature to existing shapefile, organizes it, and write it as a new shapefile
+
+for(csvfile in 1:length(CSVList)){
+  File <- read.csv(CSVList[csvfile])
+  Census <- readOGR(dsn = TempDIR, layer="Census")
+  NewAtt <- data.frame(Census@data$GISJOIN, File$MeanTemp)
+  colnames(NewAtt) <- c("GISJOIN", "SurfaceTempAvg") 
+  Census@data <- merge(Census@data, NewAtt, by = "GISJOIN")
+  #Census@data <- Census@data[order(-Census@data$SurfaceTempAvg),]
+  #Census@data <- Census@data[-(201:666), ]
+  filename <- CSVList[csvfile]
+  writeOGR(Census, '.', filename, driver="ESRI Shapefile")
+}

@@ -1,0 +1,55 @@
+% The following script plots ECMWF Reanalysis data for a range of days
+% Once the appropriate data is loaded, modify the d1,d2, ind1, ind2 and
+% varuse variables to created the desired plot 
+
+figure
+
+latmaxq = 50;
+latminq = 20;
+lonmaxq = -140;
+lonminq = -40;
+
+set(gca, 'fontsize', 16);
+m_proj('Mercator', 'lon', [lonmaxq, lonminq], 'lat', [latminq, latmaxq]);
+m_coast('color', [.1 .1 .1], 'linewidth', 2);
+m_grid('linest', 'none', 'tickir', 'out'); 
+hold on;
+
+
+d1='May-01-2006';
+dn1=datenum(d1);
+d2='Sept-31-2006';
+dn2=datenum(d2);    
+
+ind1=find(date2006==dn1);   
+ind2=find(date2006'==dn2);
+
+varuse=T2usa_2006;
+varname='2-Meter Air Temperature (C)';
+
+%tmap_cel=squeeze(testSLP(:,:)); %For Slp Data  
+tmap_cel=squnan(varuse(ind1:ind2,:,:),1)-273;
+
+ph=m_pcolor(uslon,uslat,tmap_cel);
+setPH
+shading interp
+tc_min=0;
+tc_max=45;
+caxis([tc_min tc_max])
+m_contour(uslon,uslat,tmap_cel,(tc_min:2.5:tc_max),'color',[.1 .1 .1]); 
+[cs,h]=m_contour(uslon,uslat,tmap_cel,(tc_min:10:tc_max), ...
+                 'color',[.1 .1 .1],'linewidth',2);
+clabel(cs,h);
+mcolorbar
+
+
+m_coast('color',[.5 .1 .1], 'linewidth', 1);
+m_grid('linest', 'none', 'tickir', 'out');
+geoshow('landareas.shp','FaceColor',[0.5 0.7 0.5])
+title({[varname,' avg from: ',d1,' to ',d2]});
+
+
+
+
+
+

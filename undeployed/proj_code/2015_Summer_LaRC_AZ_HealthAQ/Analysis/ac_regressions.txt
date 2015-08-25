@@ -1,0 +1,115 @@
+####################################################
+#Geordi Alm
+# R Scripts for Regressions
+#####################################################
+
+####################################################
+#Binary Logistic Regression 
+####################################################
+
+#Load alr3 package, if it is installed run the code below, if t is not installed, go install it under the packages tab in the lower right hand box of the window
+require(alr3)
+#load ggplot for the last part of this script
+require(ggplot2)
+
+#Load in AcIncomeNoEng_DEL(DK and Refused survey responses from Q3_NoEng were deleted), ACIncomePNONCASP_DEL(DK and Refused responses from Q4 were deleted), and ACREGMASTER(contains ALL columns and responses).
+
+#perform binary logistic regression AC Usage and Percent of CASPER Survey takers who are non-white
+#This sample size is 306 surveys.
+ACRegPNONCASP <- glm(Q27_NOTHING ~ Q4_AIAN + Q4_BLK + Q4_HIorPR + Q4_ASIAN + Q4_WHT, data = ACIncomePNONCASP_DEL, family = "binomial")
+
+summary(ACRegPNONCASP)
+
+#perform binary logistic regression AC Usage and Percent of CENSUS Survey takers who are non-white
+#This sample size is 337 surveys the entire amount of surveys conducted in the CASPER Survey. 
+ACRegPNONCEN <- glm(Q27_NOTHING ~ Percent_NonCensus, data = ACRegMASTER, family = "binomial")
+
+summary(ACRegPNONCEN)
+
+#perform binary logistic regression AC Usage and Non English Speakers in Households
+#this sample size is 322 surveys. 
+ACRegNoEng <- glm(Q27_NOTHING ~ Response, data = ACIncomeNoEng_DEL, family = "binomial")
+
+summary(ACRegNoEng)
+
+#In reading these coefficients, note that they represent LOG ODDS, see below for exponentiation, You could describe this data verbally by saying something like "As a person increases 1 year in age, their log odds of survival decreases by 3.5%." 
+#Everything past this point is Amy's script. Subbing in the variables should give the correct responses, but be careful of the 'NoEng' regression. There seems to be a sourcing error with Part 3 Step 3. 
+##########################################################
+#Odds of Survival and Probability of Survival
+#########################################################
+#This is like using a linear regression where you get an equation and can make judgements based on the coefficients BUT the coefficients are currently log odds, so to make them meaningful you must exponentiate them. See the examples below for the donner party dataset you ran in the line of code above.
+
+#when choosing what vaues to fill in for (Age) or (Sex), Age will be years and Sex is binary, eitehr 0 or 1 depending on which value is reported in the summary. Looking at the summary of results, a coefficient is given for SexMale. This gives males a value of 1 and females a value of 0.
+
+#f). a) odds for survival for 5 year old girl:
+#ln(p/1-p) = 1.622 - 0.036(Age) - 1.068(Sex)
+#p/1-p) = e^1.622 - 0.036(Age) - 1.068(Sex)
+#       = e^1.622 - 0.036(5) - 1.068(0)
+#       = 0.837, To describe this verbally: "the odds of survival increase by a factor of 0.837 for every one year increase in age."
+
+#   b) 25 year old man
+#       = e^1.622 - 0.036(25) - 1.068(1)
+#       = 4.28
+
+#   c) for both odds, find probability of survival
+#       5 year old girl:
+#       p/1-p = 0.837
+#       p = 0.45, to describe this verbally "A 5 year old female in the donner party has a 45% chance of survival."
+
+#       25 year old man:
+#       p/1-p = 4.28
+#       p = 0.81
+
+###########################################################
+#Confidence Interval
+##########################################################
+
+confint("any of ACRegs")
+#               2.5 %       97.5 %
+#(Intercept)  0.69193537  2.683424350
+#Age         -0.06739879 -0.006958059
+#SexMale     -2.04807763 -0.143525726
+
+OddsRatio <- exp(cbind(OddsRatio = coef("any ACReg"), confint("any AC Reg")))
+#            OddsRatio     2.5 %     97.5 %
+#(Intercept) 5.0622023 1.9975778 14.6351234
+#Age         0.9650211 0.9348223  0.9930661
+#SexMale     0.3437032 0.1289826  0.8662985
+
+###########################################################
+#Part 3: Visualize Results of Binary Logistic Regression
+##########################################################
+
+#Step 1: Create a data frame that contains a series of ages (0 - 100) for both males and females (you'll use these values to run in your model to find predicted probabilities over a range of Age and Sex). You can do that in Excel and load it into R, or create it manually in RStudio (there are many ways.here's some code you can copy to do it): 
+
+SequencesAge <- rep(seq(from = 0, to = 100), 2) # 2 is for repeated twice
+
+# Now, create sequence for 101 male and 101 female (101 because if Age ranges from 0 to 100, there are actually 101 values.)
+
+Sex <- c("Male", "Female")
+Reps <- 101
+SequenceSex <- sapply(Sex, function(x) rep(x, Reps))
+SexVector <- as.vector(SequenceSex)
+
+# Create a data frame from the age and sex vectors above
+DonnerFrame = data.frame(Age = SequencesAge, Sex = SexVector)
+
+#Step 2. Find model predictions for log odds (the model output) and create a new data frame containing the Age and Sex (from the DonnerFrame table you created above) and the model output. Make sure that you enter the name of your binary logistic model where it says 'YourModelName.'
+
+PredictData <- cbind(DonnerFrame, predict(DonnerReg, newdata = DonnerFrame, type = "link", se = TRUE))
+
+#Step 3. Calculate the probabilities of survival from the model predictions above, and estimate the upper and lower bounds of the confidence interval (explore the plogis() function, and remind yourself: where does this 1.96* factor come from?):
+
+PredictData2 <- within(PredictData, {
+  PredictedProb <- plogis(fit)
+  LowLimit <- plogis(fit - (1.96*se.fit))
+  UpLimit <- plogis(fit + (1.96*se.fit))
+})
+
+#Step 4. Create a graph showing the predicted probabilities of survival, with the upper and lower confidence bounds, using ggplot. 
+
+ggplot(PredictData2, aes(x = Age, y = PredictedProb)) + 
+  geom_ribbon(aes(ymin = LowLimit, ymax = UpLimit, fill = Sex), alpha = 0.2) + geom_line(aes(colour = Sex), size = 1)
+
+#Looking at this figue, you have Age on the x axis and Predicted prob on the right. This basically says as you increase in age, the predicted probablity of you surviving in the donner party decreases. While males and females follow a similar decrease, females consistently have a higher likelihood of survival as compared to males.
+

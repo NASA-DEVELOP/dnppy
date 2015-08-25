@@ -1,0 +1,14 @@
+
+from dnppy import download
+
+from datetime import datetime
+prod = "MOD11A1"
+vers = "005"
+tile = ["0805", "0805"]
+outd = r"C:\Users\astuyves\Desktop\MODIS_data"
+
+#for year in range(2011, 2011): #loops through to get specific months in each year
+star = datetime(2015,5,1)
+end  = datetime(2015,5,31)
+download.fetch_MODIS(prod, vers, tile, outd, star, end)
+

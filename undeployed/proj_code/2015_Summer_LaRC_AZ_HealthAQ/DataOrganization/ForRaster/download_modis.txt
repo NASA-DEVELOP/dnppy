@@ -1,0 +1,21 @@
+"""
+Using dnppy, created by Amy Stuyvesant
+
+Downloads MODIS from ftp for specific months (May - Oct)
+for the years 2011 - 2015.
+
+"""
+from dnppy import download
+
+from datetime import datetime
+prod = "MYD11A1"
+vers = "005"
+tile = ["h08v05", "h08v05"]
+outd = r"C:\Users\astuyves\Desktop\MODIS_data"
+
+for year in range(2011, 2015): #loops through to get specific months in each year
+    star = datetime(2015,5,1)
+    end  = datetime(2015,10,31)
+download.fetch_MODIS(prod, vers, tile, outd, star, end)
+
+    

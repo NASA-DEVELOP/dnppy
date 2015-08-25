@@ -1,0 +1,45 @@
+######################################################
+#Final Figures
+#####################################################
+
+require(ggplot2)
+
+#set working directory
+TempDir <- "C:/Users/astuyves/Desktop/May-2015-07-20/May"
+setwd(TempDIR)
+  
+#add data
+CSVlist <- list.files(path = , pattern = ".csv$")
+for(csvfile in 1:length(CSVList)){
+  File <- read.csv(CSVList[csvfile])
+}
+
+#Jitter plot skeleton
+
+JitterMay <- ggplot(DataName, aes(x = xVar, y = yVar)) +
+  geom_jitter(aes(group = spray, colour = count, size = count)) +
+  xlab("")+
+  ylab("")+
+  ggtitle("")
+
+#S shape ordered plot
+Ordered2012 <- ggplot(OrderedMonths2012, aes(x = Rank, y = Temp)) +
+  geom_line(aes(colour = Month), size = 0.75)+
+  geom_vline(xintercept=200, linetype="dotted", size = 0.75)+
+  theme_bw()+
+  theme(axis.line = element_line(colour = "black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank())+
+  ggtitle("Daily Surface Temperature for Each Census Tract Ranked From \nHottest to Coldest Tract, 2012")+
+  theme(plot.title = element_text(size = 16))+
+  ylab("Surface Temperature (C)\n")+
+  xlab("\nRank")+
+  ylim(40, 65)+
+  theme(axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold"))+
+  scale_fill_discrete(breaks=c("May","June","July", "August", "September"))+
+  theme(legend.title=element_blank())+
+  #scale_fill_brewer(palette = "Set1") +
+  scale_colour_brewer(palette = "Reds")
+
+  

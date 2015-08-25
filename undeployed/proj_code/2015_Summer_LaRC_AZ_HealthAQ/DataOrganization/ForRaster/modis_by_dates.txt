@@ -1,0 +1,36 @@
+# This script reads in a CSV of dates we are interested in extracting MODIS
+# images (day and night) from already downloaded imagery
+
+import os
+from dnppy import core
+from datetime import datetime
+
+# create list of the good date strings in modis format
+# csv dates are YYYMMDD, MODIS is julian days, we need to convert
+# csv dates to julian
+filepath = r"C:\Users\astuyves\Desktop\good_modis_dates\Dates.csv"
+f = open(filepath,'r')
+
+good_dates = []
+f.next()
+for line in f:
+    entry = line.replace("\n","").split(',')[0]
+    dateobj = datetime.strptime(entry, "%Y%m%d")
+    new_entry = dateobj.strftime("%Y%j")
+    good_dates.append(new_entry)
+
+#set up modis directory and filenames to manipulate folder
+modis_dir = r"C:\Users\astuyves\Desktop\MODIS_data"
+modis_list = core.list_files(False, modis_dir)
+
+# pull out just the filenames of modis_list
+modis_fnames = [os.path.basename(x) for x in modis_list]
+modis_datestrings = [x.split(".")[1].replace("A","") for x in modis_fnames]
+
+# perform the deletion if the modis tile doesnt match with the good dates
+for i, modis_datestring in enumerate(modis_datestrings):
+    if modis_datestring not in good_dates:
+        print("deleting file {0}".format(modis_list[i]))
+        os.remove(modis_list[i])
+
+
