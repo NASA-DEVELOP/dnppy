@@ -75,7 +75,7 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
 
     # create the tiff
     gtiff = gdal.GetDriverByName("GTiff")
-    outdata = gtiff.Create(outpath, xsize, ysize, numbands, convert_dtype(numpy_array.dtype))
+    outdata = gtiff.Create(outpath, xsize, ysize, numbands, _convert_dtype(numpy_array.dtype))
     outdata.SetProjection(projection)
     outdata.SetGeoTransform(geotransform)
 
