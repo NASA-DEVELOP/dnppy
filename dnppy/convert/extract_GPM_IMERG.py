@@ -19,7 +19,7 @@ def extract_GPM_IMERG(hdf_list, layer_indexs, outdir = None, resolution = "0.1")
     Typical contents of a GPM HDF are:
 
     == =========== ================================ ==============
-    ID  layer shape Layer name                       data type
+    ID layer shape Layer name                       data type
     == =========== ================================ ==============
     0  [3600x1800] HQobservationTime                (16-bit int)
     1  [3600x1800] HQprecipSource                   (16-bit int)
