@@ -5,7 +5,7 @@ from dnppy import core
 from datatype_library import *
 from _extract_HDF_datatype import *
 
-def extract_GPM_IMERG(hdf_list, layer_indexs, outdir, resolution):
+def extract_GPM_IMERG(hdf_list, layer_indexs, outdir = None, resolution = "0.1"):
     """
     Extracts GPM_IMERG data from its HDF5 format.
 
@@ -42,7 +42,8 @@ def extract_GPM_IMERG(hdf_list, layer_indexs, outdir, resolution):
     # for every hdf file in the input list
     for hdf in hdf_list:
         # extract layers and add the new filepaths to the output filelist
-        hdf_output_filelist =  _extract_HDF_datatype(hdf, layer_indexs, outdir, datatype)
+        hdf_output_filelist =  _extract_HDF_datatype(hdf, layer_indexs, outdir,
+                                                     datatype, nodata_value = -9999.9)
         output_filelist +=  hdf_output_filelist
 
     return output_filelist

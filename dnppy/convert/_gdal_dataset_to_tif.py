@@ -2,6 +2,7 @@ __author__ = ['jwely']
 __all__ = ["_gdal_dataset_to_tif"]
 
 import gdal
+import os
 from _convert_dtype import *
 
 def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
@@ -29,6 +30,10 @@ def _gdal_dataset_to_tif(gdal_dataset, outpath, cust_projection = None,
 
     :return outpath:            The local system filepath to output dataset
     """
+
+    # create output directory if it doesnt exist;
+    if not os.path.exists(os.path.dirname(outpath)):
+        os.mkdir(os.path.dirname(outpath))
 
     # set up the projection and geotransform
     if force_custom is True:
