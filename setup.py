@@ -1,6 +1,5 @@
 """ installs dnppy """
 
-
 # sets up dependencies that pip alone seems to frequently fail at.
 import install_dependencies
 install_dependencies.main()

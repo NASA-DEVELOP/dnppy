@@ -1,5 +1,6 @@
 __author__ = 'jwely'
 
+from dnppy import core
 from download_url import download_url
 import os
 import zipfile
@@ -17,11 +18,12 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     :param ur_lat:      latitude of upper right corner
     :param ur_lon:      longitude of upper right corner
     :param product:     short name of product you want. See http://e4ftl01.cr.usgs.gov/SRTM/ .
-                        do not include the version number. Example: "SRTMGL1"
+                        do not include the version number. Example: "SRTMGL1". Note
+                        that version "002" data of .DEM format does not support mosaicing.
     :param outdir:      local directory to save downloaded files
-    :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles.
+    :param mosaic:      Set to TRUE to mosaic all downloaded DEM tiles as "SRTM_mosaic.tif"
 
-    :return tif_list:   a list of all successfully downloaded tif filepaths
+    :return tile_list:   a list of all successfully downloaded tif filepaths
                         for further manipulation
 
     NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
@@ -29,12 +31,12 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
     """
 
     # build empty return list
-    tif_list = []
+    tile_list = []
 
     # build list of lat/lon pairs from input corners
     lat_lon_pairs = []
-    for i in range(int(ll_lat), int(ur_lat + 1) + 1):
-        for j in range(int(ll_lon), int(ur_lon + 1) + 1):
+    for i in range(int(ll_lat), int(ur_lat + 1)):
+        for j in range(int(ll_lon), int(ur_lon + 1)):
             lat_lon_pairs.append((i, j))
 
     print lat_lon_pairs
@@ -44,6 +46,7 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
         print("Download of product SRTMGL30 is supported, but arcmap does not support this filetype")
         format_string = "{2}{3}{0}{1}.{4}.dem.zip"
         version = "002"
+        mosaic = None
 
     else:
         format_string = "{0}{1}{2}{3}.{4}.hgt.zip"
@@ -110,33 +113,36 @@ def fetch_SRTM(ll_lat, ll_lon, ur_lat, ur_lon, product, outdir = None, mosaic = 
         # unzip the file and reassemble descriptive name
         with zipfile.ZipFile(outpath, "r") as z:
 
-            itemname = "{0}{1}{2}{3}.hgt".format(NS, str(abs(lat)).zfill(2),
-                                                 EW, str(abs(lon)).zfill(3))
+            if version == "003":
+                itemname = "{0}{1}{2}{3}.hgt".format(NS, str(abs(lat)).zfill(2),
+                                                    EW, str(abs(lon)).zfill(3))
+            elif version =="002":
+                itemname = "{0}{1}{2}{3}.DEM".format(EW.upper(), str(abs(lon)).zfill(3),
+                                                     NS.upper(), str(abs(lat)).zfill(2))
+
             z.extract(itemname, outdir)
             z.close()
 
         # clean up and add this file to output list
         os.remove(outpath)
-        tif_list.append(os.path.join(outdir,itemname))
+        tile_list.append(os.path.join(outdir,itemname))
+
+    print("Finished download and extraction of SRTM data")
 
     if mosaic is True:
 
         # use gdal to mosaic these raster together
-        mosaic_list = " ".join(tif_list)
         out_mosaic  = os.path.join(outdir, "SRTM_mosaic.tif")
-        command = "gdalwarp {0} {1}".format(mosaic_list, out_mosaic)
-        os.system(command)
+        core.run_command("gdalwarp", tile_list, out_mosaic)
+        return out_mosaic
 
-        #arcpy.MosaicToNewRaster_management(tif_list, outdir, "SRTM_mosaic.tif", number_of_bands = 1, pixel_type = "32_BIT_SIGNED")
-
-    print("Finished download and extraction of SRTM data")
-
-    return tif_list
+    else:
+        return tile_list
 
 
 if __name__ == "__main__":
 
     testdir = r"C:\Users\jwely\Desktop\troubleshooting\SRTM"
-    fetch_SRTM(46, -119, 47, -118, "SRTMGL1", testdir, mosaic = True)
+    fetch_SRTM(47, -118, 48, -118, "SRTMGL3", testdir, mosaic = True)
 
 

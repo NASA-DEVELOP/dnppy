@@ -34,8 +34,9 @@ def datatype_library():
 
     # read in the library
     lib_path = os.path.join(dirname,"lib","datatype_library.csv")
-    text_data = textio.read_csv(lib_path)
-    rows = text_data.row_data
+    tdat = textio.text_data()
+    tdat.read_csv(lib_path)
+    rows = tdat.row_data
 
     for row in rows:
 

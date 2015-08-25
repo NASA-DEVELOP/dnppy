@@ -36,16 +36,18 @@ Contents
     modules/download
     modules/landsat
     modules/modis
+    modules/radar
     modules/raster
     modules/solar
     modules/textio
-    modules/time_series
+    modules/tsa
 
 .. toctree::
     :caption: Developers
 
     dev_pages/development
     dev_pages/dev_goals
+    dev_pages/gdal_tips
     dev_pages/contrib_git
     dev_pages/doc
 
