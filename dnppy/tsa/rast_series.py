@@ -228,8 +228,8 @@ class rast_series(time_series.time_series):
 
             # otherwise, set the centers with no offest.
             else:
-                ustart  = self._center_datetime(self, time_s, subset_units)
-                uend    = self._center_datetime(self, time_f, subset_units) + timedelta(seconds = step_width)
+                ustart  = self._center_datetime(time_s, subset_units)
+                uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
 
 
             # Iterate through entire dataset one time step unit at a time.
