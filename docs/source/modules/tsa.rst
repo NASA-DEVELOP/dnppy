@@ -33,9 +33,9 @@ To turn this tdo into a ``time_series``, we can do
 
 .. code-block:: python
 
-    from dnppy import time_series                # import the time_series class
+    from dnppy import tsa                        # import the tsa module
 
-    ts = time_series.time_series('weather_data')
+    ts = tsa.time_series('weather_data')
     ts.from_tdo(tdo)                             # use contents of the tdo
 
     print(ts.headers)                            # print the headers
@@ -98,7 +98,7 @@ This is much better, but now we decide that we don't just want july 21st, but al
             save_path = "test.png")
 
 Now we actually have three days in our ``jul21`` time series. And we are happy with this.
-So far, this has only introduced you to about a third of the functionality available in the time_series module, but it should be enough to get you started. Consult the internal help docs and function list below to learn more!
+So far, this has only introduced you to about a third of the functionality available in the tsa module, but it should be enough to get you started. Consult the internal help docs and function list below to learn more!
 
 .. rubric:: rast_series basics
 
@@ -112,8 +112,8 @@ A ``rast_series`` object can be created and populated with
 
 .. code-block:: python
 
-    from dnppy import time_series
-    rs = time_series.rast_series()
+    from dnppy import tsa
+    rs = tsa.rast_series()
 
     rastdir  = r"C:\Users\jwely\mosaics"  # directory of our MODIS mosaics
     fmt      = "%Y%j"
