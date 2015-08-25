@@ -1,6 +1,5 @@
 """ installs dnppy """
 
-
 # sets up dependencies that pip alone seems to frequently fail at.
 import install_dependencies
 install_dependencies.main()
@@ -31,5 +30,4 @@ setup(name='dnppy',
 # quick setup that will work locally by running this script
 if __name__ == "__main__":
     import pip
-    # pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
-    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
+    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip"])
