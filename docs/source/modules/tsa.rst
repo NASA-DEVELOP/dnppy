@@ -1,7 +1,7 @@
-time_series
-===========
+tsa
+===
 
-.. automodule:: dnppy.time_series
+.. automodule:: dnppy.tsa
     :members:
 
 Examples
@@ -150,11 +150,11 @@ Code Help
 
 Auto-documentation for functions and classes within this module is generated below!
 
-.. automodule:: dnppy.time_series.time_series
+.. automodule:: dnppy.tsa.time_series
     :members:
     :private-members:
 
-.. automodule:: dnppy.time_series.rast_series
+.. automodule:: dnppy.tsa.rast_series
     :members:
     :private-members:
 

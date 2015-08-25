@@ -40,7 +40,7 @@ Contents
     modules/raster
     modules/solar
     modules/textio
-    modules/time_series
+    modules/tsa
 
 .. toctree::
     :caption: Developers

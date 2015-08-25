@@ -62,7 +62,7 @@ Module Summary
 .. automodule:: dnppy.textio
     :members:
 
-.. rubric:: :doc:`time_series <modules/time_series>`
+.. rubric:: :doc:`tsa <modules/tsa>`
 
-.. automodule:: dnppy.time_series
+.. automodule:: dnppy.tsa
     :members:
