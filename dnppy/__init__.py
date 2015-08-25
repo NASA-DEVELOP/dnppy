@@ -28,7 +28,7 @@ from radar import *
 from raster import *
 from solar import *
 from textio import *
-from time_series import *
+from tsa import *
 
 
 

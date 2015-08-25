@@ -42,6 +42,11 @@ Module Summary
 .. automodule:: dnppy.modis
     :members:
 
+.. rubric:: :doc:`radar <modules/radar>`
+
+.. automodule:: dnppy.radar
+    :members:
+
 .. rubric:: :doc:`raster <modules/raster>`
 
 .. automodule:: dnppy.raster
@@ -57,7 +62,7 @@ Module Summary
 .. automodule:: dnppy.textio
     :members:
 
-.. rubric:: :doc:`time_series <modules/time_series>`
+.. rubric:: :doc:`tsa <modules/tsa>`
 
-.. automodule:: dnppy.time_series
+.. automodule:: dnppy.tsa
     :members:

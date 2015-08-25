@@ -1,5 +1,5 @@
 __author__ = 'jwely'
-
+__all__ = ["_convert_dtype"]
 import gdal
 
 def _convert_dtype(numpy_dtype_string):

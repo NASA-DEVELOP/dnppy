@@ -1,9 +1,10 @@
-# filter by file extension
+# filter by file extension or type
 *.pyc
 *.whl
 *.xml
 *.tif
 *.TIF
+*.egg*
 
 # specific files and folders
 docs/build

@@ -1,18 +1,17 @@
+__author__ = ["Jwely"]
+__all__ = ["rast_series"]
 
 # local imports
 from dnppy import core
 from dnppy import raster
-from time_series import time_series
+import time_series
 
 # standard imports
 import os
 from datetime import datetime, timedelta
 
 
-__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
-
-
-class rast_series(time_series):
+class rast_series(time_series.time_series):
     """
     This is an extension of the time_series class
 
@@ -229,8 +228,8 @@ class rast_series(time_series):
 
             # otherwise, set the centers with no offest.
             else:
-                ustart  = self._center_datetime(self, time_s, subset_units)
-                uend    = self._center_datetime(self, time_f, subset_units) + timedelta(seconds = step_width)
+                ustart  = self._center_datetime(time_s, subset_units)
+                uend    = self._center_datetime(time_f, subset_units) + timedelta(seconds = step_width)
 
 
             # Iterate through entire dataset one time step unit at a time.

@@ -54,3 +54,7 @@ Auto-documentation for functions and classes within this module is generated bel
 
 .. automodule:: dnppy.core.rename
     :members:
+
+.. automodule:: dnppy.core.run_command
+    :members:
+
