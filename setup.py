@@ -1,4 +1,13 @@
-""" installs dnppy """
+"""
+setup installer for dnppy.
+you can get it set up with
+
+pip.main(["install", package_path])
+
+
+
+
+"""
 
 # sets up dependencies that pip alone seems to frequently fail at.
 import install_dependencies
@@ -35,8 +44,3 @@ setup(
     author_email='',
     description='DEVELOP National Program python package'
 )
-
-
-if __name__ == "__main__":
-    import pip
-    pip.main(["install", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])
