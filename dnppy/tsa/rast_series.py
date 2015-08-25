@@ -1,18 +1,17 @@
+__author__ = ["Jwely"]
+__all__ = ["rast_series"]
 
 # local imports
 from dnppy import core
 from dnppy import raster
-from time_series import time_series
+import time_series
 
 # standard imports
 import os
 from datetime import datetime, timedelta
 
 
-__author__ = ["Jeffry Ely, Jeff.ely.08@gmail.com"]
-
-
-class rast_series(time_series):
+class rast_series(time_series.time_series):
     """
     This is an extension of the time_series class
 
