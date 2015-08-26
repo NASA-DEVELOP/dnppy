@@ -34,7 +34,7 @@ def fetch_GPM_IMERG(start_dto, end_dto, outdir, product = "gis", time_res = "1da
 
     # username and password info, should eventually be some DEVELOP credential.
     # this information is not at all sensitive.
-    login = "DEVELOP.Geoinformatics@gmail.com"
+    login = "jeff.ely.08@gmail.com"
 
 
     # special filtering for gis type tif data to minimize data representation overlap.
