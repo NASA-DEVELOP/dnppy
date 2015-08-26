@@ -79,8 +79,10 @@ def setup():
         # handles the case where dnppy is installed, but cannot import for some reason.
         except:
             print("installing dnppy version [{0}]".format(up_vers))
-            shutil.rmtree(dest_path)
-            shutil.rmtree(dest_path2)
+            try:
+                shutil.rmtree(dest_path)
+                shutil.rmtree(dest_path2)
+            except: pass
             shutil.copytree(source_path, dest_path)
             shutil.copytree(source_path, dest_path2)
     else:
@@ -96,35 +98,28 @@ def setup():
 def test_setup():
     """ returns True if all modules of dnppy import properly"""
 
-    try:
-        # ensure every module imports OK
-        print("convert")
-        from dnppy import convert
-        print("core")
-        from dnppy import core
-        print("download")
-        from dnppy import download
-        print("landsat")
-        from dnppy import landsat
-        print("modis")
-        from dnppy import modis
-        print("radar")
-        from dnppy import radar
-        print("raster")
-        from dnppy import raster
-        print("solar")
-        from dnppy import solar
-        print("test")
-        from dnppy import test
-        print("textio")
-        from dnppy import textio
-        print("time_series")
-        from dnppy import time_series
-        return True
-
-    except ImportError:
-        print("failed!")
-        return False
+    # ensure every module imports OK
+    print("convert")
+    from dnppy import convert
+    print("core")
+    from dnppy import core
+    print("download")
+    from dnppy import download
+    print("landsat")
+    from dnppy import landsat
+    print("modis")
+    from dnppy import modis
+    print("radar")
+    from dnppy import radar
+    print("raster")
+    from dnppy import raster
+    print("solar")
+    from dnppy import solar
+    print("textio")
+    from dnppy import textio
+    print("time_series")
+    from dnppy import time_series
+    return True
 
 
 def main():

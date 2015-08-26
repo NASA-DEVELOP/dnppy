@@ -6,7 +6,7 @@ Please consult the dnppy git wiki for further use instructions!
 """
 
 # dnppy version info
-__version__= "1.15.2"
+__version__ = "1.15.2b0"
 
 # author list
 __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
@@ -19,7 +19,6 @@ __author__ = ["Jeffry Ely, jwely, jeff.ely.08@gmail.com",
 # prevents module import issues durring installation.
 if not __name__ == "dnppy_install":
 
-    #from test import *
     from R_dnppy import *
     from convert import *
     from core import *
