@@ -1,12 +1,5 @@
 """
 setup installer for dnppy.
-you can get it set up with
-
-pip.main(["install", package_path])
-
-
-
-
 """
 
 # sets up dependencies that pip alone seems to frequently fail at.
@@ -42,5 +35,6 @@ setup(
             "Scott Baron",
             ],
     author_email='',
-    description='DEVELOP National Program python package'
+    description='DEVELOP National Program python package',
+    include_package_data=True
 )

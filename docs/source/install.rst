@@ -24,7 +24,7 @@ How to Install
 
 .. rubric:: Manual download
 
-Grab the master branch from our `GitHub`_ by clicking on the "download zip" button on the bottom right of the screen. Extract the archive and run ``setup.py``. Setup will fetch other dependencies from ``.whl`` files hosted in the release assets or from the python package index. Most of these ``.whl`` files were originally obtained from this `unofficial windows binaries index`_. Ta-da! You are ready to get started with ``dnppy`` and python programming with NASA data and GIS!
+Grab the master branch from our `GitHub`_ by clicking on the "download zip" button on the bottom right of the screen. Extract the archive and run ``easy_install.py``. Running this file may require opening up *IDLE* and loading the script, then hitting *F5* to execute it. Setup will fetch other dependencies from ``.whl`` files hosted in the release assets or from the python package index. Most of these ``.whl`` files were originally obtained from this `unofficial windows binaries index`_. Ta-da! You are ready to get started with ``dnppy`` and python programming with NASA data and GIS!
 
 .. rubric:: With pip
 
@@ -33,8 +33,11 @@ If you've got ``pip``, you can use the following code snippet in the python cons
 .. code-block:: python
 
     import pip
-    pip.main(["install","https://github.com/NASA-DEVELOP/dnppy/archive/master.zip"])
+    pip.main(["install", "--upgrade", "https://github.com/NASA-DEVELOP/dnppy/archive/master.zip"])
 
+or whichever `release tagged`_ branch you would like to install instead of master.
+
+.. _release tagged: https://github.com/NASA-DEVELOP/dnppy/releases
 
 -----------------
 Included Packages

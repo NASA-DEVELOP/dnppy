@@ -5,6 +5,7 @@
 *.tif
 *.TIF
 *.egg*
+*.html
 
 # specific files and folders
 docs/build
