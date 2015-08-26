@@ -1,4 +1,6 @@
-""" installs dnppy """
+"""
+setup installer for dnppy.
+"""
 
 # sets up dependencies that pip alone seems to frequently fail at.
 import install_dependencies
@@ -10,8 +12,17 @@ from distutils.core import setup
 setup(
     name='dnppy',
     version='1.15.3b1',
-    packages=['dev.test', 'dnppy', 'dnppy.tsa', 'dnppy.core', 'dnppy.modis', 'dnppy.radar', 'dnppy.solar',
-              'dnppy.raster', 'dnppy.textio', 'dnppy.convert', 'dnppy.landsat', 'dnppy.R_dnppy', 'dnppy.download'],
+    packages=['dnppy',
+              'dnppy.convert',
+              'dnppy.core',
+              'dnppy.download',
+              'dnppy.landsat',
+              'dnppy.modis',
+              'dnppy.radar',
+              'dnppy.raster',
+              'dnppy.solar',
+              'dnppy.textio',
+              'dnppy.tsa'],
     url='https://github.com/NASA-DEVELOP/dnppy',
     download_url="https://github.com/NASA-DEVELOP/dnppy/archive/master.zip",
     license='NASA OPEN SOURCE AGREEMENT VERSION 1.3',
@@ -24,10 +35,6 @@ setup(
             "Scott Baron",
             ],
     author_email='',
-    description='DEVELOP National Program python package'
+    description='DEVELOP National Program python package',
+    include_package_data=True
 )
-
-
-if __name__ == "__main__":
-    import pip
-    pip.main(["install", "https://github.com/NASA-DEVELOP/dnppy/archive/setup.zip"])

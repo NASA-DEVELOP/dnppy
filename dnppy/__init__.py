@@ -7,7 +7,8 @@ participants and partners in earth science and remote sensing.
 Please consult the dnppy documentation pages for further information!
 """
 
-# author list
+__version__ = "1.15.3b1"
+
 __author__ = ["Jwely",
               "djjensen",
               "Syntaf",
