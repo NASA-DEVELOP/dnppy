@@ -17,6 +17,31 @@ import platform
 # import psutil            installs psutil, then imports it
 
 
+def count_user():
+    """
+    this function attempts to import any version of dnppy. If it finds
+    the user does not already have a version of 1.15.3b0 or greater, it
+    downloads "_logo.png" from the release assets. These downloads are
+    tracked and help us to establish the real size of dnppy's user base
+
+    returns True if new user.
+    """
+
+    logo_url = "https://github.com/NASA-DEVELOP/dnppy/releases/download/assets/_logo.png"
+
+    if not check_mod("dnppy"):
+
+        with open(os.path.basename(logo_url), "wb+") as f:
+            connection = urllib.urlopen(logo_url)
+            page = connection.read()
+            f.write(page)
+            f.close()
+            del connection
+        return True
+    else:
+        return False
+
+
 def get_pip():
     """ ensures pip is installed"""
 
@@ -148,6 +173,7 @@ def main():
     as an immediate hack fix, each of these functions is simply called twice
     """
 
+    count_user()
     get_pip()
 
     # list of assets to install, add to assets here.
@@ -159,6 +185,9 @@ def main():
     asset_order = ["cython", "scipy", "numpy", "gdal", "pycurl", "shapely", "h5py"]
     release_address = "https://github.com/nasa/dnppy/releases/download/1.15.2/"
 
+    #       {module : [version,
+    #                   64 bit asset link,
+    #                   32 bit asset link]}
     assets = {"cython": [None,
                          release_address + "Cython-0.22-cp27-none-win_amd64.whl",
                          release_address + "Cython-0.22-cp27-none-win32.whl"],
@@ -209,22 +238,6 @@ def main():
     for key in pip_versions:
         checks[key] = check_mod(key, pip_versions[key])
 
-    # tries failed modules a second time
-    for mod in checks:
-        if checks[mod] is False:
-            if mod in assets:
-                get_mod_from_assets(mod, *assets[mod])
-            elif mod in pip_versions:
-                get_mod_with_pip(mod, pip_versions[mod])
-
-    # perform a second check
-    checks = {}
-    for key in assets:
-        checks[key] = check_mod(key, assets[key][0])
-    for key in pip_versions:
-        checks[key] = check_mod(key, pip_versions[key])
-
-
     # prints status updates
     print("Checking libraries!")
     print("library name    ready?")
@@ -233,8 +246,6 @@ def main():
 
     if all(checks):
         print("All dependencies loaded")
-    else:
-        raise Exception("dependencies could not be loaded properly!")
 
 
 if __name__ == "__main__":

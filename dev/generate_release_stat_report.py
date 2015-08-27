@@ -40,12 +40,7 @@ def view_release_stats():
                 "downloads".ljust(10), asset["download_count"],
                 "asset url".ljust(10), asset["url"]))
 
-            total_downloads += int(asset["download_count"])
-
         log.append("")
-
-    # add total download summary to the log
-    log.append("\nTotal downloads of all assets = {0}\n".format(total_downloads))
 
     # write the log to a text file.
     with open("dnppy_stat_report.txt",'w+') as f:
