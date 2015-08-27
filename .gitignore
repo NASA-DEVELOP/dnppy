@@ -1,4 +1,8 @@
 *.pyc
 .idea/
 *.whl
+
+
+docs/build
 dnppy_stat_report.txt
+make_html.bat
