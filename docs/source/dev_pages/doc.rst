@@ -81,7 +81,8 @@ When adding a new module to dnppy, you should create a new ``.rst`` file in ``do
 Checking the docs
 -----------------
 
-Once you've made some kind of edit to either a function docstring. We have a quick and dirty script located at ``dev/sphinx_build.py`` that you can run to create a local copy of this website in ``docs/build``. If you've made some substantial changes that you are unsure about, be sure to run this script and fix any warnings sphinx puts out. You can then choose to review your local update of the help doc website by simply opening up ``docs/build/index.html`` in your browser. If you're happy with how it looks here, then you're ready to build the docs.
+Once you've made any kind of major edit to dnppy, we have a quick and dirty script located at ``dev/sphinx_build.py`` that you can run to create a local copy of this website in ``docs/build``.
+This script will install all the required modules and run a sphinx build on your local repository. Be sure to fix any errors or warnings that sphinx may throw. You can then view the updated website by opening up ``docs/build/index.html`` in your browser. This is exactly how the live version of the website will look after you push your commits. A service at `Travis-CI`_ will perform exactly the same process on their server, then push the results to the ``gh-pages`` branch. In the event that a "build failed" badge pops up on the dnppy homepage, you will want to log in to `Travis-CI`_ and view the log of that build to see what might have gone wrong.
 
 .. note:: this ``docs/build`` folder is `intentionally` added to the ``.gitignore`` to prevent the master branch commits from getting cluttered with changes that do not need to be tracked. Otherwise, every minor code change would be accompanied by dozens of trivial automatic changes to the html code of these doc pages.
 
@@ -89,7 +90,7 @@ Once you've made some kind of edit to either a function docstring. We have a qui
 Building the docs
 -----------------
 
-Building the docs used to require keeping a local copy of the repository permanently set to use the ``gh-pages`` branch and follow the work-flows that can be found in the section below. However, I'm pleased to inform you that you do `not` need to do any special commits or setup of your development environment to automatically update these doc pages! All doc pages are automatically rebuilt every time someone commits to the master branch!
+Building the docs used to require keeping a local copy of the repository permanently set to use the ``gh-pages`` branch and follow the work-flows that can be found in the section below. However, I'm pleased to inform you that you do `not` need to do any special commits or setup of your development environment to automatically update these doc pages! All doc pages are automatically rebuilt every time someone commits to dnppy!
 
 For reference, we used the following resources to set ourselves up.
 
@@ -98,7 +99,7 @@ For reference, we used the following resources to set ourselves up.
         * https://github.com/NASA-DEVELOP/dnppy/pull/55
         * https://github.com/NASA-DEVELOP/dnppy/pull/57
 
-This process automatically tells `Travis-CI`_ to rebuild the documentation pages every time a commit is pushed to the master branch. This is done according to the `.travis.yml` file. It typically takes less than 2 minutes for the changes to go live.
+This process automatically tells `Travis-CI`_ to rebuild the documentation pages every time a commit is pushed to the any branch of dnppy. This is done according to the `.travis.yml` file. It typically takes less than 2 minutes for the changes to go live.
 
 
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
