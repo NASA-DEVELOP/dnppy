@@ -36,5 +36,11 @@ setup(
             ],
     author_email='',
     description='DEVELOP National Program python package',
+    package_data={'dnppy.convert' : ['lib/datatype_library.csv',
+                                     'lib/prj/*'],
+                  'dnppy.landsat' : ['metadata/*'],
+                  'dnppy.solar'   : ['ref/*'],
+                  'dnppy.textio'  : ['test_data/*'],
+                  'dnppy.tsa'     : ['test_data/*']},
     include_package_data=True
 )

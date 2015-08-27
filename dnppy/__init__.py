@@ -19,7 +19,7 @@ __author__ = ["Jwely",
               ]
 
 
-from R_dnppy import *
+#from R_dnppy import *
 from convert import *
 from core import *
 from download import *
