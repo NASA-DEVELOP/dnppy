@@ -24,10 +24,10 @@ def toa_reflectance_8(band_nums, meta_path, outdir = None):
     :param outdir:      Output directory to save converted files. If left False it will save ouput
                         files in the same directory as input files.
 
-    :return outlist:    list of files created by this function
+    :return output_filelist:    List of files created by this function
     """
 
-    outlist = []
+    output_filelist = []
 
     # enforce the list of band numbers and grab metadata from the MTL file
     band_nums = core.enf_list(band_nums)
@@ -63,7 +63,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = None):
                 outname = core.create_outname(folder, band_path, "TOA_Ref", "tif")
                 
             TOA_ref.save(outname)
-            outlist.append(outname)
+            output_filelist.append(outname)
             print("Saved output at {0}".format(outname))
 
         # if listed band is not an OLI sensor band, skip it and print message
@@ -71,7 +71,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = None):
             print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
 
-    return outlist
+    return output_filelist
 
 
 def toa_reflectance_457(band_nums, meta_path, outdir = None):
@@ -85,10 +85,10 @@ def toa_reflectance_457(band_nums, meta_path, outdir = None):
     :param outdir:      Output directory to save converted files. If left False it will save ouput
                         files in the same directory as input files.
 
-    :return outlist:    list of files created by this function
+    :return output_filelist:    List of files created by this function
     """
    
-    outlist = []
+    output_filelist = []
 
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
@@ -189,7 +189,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = None):
                 BandPath = core.create_outname(folder, pathname, "TOA_Ref", "tif")
 
             Refraster.save(BandPath)
-            outlist.append(BandPath)
+            output_filelist.append(BandPath)
 
             del Refraster, Radraster
             print("Reflectance Calculated for Band {0}".format(band_num))
@@ -200,4 +200,4 @@ def toa_reflectance_457(band_nums, meta_path, outdir = None):
             print("Skipping band {0}".format(band_num))
          
     f.close()
-    return outlist
+    return output_filelist

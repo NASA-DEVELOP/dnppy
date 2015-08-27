@@ -24,7 +24,7 @@ def make_cloud_mask_8(BQA_path, outdir = None):
     :param BQA_path:    The full filepath to the BQA file for the raw Landsat 8 dataset
     :param outdir:      Output directory to save cloudless band tifs and the cloud mask
 
-    :return cloud_mask_path: filepath to newly created cloud mask
+    :return cloud_mask_path: Filepath to newly created cloud mask
     """
 
     #define the range of values in the BQA file to be reclassified as cloud (0) or not cloud (1)
@@ -67,7 +67,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = None, Filter5Thresh = 2.0, Filter6T
     :param Filter5Thresh:   Optional threshold value for Filter #5, default set at 2
     :param Filter6Thresh:   Optional threshold value for Filter #6, default set at 2
 
-    :return cloudmask457: filepath to newly created cloud mask
+    :return cloud_mask_path: filepath to newly created cloud mask
     """
 
     #discern if Landsat 4/5 or 7 for band 6 and designate rasters for bands 2, 3, 4, 5, and 6
@@ -293,11 +293,11 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = None, Filter5Thresh = 2.0, Filter6T
 
     print "Cloud mask saved at {0}".format(outname)
     Cloud_Mask.save(outname)
-    cloudmask457 = arcpy.Raster(outname)
+    cloud_mask_path = arcpy.Raster(outname)
 
     del name, mask_path, Cloud_Mask, remap
     
-    return cloudmask457
+    return cloud_mask_path
 
 
 
@@ -310,7 +310,7 @@ def apply_cloud_mask(mask_path, folder, outdir = None):
     :param mask_path:     The full filepath to the mask file created by make_cloud_mask_8 or make_cloud_mask_457
     :param outdir:        Output directory to save cloudless band tiffs, default is same as "folder"
 
-    :return no_clouds_list: list of files created by this function with cloud mask applied.
+    :return no_clouds_list: List of files created by this function with cloud mask applied.
     """
 
     no_clouds_list = []
