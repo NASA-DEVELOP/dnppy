@@ -33,7 +33,7 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
                         Soil Adjusted Vegetation Index. Default L = 0.5 works well in
                         most situations. when L = 0, SAVI = NDVI.
 
-    :return outname:    full filepath of tif created by this function
+    :return surface_temp_8:    Full filepath of tif created by this function
     """
 
     band4_toa = os.path.abspath(band4_toa)
@@ -99,14 +99,14 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
     
     if outdir:
         outdir = os.path.abspath(outdir)
-        outname = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
+        surface_temp_8 = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
     else:
         folder = os.path.split(band4_toa)[0]
-        outname = core.create_outname(folder, tilename, "Surf_Temp", "tif")
+        surface_temp_8 = core.create_outname(folder, tilename, "Surf_Temp", "tif")
         
-    st.save(outname)
+    st.save(surface_temp_8)
 
-    return outname
+    return surface_temp_8
 
 
 def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = False, L = 0.5):
@@ -131,7 +131,7 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
                         Soil Adjusted Vegetation Index. Default L = 0.5 works well in
                         most situations. when L = 0, SAVI = NDVI.
 
-    :return outname:    full filepath of tif created by this function
+    :return surface_temp_457:    Full filepath of tif created by this function
     """
 
     band3_toa = os.path.abspath(band3_toa)
@@ -205,11 +205,11 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
     #Create output name and save the surface temperature tiff   
     if outdir:
         outdir = os.path.abspath(outdir)
-        outname = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
+        surface_temp_457 = core.create_outname(outdir, tilename, "Surf_Temp", "tif")
     else:
         folder = os.path.split(band3_toa)[0]
-        outname = core.create_outname(folder, tilename, "Surf_Temp", "tif")
+        surface_temp_457 = core.create_outname(folder, tilename, "Surf_Temp", "tif")
         
-    st.save(outname)
+    st.save(surface_temp_457)
 
-    return outname
+    return surface_temp_457

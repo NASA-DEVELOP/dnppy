@@ -88,7 +88,7 @@ def atsat_bright_temp_457(meta_path, outdir = None):
     :param outdir:      Output directory to save converted files. If left False it will save ouput
                         files in the same directory as input files.
 
-    :return output_filelist: a list of all files created by this function
+    :return output_filelist: A list of all files created by this function
     """
 
     output_filelist = []

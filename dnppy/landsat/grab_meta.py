@@ -7,7 +7,7 @@ def grab_meta(filename):
     refer to that class for further explanation.
 
     :param filename:            filepath to an MTL file
-    :return landsat_metadata:   metadata object with MTL attributes.
+    :return landsat_metadata:   Metadata object with MTL attributes.
     """
 
     return landsat_metadata(filename)

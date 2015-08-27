@@ -23,11 +23,11 @@ def toa_radiance_8(band_nums, meta_path, outdir = None):
     :param meta_path:   The full filepath to the metadata file for those bands
     :param outdir:      Output directory to save converted files.
 
-    :return outlist:    list of filepaths created by this function.
+    :return output_filelist:    List of filepaths created by this function.
     """
 
     meta_path = os.path.abspath(meta_path)
-    outlist = []
+    output_filelist = []
 
     #enforce list of band numbers and grab the metadata from the MTL file
     band_nums = core.enf_list(band_nums)
@@ -70,7 +70,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = None):
                 outname = core.create_outname(folder, rad_name, "TOA_Rad", "tif")
                 
             TOA_rad.save(outname)
-            outlist.append(outname)
+            output_filelist.append(outname)
             print("Saved toa_radiance at {0}".format(outname))
 
         #if listed band is not a OLI sensor band, skip it and print message
@@ -78,7 +78,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = None):
             print("Can only perform reflectance conversion on OLI sensor bands")
             print("Skipping band {0}".format(band_num))
 
-    return outlist
+    return output_filelist
 
 
 
@@ -92,10 +92,10 @@ def toa_radiance_457(band_nums, meta_path, outdir = None):
     :param meta_path:   The full filepath to the metadata file for those bands
     :param outdir:      Output directory to save converted files.
 
-    :return outlist:    list of filepaths created by this function.
+    :return output_filelist:    List of filepaths created by this function.
     """
 
-    outlist = []
+    output_filelist = []
     meta_path = os.path.abspath(meta_path)
 
     band_nums = core.enf_list(band_nums)
@@ -188,7 +188,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = None):
                 outname = core.create_outname(folder, band_rad, "TOA_Rad", "tif")
                 
             Radraster.save(outname)
-            outlist.append(outname)
+            output_filelist.append(outname)
             
             del Radraster
 
@@ -200,4 +200,4 @@ def toa_radiance_457(band_nums, meta_path, outdir = None):
             print("Skipping band {0}".format(band_num))
          
     f.close()
-    return outlist
+    return output_filelist

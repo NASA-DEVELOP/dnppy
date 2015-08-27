@@ -48,14 +48,16 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
     :param dew_point:       The number (e.g. 57.7) for the dew point at the time and place of scene acquisition
     :param outdir:          Output directory to save converted files. If left False it will save
                             output files in the toa_folder directory.
-    :param kt:              Unitles turbidity coefficient. Default set at 1.0 for clean air.
+    :param kt:              Unitless turbidity coefficient. Default set at 1.0 for clean air.
                             Set at 0.5 for extremely turbid, dusty, or polluted air.
+                            
+    :return output_filelist:  A list of all files created by this function                        
     """
 
     meta_path = os.path.abspath(meta_path)
     toa_folder = os.path.abspath(toa_folder)
     dem_path = os.path.abspath(dem_path)
-    outlist = []
+    output_filelist = []
 
     #define the list of constants for effective narrowband transmissivity for incoming solar radiation
     constants_enbt1 = [[0.987, -0.00071, 0.000036, 0.0880, 0.0789],
@@ -206,6 +208,6 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                     asr_path = "{0}\\{1}".format(toa_folder, out_list[k])
             refl_surf = (toa_list[k] - pr_bands[k])/(entisr_bands[k] * entsrrs_bands[k])
             refl_surf.save(asr_path)
-            outlist.append(asr_path)
+            output_filelist.append(asr_path)
 
-    return outlist
+    return output_filelist
