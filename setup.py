@@ -24,7 +24,7 @@ setup(
               'dnppy.textio',
               'dnppy.tsa'],
     url='https://github.com/NASA-DEVELOP/dnppy',
-    download_url="https://github.com/NASA-DEVELOP/dnppy/archive/master.zip",
+    download_url="https://github.com/NASA-DEVELOP/dnppy/archive/1.15.3b1.zip",
     license='NASA OPEN SOURCE AGREEMENT VERSION 1.3',
     author=["Jwely",
             "djjensen",
