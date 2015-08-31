@@ -54,7 +54,7 @@ def build_sphinx():
 
     # assemble filepaths
     sphinx_path = pip.__file__.replace("\\", "/").replace(
-        "lib\\site-packages\\pip\\__init__.pyc",
+        "lib/site-packages/pip/__init__.pyc",
         "Scripts/sphinx-build.exe")
 
     self_path = __file__.replace("\\", "/")
@@ -64,12 +64,15 @@ def build_sphinx():
     # remove key files to force rebuild
     buildinfo = os.path.join(dest_path, ".buildinfo")
     pickle = os.path.join(dest_path, ".doctrees", "environment.pickle")
-    if os.path.exists(pickle): os.remove(pickle)
-    if os.path.exists(buildinfo): os.remove(buildinfo)
+    if os.path.exists(pickle):
+        os.remove(pickle)
+    if os.path.exists(buildinfo):
+        os.remove(buildinfo)
 
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path)
         f.write(line1)
+        f.write("\n\nPAUSE")
 
     os.system("make_html.bat")
 
