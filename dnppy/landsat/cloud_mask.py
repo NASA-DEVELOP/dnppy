@@ -67,7 +67,7 @@ def make_cloud_mask_457(B2_TOA_Ref, outdir = None, Filter5Thresh = 2.0, Filter6T
     :param Filter5Thresh:   Optional threshold value for Filter #5, default set at 2
     :param Filter6Thresh:   Optional threshold value for Filter #6, default set at 2
 
-    :return cloud_mask_path: filepath to newly created cloud mask
+    :return cloud_mask_path: Filepath to newly created cloud mask
     """
 
     #discern if Landsat 4/5 or 7 for band 6 and designate rasters for bands 2, 3, 4, 5, and 6

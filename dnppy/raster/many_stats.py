@@ -119,11 +119,11 @@ def many_stats(rasterlist, outdir, outname, saves = None, low_thresh = None,
     if "SUM" in saves:
         sum_rast        = numpy.sum(rast_3d_masked, axis = 2)
         sum_rast        = numpy.array(sum_rast)
-        rastfig         = raster_fig(sum_rast, title = "Good pixel count (NUM)")
+        rastfig         = raster_fig(sum_rast, title = "Sum Total")
         rastfig.close_fig()
 
         sum_name = core.create_outname(outdir, outname, 'SUM', 'tif')
-        print("Saving NUMBER output raster as {0}".format(sum_name))
+        print("Saving SUM output raster as {0}".format(sum_name))
         from_numpy(sum_rast, metadata, sum_name, NoData_Value = NoData_Value)
         rastfig.close_fig()
         del sum_rast

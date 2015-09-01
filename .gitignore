@@ -12,6 +12,7 @@ docs/build
 *dnppy_stat_report.txt
 *make_html.bat
 *arc.dir
+_logo.png
 
 # ignore files with test tag.
 *_test*

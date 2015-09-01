@@ -26,13 +26,19 @@ live to "https://nasa-develop.github.io/dnppy/" within two minutes.
 
 
 def get_sphinx():
-    """ subfunction to make sure modules are available """
-    try: import sphinx
-    except ImportError: pip.main(["install", "sphinx"])
-    try: import graphviz
-    except ImportError: pip.main(["install", "graphviz"])
-    try: import mock
-    except ImportError: pip.main(["install", "mock"])
+    """ sub function to make sure modules are available """
+    try:
+        import sphinx
+    except ImportError:
+        pip.main(["install", "sphinx"])
+    try:
+        import graphviz
+    except ImportError:
+        pip.main(["install", "graphviz"])
+    try:
+        import mock
+    except ImportError:
+        pip.main(["install", "mock"])
 
 
 def build_sphinx():
@@ -47,24 +53,26 @@ def build_sphinx():
     get_sphinx()
 
     # assemble filepaths
-    sphinx_path = pip.__file__.replace("lib\\site-packages\\pip\\__init__.pyc",
-                                       "Scripts/sphinx-build.exe")
-    source_path = __file__.replace("dev/sphinx_build.py", "docs/source")
+    sphinx_path = pip.__file__.replace("\\", "/").replace(
+        "lib/site-packages/pip/__init__.pyc",
+        "Scripts/sphinx-build.exe")
 
-
-    # build in the local docs/build folder
-    dest_path  = __file__.replace("dev/sphinx_build.py", "docs/build")
+    self_path = __file__.replace("\\", "/")
+    source_path = self_path.replace("dev/sphinx_build.py", "docs/source")
+    dest_path = self_path.replace("dev/sphinx_build.py", "docs/build")
 
     # remove key files to force rebuild
     buildinfo = os.path.join(dest_path, ".buildinfo")
-    pickle = os.path.join(dest_path, ".doctrees","environment.pickle")
-    if os.path.exists(pickle): os.remove(pickle)
-    if os.path.exists(buildinfo): os.remove(buildinfo)
-
+    pickle = os.path.join(dest_path, ".doctrees", "environment.pickle")
+    if os.path.exists(pickle):
+        os.remove(pickle)
+    if os.path.exists(buildinfo):
+        os.remove(buildinfo)
 
     with open("make_html.bat", "w+") as f:
         line1 = "{0} -b html {1} {2}".format(sphinx_path, source_path, dest_path)
         f.write(line1)
+        f.write("\n\nPAUSE")
 
     os.system("make_html.bat")
 
