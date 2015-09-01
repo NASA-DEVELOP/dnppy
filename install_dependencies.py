@@ -183,7 +183,7 @@ def main():
 
     # installs assets in the order listed here
     asset_order = ["cython", "scipy", "numpy", "gdal", "pycurl", "shapely", "h5py"]
-    release_address = "https://github.com/nasa/dnppy/releases/download/1.15.2/"
+    release_address = "https://github.com/nasa/dnppy/releases/download/assets/"
 
     #       {module : [version,
     #                   64 bit asset link,
