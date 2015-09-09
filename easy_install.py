@@ -11,4 +11,7 @@ install_dependencies.main()
 # uses pip to install this local copy of the repo
 import pip
 import os
-pip.main(["install", "--upgrade", "../{dir}".format(dir=os.path.dirname(__file__).split("/")[-1])])
+
+fold_name = os.path.realpath("__file__").split("\\")[-2]
+pip.main(["install", "--upgrade", "../{dir}".format(dir=fold_name)])
+
