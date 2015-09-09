@@ -1,0 +1,479 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.landsat.toa_radiance &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.landsat.toa_radiance</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.landsat.toa_radiance</h1><div class="highlight"><pre>
+<span class="c">#standard imports</span>
+<span class="kn">from</span> <span class="nn">grab_meta</span> <span class="kn">import</span> <span class="n">grab_meta</span>
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">import</span> <span class="nn">arcpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">CheckExtension</span><span class="p">(</span><span class="s">&#39;Spatial&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;Available&#39;</span><span class="p">:</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">CheckOutExtension</span><span class="p">(</span><span class="s">&#39;Spatial&#39;</span><span class="p">)</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">overwriteOutput</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">__all__</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;toa_radiance_8&#39;</span><span class="p">,</span>          <span class="c"># complete</span>
+         <span class="s">&#39;toa_radiance_457&#39;</span><span class="p">]</span>        <span class="c"># complete</span>
+
+
+<span class="k">def</span> <span class="nf">toa_radiance_8</span><span class="p">(</span><span class="n">band_nums</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">outdir</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="toa_radiance_8"><a class="viewcode-back" href="../../../modules/landsat.html#dnppy.landsat.toa_radiance.toa_radiance_8">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))</span>
+<span class="sd">    conversion for landsat 8 data. To be performed on raw Landsat 8</span>
+<span class="sd">    level 1 data. See link below for details:</span>
+<span class="sd">    see here http://landsat.usgs.gov/Landsat8_Using_Product.php</span>
+
+<span class="sd">    :param band_nums:   A list of desired band numbers such as [3, 4, 5]</span>
+<span class="sd">    :param meta_path:   The full filepath to the metadata file for those bands</span>
+<span class="sd">    :param outdir:      Output directory to save converted files.</span>
+
+<span class="sd">    :return output_filelist:    List of filepaths created by this function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+    <span class="n">output_filelist</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c">#enforce list of band numbers and grab the metadata from the MTL file</span>
+    <span class="n">band_nums</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">enf_list</span><span class="p">(</span><span class="n">band_nums</span><span class="p">)</span>
+    <span class="n">band_nums</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">band_nums</span><span class="p">)</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">grab_meta</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+    
+    <span class="n">OLI_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">,</span><span class="s">&#39;4&#39;</span><span class="p">,</span><span class="s">&#39;5&#39;</span><span class="p">,</span><span class="s">&#39;6&#39;</span><span class="p">,</span><span class="s">&#39;7&#39;</span><span class="p">,</span><span class="s">&#39;8&#39;</span><span class="p">,</span><span class="s">&#39;9&#39;</span><span class="p">]</span>
+    
+    <span class="c">#loop through each band</span>
+    <span class="k">for</span> <span class="n">band_num</span> <span class="ow">in</span> <span class="n">band_nums</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">band_num</span> <span class="ow">in</span> <span class="n">OLI_bands</span><span class="p">:</span>
+
+            <span class="c">#create the band name</span>
+            <span class="n">band_path</span>   <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;MTL.txt&quot;</span><span class="p">,</span><span class="s">&quot;B{0}.tif&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+            <span class="n">Qcal</span>        <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Raster</span><span class="p">(</span><span class="n">band_path</span><span class="p">)</span>
+
+            <span class="n">null_raster</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">SetNull</span><span class="p">(</span><span class="n">Qcal</span><span class="p">,</span> <span class="n">Qcal</span><span class="p">,</span> <span class="s">&quot;VALUE = 0&quot;</span><span class="p">)</span>
+
+            <span class="c">#scrape the attribute data</span>
+            <span class="n">Ml</span>   <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span><span class="s">&quot;RADIANCE_MULT_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span> <span class="c"># multiplicative scaling factor</span>
+            <span class="n">Al</span>   <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span><span class="s">&quot;RADIANCE_ADD_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>  <span class="c"># additive rescaling factor</span>
+
+            <span class="c">#calculate Top-of-Atmosphere radiance</span>
+            <span class="n">TOA_rad</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_raster</span> <span class="o">*</span> <span class="n">Ml</span><span class="p">)</span> <span class="o">+</span> <span class="n">Al</span>
+            <span class="k">del</span> <span class="n">null_raster</span>
+            
+            <span class="c"># create the output name and save the TOA radiance tiff</span>
+            <span class="k">if</span> <span class="s">&quot;</span><span class="se">\\</span><span class="s">&quot;</span> <span class="ow">in</span> <span class="n">meta_path</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\\</span><span class="s">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="s">&quot;//&quot;</span> <span class="ow">in</span> <span class="n">meta_path</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;//&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                
+            <span class="n">rad_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_MTL.txt&quot;</span><span class="p">,</span> <span class="s">&quot;_B{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">outdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">rad_name</span><span class="p">,</span> <span class="s">&quot;TOA_Rad&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">rad_name</span><span class="p">,</span> <span class="s">&quot;TOA_Rad&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+                
+            <span class="n">TOA_rad</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+            <span class="n">output_filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saved toa_radiance at {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outname</span><span class="p">))</span>
+
+        <span class="c">#if listed band is not a OLI sensor band, skip it and print message</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Can only perform reflectance conversion on OLI sensor bands&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Skipping band {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">output_filelist</span>
+
+
+
+<span class="k">def</span> <span class="nf">toa_radiance_457</span><span class="p">(</span><span class="n">band_nums</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">outdir</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span></div>
+<div class="viewcode-block" id="toa_radiance_457"><a class="viewcode-back" href="../../../modules/landsat.html#dnppy.landsat.toa_radiance.toa_radiance_457">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))</span>
+<span class="sd">    conversion for Landsat 4, 5, and 7 data. To be performed on raw</span>
+<span class="sd">    Landsat 4, 5, or 7 level 1 data.</span>
+
+<span class="sd">    :param band_nums:   A list of desired band numbers such as [3, 4, 5]</span>
+<span class="sd">    :param meta_path:   The full filepath to the metadata file for those bands</span>
+<span class="sd">    :param outdir:      Output directory to save converted files.</span>
+
+<span class="sd">    :return output_filelist:    List of filepaths created by this function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">output_filelist</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="n">band_nums</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">enf_list</span><span class="p">(</span><span class="n">band_nums</span><span class="p">)</span>
+    <span class="n">band_nums</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">band_nums</span><span class="p">)</span>
+
+    <span class="c">#metadata format was changed August 29, 2012. This tool can process either the new or old format</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+    <span class="n">MText</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">metadata</span> <span class="o">=</span> <span class="n">grab_meta</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="c">#the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata</span>
+    <span class="c">#if this is not present, the meta data is considered new.</span>
+    <span class="c">#Band6length refers to the length of the Band 6 name string. In the new metadata this string is longer</span>
+    <span class="k">if</span> <span class="s">&quot;PRODUCT_CREATION_TIME&quot;</span> <span class="ow">in</span> <span class="n">MText</span><span class="p">:</span>
+        <span class="n">Meta</span> <span class="o">=</span> <span class="s">&quot;oldMeta&quot;</span>
+        <span class="n">Band6length</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">Meta</span> <span class="o">=</span> <span class="s">&quot;newMeta&quot;</span>
+        <span class="n">Band6length</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="c">#The tilename is located using the newMeta/oldMeta indixes and the date of capture is recorded</span>
+    <span class="k">if</span> <span class="n">Meta</span> <span class="o">==</span> <span class="s">&quot;newMeta&quot;</span><span class="p">:</span>
+        <span class="n">TileName</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;LANDSAT_SCENE_ID&quot;</span><span class="p">)</span>
+        <span class="n">year</span>        <span class="o">=</span> <span class="n">TileName</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+        <span class="n">jday</span>        <span class="o">=</span> <span class="n">TileName</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+        <span class="n">date</span>        <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;DATE_ACQUIRED&quot;</span><span class="p">)</span>
+        
+    <span class="k">elif</span> <span class="n">Meta</span> <span class="o">==</span> <span class="s">&quot;oldMeta&quot;</span><span class="p">:</span>
+        <span class="n">TileName</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;BAND1_FILE_NAME&quot;</span><span class="p">)</span>
+        <span class="n">year</span>        <span class="o">=</span> <span class="n">TileName</span><span class="p">[</span><span class="mi">13</span><span class="p">:</span><span class="mi">17</span><span class="p">]</span>
+        <span class="n">jday</span>        <span class="o">=</span> <span class="n">TileName</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+        <span class="n">date</span>        <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;ACQUISITION_DATE&quot;</span><span class="p">)</span>
+
+    <span class="c">#the spacecraft from which the imagery was capture is identified</span>
+    <span class="c">#this info determines the solar exoatmospheric irradiance (ESun) for each band</span>
+    <span class="n">spacecraft</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;SPACECRAFT_ID&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s">&quot;7&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span><span class="p">:</span>
+        <span class="n">ESun</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1969.0</span><span class="p">,</span> <span class="mf">1840.0</span><span class="p">,</span> <span class="mf">1551.0</span><span class="p">,</span> <span class="mf">1044.0</span><span class="p">,</span> <span class="mf">255.700</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">82.07</span><span class="p">,</span> <span class="mf">1368.00</span><span class="p">)</span>
+        <span class="n">TM_ETM_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">,</span><span class="s">&#39;4&#39;</span><span class="p">,</span><span class="s">&#39;5&#39;</span><span class="p">,</span><span class="s">&#39;7&#39;</span><span class="p">,</span><span class="s">&#39;8&#39;</span><span class="p">]</span>
+        
+    <span class="k">elif</span> <span class="s">&quot;5&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span><span class="p">:</span>
+        <span class="n">ESun</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1957.0</span><span class="p">,</span> <span class="mf">1826.0</span><span class="p">,</span> <span class="mf">1554.0</span><span class="p">,</span> <span class="mf">1036.0</span><span class="p">,</span> <span class="mf">215.0</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">80.67</span><span class="p">)</span>
+        <span class="n">TM_ETM_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">,</span><span class="s">&#39;4&#39;</span><span class="p">,</span><span class="s">&#39;5&#39;</span><span class="p">,</span><span class="s">&#39;7&#39;</span><span class="p">]</span>
+        
+    <span class="k">elif</span> <span class="s">&quot;4&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span><span class="p">:</span>
+        <span class="n">ESun</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1957.0</span><span class="p">,</span> <span class="mf">1825.0</span><span class="p">,</span> <span class="mf">1557.0</span><span class="p">,</span> <span class="mf">1033.0</span><span class="p">,</span> <span class="mf">214.9</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">,</span><span class="mf">80.72</span><span class="p">)</span>
+        <span class="n">TM_ETM_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">,</span><span class="s">&#39;4&#39;</span><span class="p">,</span><span class="s">&#39;5&#39;</span><span class="p">,</span><span class="s">&#39;7&#39;</span><span class="p">]</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">arcpy</span><span class="o">.</span><span class="n">AddError</span><span class="p">(</span><span class="s">&quot;This tool only works for Landsat 4, 5, or 7&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">ExecuteError</span><span class="p">()</span>
+
+    <span class="c">#Calculating values for each band</span>
+    <span class="k">for</span> <span class="n">band_num</span> <span class="ow">in</span> <span class="n">band_nums</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">band_num</span> <span class="ow">in</span> <span class="n">TM_ETM_bands</span><span class="p">:</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Processing Band {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+            <span class="n">pathname</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;MTL.txt&quot;</span><span class="p">,</span> <span class="s">&quot;B{0}.tif&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+            <span class="n">Oraster</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">Raster</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
+
+            <span class="n">null_raster</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">SetNull</span><span class="p">(</span><span class="n">Oraster</span><span class="p">,</span> <span class="n">Oraster</span><span class="p">,</span> <span class="s">&quot;VALUE = 0&quot;</span><span class="p">)</span>
+
+            <span class="c">#using the oldMeta/newMeta indixes to pull the min/max for radiance/Digital numbers</span>
+            <span class="k">if</span> <span class="n">Meta</span> <span class="o">==</span> <span class="s">&quot;newMeta&quot;</span><span class="p">:</span>
+                <span class="n">LMax</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;RADIANCE_MAXIMUM_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+                <span class="n">LMin</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;RADIANCE_MINIMUM_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>  
+                <span class="n">QCalMax</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;QUANTIZE_CAL_MAX_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+                <span class="n">QCalMin</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;QUANTIZE_CAL_MIN_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+                
+            <span class="k">elif</span> <span class="n">Meta</span> <span class="o">==</span> <span class="s">&quot;oldMeta&quot;</span><span class="p">:</span>
+                <span class="n">LMax</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;LMAX_BAND{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+                <span class="n">LMin</span>    <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;LMIN_BAND{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>  
+                <span class="n">QCalMax</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;QCALMAX_BAND{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+                <span class="n">QCalMin</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="s">&quot;QCALMIN_BAND{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+
+            <span class="n">Radraster</span> <span class="o">=</span> <span class="p">(((</span><span class="n">LMax</span> <span class="o">-</span> <span class="n">LMin</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">QCalMax</span><span class="o">-</span><span class="n">QCalMin</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">null_raster</span> <span class="o">-</span> <span class="n">QCalMin</span><span class="p">))</span> <span class="o">+</span> <span class="n">LMin</span>
+            <span class="n">Oraster</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">del</span> <span class="n">null_raster</span>
+
+            <span class="n">band_rad</span> <span class="o">=</span> <span class="s">&quot;{0}_B{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TileName</span><span class="p">,</span> <span class="n">band_num</span><span class="p">)</span>
+
+            <span class="c">#create the output name and save the TOA radiance tiff</span>
+            <span class="k">if</span> <span class="n">outdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">band_rad</span><span class="p">,</span> <span class="s">&quot;TOA_Rad&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">band_rad</span><span class="p">,</span> <span class="s">&quot;TOA_Rad&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+                
+            <span class="n">Radraster</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+            <span class="n">output_filelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+            
+            <span class="k">del</span> <span class="n">Radraster</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;toa radiance saved for Band {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+
+        <span class="c">#if listed band is not a TM/ETM+ sensor band, skip it and print message</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Can only perform reflectance conversion on TM/ETM+ sensor bands&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Skipping band {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+         
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">output_filelist</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

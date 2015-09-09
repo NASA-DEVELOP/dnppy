@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>convert &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="core" href="core.html"/>
+        <link rel="prev" title="Exploring the modules" href="../modulesum.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>convert</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/convert.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.convert">
+<span id="convert"></span><h1>convert<a class="headerlink" href="#module-dnppy.convert" title="Permalink to this headline">¶</a></h1>
+<p>dnppy convert contains functions for conversion between filetypes. Usually between
+a file type distributed by a NASA Distributed Active Archive Center (DAAC) such as
+NetCDF or HDF5 to geotiff. Due to differences in metadata standards, many of these
+functions only operate successfully data from a specific source.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>no examples yet!</p>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.convert.datatype_library"></span><dl class="function">
+<dt id="dnppy.convert.datatype_library.datatype_library">
+<code class="descname">datatype_library</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/datatype_library.html#datatype_library"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.datatype_library.datatype_library" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function builds the datatype_library dict out of file datatype_library.csv
+and returns it. Adding to this datatype library should be done by editing
+the csv file, not this code. Note that the standard format for names is
+<code class="docutils literal"><span class="pre">&lt;product</span> <span class="pre">short</span> <span class="pre">name&gt;_&lt;resolution</span> <span class="pre">identifier&gt;_&lt;coverage</span> <span class="pre">area&gt;</span></code>, such as
+&#8220;TRMM_1.0_GLOBAL&#8221;, or &#8220;GPM_IMERG_0.1_GLOBAL&#8221;.</p>
+<p>Geotransform math used to create the array [A, B, C, D, E, F]</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="n">iB</span> <span class="o">+</span> <span class="n">jC</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">D</span> <span class="o">+</span> <span class="n">iE</span> <span class="o">+</span> <span class="n">jF</span>
+</pre></div>
+</div>
+<p>Where x,y are real spatial coordinates, and i,j are matrix indices.
+A, B, C, D, E, F and are coefficients that make up the geotransformation array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return datatype_library_dict:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">A dictionary</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="dnppy.convert.datatype_library.datatype">
+<em class="property">class </em><code class="descname">datatype</code><span class="sig-paren">(</span><em>name=None</em>, <em>projectionID=None</em>, <em>geotransform=None</em>, <em>projectionTXT=None</em>, <em>downloadSource=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/datatype_library.html#datatype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.datatype_library.datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>simple class for dnppy supported download and convert
+NASA/NOAA/WeatherService/USGS data types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; the product name (descriptive string)</li>
+<li><strong>projectionID</strong> &#8211; (str) projection ID according to spatialreference.org</li>
+<li><strong>geotransform</strong> &#8211; (list of floats) geotransform array, list of 6 float
+values in  the gdal ordering.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_archive"></span><dl class="function">
+<dt id="dnppy.convert.extract_archive.extract_archive">
+<code class="descname">extract_archive</code><span class="sig-paren">(</span><em>filepaths</em>, <em>delete_originals=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_archive.html#extract_archive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_archive.extract_archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input list of filepaths OR a directory path with compressed
+files in it. Attempts to decompress the following formats</p>
+<p>Support formats include <code class="docutils literal"><span class="pre">.tar.gz</span></code>, <code class="docutils literal"><span class="pre">.tar</span></code>, <code class="docutils literal"><span class="pre">.gz</span></code>, <code class="docutils literal"><span class="pre">.zip</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filepaths</strong> &#8211; list of filepaths to archives for extraction</li>
+<li><strong>delete_originals</strong> &#8211; Set to &#8220;True&#8221; if archives may be deleted after
+their contents is successful extracted.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_GCMO_NetCDF"></span><dl class="function">
+<dt id="dnppy.convert.extract_GCMO_NetCDF.extract_GCMO_NetCDF">
+<code class="descname">extract_GCMO_NetCDF</code><span class="sig-paren">(</span><em>netcdf_list</em>, <em>variable</em>, <em>outdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_GCMO_NetCDF.html#extract_GCMO_NetCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_GCMO_NetCDF.extract_GCMO_NetCDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all time layers from a &#8220;Global Climate Model Output&#8221; NetCDF layer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>netcdf_list</strong> &#8211; List of netcdfs from CORDEX climate distribution</li>
+<li><strong>variable</strong> &#8211; The climate variable of interest (tsmax, tsmin, etc)</li>
+<li><strong>outdir</strong> &#8211; Output directory to save files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns list of files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_GPM_IMERG"></span><dl class="function">
+<dt id="dnppy.convert.extract_GPM_IMERG.extract_GPM_IMERG">
+<code class="descname">extract_GPM_IMERG</code><span class="sig-paren">(</span><em>hdf_list</em>, <em>layer_indexs</em>, <em>outdir=None</em>, <em>resolution='0.1'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_GPM_IMERG.html#extract_GPM_IMERG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_GPM_IMERG.extract_GPM_IMERG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts GPM_IMERG data from its HDF5 format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hdf_list</strong> &#8211; list of hdf files or directory with hdfs</li>
+<li><strong>layer_indexs</strong> &#8211; list of integer layer indexs</li>
+<li><strong>outdir</strong> &#8211; directory to place outputs</li>
+<li><strong>resolution</strong> &#8211; The size of a pixel in degrees, either
+&#8220;0.1&#8221; or &#8220;0.15&#8221; depending on GPM product.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list of all files created as output</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Typical contents of a GPM HDF are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="19%" />
+<col width="54%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ID</th>
+<th class="head">layer shape</th>
+<th class="head">Layer name</th>
+<th class="head">data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>[3600x1800]</td>
+<td>HQobservationTime</td>
+<td>(16-bit int)</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>[3600x1800]</td>
+<td>HQprecipSource</td>
+<td>(16-bit int)</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>[3600x1800]</td>
+<td>HQprecipitation</td>
+<td>(32-bit float)</td>
+</tr>
+<tr class="row-odd"><td>3</td>
+<td>[3600x1800]</td>
+<td>IRkalmanFilterWeight</td>
+<td>(16-bit int)</td>
+</tr>
+<tr class="row-even"><td>4</td>
+<td>[3600x1800]</td>
+<td>IRprecipitation</td>
+<td>(32-bit float)</td>
+</tr>
+<tr class="row-odd"><td>5</td>
+<td>[3600x1800]</td>
+<td>precipitationCal</td>
+<td>(32-bit float)</td>
+</tr>
+<tr class="row-even"><td>6</td>
+<td>[3600x1800]</td>
+<td>precipitationUncal</td>
+<td>(32-bit float)</td>
+</tr>
+<tr class="row-odd"><td>7</td>
+<td>[3600x1800]</td>
+<td>probabilityLiquidPrecipitation</td>
+<td>(16-bit int)</td>
+</tr>
+<tr class="row-even"><td>8</td>
+<td>[3600x1800]</td>
+<td>randomError</td>
+<td>(32-bit float)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_GRACE_DA_binary"></span><dl class="function">
+<dt id="dnppy.convert.extract_GRACE_DA_binary.extract_GRACE_DA_binary">
+<code class="descname">extract_GRACE_DA_binary</code><span class="sig-paren">(</span><em>folder</em>, <em>outdir=False</em>, <em>npy_file=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_GRACE_DA_binary.html#extract_GRACE_DA_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_GRACE_DA_binary.extract_GRACE_DA_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will convert a folder of GRACE Data Assimilation product binary files into individual tiffs
+or a single three-dimensional NumPy array. The input folder should contain only the binary files.</p>
+<p>For more information on GRACE Data Assimilation products, visit
+[<a class="reference external" href="http://drought.unl.edu/MonitoringTools/NASAGRACEDataAssimilation.aspx">http://drought.unl.edu/MonitoringTools/NASAGRACEDataAssimilation.aspx</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>folder</strong> &#8211; the full path to the folder containing the binary files to be converted</li>
+<li><strong>outdir</strong> &#8211; Optional full path to the desired output folder. if left False by default,
+the output file(s) will be place in the input folder</li>
+<li><strong>npy_file</strong> &#8211; Option to save the data as a 3-dimensional NumPy array file instead
+of tiffs enter True to convert data to a single .npy file. if left False by
+default, each binary file will be converted to tiff format instead</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return outlist:</th><td class="field-body"><p class="first last">returns list of files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_MPE_NetCDF"></span><dl class="function">
+<dt id="dnppy.convert.extract_MPE_NetCDF.extract_MPE_NetCDF">
+<code class="descname">extract_MPE_NetCDF</code><span class="sig-paren">(</span><em>netcdf_list</em>, <em>layer_indexs</em>, <em>outdir</em>, <em>area</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_MPE_NetCDF.html#extract_MPE_NetCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_MPE_NetCDF.extract_MPE_NetCDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>extracts SMOS data from its native NetCDF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>netcdf_list</strong> &#8211; list of hdf files or directory with netcdfs</li>
+<li><strong>layer_indexs</strong> &#8211; list of integer layer indices</li>
+<li><strong>outdir</strong> &#8211; directory to place outputs</li>
+<li><strong>area</strong> &#8211; presently only supports &#8220;CONUS&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of all files created as output</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_SMOS_NetCDF"></span><dl class="function">
+<dt id="dnppy.convert.extract_SMOS_NetCDF.extract_SMOS_NetCDF">
+<code class="descname">extract_SMOS_NetCDF</code><span class="sig-paren">(</span><em>netcdf_list</em>, <em>layer_indexs</em>, <em>outdir</em>, <em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_SMOS_NetCDF.html#extract_SMOS_NetCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_SMOS_NetCDF.extract_SMOS_NetCDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts SMOS data from its native NetCDF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>netcdf_list</strong> &#8211; list of hdf files or directory with netcdfs</li>
+<li><strong>layer_indexs</strong> &#8211; list of integer layer indices</li>
+<li><strong>outdir</strong> &#8211; directory to place outputs</li>
+<li><strong>resolution</strong> &#8211; Presently ONLY supports input of &#8220;25k&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list of all files created as output</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_TRMM_HDF"></span><dl class="function">
+<dt id="dnppy.convert.extract_TRMM_HDF.extract_TRMM_HDF">
+<code class="descname">extract_TRMM_HDF</code><span class="sig-paren">(</span><em>hdf_list</em>, <em>layer_indexs</em>, <em>outdir</em>, <em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_TRMM_HDF.html#extract_TRMM_HDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_TRMM_HDF.extract_TRMM_HDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts TRMM products from HDF to tif.
+<a class="reference external" href="http://pmm.nasa.gov/data-access/data-products">http://pmm.nasa.gov/data-access/data-products</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hdf_list</strong> &#8211; list of hdf files or directory with hdfs</li>
+<li><strong>layer_indexs</strong> &#8211; list of integer layer indexs</li>
+<li><strong>outdir</strong> &#8211; directory to place outputs</li>
+<li><strong>resolution</strong> &#8211; The size of a pixel in degrees, either
+&#8220;0.25&#8221;, &#8220;0.5&#8221;, &#8220;1.0&#8221;, &#8220;5.0&#8221; depending on
+the specific TRMM product you are extracting.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a list of all files created as output</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.extract_TRMM_NetCDF"></span><dl class="function">
+<dt id="dnppy.convert.extract_TRMM_NetCDF.TRMM_NetCDF">
+<code class="descname">TRMM_NetCDF</code><span class="sig-paren">(</span><em>filelist</em>, <em>outdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/extract_TRMM_NetCDF.html#TRMM_NetCDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.extract_TRMM_NetCDF.TRMM_NetCDF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function converts NetCDFs to tiffs. Designed to work with TRMM data
+downloaded from GLOVIS</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filelist</strong> &#8211; list of &#8216;.nc&#8217; files to convert to tifs.</li>
+<li><strong>outdir</strong> &#8211; directory to which tif files should be saved</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of local filepaths of extracted data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.HDF5_to_numpy"></span><dl class="function">
+<dt id="dnppy.convert.HDF5_to_numpy.HDF5_to_numpy">
+<code class="descname">HDF5_to_numpy</code><span class="sig-paren">(</span><em>hdfpath</em>, <em>layers=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/HDF5_to_numpy.html#HDF5_to_numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.HDF5_to_numpy.HDF5_to_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOTE: This is functionally identical to <code class="docutils literal"><span class="pre">_extract_HDF_layer_data</span></code>, but employs
+an h5py based approach instead of gdal. It is experimental, and not yet used
+anywhere.</p>
+<p>Extracts one or more layers from an HDF5 file and returns a dict of numpy arrays</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>hdfpath</strong> &#8211; Filepath to an HDF5 file</li>
+<li><strong>layers</strong> &#8211; A list of integer values or layer names to extract
+leave &#8220;None&#8221; to return numpy arrays for ALL layers</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return layer_dict:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Dict with band names as keys and numpy arrays as values</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.ll_to_utm"></span><dl class="function">
+<dt id="dnppy.convert.ll_to_utm.ll_to_utm">
+<code class="descname">ll_to_utm</code><span class="sig-paren">(</span><em>lat</em>, <em>lon</em>, <em>utm_zone</em>, <em>hemisphere</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/ll_to_utm.html#ll_to_utm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.ll_to_utm.ll_to_utm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function converts lat/lon to UTM zone coordinates. Equations from USGS
+bulletin 1532. East and North are positive, South and West are negative.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lat</strong> &#8211; latitude value in degrees (East is positive)</li>
+<li><strong>lon</strong> &#8211; longitude value in degrees (North is positive)</li>
+<li><strong>utm_zone</strong> &#8211; UTM zone number as an integer, without the &#8220;S&#8221; or &#8220;N&#8221;</li>
+<li><strong>hemisphere</strong> &#8211; hemisphere for UTM zone, either &#8220;S&#8221;, or &#8220;N&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">UTM_easting, UTM_northing</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert.nongrid_data"></span><dl class="class">
+<dt id="dnppy.convert.nongrid_data.nongrid_data">
+<em class="property">class </em><code class="descname">nongrid_data</code><span class="sig-paren">(</span><em>lat</em>, <em>lon</em>, <em>data</em>, <em>hemisphere</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/nongrid_data.html#nongrid_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.nongrid_data.nongrid_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class houses non-gridded datasets. Its methods can be used
+to build a gridded dataset from a non gridded dataset or point data.
+It takes three array/matrix like inputs, lat, lon, and data values.
+These matrix like inputs are then processed into 1d-arrays with two
+sorting schemes.</p>
+<p>The three arrays are represented as (lat_array, lon_array, data_array)</p>
+<p>where each array is of equal shape, and the value of each row
+corresponds to the values in the same row of the other arrays.
+these arrays are then converted to UTM coordinates and sorted
+by the utm_x coordinate.</p>
+<p>This sorting is done to optimize processing time when building
+a gridded dataset from what is effectively assumed to be point data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>lat</strong> &#8211; matrix of values representing latitude</li>
+<li><strong>lon</strong> &#8211; matrix of values representing longitude</li>
+<li><strong>data</strong> &#8211; matrix of values containing spatial data</li>
+<li><strong>hemisphere</strong> &#8211; either &#8220;N&#8221; or &#8220;S&#8221;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dnppy.convert.nongrid_data.nongrid_data._sample_by_location">
+<code class="descname">_sample_by_location</code><span class="sig-paren">(</span><em>utmx_matrix</em>, <em>utmy_matrix</em>, <em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/nongrid_data.html#nongrid_data._sample_by_location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.nongrid_data.nongrid_data._sample_by_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>performs grid interpolation for a smaller subset of the total dataset.
+utmx_matrix and utmy_matrix are the two components of a meshgrid</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dnppy.convert.nongrid_data.nongrid_data.distance_lat_lon">
+<em class="property">static </em><code class="descname">distance_lat_lon</code><span class="sig-paren">(</span><em>lat0</em>, <em>lon0</em>, <em>lat1</em>, <em>lon1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/nongrid_data.html#nongrid_data.distance_lat_lon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.nongrid_data.nongrid_data.distance_lat_lon" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the distance between two lat/lon coordinates in meters
+using the Haversine formula.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dnppy.convert.nongrid_data.nongrid_data.distance_x_y">
+<em class="property">static </em><code class="descname">distance_x_y</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/nongrid_data.html#nongrid_data.distance_x_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.nongrid_data.nongrid_data.distance_x_y" title="Permalink to this definition">¶</a></dt>
+<dd><p>computes the approx distance between two utmx, utmy locations</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.convert.nongrid_data.nongrid_data.sample_by_grid">
+<code class="descname">sample_by_grid</code><span class="sig-paren">(</span><em>resolution</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/convert/nongrid_data.html#nongrid_data.sample_by_grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.convert.nongrid_data.nongrid_data.sample_by_grid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grids a dataset to the desired resolution in a UTM projection. input
+resolution is the length of one square pixel on a side in meters.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dnppy.convert._convert_dtype"></span><span class="target" id="module-dnppy.convert._extract_HDF_datatype"></span><span class="target" id="module-dnppy.convert._extract_HDF_layer_data"></span><span class="target" id="module-dnppy.convert._extract_NetCDF_datatype"></span><span class="target" id="module-dnppy.convert._extract_NetCDF_layer_data"></span><span class="target" id="module-dnppy.convert._gdal_dataset_to_tif"></span></div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="core.html" class="btn btn-neutral float-right" title="core">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../modulesum.html" class="btn btn-neutral" title="Exploring the modules"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.convert.nongrid_data &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.convert.nongrid_data</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.convert.nongrid_data</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;jwely&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;nongrid_data&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">ll_to_utm</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<div class="viewcode-block" id="nongrid_data"><a class="viewcode-back" href="../../../modules/convert.html#dnppy.convert.nongrid_data.nongrid_data">[docs]</a><span class="k">class</span> <span class="nc">nongrid_data</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class houses non-gridded datasets. Its methods can be used</span>
+<span class="sd">    to build a gridded dataset from a non gridded dataset or point data.</span>
+<span class="sd">    It takes three array/matrix like inputs, lat, lon, and data values.</span>
+<span class="sd">    These matrix like inputs are then processed into 1d-arrays with two</span>
+<span class="sd">    sorting schemes.</span>
+
+<span class="sd">    The three arrays are represented as (lat_array, lon_array, data_array)</span>
+
+<span class="sd">    where each array is of equal shape, and the value of each row</span>
+<span class="sd">    corresponds to the values in the same row of the other arrays.</span>
+<span class="sd">    these arrays are then converted to UTM coordinates and sorted</span>
+<span class="sd">    by the utm_x coordinate.</span>
+
+<span class="sd">    This sorting is done to optimize processing time when building</span>
+<span class="sd">    a gridded dataset from what is effectively assumed to be point data.</span>
+
+<span class="sd">    :param lat:          matrix of values representing latitude</span>
+<span class="sd">    :param lon:          matrix of values representing longitude</span>
+<span class="sd">    :param data:         matrix of values containing spatial data</span>
+<span class="sd">    :param hemisphere:   either &quot;N&quot; or &quot;S&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">hemisphere</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        each lat, lon and data input can be numpy arrays of any</span>
+<span class="sd">        size, as long as all three inputs are identical shapes.</span>
+<span class="sd">        please use inputs of &quot;degree&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading non-gridded dataset&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hemisphere</span> <span class="o">=</span> <span class="n">hemisphere</span>
+
+        <span class="c"># one dimensionalizes the inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">data</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;inputs are not the same dimensions!&quot;</span><span class="p">)</span>
+
+        <span class="c"># get bounding box info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_lat</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_lat</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_lon</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_lon</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span>
+
+        <span class="c"># determine the UTM zone of the center point of this data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mid_lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lon</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_lon</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mid_lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lat</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_lat</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">utm_zone</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(((</span><span class="bp">self</span><span class="o">.</span><span class="n">mid_lon</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="mi">6</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c"># converts lat lon points to utmx and utmy points</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Converting to UTM coordinates&quot;</span><span class="p">)</span>
+        <span class="n">utmx</span><span class="p">,</span> <span class="n">utmy</span> <span class="o">=</span> <span class="n">ll_to_utm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">utm_zone</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hemisphere</span><span class="p">)</span>
+
+        <span class="c"># sorts the data (transformed into utm space) by utmx</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">utmx</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">utmx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">utmy</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">utmx</span><span class="p">,</span> <span class="n">utmy</span><span class="p">))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">utmx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))]</span>
+
+        <span class="c"># find min and maximum utm coordinates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_utmx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_utmy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_utmx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_utmy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmy</span><span class="p">)</span>
+
+        <span class="c"># print a summary</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;location: UTM zone {0}{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utm_zone</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hemisphere</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;LL UTM coordinates: {0} , {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_utmx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_utmy</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;UR UTM coordinates: {0} , {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_utmx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_utmy</span><span class="p">))</span>
+
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="nongrid_data.distance_x_y"><a class="viewcode-back" href="../../../modules/convert.html#dnppy.convert.nongrid_data.nongrid_data.distance_x_y">[docs]</a>    <span class="k">def</span> <span class="nf">distance_x_y</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the approx distance between two utmx, utmy locations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">dist</span> <span class="o">=</span> <span class="p">(((</span><span class="n">x0</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">y0</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span>
+        <span class="k">return</span> <span class="n">dist</span>
+
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="nongrid_data.distance_lat_lon"><a class="viewcode-back" href="../../../modules/convert.html#dnppy.convert.nongrid_data.nongrid_data.distance_lat_lon">[docs]</a>    <span class="k">def</span> <span class="nf">distance_lat_lon</span><span class="p">(</span><span class="n">lat0</span><span class="p">,</span> <span class="n">lon0</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        computes the distance between two lat/lon coordinates in meters</span>
+<span class="sd">        using the Haversine formula.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># radius of earth in meters</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="mi">6371000</span>
+
+        <span class="c"># convert degree values to radians.</span>
+        <span class="n">lat0</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat0</span><span class="p">)</span>
+        <span class="n">lon0</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon0</span><span class="p">)</span>
+        <span class="n">lat1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
+        <span class="n">lon1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">lon1</span><span class="p">)</span>
+
+        <span class="n">del_lat</span> <span class="o">=</span> <span class="n">lat1</span> <span class="o">-</span> <span class="n">lat0</span>
+        <span class="n">del_lon</span> <span class="o">=</span> <span class="n">lon1</span> <span class="o">-</span> <span class="n">lon0</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">del_lat</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat0</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">del_lon</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="n">c</span>
+
+        <span class="k">return</span> <span class="n">dist</span>
+
+</div>
+<div class="viewcode-block" id="nongrid_data._sample_by_location"><a class="viewcode-back" href="../../../modules/convert.html#dnppy.convert.nongrid_data.nongrid_data._sample_by_location">[docs]</a>    <span class="k">def</span> <span class="nf">_sample_by_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">utmx_matrix</span><span class="p">,</span> <span class="n">utmy_matrix</span><span class="p">,</span> <span class="n">resolution</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        performs grid interpolation for a smaller subset of the total dataset.</span>
+<span class="sd">        utmx_matrix and utmy_matrix are the two components of a meshgrid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># establish a sample distance</span>
+        <span class="n">samp_dist</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">resolution</span><span class="p">)</span>
+
+        <span class="c"># sort out data that is too far from input grid points</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> Subsetting samples...&quot;</span><span class="p">)</span>
+        <span class="n">lowx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">utmx_matrix</span><span class="p">)</span> <span class="o">-</span> <span class="n">samp_dist</span>
+        <span class="n">highx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">utmx_matrix</span><span class="p">)</span> <span class="o">+</span> <span class="n">samp_dist</span>
+
+        <span class="n">lowy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">utmy_matrix</span><span class="p">)</span> <span class="o">-</span> <span class="n">samp_dist</span>
+        <span class="n">highy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">utmy_matrix</span><span class="p">)</span> <span class="o">+</span> <span class="n">samp_dist</span>
+
+        <span class="c"># remove low x points</span>
+        <span class="n">lowxmask</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmx</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">lowx</span><span class="p">)</span>
+        <span class="n">subutmx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmx</span><span class="p">)[</span><span class="n">lowxmask</span><span class="p">]</span>
+        <span class="n">subutmy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">utmy</span><span class="p">)[</span><span class="n">lowxmask</span><span class="p">]</span>
+        <span class="n">subdata</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)[</span><span class="n">lowxmask</span><span class="p">]</span>
+
+        <span class="c"># remove high x points</span>
+        <span class="n">highxmask</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">subutmx</span> <span class="o">&lt;</span> <span class="n">highx</span><span class="p">)</span>
+        <span class="n">subutmx</span> <span class="o">=</span> <span class="n">subutmx</span><span class="p">[</span><span class="n">highxmask</span><span class="p">]</span>
+        <span class="n">subutmy</span> <span class="o">=</span> <span class="n">subutmy</span><span class="p">[</span><span class="n">highxmask</span><span class="p">]</span>
+        <span class="n">subdata</span> <span class="o">=</span> <span class="n">subdata</span><span class="p">[</span><span class="n">highxmask</span><span class="p">]</span>
+
+        <span class="c"># remove low y points</span>
+        <span class="n">lowymask</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">subutmy</span> <span class="o">&gt;</span> <span class="n">lowy</span><span class="p">)</span>
+        <span class="n">subutmx</span> <span class="o">=</span> <span class="n">subutmx</span><span class="p">[</span><span class="n">lowymask</span><span class="p">]</span>
+        <span class="n">subutmy</span> <span class="o">=</span> <span class="n">subutmy</span><span class="p">[</span><span class="n">lowymask</span><span class="p">]</span>
+        <span class="n">subdata</span> <span class="o">=</span> <span class="n">subdata</span><span class="p">[</span><span class="n">lowymask</span><span class="p">]</span>
+
+        <span class="c"># remove high y points</span>
+        <span class="c">#highymask = numpy.where(subutmy &lt; highy)</span>
+        <span class="c">#subutmx = subutmx[highymask]</span>
+        <span class="c">#subutmy = subutmy[highymask]</span>
+        <span class="c">#subdata = subdata[highymask]</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s"> Performing interpolation across {1} grid with {0} points...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                            <span class="nb">len</span><span class="p">(</span><span class="n">subdata</span><span class="p">),</span> <span class="n">utmx_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="c"># create single point meshgrid and interpolate its value from nearby points</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="p">(</span><span class="n">subutmx</span><span class="p">,</span> <span class="n">subutmy</span><span class="p">)</span>
+        <span class="n">meshgrid</span> <span class="o">=</span> <span class="p">(</span><span class="n">utmx_matrix</span><span class="p">,</span> <span class="n">utmy_matrix</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">location_data_value</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">subdata</span><span class="p">,</span> <span class="n">meshgrid</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s">&quot;cubic&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">location_data_value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">utmx_matrix</span> <span class="o">*</span> <span class="mi">0</span>
+
+
+</div>
+<div class="viewcode-block" id="nongrid_data.sample_by_grid"><a class="viewcode-back" href="../../../modules/convert.html#dnppy.convert.nongrid_data.nongrid_data.sample_by_grid">[docs]</a>    <span class="k">def</span> <span class="nf">sample_by_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resolution</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Grids a dataset to the desired resolution in a UTM projection. input</span>
+<span class="sd">        resolution is the length of one square pixel on a side in meters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># build range arrays</span>
+        <span class="n">x_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_utmx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_utmx</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
+        <span class="n">y_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_utmy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_utmy</span><span class="p">,</span> <span class="n">resolution</span><span class="p">))</span>
+
+        <span class="c"># build meshgrid</span>
+        <span class="n">x_mesh</span><span class="p">,</span> <span class="n">y_mesh</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">min_utmx</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">max_utmx</span><span class="p">:</span><span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_range</span><span class="p">)),</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">min_utmy</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">max_utmy</span><span class="p">:</span><span class="nb">complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">y_range</span><span class="p">))]</span>
+
+        <span class="n">outgrid</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x_range</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_range</span><span class="p">)))</span>
+
+        <span class="c"># divide into equal number of slices and chunks</span>
+        <span class="n">num_slices</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(((</span><span class="nb">len</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_range</span><span class="p">))</span> <span class="o">/</span> <span class="mi">800000</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">))</span>
+        <span class="n">slice_width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_slices</span><span class="p">)</span>
+
+        <span class="n">num_chunks</span> <span class="o">=</span> <span class="n">num_slices</span>
+        <span class="n">chunk_height</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_range</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">)</span>
+
+        <span class="c"># perform griding for one slice of the output grid at a time.</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Dividing dataset into {0} pieces and griding to a matrix of size {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                                                        <span class="n">num_slices</span> <span class="o">*</span> <span class="n">num_chunks</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">aslice</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_slices</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">):</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;processing chunk {0},{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aslice</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">chunk</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+                <span class="n">chunkrange</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">chunk</span> <span class="o">*</span> <span class="n">chunk_height</span><span class="p">),</span><span class="nb">int</span><span class="p">((</span><span class="n">chunk</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">chunk_height</span><span class="p">))</span>
+                <span class="n">slicerange</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">aslice</span> <span class="o">*</span> <span class="n">slice_width</span><span class="p">),</span><span class="nb">int</span><span class="p">((</span><span class="n">aslice</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">slice_width</span><span class="p">))</span>
+                <span class="n">slice_x_mesh</span> <span class="o">=</span> <span class="n">x_mesh</span><span class="p">[</span><span class="n">chunkrange</span><span class="p">,</span> <span class="n">slicerange</span><span class="p">]</span>
+                <span class="n">slice_y_mesh</span> <span class="o">=</span> <span class="n">y_mesh</span><span class="p">[</span><span class="n">chunkrange</span><span class="p">,</span> <span class="n">slicerange</span><span class="p">]</span>
+
+                <span class="n">outslice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_by_location</span><span class="p">(</span><span class="n">slice_x_mesh</span><span class="p">,</span> <span class="n">slice_y_mesh</span><span class="p">,</span> <span class="n">resolution</span><span class="p">)</span>
+                <span class="n">outgrid</span><span class="p">[</span><span class="n">chunkrange</span><span class="p">,</span> <span class="n">slicerange</span><span class="p">]</span> <span class="o">=</span> <span class="n">outslice</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;100%&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">outgrid</span>
+
+
+<span class="c"># testing area</span></div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">_extract_HDF_layer_data</span> <span class="kn">import</span> <span class="o">*</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">rasterpath</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\troubleshooting\HDF_tests\GDNBO-SVDNB_npp_d20150626_t0132557_e0138361_b18964_c20150626174428799822_noaa_ops.h5&quot;</span>
+    <span class="n">layer_data</span> <span class="o">=</span> <span class="n">_extract_HDF_layer_data</span><span class="p">(</span><span class="n">rasterpath</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">19</span><span class="p">])</span>
+
+    <span class="n">ngd</span> <span class="o">=</span> <span class="n">nongrid_data</span><span class="p">(</span><span class="n">layer_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">(),</span>
+                        <span class="n">layer_data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">(),</span>
+                        <span class="n">layer_data</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span><span class="o">.</span><span class="n">ReadAsArray</span><span class="p">(),</span> <span class="s">&quot;S&quot;</span><span class="p">)</span>
+
+    <span class="n">ngd</span><span class="o">.</span><span class="n">sample_by_grid</span><span class="p">(</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.raster.gap_fill_interpolate &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.raster.gap_fill_interpolate</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.raster.gap_fill_interpolate</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;jwely&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;gap_fill_interpolate&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">to_numpy</span> <span class="kn">import</span> <span class="n">to_numpy</span>
+<span class="kn">from</span> <span class="nn">is_rast</span> <span class="kn">import</span> <span class="n">is_rast</span>
+<span class="kn">import</span> <span class="nn">arcpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">def</span> <span class="nf">gap_fill_interpolate</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">,</span> <span class="n">out_rasterpath</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="gap_fill_interpolate"><a class="viewcode-back" href="../../../modules/raster.html#dnppy.raster.gap_fill_interpolate.gap_fill_interpolate">[docs]</a>                         <span class="n">max_cell_dist</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">min_points</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fills gaps in raster data by spatial kriging interpolation. This should only</span>
+<span class="sd">    be used to fill small gaps in continuous datasets (like a DEM), and in</span>
+<span class="sd">    instances where it makes sense. This function creates a feature class</span>
+<span class="sd">    layer of points where pixels are not NoData, then performs a &quot;kriging&quot;</span>
+<span class="sd">    interpolation on the point data to rebuild a uniform grid with a value</span>
+<span class="sd">    at every location, thus filling gaps.</span>
+
+<span class="sd">    WARNING: This script is processing intensive and may take a while to run</span>
+<span class="sd">    even for modestly sized datasets.</span>
+
+<span class="sd">    :param in_rasterpath:   input filepath to raster to fill gaps</span>
+<span class="sd">    :param out_rasterpath:  filepath to store output gap filled raster in</span>
+<span class="sd">    :param model:           type of kriging model to run, options include</span>
+<span class="sd">                            &quot;SPHERICAL&quot;, &quot;CIRCULAR&quot;, &quot;EXPONENTIAL&quot;,</span>
+<span class="sd">                            &quot;GAUSSIAN&quot;, and &quot;LINEAR&quot;</span>
+<span class="sd">    :param max_cell_dist:   The maximum number of cells to interpolate between,</span>
+<span class="sd">                            data gaps which do not have at least &quot;min_points&quot;</span>
+<span class="sd">                            points within this distance will not be filled.</span>
+<span class="sd">    :param min_points:      Minimum number of surrounding points to use in determining</span>
+<span class="sd">                            value at missing cell.</span>
+
+<span class="sd">    :return out_rasterpath: Returns path to file created by this function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># check inputs</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_rast</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;input raster path {0} is invalid!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">max_cell_dist</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">max_cell_dist</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">if</span> <span class="n">min_points</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">min_points</span> <span class="o">=</span> <span class="mi">4</span>
+
+    <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="s">&quot;SPHERICAL&quot;</span>
+
+    <span class="c"># set environments</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">overwriteOutput</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">snapRaster</span> <span class="o">=</span> <span class="n">in_rasterpath</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">CheckOutExtension</span><span class="p">(</span><span class="s">&quot;Spatial&quot;</span><span class="p">)</span>
+
+
+    <span class="c"># make a point shapefile version of input raster</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Creating point grid from input raster&quot;</span><span class="p">)</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">)</span>
+    <span class="n">shp_path</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">tail</span><span class="p">,</span> <span class="s">&quot;shp&quot;</span><span class="p">,</span> <span class="s">&quot;shp&quot;</span><span class="p">)</span>
+    <span class="n">dbf_path</span> <span class="o">=</span> <span class="n">shp_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;.shp&quot;</span><span class="p">,</span><span class="s">&quot;.dbf&quot;</span><span class="p">)</span>
+    <span class="n">field</span> <span class="o">=</span> <span class="s">&quot;GRID_CODE&quot;</span>
+
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">RasterToPoint_conversion</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">,</span> <span class="n">shp_path</span><span class="p">,</span> <span class="s">&quot;VALUE&quot;</span><span class="p">)</span>
+
+    <span class="c"># find the bad rows who GRID_CODE is 1, these should be NoData</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finding points with NoData entries&quot;</span><span class="p">)</span>
+    <span class="n">bad_row_FIDs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">UpdateCursor</span><span class="p">(</span><span class="n">dbf_path</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="n">grid_code</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">grid_code</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">bad_row_FIDs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">FID</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">rows</span>
+
+    <span class="c"># go back through the list and perform the deletions</span>
+    <span class="n">numbad</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bad_row_FIDs</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Deleting {0} points with NoData values&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numbad</span><span class="p">))</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">UpdateCursor</span><span class="p">(</span><span class="n">dbf_path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">FID</span> <span class="ow">in</span> <span class="n">bad_row_FIDs</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">deleteRow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+    <span class="c"># set up the parameters for kriging</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Setting up for kriging&quot;</span><span class="p">)</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">in_rasterpath</span><span class="p">)</span>
+
+    <span class="n">model</span>       <span class="o">=</span> <span class="n">model</span>
+    <span class="n">cell_size</span>   <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">cellHeight</span>                           <span class="c"># from input raster</span>
+    <span class="n">lagSize</span>     <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">majorRange</span>  <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">partialSill</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">nugget</span>      <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">distance</span>    <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cell_size</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">max_cell_dist</span><span class="p">)</span>   <span class="c"># fn input</span>
+    <span class="n">min_points</span>  <span class="o">=</span> <span class="n">min_points</span>                                <span class="c"># fn input</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">KrigingModelOrdinary</span><span class="p">()</span>
+    <span class="n">kmodel</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">KrigingModelOrdinary</span><span class="p">(</span><span class="s">&quot;SPHERICAL&quot;</span><span class="p">,</span>
+                                           <span class="n">lagSize</span> <span class="o">=</span> <span class="n">lagSize</span><span class="p">,</span>
+                                           <span class="n">majorRange</span> <span class="o">=</span> <span class="n">majorRange</span><span class="p">,</span>
+                                           <span class="n">partialSill</span> <span class="o">=</span> <span class="n">partialSill</span><span class="p">,</span>
+                                           <span class="n">nugget</span> <span class="o">=</span> <span class="n">nugget</span><span class="p">)</span>
+
+    <span class="n">kradius</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">RadiusFixed</span><span class="p">(</span><span class="n">distance</span> <span class="o">=</span> <span class="n">distance</span><span class="p">,</span>
+                                   <span class="n">minNumberOfPoints</span> <span class="o">=</span> <span class="n">min_points</span><span class="p">)</span>
+
+    <span class="c"># execute kriging</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Performing interpolation by kriging, this may take a while!&quot;</span><span class="p">)</span>
+    <span class="n">outkriging</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Kriging</span><span class="p">(</span><span class="n">shp_path</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">kmodel</span><span class="p">,</span>
+                                  <span class="n">cell_size</span> <span class="o">=</span> <span class="n">cell_size</span><span class="p">,</span>
+                                  <span class="n">search_radius</span> <span class="o">=</span> <span class="n">kradius</span><span class="p">)</span>
+    <span class="n">outkriging</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">out_rasterpath</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out_rasterpath</span>
+
+
+<span class="c"># testing area</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span></div>
+
+    <span class="n">inraster</span>  <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\mosaic\test_mosaic_gaps.tif&quot;</span>
+    <span class="n">outraster</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\Team_Projects\2015_sumer_CO_water\LiDAR_Format_Trial\mosaic\test_mosaic_filled.tif&quot;</span>
+    <span class="n">gap_fill_interpolate</span><span class="p">(</span><span class="n">inraster</span><span class="p">,</span> <span class="n">outraster</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

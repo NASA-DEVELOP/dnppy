@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>modis &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="radar" href="radar.html"/>
+        <link rel="prev" title="landsat" href="landsat.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>modis</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/modis.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.modis">
+<span id="modis"></span><h1>modis<a class="headerlink" href="#module-dnppy.modis" title="Permalink to this headline">¶</a></h1>
+<p>Two satellites, Terra and Aqua, are home to a MODIS sensor, which has produced a large number
+of data products for over a full decade with minimal interruption. The modis module houses
+functions specifically related to processing and handling MODIS data, which includes handling
+of the MODIS sinusoidal projection, and mosaic operations.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">MODIS Extracting and mosaicing</p>
+<p>This example is written to be a type a follow on to the Fetching MODIS example on the <a class="reference internal" href="download.html"><em>download module page</em></a> so that users wishing to follow along precisely may easily get example data to work with. So lets assume we have a directory of some MODIS hdf files and you have had some time to fiddle with one or two in arcmap to know which layers you want, but you&#8217;d like to quickly extract all the same layers from your directory full of hdfs.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">modis</span>
+
+<span class="n">indir</span>  <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\test&quot;</span>      <span class="c"># input directory</span>
+<span class="n">layers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>                         <span class="c"># MOD11A1 fractional snow cover index</span>
+<span class="n">lnames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;FracSnowCover&quot;</span><span class="p">]</span>           <span class="c"># how we want to name this layer</span>
+<span class="n">tifdir</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\test_tifs&quot;</span> <span class="c"># directory to place output tifs.</span>
+
+<span class="n">modis</span><span class="o">.</span><span class="n">extract_from_hdf</span><span class="p">(</span><span class="n">indir</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">lnames</span><span class="p">,</span> <span class="n">tifdir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">indir</span></code> input could be a file list, but to allow simple batching, most functions in dnppy will accept a folder as an input and automatically generate a list of all files in that folder. If you want to exercise more control over which files are placed into the function, you can call the <code class="docutils literal"><span class="pre">core.list_files()</span></code> function yourself and filter it down. In this case though, we are ok with simply running the operation on the whole directory. The <code class="docutils literal"><span class="pre">layers</span></code> and <code class="docutils literal"><span class="pre">lnames</span></code> inputs will depend on the specific MODIS product you are using, and both may be lists in case you want to extract multiple layers. The <code class="docutils literal"><span class="pre">tifdir</span></code> input may also be left blank, in which case files will simply be saved in the same directory as the input hdfs.</p>
+<p>Next, we can mosaic very easily with</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mosaicdir</span>  <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\mosaics&quot;</span>  <span class="c"># directory to place MODIS mosaics</span>
+<span class="n">pixel_type</span> <span class="o">=</span> <span class="s">&quot;8_BIT_UNSIGNED&quot;</span>           <span class="c"># arcmap bitdepth to save rasters as</span>
+
+<span class="n">modis</span><span class="o">.</span><span class="n">mosaic</span><span class="p">(</span><span class="n">tifdir</span><span class="p">,</span> <span class="n">mosaicdir</span><span class="p">,</span> <span class="n">pixel_type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal"><span class="pre">tifdir</span></code> is used as the input directory, with the same value as in the previous code snippet. In this example, the MODIS data we are working with is only 8 bit unsigned integer data, so we manually specify this instead of allowing the default 32 bit float assignment, which will make the files unnecessarily large.</p>
+<p>And thats it! You will notice it prints a summary of the different types of MODIS data it found to mosaic, including tiles, years, days, products, and suffixes (such as those generated during extraction). The mosiac function has a lot more optional inputs that a user may wish to use, but consulting help(modis.mosaic) is the best way to get all those details.</p>
+<p>The <a class="reference internal" href="raster.html"><em>rast series example</em></a> will continue in the theme of this example MODIS dataset.</p>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.modis.modis_metadata"></span><dl class="class">
+<dt id="dnppy.modis.modis_metadata.modis_metadata">
+<em class="property">class </em><code class="descname">modis_metadata</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/modis/modis_metadata.html#modis_metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.modis.modis_metadata.modis_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates metadata object from MODIS filenames. these metadata objects
+help to interpret files with common MODIS naming conventions into meaningful
+metadata. In order for this to work, the begining of the filename must remain
+untouched from the original download name. In order to customize filenames, you should
+add only suffixes, usually separated by underscores.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; the filename or filepath to a MODIS named file.</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribute</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>product</td>
+<td>the modis product, such as MOD10A1 or MYD11A1</td>
+</tr>
+<tr class="row-odd"><td>datetime_obj</td>
+<td>a datetime object of tile date</td>
+</tr>
+<tr class="row-even"><td>year</td>
+<td>the year of the modis tile</td>
+</tr>
+<tr class="row-odd"><td>j_day</td>
+<td>the julian day of the modis tile</td>
+</tr>
+<tr class="row-even"><td>month</td>
+<td>the number of the month (ex 1)</td>
+</tr>
+<tr class="row-odd"><td>month_name</td>
+<td>the name of the month (ex January)</td>
+</tr>
+<tr class="row-even"><td>day</td>
+<td>the integer day of the month</td>
+</tr>
+<tr class="row-odd"><td>tile</td>
+<td>the modis tile, usually of format &#8220;h##v##&#8221;</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>always equal to &#8220;MODIS&#8221;</td>
+</tr>
+<tr class="row-odd"><td>version</td>
+<td>the algorithm version, always 3 digits, usually 005 or 041</td>
+</tr>
+<tr class="row-even"><td>tag</td>
+<td>processing tag (used by the DAACs)</td>
+</tr>
+<tr class="row-odd"><td>suffix</td>
+<td>additional file suffixes that are not part of standard naming convention</td>
+</tr>
+<tr class="row-even"><td>extension</td>
+<td>the file extension, such as &#8220;hdf&#8221;, &#8220;tif&#8221;, etc...</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.modis.define_projection"></span><dl class="function">
+<dt id="dnppy.modis.define_projection.define_projection">
+<code class="descname">define_projection</code><span class="sig-paren">(</span><em>file_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/modis/define_projection.html#define_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.modis.define_projection.define_projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give raster(s) proper MODIS sinusoidal projection metadata.
+Some MODIS data does not have an adequately defined projection
+for some software like arcmap to use</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_list</strong> &#8211; a list of one or more filepaths</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.modis.extract_from_hdf"></span><dl class="function">
+<dt id="dnppy.modis.extract_from_hdf.extract_from_hdf">
+<code class="descname">extract_from_hdf</code><span class="sig-paren">(</span><em>file_list</em>, <em>layer_list</em>, <em>layer_names=False</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/modis/extract_from_hdf.html#extract_from_hdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.modis.extract_from_hdf.extract_from_hdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts tifs from MODIS HDF files, ensures proper projection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_list</strong> &#8211; either a list of &#8216;.hdf&#8217; files from which data should be extracted,
+or a directory containing &#8216;.hdf&#8217;  files.</li>
+<li><strong>layer_list</strong> &#8211; list of layer numbers to pull out as individual tifs should be integers
+such as [0,4] for the 0th and 4th layer respectively.</li>
+<li><strong>layer_names</strong> &#8211; list of layer names to put more descriptive file suffixes to each layer</li>
+<li><strong>outdir</strong> &#8211; directory to which tif files should be saved
+if outdir is left as &#8216;None&#8217;, files are saved in the same directory as
+the input file was found.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns a list of all files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.modis.mosaic"></span><dl class="function">
+<dt id="dnppy.modis.mosaic.mosaic">
+<code class="descname">mosaic</code><span class="sig-paren">(</span><em>filelist</em>, <em>outdir=None</em>, <em>pixel_type=None</em>, <em>bands='1'</em>, <em>m_method='LAST'</em>, <em>m_colormap='FIRST'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/modis/mosaic.html#mosaic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.modis.mosaic.mosaic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Automatically identify appropriate MODIS files and mosaic them.</p>
+<p>This script will find and mosaic all MODIS tiles groups with different time names in a
+directory. It will automatically identify the date ranges in the MODIS filenames and
+iterate through the entire range while skipping dates for which there are not at least
+two tiles. Users should be mindful of file suffixes from previous processing.</p>
+<p>This script centers around the &#8216;arcpy.MosaicToNewRaster_management&#8217; tool
+[<a class="reference external" href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000">http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filelist</strong> &#8211; the directory containing MODIS data or a list of modis files.</li>
+<li><strong>pixel_type</strong> &#8211; exactly as the input for the MosaicToNewRaster_management tool.
+defaults to &#8220;32_BIT_FLOAT&#8221;</li>
+<li><strong>bands</strong> &#8211; exactly as the input for the MosaicToNewRaster_management tool.
+defaults to 1</li>
+<li><strong>m_method</strong> &#8211; exactly as the input for the MosaicToNewRaster_management tool.
+defaults to &#8220;LAST&#8221;</li>
+<li><strong>m_colormap</strong> &#8211; exactly as the input for the MosaicToNewRaster_management tool.
+defaults to &#8220;FIRST&#8221;</li>
+<li><strong>outdir</strong> &#8211; the directory to save output files to. If none is specified, a
+default directory will be created as &#8216;[indir]_Mosaicked&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns list of files created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="radar.html" class="btn btn-neutral float-right" title="radar">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="landsat.html" class="btn btn-neutral" title="landsat"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

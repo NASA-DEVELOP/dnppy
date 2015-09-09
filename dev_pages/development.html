@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Developers Starter &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="Future Development Goals" href="dev_goals.html"/>
+        <link rel="prev" title="tsa" href="../modules/tsa.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Developers Starter</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/dev_pages/development.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="developers-starter">
+<h1>Developers Starter<a class="headerlink" href="#developers-starter" title="Permalink to this headline">¶</a></h1>
+<p>Firstly, if you haven&#8217;t read through the entirety of the &#8220;Getting Started&#8221; sections, please do so before contributing to dnppy. Secondly, if you&#8217;re a burgeoning self taught programmer, head over to the <a class="reference internal" href="../trub/pythonstarter.html"><em>python quick start page</em></a> for some good primers.</p>
+<p>The way dnppy is developed is a little bit unique because it is so tightly integrated with the DEVELOP program. In the immediate future, the primary users will be internal to the DEVELOP program, though we expect this to change as dnppy matures. Future developers are likely to include a number of Geoinformatics Fellows who come in at an intermediate level of programming skill. These factors dictate a customized approach to further development of dnppy.</p>
+<div class="section" id="contributing-through-github">
+<h2>Contributing Through GitHub<a class="headerlink" href="#contributing-through-github" title="Permalink to this headline">¶</a></h2>
+<p>All contributions, bugs, issues, everything to do with <a class="reference external" href="https://github.com/NASA-DEVELOP/dnppy">dnppy</a> is managed through the <a class="reference external" href="https://github.com/NASA-DEVELOP">nasa-develop github</a>. There is a set of best practices to go along with it that warrants is own page on <a class="reference internal" href="contrib_git.html"><em>GitHub best practices</em></a></p>
+</div>
+<div class="section" id="integrated-development-environment">
+<h2>Integrated Development Environment<a class="headerlink" href="#integrated-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>There are a few recommendations that can be made to those working to enhance their programming skills and get deeper into development. One of those is to spend some time selecting, and getting comfortable with an Integrated Development Environment (IDE).</p>
+<p>We highly recommend users download <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> by JetBrains to work on sets of python code, but especially if working on dnppy. PyCharm gives the user tips and warnings when coding best practices are violated, which can encourage you to adopt more professional practice and learn things you didn&#8217;t even think to ask about! It also has powerful refactoring tools and great error catching on the fly to help you spend less time fixing small mistakes. Pycharm works well on both Windows and Linux.</p>
+</div>
+<div class="section" id="stylistic-coding-conventions">
+<h2>Stylistic Coding Conventions<a class="headerlink" href="#stylistic-coding-conventions" title="Permalink to this headline">¶</a></h2>
+<p>Stylistic conventions have no impact on a set of codes ability to run, but are arguably even more important than the technical capabilities of the code. Coding conventions make code more readable, easier to troubleshoot, easier to build upon, and more approachable by other programmers familiar with those conventions. Fortunately there exist some extremely common conventions, and in dnppy, we adhere to most of them, as listed below.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We are now using the <code class="docutils literal"><span class="pre">pep-0008</span></code> style guide as referenced <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">here</a> . See the link for a full
+list of conventions</p>
+</div>
+<p>Below is a list of general guidelines for style and consistency to keep everything as readable as possible.</p>
+<p class="rubric">Column Width</p>
+<p>Code should be no longer than 100 characters, in the case your statement goes <strong>over</strong>, use a
+new line or split your statement up.</p>
+<p class="rubric">String Literals</p>
+<p>String Literals are denoted with <code class="docutils literal"><span class="pre">&quot;&quot;</span></code> or <code class="docutils literal"><span class="pre">''</span></code>, docstrings should always be triple double quotes <code class="docutils literal"><span class="pre">&quot;&quot;&quot;</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span> <span class="o">=</span> <span class="s">&quot;I&#39;m a string!&quot;</span>
+<span class="n">var</span> <span class="o">=</span> <span class="s">&#39;I am also a string!&#39;</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Here is a docstring &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p class="rubric">Variables</p>
+<p>Variables should be lowercase and word separated with <code class="docutils literal"><span class="pre">_</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">another_var</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">more_words_than_previous_var</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p class="rubric">Functions</p>
+<p>The same format as Variables, lowercase with <code class="docutils literal"><span class="pre">_</span></code> separating words should be used.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+   <span class="c"># ...</span>
+<span class="k">def</span> <span class="nf">adheres_to_coding_convention_func</span><span class="p">():</span>
+   <span class="c"># ...</span>
+</pre></div>
+</div>
+<p class="rubric">Comments</p>
+<p>Simple comments should be placed to the right of the line when possible, or one comment should
+be placed above a segment shortly explaining it&#8217;s purpose</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="mi">2</span>         <span class="c"># calculate ___ and place in var</span>
+<span class="n">doFunc</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>                 <span class="c"># do some func with var param</span>
+<span class="k">if</span> <span class="n">var</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">var</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+  <span class="n">err</span><span class="p">()</span>                     <span class="c"># error is var does not match criteria</span>
+
+<span class="c"># does this and this and this</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">var</span> <span class="o">-</span> <span class="mi">5</span>
+<span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+  <span class="n">err</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This documentation website is generated using docstrings from source, so <strong>document</strong> as you
+code! The docstring markdown is reStructedText Primer and sphinx, when the doc chain is
+generated it will use these docstrings from the code for the webpage.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class description is placed here</span>
+
+<span class="sd">    :param &lt;name&gt;: description of param &#39;name&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="c"># do some stuff</span>
+
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Description of function here</span>
+
+<span class="sd">        :param int x: parameter x is an integer and does ....</span>
+<span class="sd">        :param int y: parameter y is an integer and does ....</span>
+<span class="sd">        :rtype: returns int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>The auto documentation tool chain will generate this as:</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Foo</code></dt>
+<dd><p>Class description is placed here</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; description of param &#8216;name&#8217;</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt>
+<code class="descname">foo</code><span class="sig-paren">(</span><em>self</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span></dt>
+<dd><p>Description of function here</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; parameter x is an integer and does...</li>
+<li><strong>y</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; parameter y is an integer and does...</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">returns int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<p>If you are developing in an existing file , the doc chain <em>should</em> find your new function/class
+automatically. In the case you are creating a new module, you&#8217;ll need to create a <code class="docutils literal"><span class="pre">.rst</span></code> file in the docs/source/modules folder to give a description of the module. You can refer to the existing .rst files for how to populate the docs.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dev_goals.html" class="btn btn-neutral float-right" title="Future Development Goals">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../modules/tsa.html" class="btn btn-neutral" title="tsa"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

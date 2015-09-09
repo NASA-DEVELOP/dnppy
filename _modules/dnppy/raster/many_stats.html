@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.raster.many_stats &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.raster.many_stats</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.raster.many_stats</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Jwely&quot;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;many_stats&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">enf_rastlist</span> <span class="kn">import</span> <span class="n">enf_rastlist</span>
+<span class="kn">from</span> <span class="nn">to_numpy</span> <span class="kn">import</span> <span class="n">to_numpy</span>
+<span class="kn">from</span> <span class="nn">from_numpy</span> <span class="kn">import</span> <span class="n">from_numpy</span>
+<span class="kn">from</span> <span class="nn">raster_fig</span> <span class="kn">import</span> <span class="n">raster_fig</span>
+
+<span class="c"># other imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c"># FIXME: this function has an outstanding bug report against it. check issues</span>
+
+<div class="viewcode-block" id="many_stats"><a class="viewcode-back" href="../../../modules/raster.html#dnppy.raster.many_stats.many_stats">[docs]</a><span class="k">def</span> <span class="nf">many_stats</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">saves</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">low_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="n">high_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">numtype</span> <span class="o">=</span> <span class="s">&#39;float32&#39;</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="o">-</span><span class="mi">9999</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Take statistics across many input rasters. This function is used to take</span>
+<span class="sd">    statistics on large groups of rasters with identical spatial extents.</span>
+
+<span class="sd">    :param rasterlist:      list of raster filepaths for which to take statistics</span>
+<span class="sd">    :param outdir:          directory where output should be stored.</span>
+<span class="sd">    :param outname:         output name filename string that will be used in output filenames</span>
+<span class="sd">    :param saves:           which statistics to save in a raster. Defaults to all</span>
+<span class="sd">                            three [&#39;AVG&#39;,&#39;NUM&#39;,&#39;STD&#39;].</span>
+<span class="sd">    :param low_thresh:      values below low_thresh are assumed erroneous and set to NoData</span>
+<span class="sd">    :param high_thresh:     values above high_thresh are assumed erroneous and set to NoData.</span>
+<span class="sd">    :param numtype:         type of numerical value. defaults to 32bit float.</span>
+
+<span class="sd">    This function does not return anything.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">saves</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">saves</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;AVG&#39;</span><span class="p">,</span><span class="s">&#39;NUM&#39;</span><span class="p">,</span><span class="s">&#39;STD&#39;</span><span class="p">,</span><span class="s">&#39;SUM&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">outdir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+    
+    <span class="n">rasterlist</span> <span class="o">=</span> <span class="n">enf_rastlist</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">)</span>
+
+    <span class="c"># build the empty numpy array based on size of first raster</span>
+    <span class="n">temp_rast</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span>              <span class="o">=</span> <span class="n">temp_rast</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">zs</span>                  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">)</span>
+    <span class="n">rast_3d</span>             <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">,</span><span class="n">zs</span><span class="p">))</span>
+
+    <span class="n">metadata</span><span class="o">.</span><span class="n">NoData_Value</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c"># open up the initial figure</span>
+    <span class="n">rastfig</span> <span class="o">=</span> <span class="n">raster_fig</span><span class="p">(</span><span class="n">temp_rast</span><span class="p">)</span>
+
+    <span class="c"># populate the 3d matrix with values from all rasters</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">raster</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">):</span>
+
+        <span class="c"># print a status and open a figure</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;working on file {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">raster</span><span class="p">)))</span>
+        <span class="n">new_rast</span><span class="p">,</span> <span class="n">new_meta</span>  <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">raster</span><span class="p">,</span> <span class="n">numtype</span><span class="p">)</span>
+
+        <span class="n">new_rast</span> <span class="o">=</span> <span class="n">new_rast</span><span class="o">.</span><span class="n">data</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">new_rast</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">new_rast</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c"># set rasters to have &#39;nan&#39; NoData_Value</span>
+        <span class="k">if</span> <span class="n">new_meta</span><span class="o">.</span><span class="n">NoData_Value</span> <span class="o">!=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">NoData_Value</span><span class="p">:</span>
+            <span class="n">new_rast</span><span class="p">[</span><span class="n">new_rast</span> <span class="o">==</span> <span class="n">new_meta</span><span class="o">.</span><span class="n">NoData_Value</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">NoData_Value</span>
+            
+        <span class="c"># set values outside thresholds to nodata values</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">low_thresh</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">new_rast</span><span class="p">[</span><span class="n">new_rast</span> <span class="o">&lt;</span> <span class="n">low_thresh</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">NoData_Value</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">high_thresh</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">new_rast</span><span class="p">[</span><span class="n">new_rast</span> <span class="o">&gt;</span> <span class="n">high_thresh</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">NoData_Value</span>
+
+        <span class="n">new_rast</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">new_rast</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">new_rast</span><span class="p">))</span>
+
+        <span class="c"># display a figure</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">update_fig</span><span class="p">(</span><span class="n">new_rast</span><span class="p">)</span>
+
+        <span class="n">rast_3d</span><span class="p">[:,:,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_rast</span>
+
+    <span class="c"># build up our statistics by masking nan values and performing matrix operations</span>
+    <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+    <span class="n">rast_3d_masked</span>  <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_array</span><span class="p">(</span><span class="n">rast_3d</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">rast_3d</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="s">&quot;AVG&quot;</span> <span class="ow">in</span> <span class="n">saves</span><span class="p">:</span>
+        <span class="n">avg_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rast_3d_masked</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">avg_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">avg_rast</span><span class="p">)</span>
+        <span class="n">rastfig</span>         <span class="o">=</span> <span class="n">raster_fig</span><span class="p">(</span><span class="n">avg_rast</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Average&quot;</span><span class="p">)</span>
+
+        <span class="n">avg_name</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="s">&#39;AVG&#39;</span><span class="p">,</span> <span class="s">&#39;tif&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saving AVERAGE output raster as {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_name</span><span class="p">))</span>
+        <span class="n">from_numpy</span><span class="p">(</span><span class="n">avg_rast</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">avg_name</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">avg_rast</span>
+
+    <span class="k">if</span> <span class="s">&quot;STD&quot;</span> <span class="ow">in</span> <span class="n">saves</span><span class="p">:</span>
+        <span class="n">std_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">rast_3d_masked</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">std_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">std_rast</span><span class="p">)</span>
+        <span class="n">rastfig</span>         <span class="o">=</span> <span class="n">raster_fig</span><span class="p">(</span><span class="n">std_rast</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Standard Deviation&quot;</span><span class="p">)</span>
+
+        <span class="n">std_name</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="s">&#39;STD&#39;</span><span class="p">,</span> <span class="s">&#39;tif&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saving STANDARD DEVIATION output raster as {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">std_name</span><span class="p">))</span>
+        <span class="n">from_numpy</span><span class="p">(</span><span class="n">std_rast</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">std_name</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">std_rast</span>
+        
+    <span class="k">if</span> <span class="s">&quot;NUM&quot;</span> <span class="ow">in</span> <span class="n">saves</span><span class="p">:</span>
+        <span class="n">num_rast</span>        <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">xs</span><span class="p">,</span><span class="n">ys</span><span class="p">))</span> <span class="o">+</span> <span class="n">zs</span><span class="p">)</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rast_3d_masked</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">num_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">num_rast</span><span class="p">)</span>
+        <span class="n">rastfig</span>         <span class="o">=</span> <span class="n">raster_fig</span><span class="p">(</span><span class="n">num_rast</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span>  <span class="s">&quot;Good pixel count (NUM)&quot;</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+
+        <span class="n">num_name</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="s">&#39;NUM&#39;</span><span class="p">,</span> <span class="s">&#39;tif&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saving NUMBER output raster as {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_name</span><span class="p">))</span>
+        <span class="n">from_numpy</span><span class="p">(</span><span class="n">num_rast</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">num_name</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">num_rast</span>
+
+    <span class="k">if</span> <span class="s">&quot;SUM&quot;</span> <span class="ow">in</span> <span class="n">saves</span><span class="p">:</span>
+        <span class="n">sum_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rast_3d_masked</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">sum_rast</span>        <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sum_rast</span><span class="p">)</span>
+        <span class="n">rastfig</span>         <span class="o">=</span> <span class="n">raster_fig</span><span class="p">(</span><span class="n">sum_rast</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Sum Total&quot;</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+
+        <span class="n">sum_name</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="s">&#39;SUM&#39;</span><span class="p">,</span> <span class="s">&#39;tif&#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Saving SUM output raster as {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sum_name</span><span class="p">))</span>
+        <span class="n">from_numpy</span><span class="p">(</span><span class="n">sum_rast</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">sum_name</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+        <span class="k">del</span> <span class="n">sum_rast</span>
+                   
+    <span class="n">rastfig</span><span class="o">.</span><span class="n">close_fig</span><span class="p">()</span>
+
+    <span class="k">return</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

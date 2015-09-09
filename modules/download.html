@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>download &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="landsat" href="landsat.html"/>
+        <link rel="prev" title="core" href="core.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>download</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/download.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.download">
+<span id="download"></span><h1>download<a class="headerlink" href="#module-dnppy.download" title="Permalink to this headline">¶</a></h1>
+<p>The download module houses many &#8220;fetch&#8221; functions for automatic retrieval of specific data
+products from <code class="docutils literal"><span class="pre">http</span></code> and <code class="docutils literal"><span class="pre">ftp</span></code> servers around the USA. While centered around NASA data
+products, some functions exist for fetching of ancillary NOAA climate products and others.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Fetching MODIS</p>
+<p>Automated download or &#8220;fetching&#8221; can be helpful for bulk data retrieval, or for enabling software to pull the most up to date data at runtime. This module has a few fetch functions for different NASA data platforms and products.
+As an example, the proper syntax for the <cite>fetch_MODIS</cite> function to download all available data for 2015 (January 1st through December 31st) is</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">download</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">product</span> <span class="o">=</span> <span class="s">&quot;MYD11A1&quot;</span>                  <span class="c"># land surface temperature</span>
+<span class="n">version</span> <span class="o">=</span> <span class="s">&quot;041&quot;</span>                      <span class="c"># version 041</span>
+<span class="n">tiles</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;h11v05&quot;</span><span class="p">,</span> <span class="s">&quot;h12v05&quot;</span><span class="p">]</span>         <span class="c"># two tiles of interest (SouthEast US)</span>
+<span class="n">outdir</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\test&quot;</span>      <span class="c"># local path to save files</span>
+<span class="n">start_dto</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>       <span class="c"># datetime object of start date</span>
+<span class="n">end_dto</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">31</span><span class="p">)</span>       <span class="c"># datetime object of end date</span>
+
+<span class="n">download</span><span class="o">.</span><span class="n">fetch_MODIS</span><span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">tiles</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span> <span class="n">start_dto</span><span class="p">,</span> <span class="n">end_dto</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The other fetching functions work similarly.</p>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.download.download_filelist"></span><dl class="function">
+<dt id="dnppy.download.download_filelist.download_filelist">
+<code class="descname">download_filelist</code><span class="sig-paren">(</span><em>ftp_texts</em>, <em>file_type=None</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/download_filelist.html#download_filelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.download_filelist.download_filelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads text file of download links, downloads them.</p>
+<p>This script reads a text file with urls such as those output from ECHO REVERB
+and outputs them to an output directory. It will retry failed links 20 times before
+giving up and outputting a warning to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ftp_texts</strong> &#8211; array of txt files ordered from reverb containing ftp links</li>
+<li><strong>file_type</strong> &#8211; file extension of the desired files, leave blank or False to grab all types.</li>
+<li><strong>outdir</strong> &#8211; folder where files are to be placed after download</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return list failed:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of files which failed to download after the end of the script.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.download_url"></span><dl class="function">
+<dt id="dnppy.download.download_url.download_url">
+<code class="descname">download_url</code><span class="sig-paren">(</span><em>url</em>, <em>outname</em>, <em>username=None</em>, <em>password=None</em>, <em>force_overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/download_url.html#download_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.download_url.download_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a single file. input source url and output filename</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> &#8211; a string url to file for download</li>
+<li><strong>outname</strong> &#8211; filepath to write location of file</li>
+<li><strong>username</strong> &#8211; use if url leads to file on ftp server with username</li>
+<li><strong>password</strong> &#8211; use if url leads to file on ftp server with password</li>
+<li><strong>force_overwrite</strong> &#8211; by default, this function will not overwrite existing files
+on drive. This is to avoid accidental overwrite of critical
+files as well as repeated download of the same files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return outname:</th><td class="field-body"><p class="first last">returns filepath to locally created file after download</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.download_urls"></span><dl class="function">
+<dt id="dnppy.download.download_urls.download_urls">
+<code class="descname">download_urls</code><span class="sig-paren">(</span><em>url_list</em>, <em>outdir</em>, <em>file_types=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/download_urls.html#download_urls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.download_urls.download_urls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a list of files. Retries failed downloads</p>
+<p>This script downloads a list of files and places it in the output directory. It was
+built to be nested within &#8220;Download_filelist&#8221; to allow loops to continuously retry
+failed files until they are successful or a retry limit is reached.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url_list</strong> &#8211; array of urls, probably as read from a text file</li>
+<li><strong>file_types</strong> &#8211; list of file types to download. Useful for excluding extraneous
+metadata by only downloading &#8216;hdf&#8217; or &#8216;tif&#8217; for example. Please note
+that often times, you actually NEED the metadata.</li>
+<li><strong>outdir</strong> &#8211; folder where files are to be placed after download</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return failed:</th><td class="field-body"><p class="first last">list of files which failed download</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_GPM_IMERG"></span><dl class="function">
+<dt id="dnppy.download.fetch_GPM_IMERG.fetch_GPM_IMERG">
+<code class="descname">fetch_GPM_IMERG</code><span class="sig-paren">(</span><em>start_dto</em>, <em>end_dto</em>, <em>outdir</em>, <em>product='gis'</em>, <em>time_res='1day'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_GPM_IMERG.html#fetch_GPM_IMERG"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_GPM_IMERG.fetch_GPM_IMERG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches 30 minute resolution GPM IMERG data from an ftp server. Several restrictions exist
+for this relatively new dataset, please read in the input section carefully.</p>
+<blockquote>
+<div><a class="reference external" href="http://pps.gsfc.nasa.gov/Documents/GPM_Data_Info_140616.pdf">http://pps.gsfc.nasa.gov/Documents/GPM_Data_Info_140616.pdf</a></div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start_dto</strong> &#8211; datetime object for starting time of study boundary</li>
+<li><strong>end_dto</strong> &#8211; datetime object for ending time of study boundary</li>
+<li><strong>outdir</strong> &#8211; output directory to save the data</li>
+<li><strong>product</strong> &#8211; either &#8220;early&#8221; , &#8220;late&#8221; or &#8220;final&#8221; for full HDF5 data stacks of the respective runs,
+which are all at 30minute resolutions. OR product can be set equal to &#8220;gis&#8221;
+(default) to find only tif averages of the precipitation estimates. This gis
+tif data is ONLY provided for data less than one year old.</li>
+<li><strong>time_res</strong> &#8211; if &#8220;product&#8221;  is set to &#8220;gis&#8221;, specify what time average period you want.
+options are &#8220;30min&#8221;, &#8220;3hr&#8221;, &#8220;1day&#8221;, &#8220;3day&#8221;, &#8220;7day&#8221;. Defaults to &#8220;1day&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a list of filepaths to freshly downloaded files</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>learn more at [<a class="reference external" href="http://pmm.nasa.gov/data-access/downloads/gpm">http://pmm.nasa.gov/data-access/downloads/gpm</a>]</p>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_Landsat8"></span><dl class="function">
+<dt id="dnppy.download.fetch_Landsat8.fetch_Landsat8">
+<code class="descname">fetch_Landsat8</code><span class="sig-paren">(</span><em>path_row_pairs</em>, <em>start_dto</em>, <em>end_dto</em>, <em>outdir</em>, <em>max_cloud_cover=100</em>, <em>bands=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_Landsat8.html#fetch_Landsat8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_Landsat8.fetch_Landsat8" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function downloads all landsat 8 tiles for the input path_row_pairs and
+within the bounds of the start_dto and the end_dto, and saves them to the output directory.
+It uses the amazon web service at
+[<a class="reference external" href="https://aws.amazon.com/public-data-sets/landsat/">https://aws.amazon.com/public-data-sets/landsat/</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path_row_pairs</strong> &#8211; tupled integer values of path,row coordinates of tile. may be a list of several                                 tuples. example: [(1,1),(1,2)]</li>
+<li><strong>start_dto</strong> &#8211; python datetime object of start date of range</li>
+<li><strong>end_dto</strong> &#8211; python datetime object of end date of range</li>
+<li><strong>outdir</strong> &#8211; the folder to save the output landsat files in</li>
+<li><strong>max_cloud_cover</strong> &#8211; maximum percent cloud cover that is acceptable to download the file.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">A list of tile names downloaded by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_Landsat_WELD"></span><dl class="function">
+<dt id="dnppy.download.fetch_Landsat_WELD.fetch_Landsat_WELD">
+<code class="descname">fetch_Landsat_WELD</code><span class="sig-paren">(</span><em>product</em>, <em>tiles</em>, <em>years</em>, <em>outdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_Landsat_WELD.html#fetch_Landsat_WELD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_Landsat_WELD.fetch_Landsat_WELD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch WELD data from the server at [<a class="reference external" href="http://e4ftl01.cr.usgs.gov/WELD">http://e4ftl01.cr.usgs.gov/WELD</a>].
+Weld data is corrected and processed Landsat 5 and 7 data that is distributed in the
+MODIS sinusoidal projection and grid format. Read more about WELD data.
+<a class="reference external" href="https://landsat.usgs.gov/WELD.php">https://landsat.usgs.gov/WELD.php</a>
+<a class="reference external" href="http://globalmonitoring.sdstate.edu/projects/weldglobal/">http://globalmonitoring.sdstate.edu/projects/weldglobal/</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>product</strong> &#8211; WELD product to download such as &#8216;USWK&#8217;,&#8217;USMO&#8217;,&#8217;USYR&#8217;</li>
+<li><strong>tiles</strong> &#8211; list of tiles to grab such as [&#8216;h11v12&#8217;,&#8217;h11v11&#8217;]</li>
+<li><strong>years</strong> &#8211; list of years to grab such as range(2001,2014)</li>
+<li><strong>outdir</strong> &#8211; output directory to save downloaded files</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">A list of full filepaths to files fetched be this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_MODIS"></span><dl class="function">
+<dt id="dnppy.download.fetch_MODIS.fetch_MODIS">
+<code class="descname">fetch_MODIS</code><span class="sig-paren">(</span><em>product</em>, <em>version</em>, <em>tiles</em>, <em>outdir</em>, <em>start_dto</em>, <em>end_dto</em>, <em>force_overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_MODIS.html#fetch_MODIS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_MODIS.fetch_MODIS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch MODIS Land products from one of two servers. If this function
+runs and downloads 0 files, check that your inputs are consistent
+with the naming convention at the appropriate server address.</p>
+<blockquote>
+<div><a class="reference external" href="http://e4ftl01.cr.usgs.gov">http://e4ftl01.cr.usgs.gov</a>
+<a class="reference external" href="ftp://n5eil01u.ecs.nsidc.org">ftp://n5eil01u.ecs.nsidc.org</a></div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>product</strong> &#8211; MODIS product to download such as &#8216;MOD10A1&#8217; or &#8216;MYD11A1&#8217;</li>
+<li><strong>version</strong> &#8211; version number, usually &#8216;004&#8217; or &#8216;041&#8217; or &#8216;005&#8217;</li>
+<li><strong>tiles</strong> &#8211; list of tiles to grab such as [&#8216;h11v12&#8217;,&#8217;h11v11&#8217;]
+NOTE: for some MODIS products, the h and v are omitted.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:param outdir :         output directory to save downloaded files
+:param start_dto:       datetime object, the starting date of the range of data to download
+:param end_dto:         datetime object, the ending date of the range of data to download
+:param force_overwrite: will re-download files even if they already exist</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return out_filepaths:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">a list of filepaths to all files created by this function</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_MPE"></span><dl class="function">
+<dt id="dnppy.download.fetch_MPE.fetch_MPE">
+<code class="descname">fetch_MPE</code><span class="sig-paren">(</span><em>start_dto</em>, <em>end_dto</em>, <em>outdir</em>, <em>area=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_MPE.html#fetch_MPE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_MPE.fetch_MPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches Multisensor Precipitation Estimates data from
+weather/noaa server at [<a class="reference external" href="http://water.weather.gov/precip/p_download_new/">http://water.weather.gov/precip/p_download_new/</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start_dto</strong> &#8211; datetime object for start date of desired range</li>
+<li><strong>end_dto</strong> &#8211; datetime object for end date of desired range</li>
+<li><strong>outdir</strong> &#8211; output directory where files should be saved (str)</li>
+<li><strong>area</strong> &#8211; area of interest, either &#8220;conus&#8221;, &#8220;ak&#8221; or &#8220;pr&#8221;
+for continental us, alaska, or Puerto Rico respectively</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_files:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of output files fetched by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_SRTM"></span><dl class="function">
+<dt id="dnppy.download.fetch_SRTM.fetch_SRTM">
+<code class="descname">fetch_SRTM</code><span class="sig-paren">(</span><em>ll_lat</em>, <em>ll_lon</em>, <em>ur_lat</em>, <em>ur_lon</em>, <em>product</em>, <em>outdir=None</em>, <em>mosaic=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_SRTM.html#fetch_SRTM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_SRTM.fetch_SRTM" title="Permalink to this definition">¶</a></dt>
+<dd><p>downloads data from the Shuttle Radar Topography Mission (SRTM)
+[<a class="reference external" href="http://e4ftl01.cr.usgs.gov/SRTM/">http://e4ftl01.cr.usgs.gov/SRTM/</a>]</p>
+<p>This data can be used to create DEMs of a variety of resolutions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ll_lat</strong> &#8211; latitude of lower left corner</li>
+<li><strong>ll_lon</strong> &#8211; longitude of lower left corner</li>
+<li><strong>ur_lat</strong> &#8211; latitude of upper right corner</li>
+<li><strong>ur_lon</strong> &#8211; longitude of upper right corner</li>
+<li><strong>product</strong> &#8211; short name of product you want. See <a class="reference external" href="http://e4ftl01.cr.usgs.gov/SRTM/">http://e4ftl01.cr.usgs.gov/SRTM/</a> .
+do not include the version number. Example: &#8220;SRTMGL1&#8221;. Note
+that version &#8220;002&#8221; data of .DEM format does not support mosaicing.</li>
+<li><strong>outdir</strong> &#8211; local directory to save downloaded files</li>
+<li><strong>mosaic</strong> &#8211; Set to TRUE to mosaic all downloaded DEM tiles as &#8220;SRTM_mosaic.tif&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return tile_list:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">a list of all successfully downloaded tif filepaths
+for further manipulation</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>NOTE: arcmap will open the output hgt files ONLY if they are not renamed.
+turns out arcmap does some funky things when interpreting these files.</p>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.fetch_TRMM"></span><dl class="function">
+<dt id="dnppy.download.fetch_TRMM.fetch_TRMM">
+<code class="descname">fetch_TRMM</code><span class="sig-paren">(</span><em>start_dto</em>, <em>end_dto</em>, <em>outdir</em>, <em>product_string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/fetch_TRMM.html#fetch_TRMM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.fetch_TRMM.fetch_TRMM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches TRMM data from an FTP server.</p>
+<blockquote>
+<div><a class="reference external" href="ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/">ftp://trmmopen.gsfc.nasa.gov/trmmdata/ByDate/V07/</a></div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>start_dto</strong> &#8211; datetime object for start date of desired range</li>
+<li><strong>end_dto</strong> &#8211; datetime object for end date of desired range</li>
+<li><strong>outdir</strong> &#8211; output directory where files should be saved (str)</li>
+<li><strong>product_string</strong> &#8211; the string for the desired product, options include
+1B11, 1B21, 1CTMI, 2A12, 2A21, 2A23, 2A25, 2B31, 3B42,
+3G25, 3G31. The usual precip product of interest is the
+well known 3B42 data product.</li>
+<li><strong>output_files</strong> &#8211; a list of new filepaths created by this function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.list_http_e4ftl01"></span><dl class="function">
+<dt id="dnppy.download.list_http_e4ftl01.list_http_e4ftl01">
+<code class="descname">list_http_e4ftl01</code><span class="sig-paren">(</span><em>site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/list_http_e4ftl01.html#list_http_e4ftl01"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.list_http_e4ftl01.list_http_e4ftl01" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists contents of  http download site at [<a class="reference external" href="http://e4ftl01.cr.usgs.gov">http://e4ftl01.cr.usgs.gov</a>]
+which hosts select MODIS products, landsat WELD, and SRTM data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>site</strong> &#8211; a url to somewhere on the server at <a class="reference external" href="http://e4ftl01.cr.usgs.gov">http://e4ftl01.cr.usgs.gov</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return file_urls:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">returns a list of urls to files on that http page.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.list_http_waterweather"></span><dl class="function">
+<dt id="dnppy.download.list_http_waterweather.list_http_waterweather">
+<code class="descname">list_http_waterweather</code><span class="sig-paren">(</span><em>site</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/list_http_waterweather.html#list_http_waterweather"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.list_http_waterweather.list_http_waterweather" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists contents of http directories at [<a class="reference external" href="http://water.weather.gov/precip/p_download_new/">http://water.weather.gov/precip/p_download_new/</a>]
+which hosts MPE data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>site</strong> &#8211; url to somewhere on the server at <a class="reference external" href="http://water.weather.gov/precip/p_download_new/">http://water.weather.gov/precip/p_download_new/</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return file_urls:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">returns a list of file urls at input site.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.download.list_ftp"></span><dl class="function">
+<dt id="dnppy.download.list_ftp.list_ftp">
+<code class="descname">list_ftp</code><span class="sig-paren">(</span><em>site</em>, <em>username=None</em>, <em>password=None</em>, <em>dir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/download/list_ftp.html#list_ftp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.download.list_ftp.list_ftp" title="Permalink to this definition">¶</a></dt>
+<dd><p>lists contents of typical FTP download site. returns two lists, the first is of
+filenames, the second is of full filepaths (including filenames) that one could
+patch through to the &#8220;download_url&#8221; function. returns False if the server has
+rejected our connection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>site</strong> &#8211; url to ftp website root, does not need to include &#8220;<a class="reference external" href="ftp://">ftp://</a>&#8220;</li>
+<li><strong>username</strong> &#8211; username to log in with, if required</li>
+<li><strong>password</strong> &#8211; password to log in with, if required</li>
+<li><strong>dir</strong> &#8211; specific ftp directory we wish to access</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns filenames:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">a list of filenames</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Returns filepaths:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">a list of full filepaths</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="landsat.html" class="btn btn-neutral float-right" title="landsat">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="core.html" class="btn btn-neutral" title="core"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

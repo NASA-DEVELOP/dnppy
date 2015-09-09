@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="index.html"/>
+        <link rel="next" title="Design" href="design.html"/>
+        <link rel="prev" title="Purpose and Overview" href="overview.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/install.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>This section will guide you through installing <a class="reference external" href="https://github.com/nasa-develop/dnppy">dnppy</a>. You should find it is quite simple!</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 2.7 (32 or 64 bit)</li>
+<li>arcpy (as distributed with ESRI&#8217;s ArcMap software version 10.1 to 10.3)</li>
+<li>Windows OS</li>
+</ul>
+<p>At present, many of the dnppy functions call upon <code class="docutils literal"><span class="pre">arcpy</span></code>, distributed with ESRI&#8217;s commercial ArcMap software. By time dnppy is out of beta, the installation will be split such that users can still access the non <code class="docutils literal"><span class="pre">arcpy</span></code> dependent modules (such as those for downloading and formatting NASA satellite data) if they do not have ArcMap. In the long term, the modification of several key functions to use <code class="docutils literal"><span class="pre">gdal</span></code> should allow complete <code class="docutils literal"><span class="pre">arcpy</span></code> independence.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">it is highly advised to use 64-bit python 2.7 available through the &#8220;Background-Geoprocessing&#8221; package upon installation of ArcMap. A 32-bit installation may only consume 2GB of memory at once, which is an easy limit to hit when processing even modestly sized raster data sets.</p>
+</div>
+<p>There are no other requirements for <code class="docutils literal"><span class="pre">dnppy</span></code> which are not automatically retrieved on setup.</p>
+</div>
+<div class="section" id="how-to-install">
+<h2>How to Install<a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Manual download</p>
+<p>Grab the master branch from our <a class="reference external" href="https://github.com/nasa-develop/dnppy">GitHub</a> by clicking on the &#8220;download zip&#8221; button on the bottom right of the screen. Extract the archive and run <code class="docutils literal"><span class="pre">easy_install.py</span></code>. Running this file may require opening up <em>IDLE</em> and loading the script, then hitting <em>F5</em> to execute it. Setup will fetch other dependencies from <code class="docutils literal"><span class="pre">.whl</span></code> files hosted in the release assets or from the python package index. Most of these <code class="docutils literal"><span class="pre">.whl</span></code> files were originally obtained from this <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">unofficial windows binaries index</a>. Ta-da! You are ready to get started with <code class="docutils literal"><span class="pre">dnppy</span></code> and python programming with NASA data and GIS!</p>
+<p class="rubric">With pip</p>
+<p>If you&#8217;ve got <code class="docutils literal"><span class="pre">pip</span></code>, you can use the following code snippet in the python console.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pip</span>
+<span class="n">pip</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="s">&quot;install&quot;</span><span class="p">,</span> <span class="s">&quot;--upgrade&quot;</span><span class="p">,</span> <span class="s">&quot;https://github.com/NASA-DEVELOP/dnppy/archive/master.zip&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>or whichever <a class="reference external" href="https://github.com/NASA-DEVELOP/dnppy/releases">release tagged</a> branch you would like to install instead of master.</p>
+</div>
+<div class="section" id="included-packages">
+<h2>Included Packages<a class="headerlink" href="#included-packages" title="Permalink to this headline">¶</a></h2>
+<p>The following packages are installed with dnppy.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Using PyPI</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/giampaolo/psutil">psutil</a></li>
+<li><a class="reference external" href="https://github.com/kennethreitz/requests">requests</a></li>
+<li><a class="reference external" href="https://github.com/shazow/urllib3">urllib3</a></li>
+<li><a class="reference external" href="https://wheel.readthedocs.org/en/latest/">wheel</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Using Binaries</dt>
+<dd><ul class="first last simple">
+<li><a class="reference external" href="https://github.com/cython/cython">cython</a></li>
+<li><a class="reference external" href="https://github.com/OSGeo/gdal">gdal</a></li>
+<li><a class="reference external" href="https://github.com/h5py/h5py">h5py</a></li>
+<li><a class="reference external" href="https://github.com/numpy/numpy">numpy</a></li>
+<li><a class="reference external" href="https://github.com/pypa/pip">pip</a></li>
+<li><a class="reference external" href="https://github.com/pycurl/pycurl">pycurl</a></li>
+<li><a class="reference external" href="https://github.com/scipy/scipy">scipy</a></li>
+<li><a class="reference external" href="https://github.com/Toblerity/Shapely">shapely</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="design.html" class="btn btn-neutral float-right" title="Design">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Purpose and Overview"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

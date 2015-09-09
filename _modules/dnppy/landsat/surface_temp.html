@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.landsat.surface_temp &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.landsat.surface_temp</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.landsat.surface_temp</h1><div class="highlight"><pre>
+<span class="c">#standard imports</span>
+<span class="kn">import</span> <span class="nn">arcpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">dnppy.landsat.grab_meta</span> <span class="kn">import</span> <span class="n">grab_meta</span>
+<span class="k">if</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">CheckExtension</span><span class="p">(</span><span class="s">&#39;Spatial&#39;</span><span class="p">)</span><span class="o">==</span><span class="s">&#39;Available&#39;</span><span class="p">:</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">CheckOutExtension</span><span class="p">(</span><span class="s">&#39;Spatial&#39;</span><span class="p">)</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">overwriteOutput</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">__all__</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;surface_temp_8&#39;</span><span class="p">,</span>          <span class="c"># complete</span>
+         <span class="s">&#39;surface_temp_457&#39;</span><span class="p">]</span>        <span class="c"># complete</span>
+
+
+<span class="k">def</span> <span class="nf">surface_temp_8</span><span class="p">(</span><span class="n">band4_toa</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">path_rad</span><span class="p">,</span> <span class="n">nbt</span><span class="p">,</span> <span class="n">sky_rad</span><span class="p">,</span> <span class="n">outdir</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+<div class="viewcode-block" id="surface_temp_8"><a class="viewcode-back" href="../../../modules/landsat.html#dnppy.landsat.surface_temp.surface_temp_8">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates surface temperature from Landsat 8 OLI and TIRS data. Requires band 4 and 5</span>
+<span class="sd">    Top-of-Atmosphere Reflectance tiffs and the unprocessed band 10 and 11 tiffs.</span>
+
+<span class="sd">    Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband \</span>
+<span class="sd">    Transmissivity, and Sky Radiance constants, atmospheric conditions will not be accounted</span>
+<span class="sd">    for and the surface values may be off. Values are attainable using MODTRAN.</span>
+
+<span class="sd">    :param band4_toa:   Filepath to the Band 4 Top-of-Atmosphere Reflectance tiff.</span>
+<span class="sd">                        use landsat.toa_reflectance_8</span>
+<span class="sd">    :param meta_path:   Filepath to the metadata file (ending in _MTL.txt)</span>
+<span class="sd">    :param path_rad:    Path Radiance constant (default 0)</span>
+<span class="sd">    :param nbt:         Narrowband Transmissivity constant (default 1)</span>
+<span class="sd">    :param sky_rad:     Sky Radiance constant (default 0)</span>
+<span class="sd">    :param outdir:      Path to the desired output folder. If left False the</span>
+<span class="sd">                        output tiff will be place in band4_toa&#39;s folder</span>
+<span class="sd">    :param L:           Soil brightness correction factor, between 0 and 1. used to calculate</span>
+<span class="sd">                        Soil Adjusted Vegetation Index. Default L = 0.5 works well in</span>
+<span class="sd">                        most situations. when L = 0, SAVI = NDVI.</span>
+
+<span class="sd">    :return surface_temp_8:    Full filepath of tif created by this function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">band4_toa</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">band4_toa</span><span class="p">)</span>
+    <span class="n">meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="c"># Grab metadata from the MTL file and set the pathnames for Band 5 TOA Reflectance and the raw Band 11 tiffs</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">grab_meta</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="n">band5_toa</span> <span class="o">=</span> <span class="n">band4_toa</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_B4_&quot;</span><span class="p">,</span> <span class="s">&quot;_B5_&quot;</span><span class="p">)</span>
+    <span class="n">band10</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_MTL.txt&quot;</span><span class="p">,</span> <span class="s">&quot;_B10.tif&quot;</span><span class="p">)</span>
+    <span class="n">band11</span> <span class="o">=</span> <span class="n">band10</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_B10.tif&quot;</span><span class="p">,</span> <span class="s">&quot;_B11.tif&quot;</span><span class="p">)</span>
+
+    <span class="c"># Soil Adjusted Vegetation Index</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">band4_toa</span><span class="p">)</span>
+    <span class="n">nir</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">band5_toa</span><span class="p">)</span>
+    
+    <span class="n">savi</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">))</span>
+
+    <span class="c"># Leaf Area Index</span>
+    <span class="c"># assigns LAI for 0.1 &lt;= SAVI &lt;= 0.687</span>
+    <span class="n">lai_1</span> <span class="o">=</span> <span class="p">((</span><span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Ln</span><span class="p">((</span><span class="mf">0.69</span> <span class="o">-</span> <span class="n">savi</span><span class="p">)</span><span class="o">/</span><span class="mf">0.59</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mf">0.91</span><span class="p">))</span>
+    <span class="c"># assigns LAI for SAVI &gt;= 0.687</span>
+    <span class="n">lai_2</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">savi</span><span class="p">,</span> <span class="n">lai_1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s">&quot;VALUE &lt; 0.687&quot;</span><span class="p">)</span>
+    <span class="c"># assigns LAI for SAVI &lt;= 0.1</span>
+    <span class="n">lai</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">savi</span><span class="p">,</span> <span class="n">lai_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;VALUE &gt;= 0.1&quot;</span><span class="p">)</span>
+
+    <span class="c"># Narrow Band Emissivity</span>
+    <span class="n">remap</span> <span class="o">=</span> <span class="mf">0.97</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0033</span> <span class="o">*</span> <span class="n">lai</span><span class="p">)</span>
+    <span class="n">nbe</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">lai</span><span class="p">,</span> <span class="n">remap</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s">&quot;VALUE &lt;= 3&quot;</span><span class="p">)</span>
+
+    <span class="c"># Get the radiance mult/add bands for bands 10 and 11</span>
+    <span class="n">Ml_10</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_MULT_BAND_10&quot;</span><span class="p">)</span>
+    <span class="n">Al_10</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_ADD_BAND_10&quot;</span><span class="p">)</span>
+    <span class="n">Ml_11</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_MULT_BAND_11&quot;</span><span class="p">)</span>
+    <span class="n">Al_11</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_ADD_BAND_11&quot;</span><span class="p">)</span>
+    
+    <span class="c"># Set values in the TIRS band tiffs to null</span>
+    <span class="n">null_10</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">SetNull</span><span class="p">(</span><span class="n">band10</span><span class="p">,</span> <span class="n">band10</span><span class="p">,</span> <span class="s">&quot;VALUE &lt;= 1&quot;</span><span class="p">)</span>
+    <span class="n">null_11</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">SetNull</span><span class="p">(</span><span class="n">band11</span><span class="p">,</span> <span class="n">band11</span><span class="p">,</span> <span class="s">&quot;VALUE &lt;= 1&quot;</span><span class="p">)</span>
+
+    <span class="c"># Initial Thermal Radiances</span>
+    <span class="n">itr_10</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_10</span> <span class="o">*</span> <span class="n">Ml_10</span><span class="p">)</span> <span class="o">+</span> <span class="n">Al_10</span>
+    <span class="n">itr_11</span> <span class="o">=</span> <span class="p">(</span><span class="n">null_11</span> <span class="o">*</span> <span class="n">Ml_11</span><span class="p">)</span> <span class="o">+</span> <span class="n">Al_11</span>
+
+    <span class="c"># Corrected Thermal Radiances</span>
+    <span class="n">ctr_10</span> <span class="o">=</span> <span class="p">((</span><span class="n">itr_10</span> <span class="o">-</span> <span class="n">path_rad</span><span class="p">)</span><span class="o">/</span><span class="n">nbt</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">nbe</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_rad</span><span class="p">)</span>
+    <span class="n">ctr_11</span> <span class="o">=</span> <span class="p">((</span><span class="n">itr_11</span> <span class="o">-</span> <span class="n">path_rad</span><span class="p">)</span><span class="o">/</span><span class="n">nbt</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">nbe</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_rad</span><span class="p">)</span>
+
+    <span class="c"># Get the K1 and K2 constants for bands 10 and 11</span>
+    <span class="n">K1_10</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;K1_CONSTANT_BAND_10&quot;</span><span class="p">)</span>
+    <span class="n">K2_10</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;K2_CONSTANT_BAND_10&quot;</span><span class="p">)</span>
+    <span class="n">K1_11</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;K1_CONSTANT_BAND_11&quot;</span><span class="p">)</span>
+    <span class="n">K2_11</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;K2_CONSTANT_BAND_11&quot;</span><span class="p">)</span>
+
+    <span class="c"># Calculate surface temperature based on bands 10 and 11 and average them for final output</span>
+    <span class="n">st_10</span> <span class="o">=</span> <span class="p">(</span><span class="n">K2_10</span><span class="o">/</span><span class="p">(</span><span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Ln</span><span class="p">(((</span><span class="n">nbe</span> <span class="o">*</span> <span class="n">K1_10</span><span class="p">)</span><span class="o">/</span><span class="n">ctr_10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="n">st_11</span> <span class="o">=</span> <span class="p">(</span><span class="n">K2_11</span><span class="o">/</span><span class="p">(</span><span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Ln</span><span class="p">(((</span><span class="n">nbe</span> <span class="o">*</span> <span class="n">K1_11</span><span class="p">)</span><span class="o">/</span><span class="n">ctr_10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="p">(</span><span class="n">st_10</span> <span class="o">+</span> <span class="n">st_11</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="c"># Create output name and save the Surface Temperature tiff</span>
+    <span class="n">tilename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;LANDSAT_SCENE_ID&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">outdir</span><span class="p">:</span>
+        <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+        <span class="n">surface_temp_8</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">tilename</span><span class="p">,</span> <span class="s">&quot;Surf_Temp&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">band4_toa</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">surface_temp_8</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">tilename</span><span class="p">,</span> <span class="s">&quot;Surf_Temp&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+        
+    <span class="n">st</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">surface_temp_8</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">surface_temp_8</span>
+
+
+<span class="k">def</span> <span class="nf">surface_temp_457</span><span class="p">(</span><span class="n">band3_toa</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">path_rad</span><span class="p">,</span> <span class="n">nbt</span><span class="p">,</span> <span class="n">sky_rad</span><span class="p">,</span> <span class="n">outdir</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">L</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span></div>
+<div class="viewcode-block" id="surface_temp_457"><a class="viewcode-back" href="../../../modules/landsat.html#dnppy.landsat.surface_temp.surface_temp_457">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates surface temperature from Landsat 4/5 TM or 7 ETM+ data. Requires</span>
+<span class="sd">    band 3 and 4 Top-of-Atmosphere Reflectance tiffs and the unprocessed band</span>
+<span class="sd">    6 (or 6_VCID_1 for Landsat 7) tiff.</span>
+
+<span class="sd">    Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband</span>
+<span class="sd">    Transmissivity, and Sky Radiance constants, atmospheric conditions will not be accounted</span>
+<span class="sd">    for and the surface values may be off. Values are attainable using MODTRAN.</span>
+
+<span class="sd">    :param band3_toa:   Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff.</span>
+<span class="sd">                        use landsat.toa_reflectance_457</span>
+<span class="sd">    :param meta_path:   Filepath to the metadata file (ending in _MTL.txt)</span>
+<span class="sd">    :param path_rad:    Path Radiance constant (default 0)</span>
+<span class="sd">    :param nbt:         Narrowband Transmissivity constant (default 1)</span>
+<span class="sd">    :param sky_rad:     Sky Radiance constant (default 0)</span>
+<span class="sd">    :param outdir:      Path to the desired output folder. If left False the</span>
+<span class="sd">                        output tiff will be place in band4_toa&#39;s folder</span>
+<span class="sd">    :param L:           Soil brightness correction factor, between 0 and 1. used to calculate</span>
+<span class="sd">                        Soil Adjusted Vegetation Index. Default L = 0.5 works well in</span>
+<span class="sd">                        most situations. when L = 0, SAVI = NDVI.</span>
+
+<span class="sd">    :return surface_temp_457:    Full filepath of tif created by this function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">band3_toa</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">band3_toa</span><span class="p">)</span>
+    <span class="n">meta_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+
+    <span class="c"># Set the pathname for band 4</span>
+    <span class="n">band4_toa</span> <span class="o">=</span> <span class="n">band3_toa</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_B3_&quot;</span><span class="p">,</span> <span class="s">&quot;_B4_&quot;</span><span class="p">)</span>
+
+    <span class="c"># Grab metadata from the MTL file and identify the spacecraft ID</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">grab_meta</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+    <span class="n">spacecraft</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;SPACECRAFT_ID&quot;</span><span class="p">)</span>
+
+    <span class="c"># Set the band 6 number, K1 and K2 thermal constants, and band 6 pathname based on spacecraft ID</span>
+    <span class="k">if</span> <span class="s">&quot;4&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span> <span class="ow">or</span> <span class="s">&quot;5&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span><span class="p">:</span>
+        <span class="n">band_num</span> <span class="o">=</span> <span class="s">&quot;6&quot;</span>
+        <span class="n">K1</span> <span class="o">=</span> <span class="mf">607.76</span>
+        <span class="n">K2</span> <span class="o">=</span> <span class="mf">1260.56</span>
+        <span class="n">band6</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_MTL.txt&quot;</span><span class="p">,</span> <span class="s">&quot;_B6.tif&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s">&quot;7&quot;</span> <span class="ow">in</span> <span class="n">spacecraft</span><span class="p">:</span>
+        <span class="n">band_num</span> <span class="o">=</span> <span class="s">&quot;6_VCID_1&quot;</span>
+        <span class="n">K1</span> <span class="o">=</span> <span class="mf">666.09</span>
+        <span class="n">K2</span> <span class="o">=</span> <span class="mf">1282.71</span>
+        <span class="n">band6</span> <span class="o">=</span> <span class="n">meta_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;_MTL.txt&quot;</span><span class="p">,</span> <span class="s">&quot;_B6_VCID_1.tif&quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Enter the MTL file corresponding to a Landsat 4, 5, or 7 dataset&quot;</span><span class="p">)</span>
+
+    <span class="c"># Open the metadata text file and read to set the scene&#39;s tilename</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">meta_path</span><span class="p">)</span>
+    <span class="n">MText</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s">&quot;PRODUCT_CREATION_TIME&quot;</span> <span class="ow">in</span> <span class="n">MText</span><span class="p">:</span>
+        <span class="n">tilename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;BAND1_FILE_NAME&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tilename</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;LANDSAT_SCENE_ID&quot;</span><span class="p">)</span>
+
+    <span class="c">#Soil Adjusted Vegetation Index</span>
+    <span class="n">red</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">band3_toa</span><span class="p">)</span>
+    <span class="n">nir</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Float</span><span class="p">(</span><span class="n">band4_toa</span><span class="p">)</span>
+    
+    <span class="n">savi</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">L</span> <span class="o">+</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">))</span>
+
+    <span class="c">#Leaf Area Index</span>
+    <span class="c">#assigns LAI for 0.1 &lt;= SAVI &lt;= 0.687</span>
+    <span class="n">lai_1</span> <span class="o">=</span> <span class="p">((</span><span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Ln</span><span class="p">((</span><span class="mf">0.69</span> <span class="o">-</span> <span class="n">savi</span><span class="p">)</span><span class="o">/</span><span class="mf">0.59</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="o">-</span><span class="mf">0.91</span><span class="p">))</span>
+    <span class="c">#assigns LAI for SAVI &gt;= 0.687</span>
+    <span class="n">lai_2</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">savi</span><span class="p">,</span> <span class="n">lai_1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s">&quot;VALUE &lt; 0.687&quot;</span><span class="p">)</span>
+    <span class="c">#assigns LAI for SAVI &lt;= 0.1</span>
+    <span class="n">lai</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">savi</span><span class="p">,</span> <span class="n">lai_2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;VALUE &gt;= 0.1&quot;</span><span class="p">)</span>
+
+    <span class="c">#Narrow Band Emissivity</span>
+    <span class="n">remap</span> <span class="o">=</span> <span class="mf">0.97</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.0033</span> <span class="o">*</span> <span class="n">lai</span><span class="p">)</span>
+    <span class="n">nbe</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Con</span><span class="p">(</span><span class="n">lai</span><span class="p">,</span> <span class="n">remap</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s">&quot;VALUE &lt;= 3&quot;</span><span class="p">)</span>
+
+    <span class="c">#Get the radiance mult/add bands for bands 10 and 11</span>
+    <span class="n">Ml</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_MULT_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+    <span class="n">Al</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="s">&quot;RADIANCE_ADD_BAND_{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">band_num</span><span class="p">))</span>
+ 
+    <span class="c">#Set values in the TIRS band tiffs to null</span>
+    <span class="n">null</span> <span class="o">=</span> <span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">SetNull</span><span class="p">(</span><span class="n">band6</span><span class="p">,</span> <span class="n">band6</span><span class="p">,</span> <span class="s">&quot;VALUE &lt;= 1&quot;</span><span class="p">)</span>
+
+    <span class="c"># Initial Thermal Radiances</span>
+    <span class="n">itr</span> <span class="o">=</span> <span class="p">(</span><span class="n">null</span> <span class="o">*</span> <span class="n">Ml</span><span class="p">)</span> <span class="o">+</span> <span class="n">Al</span>
+
+    <span class="c"># Corrected Thermal Radiances</span>
+    <span class="n">ctr</span> <span class="o">=</span> <span class="p">((</span><span class="n">itr</span> <span class="o">-</span> <span class="n">path_rad</span><span class="p">)</span><span class="o">/</span><span class="n">nbt</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">nbe</span><span class="p">)</span> <span class="o">*</span> <span class="n">sky_rad</span><span class="p">)</span>
+
+    <span class="c"># Calculate surface temperature</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="p">(</span><span class="n">K2</span><span class="o">/</span><span class="p">(</span><span class="n">arcpy</span><span class="o">.</span><span class="n">sa</span><span class="o">.</span><span class="n">Ln</span><span class="p">(((</span><span class="n">nbe</span> <span class="o">*</span> <span class="n">K1</span><span class="p">)</span><span class="o">/</span><span class="n">ctr</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+
+    <span class="c">#Create output name and save the surface temperature tiff   </span>
+    <span class="k">if</span> <span class="n">outdir</span><span class="p">:</span>
+        <span class="n">outdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+        <span class="n">surface_temp_457</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">tilename</span><span class="p">,</span> <span class="s">&quot;Surf_Temp&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">band3_toa</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">surface_temp_457</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">tilename</span><span class="p">,</span> <span class="s">&quot;Surf_Temp&quot;</span><span class="p">,</span> <span class="s">&quot;tif&quot;</span><span class="p">)</span>
+        
+    <span class="n">st</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">surface_temp_457</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">surface_temp_457</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

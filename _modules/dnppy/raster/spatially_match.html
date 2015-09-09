@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.raster.spatially_match &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.raster.spatially_match</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.raster.spatially_match</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;jwely&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;spatially_match&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">to_numpy</span> <span class="kn">import</span> <span class="n">to_numpy</span>
+<span class="kn">from</span> <span class="nn">enf_rastlist</span> <span class="kn">import</span> <span class="n">enf_rastlist</span>
+<span class="kn">from</span> <span class="nn">clip_and_snap</span> <span class="kn">import</span> <span class="n">clip_and_snap</span>
+<span class="kn">from</span> <span class="nn">project_resample</span> <span class="kn">import</span> <span class="n">project_resample</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">arcpy</span>
+
+<div class="viewcode-block" id="spatially_match"><a class="viewcode-back" href="../../../modules/raster.html#dnppy.raster.spatially_match.spatially_match">[docs]</a><span class="k">def</span> <span class="nf">spatially_match</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">,</span> <span class="n">rasterlist</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span>
+                    <span class="n">NoData_Value</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">resamp_type</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepares input rasters for further numerical processing.</span>
+<span class="sd">    This function simply ensures all rasters in &quot;rasterlist&quot; are identically projected</span>
+<span class="sd">    and have the same cell size, then calls the raster.clip_and_snap function to ensure</span>
+<span class="sd">    that the cells are perfectly coincident and that the total spatial extents of the images</span>
+<span class="sd">    are identical, even when NoData values are considered. This is useful because it allows</span>
+<span class="sd">    the two images to be passed on for numerical processing as nothing more than matrices</span>
+<span class="sd">    of values, and the user can be sure that any index in any matrix is exactly coincident</span>
+<span class="sd">    with the same index in any other matrix. This is especially important to use when</span>
+<span class="sd">    comparing different datasets from different sources outside arcmap, for example MODIS</span>
+<span class="sd">    and Landsat data with an ASTER DEM.</span>
+
+<span class="sd">    :param snap_raster:     raster to which all other images will be snapped</span>
+<span class="sd">    :param rasterlist:      list of rasters, a single raster, or a directory full of tiffs which</span>
+<span class="sd">                            will be clipped to the extent of &quot;snap_raster&quot; and aligned such that</span>
+<span class="sd">                            the cells are perfectly coincident.</span>
+<span class="sd">    :param outdir:          the output directory to save newly created spatially matched tifs.</span>
+<span class="sd">    :param resamp_type:     The resampling type to use if images are not identical cell sizes.</span>
+<span class="sd">                            &quot;NEAREST&quot;,&quot;BILINEAR&quot;,and &quot;CUBIC&quot; are the most common.</span>
+
+<span class="sd">    this function automatically invokes</span>
+<span class="sd">        * clip_and_snap</span>
+<span class="sd">        * project_resample</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># import modules and sanitize inputs</span>
+    <span class="n">tempdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="s">&#39;temp&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">outdir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">tempdir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">tempdir</span><span class="p">)</span>
+
+    <span class="n">rasterlist</span> <span class="o">=</span> <span class="n">enf_rastlist</span><span class="p">(</span><span class="n">rasterlist</span><span class="p">)</span>
+    <span class="n">core</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">)</span>
+
+    <span class="n">usetemp</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">tempname</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c"># set the snap raster environment in arcmap.</span>
+    <span class="n">arcpy</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">snapRaster</span> <span class="o">=</span> <span class="n">snap_raster</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Loading snap raster {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">))</span>
+    <span class="n">_</span><span class="p">,</span><span class="n">snap_meta</span> <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Bounds of rectangle to define boundaries: [{0}]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">snap_meta</span><span class="o">.</span><span class="n">rectangle</span><span class="p">))</span>
+
+    <span class="c"># for every raster in the raster list, snap rasters and clip.</span>
+    <span class="k">for</span> <span class="n">rastname</span> <span class="ow">in</span> <span class="n">rasterlist</span><span class="p">:</span>
+
+        <span class="n">_</span><span class="p">,</span><span class="n">meta</span>      <span class="o">=</span> <span class="n">to_numpy</span><span class="p">(</span><span class="n">rastname</span><span class="p">)</span>
+        <span class="n">head</span><span class="p">,</span><span class="n">tail</span>   <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rastname</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">snap_meta</span><span class="o">.</span><span class="n">projection</span><span class="o">.</span><span class="n">projectionName</span> <span class="o">!=</span> <span class="n">meta</span><span class="o">.</span><span class="n">projection</span><span class="o">.</span><span class="n">projectionName</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;Projection discrepancy found. Reprojecting...&#39;</span><span class="p">)</span>
+            <span class="n">project_resample</span><span class="p">(</span><span class="n">rastname</span><span class="p">,</span> <span class="n">snap_raster</span><span class="p">,</span> <span class="n">tempdir</span><span class="p">,</span> <span class="n">resamp_type</span><span class="p">)</span>
+            <span class="n">tempname</span>    <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">tempdir</span><span class="p">,</span><span class="n">tail</span><span class="p">,</span><span class="s">&quot;p&quot;</span><span class="p">)</span>
+            <span class="n">usetemp</span>     <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="c"># define an output name and run the Clip_ans_Snap_Raster function on formatted tifs</span>
+        <span class="n">outname</span>      <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">create_outname</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">rastname</span><span class="p">,</span> <span class="s">&quot;sm&quot;</span><span class="p">)</span>
+
+        <span class="c"># if a temporary file was created in previous steps, use that one for clip and snap</span>
+        <span class="k">if</span> <span class="n">usetemp</span> <span class="ow">and</span> <span class="n">tempname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">clip_and_snap</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">,</span> <span class="n">tempname</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clip_and_snap</span><span class="p">(</span><span class="n">snap_raster</span><span class="p">,</span> <span class="n">rastname</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">NoData_Value</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Finished matching raster {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rastname</span><span class="p">))</span>
+
+    <span class="k">return</span></div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

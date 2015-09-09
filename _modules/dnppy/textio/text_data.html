@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.textio.text_data &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.textio.text_data</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.textio.text_data</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Jwely&quot;</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">class</span> <span class="nc">text_data</span><span class="p">():</span>
+<div class="viewcode-block" id="text_data"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data">[docs]</a>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A text data object is a very simple template structure for passing</span>
+<span class="sd">    text type data (usually lists of weather or climate data entries)</span>
+<span class="sd">    around between functions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">row_data</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span>        <span class="o">=</span> <span class="n">headers</span>           <span class="c"># headers   (1d list)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span>       <span class="o">=</span> <span class="n">row_data</span>          <span class="c"># data      (2d list)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span>       <span class="o">=</span> <span class="p">{}</span>                <span class="c"># column wise data (dict)</span>
+
+        <span class="k">if</span> <span class="n">row_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_col_data</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; used to return row data when using __getitem__ on this object type &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_enf_unique_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+<div class="viewcode-block" id="text_data._enf_unique_headers"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data._enf_unique_headers">[docs]</a>        <span class="sd">&quot;&quot;&quot; Appends digits to duplicate items in a list. Used to ensure each</span>
+<span class="sd">        header is a unique string so a column-wise dictionary can be built.</span>
+
+<span class="sd">        For example, a text file with headers ``[&quot;name&quot;, &quot;tag&quot;, &quot;tag&quot;, &quot;tag&quot;]`` will</span>
+<span class="sd">        be changed to have headers ``[&quot;name&quot;, &quot;tag1&quot;, &quot;tag2&quot;, &quot;tag3&quot;]``.</span>
+
+<span class="sd">        :param headers:     list of string elements intended for use as headers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># build list of duplicate values</span>
+        <span class="n">duplicates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">header</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span>  <span class="ow">and</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">[:(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="p">:</span>
+                <span class="n">duplicates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
+
+        <span class="c"># for each duplicate name, number each occurrence</span>
+        <span class="k">for</span> <span class="n">dup</span> <span class="ow">in</span> <span class="n">duplicates</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">header</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">header</span> <span class="o">==</span> <span class="n">dup</span><span class="p">:</span>
+                    <span class="n">headers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">headers</span>
+
+
+    <span class="k">def</span> <span class="nf">_build_col_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data._build_col_data"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data._build_col_data">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds column wise data dictionary structure out of</span>
+<span class="sd">        row_data. (row_data is a list of rows, where each row is a list, so</span>
+<span class="sd">        row_data is a list of lists). Col data is a single dictionary, where</span>
+<span class="sd">        the keys are the &quot;headers&quot; and the value is the list of all values</span>
+<span class="sd">        in that column from the top down.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">temp_col</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">temp_col</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span>
+
+
+    <span class="k">def</span> <span class="nf">_build_row_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data._build_row_data"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data._build_row_data">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Builds row wise data from existing column data. The opposite of</span>
+<span class="sd">        _build_col_data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">num_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+
+        <span class="n">temp_rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_rows</span><span class="p">):</span>
+            <span class="n">temp_rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">[</span><span class="n">header</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span> <span class="o">=</span> <span class="n">temp_rows</span>
+
+
+    <span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_filepath</span><span class="p">,</span> <span class="n">delim</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data.write_csv"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data.write_csv">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        writes the contents of this text file object as a CSV</span>
+
+<span class="sd">        :param text_filepath:   output filepath to write csv .txt</span>
+<span class="sd">        :param delim:           delimiter to use. defaults to comma</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># write the file as a csv</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">text_filepath</span><span class="p">,</span> <span class="s">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">delim</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">:</span>
+                <span class="n">row</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">entry</span> <span class="o">=</span> <span class="n">delim</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span>
+
+
+    <span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_filepath</span><span class="p">,</span> <span class="n">delim</span> <span class="o">=</span> <span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="n">has_headers</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data.read_csv"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data.read_csv">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        simple default reader of a delimited file. Does not read fixed-width</span>
+
+<span class="sd">        :param text_filepath:       csv filepath to read from</span>
+<span class="sd">        :param delim:               delimiter to use, defaults to comma</span>
+<span class="sd">        :param has_headers:         Set &quot;False&quot; if csv file has no headers</span>
+<span class="sd">                                    (this is bad, you should give your file headers)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">text_filepath</span><span class="p">,</span> <span class="s">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="n">has_headers</span><span class="p">:</span>
+                <span class="n">headers</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delim</span><span class="p">)</span>
+                <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">headers</span> <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enf_unique_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="c"># check for a delimiter in the line is used to prevent</span>
+                <span class="c"># blank rows from getting into the row_data.</span>
+                <span class="k">if</span> <span class="n">delim</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delim</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span>
+
+
+    <span class="k">def</span> <span class="nf">write_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_filepath</span><span class="p">,</span> <span class="n">row_wise</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">col_wise</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data.write_json"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data.write_json">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the contents of this text data object to a json file. Note that</span>
+<span class="sd">        json format does `not` support complex numbers with imaginary components.</span>
+<span class="sd">        Also note that json formats are dictionary like, in that they preserve</span>
+<span class="sd">        relationships, but do not display the list of relationships in any particular</span>
+<span class="sd">        order.</span>
+
+<span class="sd">        :param json_filepath:   output filepath to write json</span>
+<span class="sd">        :param row_wise:        set to TRUE to save each row as its own structure</span>
+<span class="sd">        :param col_wise:        set to True to save each col as its own structure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># structures json data</span>
+        <span class="k">if</span> <span class="n">row_wise</span><span class="p">:</span>
+            <span class="n">json_dict</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span>
+        <span class="k">elif</span> <span class="n">col_wise</span><span class="p">:</span>
+            <span class="n">json_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_col_data</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Either &#39;row_wise&#39; or &#39;col_wise&#39; args must be set to True!&quot;</span><span class="p">)</span>
+
+        <span class="c"># write the file as a json</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_filepath</span><span class="p">,</span> <span class="s">&#39;w+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_dict</span><span class="p">,</span> <span class="n">json_filepath</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
+
+
+    <span class="k">def</span> <span class="nf">read_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_filepath</span><span class="p">,</span> <span class="n">row_wise</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">col_wise</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span></div>
+<div class="viewcode-block" id="text_data.read_json"><a class="viewcode-back" href="../../../modules/textio.html#dnppy.textio.text_data.text_data.read_json">[docs]</a>        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the contents of this tdo from a json file created by the</span>
+<span class="sd">        ``text_data.write_json()``  function. Please note that this text_data</span>
+<span class="sd">        class is designed for use with tabular type data, so this should</span>
+<span class="sd">        function will not read ALL json files in a satisfactory manner.</span>
+<span class="sd">        Users wishing to read json files in a general sense should  simply</span>
+<span class="sd">        use the ``json`` module and invoke ``json.loads`` and ``json.dumps``</span>
+<span class="sd">        directly on their data.</span>
+
+<span class="sd">        :param json_filepath:   json filepath to read from</span>
+<span class="sd">        :param row_wise:        read json file objects in as rows</span>
+<span class="sd">        :param col_wise:        read json file objects in as columns</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">json_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_filepath</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">row_wise</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enf_unique_headers</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_col_data</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">col_wise</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span> <span class="o">=</span> <span class="n">data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enf_unique_headers</span><span class="p">([</span><span class="n">key</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_row_data</span><span class="p">()</span>
+        <span class="k">return</span>
+
+
+
+<span class="c"># testing</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span></div></div>
+
+
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">text_data</span><span class="p">()</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&quot;test_data/weather_example.csv&quot;</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">write_csv</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_out.csv&quot;</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_cols.json&quot;</span><span class="p">,</span> <span class="n">col_wise</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">write_json</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_rows.json&quot;</span><span class="p">,</span> <span class="n">row_wise</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">del</span> <span class="n">wd</span>
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">text_data</span><span class="p">()</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_rows.json&quot;</span><span class="p">,</span> <span class="n">row_wise</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">write_csv</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_rows.csv&quot;</span><span class="p">)</span>
+
+    <span class="k">del</span> <span class="n">wd</span>
+    <span class="n">wd</span> <span class="o">=</span> <span class="n">text_data</span><span class="p">()</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_cols.json&quot;</span><span class="p">,</span> <span class="n">col_wise</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">wd</span><span class="o">.</span><span class="n">write_csv</span><span class="p">(</span><span class="s">&quot;test_data/weather_test_cols.csv&quot;</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

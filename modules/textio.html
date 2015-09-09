@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>textio &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="tsa" href="tsa.html"/>
+        <link rel="prev" title="solar" href="solar.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>textio</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/textio.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.textio">
+<span id="textio"></span><h1>textio<a class="headerlink" href="#module-dnppy.textio" title="Permalink to this headline">¶</a></h1>
+<p>The textio module, read like &#8220;text I/O&#8221;, is a repository of functions for reading specific <cite>text</cite>
+data formats as they are served up from their respective DAACs. Custom text file formats are
+common in historical weather data and other ground based data collection networks. This module
+aims to convert them to something more standardized. Some limited <a class="reference external" href="http://json.org/">json</a> writing capabilities exist.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Using <code class="docutils literal"><span class="pre">text_data</span></code> objects</p>
+<p class="rubric">Using <code class="docutils literal"><span class="pre">ioconfig</span></code> objects</p>
+</div>
+<div class="section" id="module-dnppy.textio.read_DS3505">
+<span id="code-help"></span><h2>Code Help<a class="headerlink" href="#module-dnppy.textio.read_DS3505" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dnppy.textio.read_DS3505.read_DS3505">
+<code class="descname">read_DS3505</code><span class="sig-paren">(</span><em>filepath</em>, <em>has_headers=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/read_DS3505.html#read_DS3505"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.read_DS3505.read_DS3505" title="Permalink to this definition">¶</a></dt>
+<dd><p>Text reader for DS3505 data (space delimited) with some fixes</p>
+<p>Weather data downloaded from the following website has a peculiarity
+[<a class="reference external" href="http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&amp;cfg=cdo&amp;theme=hourly&amp;layers=1&amp;node=gi">http://gis.ncdc.noaa.gov/map/viewer/#app=cdo&amp;cfg=cdo&amp;theme=hourly&amp;layers=1&amp;node=gi</a>]
+in that it has some upercase T&#8217;s that are rarely needed, but ruin otherwise
+uniform space formatting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filepath</strong> &#8211; filepath to DS3505 data</li>
+<li><strong>has_headers</strong> &#8211; set False if filepath does not have headers. This doesn&#8217;t seem
+to ever happen for DS3505 data.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return tdo:</th><td class="field-body"><p class="first last">returns a text data object with DS3505 data in it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.textio.text_data"></span><dl class="class">
+<dt id="dnppy.textio.text_data.text_data">
+<em class="property">class </em><code class="descname">text_data</code><span class="sig-paren">(</span><em>headers=None</em>, <em>row_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A text data object is a very simple template structure for passing
+text type data (usually lists of weather or climate data entries)
+around between functions.</p>
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data._build_col_data">
+<code class="descname">_build_col_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data._build_col_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data._build_col_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds column wise data dictionary structure out of
+row_data. (row_data is a list of rows, where each row is a list, so
+row_data is a list of lists). Col data is a single dictionary, where
+the keys are the &#8220;headers&#8221; and the value is the list of all values
+in that column from the top down.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data._build_row_data">
+<code class="descname">_build_row_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data._build_row_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data._build_row_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds row wise data from existing column data. The opposite of
+_build_col_data.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="dnppy.textio.text_data.text_data._enf_unique_headers">
+<em class="property">static </em><code class="descname">_enf_unique_headers</code><span class="sig-paren">(</span><em>headers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data._enf_unique_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data._enf_unique_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends digits to duplicate items in a list. Used to ensure each
+header is a unique string so a column-wise dictionary can be built.</p>
+<p>For example, a text file with headers <code class="docutils literal"><span class="pre">[&quot;name&quot;,</span> <span class="pre">&quot;tag&quot;,</span> <span class="pre">&quot;tag&quot;,</span> <span class="pre">&quot;tag&quot;]</span></code> will
+be changed to have headers <code class="docutils literal"><span class="pre">[&quot;name&quot;,</span> <span class="pre">&quot;tag1&quot;,</span> <span class="pre">&quot;tag2&quot;,</span> <span class="pre">&quot;tag3&quot;]</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>headers</strong> &#8211; list of string elements intended for use as headers.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data.read_csv">
+<code class="descname">read_csv</code><span class="sig-paren">(</span><em>text_filepath</em>, <em>delim='</em>, <em>'</em>, <em>has_headers=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data.read_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data.read_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>simple default reader of a delimited file. Does not read fixed-width</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text_filepath</strong> &#8211; csv filepath to read from</li>
+<li><strong>delim</strong> &#8211; delimiter to use, defaults to comma</li>
+<li><strong>has_headers</strong> &#8211; Set &#8220;False&#8221; if csv file has no headers
+(this is bad, you should give your file headers)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data.read_json">
+<code class="descname">read_json</code><span class="sig-paren">(</span><em>json_filepath</em>, <em>row_wise=None</em>, <em>col_wise=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data.read_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data.read_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the contents of this tdo from a json file created by the
+<code class="docutils literal"><span class="pre">text_data.write_json()</span></code>  function. Please note that this text_data
+class is designed for use with tabular type data, so this should
+function will not read ALL json files in a satisfactory manner.
+Users wishing to read json files in a general sense should  simply
+use the <code class="docutils literal"><span class="pre">json</span></code> module and invoke <code class="docutils literal"><span class="pre">json.loads</span></code> and <code class="docutils literal"><span class="pre">json.dumps</span></code>
+directly on their data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>json_filepath</strong> &#8211; json filepath to read from</li>
+<li><strong>row_wise</strong> &#8211; read json file objects in as rows</li>
+<li><strong>col_wise</strong> &#8211; read json file objects in as columns</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data.write_csv">
+<code class="descname">write_csv</code><span class="sig-paren">(</span><em>text_filepath</em>, <em>delim='</em>, <em>'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data.write_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data.write_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes the contents of this text file object as a CSV</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text_filepath</strong> &#8211; output filepath to write csv .txt</li>
+<li><strong>delim</strong> &#8211; delimiter to use. defaults to comma</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.text_data.text_data.write_json">
+<code class="descname">write_json</code><span class="sig-paren">(</span><em>json_filepath</em>, <em>row_wise=None</em>, <em>col_wise=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/text_data.html#text_data.write_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.text_data.text_data.write_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the contents of this text data object to a json file. Note that
+json format does <cite>not</cite> support complex numbers with imaginary components.
+Also note that json formats are dictionary like, in that they preserve
+relationships, but do not display the list of relationships in any particular
+order.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>json_filepath</strong> &#8211; output filepath to write json</li>
+<li><strong>row_wise</strong> &#8211; set to TRUE to save each row as its own structure</li>
+<li><strong>col_wise</strong> &#8211; set to True to save each col as its own structure</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dnppy.textio.ioconfig"></span><dl class="class">
+<dt id="dnppy.textio.ioconfig.ioconfig">
+<em class="property">class </em><code class="descname">ioconfig</code><span class="sig-paren">(</span><em>input_filepath=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/ioconfig.html#ioconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.ioconfig.ioconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>An ioconfig object is an extension to the text_data_class
+it has the same methods of text_data_class, plus an add_param function
+and simplified <code class="docutils literal"><span class="pre">write()</span></code>, and <code class="docutils literal"><span class="pre">read()</span></code> methods for making visually
+formatted csv files so users can edit config files directly.</p>
+<p>It is used to generate &#8220;config&#8221; files, lists of important inputs to a set
+of complex functions. Allows you to save inputs and call them over and over
+again to avoid tedious input definitions, also facilitates good record keeping
+by keeping a hard file with a summary of all inputs alongside any outputs that
+might have been generated.</p>
+<p>When a param has been added or imported, its value may be accessed with</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ioconfig_object</span><span class="p">[</span><span class="s">&#39;param_name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_filepath</strong> &#8211; Optional filepath to read/write this ioconfig object to/from.
+If you do not provide a filepath here, you can provide one
+when invoking the <code class="docutils literal"><span class="pre">read()</span></code> and <code class="docutils literal"><span class="pre">write()</span></code> methods.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dnppy.textio.ioconfig.ioconfig._interp">
+<code class="descname">_interp</code><span class="sig-paren">(</span><em>in_type</em>, <em>in_value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/ioconfig.html#ioconfig._interp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.ioconfig.ioconfig._interp" title="Permalink to this definition">¶</a></dt>
+<dd><p>allows interpretation of config values based on type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.ioconfig.ioconfig.add_param">
+<code class="descname">add_param</code><span class="sig-paren">(</span><em>param_names</em>, <em>param_values</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/ioconfig.html#ioconfig.add_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.ioconfig.ioconfig.add_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds parameters to the ioconfig object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>param_names</strong> &#8211; A string, the name of the parameter</li>
+<li><strong>param_values</strong> &#8211; the value of the parameter. May be any built
+in datatype. (bool, int, str, list, long, etc)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>when a param has been added or imported, its value may be accessed with</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ioconfig_object</span><span class="p">[</span><span class="s">&#39;param_name&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.ioconfig.ioconfig.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/ioconfig.html#ioconfig.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.ioconfig.ioconfig.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the contents of a csv file generated by <code class="docutils literal"><span class="pre">ioconfig.write()</span></code>,
+interprets and formats each of the variables to the state it was before
+exporting. Once finished, this the ioconfig object will have all
+its standard attributes including <code class="docutils literal"><span class="pre">conf_dict</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> &#8211; filepath to a csv or txt file generated by the
+<code class="docutils literal"><span class="pre">ioconfig.write</span></code> method.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.textio.ioconfig.ioconfig.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/textio/ioconfig.html#ioconfig.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.textio.ioconfig.ioconfig.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares the row data with nice visual formatting then calls
+the <code class="docutils literal"><span class="pre">text_data.write_csv</span></code> method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filepath</strong> &#8211; filepath to write csv to. (.txt, .csv, etc)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tsa.html" class="btn btn-neutral float-right" title="tsa">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="solar.html" class="btn btn-neutral" title="solar"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

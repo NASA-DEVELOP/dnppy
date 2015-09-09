@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exploring the modules &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="index.html"/>
+        <link rel="next" title="convert" href="modules/convert.html"/>
+        <link rel="prev" title="Design" href="design.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Exploring the modules</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/modulesum.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="exploring-the-modules">
+<h1>Exploring the modules<a class="headerlink" href="#exploring-the-modules" title="Permalink to this headline">¶</a></h1>
+<p>OK, so you have read the overview, maybe you&#8217;ve downloaded and installed the package, you read about the design and how how to use it, but what can dnppy <em>actually</em> do!? How do you access functions?! What can you do with NASA data? The next section of the sidebar breaks dnppy down into its individual modules with some introductory examples on how to use some of the functions and classes in each one. When accessing code from some remote location with python, we use the an <code class="docutils literal"><span class="pre">import</span></code> statement to bring the module contents into the current namespace of python.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>    <span class="c"># import the core module from dnppy</span>
+<span class="n">help</span><span class="p">(</span><span class="n">core</span><span class="p">)</span>                <span class="c"># print list of functions in core</span>
+<span class="n">help</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">function</span><span class="p">)</span>       <span class="c"># print detailed help for function &quot;function&quot;</span>
+
+<span class="c"># collects the returned value from passing some arguments into our hypothetical function</span>
+<span class="n">returned_value</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="module-summary">
+<h2>Module Summary<a class="headerlink" href="#module-summary" title="Permalink to this headline">¶</a></h2>
+<p class="rubric"><a class="reference internal" href="modules/convert.html"><em>convert</em></a></p>
+<span class="target" id="module-dnppy.convert"></span><p>dnppy convert contains functions for conversion between filetypes. Usually between
+a file type distributed by a NASA Distributed Active Archive Center (DAAC) such as
+NetCDF or HDF5 to geotiff. Due to differences in metadata standards, many of these
+functions only operate successfully data from a specific source.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<p class="rubric"><a class="reference internal" href="modules/core.html"><em>core</em></a></p>
+<span class="target" id="module-dnppy.core"></span><p>The <code class="docutils literal"><span class="pre">core</span></code> module houses functions that assist in data formatting, input sanitation,
+path manipulations, file naming, logical checks, etc for use in other functions within
+dnppy. They are short and sweet, and can be used as examples to start defining your own functions!</p>
+<p class="rubric"><a class="reference internal" href="modules/download.html"><em>download</em></a></p>
+<span class="target" id="module-dnppy.download"></span><p>The download module houses many &#8220;fetch&#8221; functions for automatic retrieval of specific data
+products from <code class="docutils literal"><span class="pre">http</span></code> and <code class="docutils literal"><span class="pre">ftp</span></code> servers around the USA. While centered around NASA data
+products, some functions exist for fetching of ancillary NOAA climate products and others.</p>
+<p class="rubric"><a class="reference internal" href="modules/landsat.html"><em>landsat</em></a></p>
+<span class="target" id="module-dnppy.landsat"></span><p>Landsat imagery is pretty versatile and commonly used, so the landsat data has its own
+module for common tasks associated with this product. This includes things like converting
+to top-of-atmosphere reflectance, at-satellite brightness temperature, cloud masking, and others.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<p class="rubric"><a class="reference internal" href="modules/modis.html"><em>modis</em></a></p>
+<span class="target" id="module-dnppy.modis"></span><p>Two satellites, Terra and Aqua, are home to a MODIS sensor, which has produced a large number
+of data products for over a full decade with minimal interruption. The modis module houses
+functions specifically related to processing and handling MODIS data, which includes handling
+of the MODIS sinusoidal projection, and mosaic operations.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<p class="rubric"><a class="reference internal" href="modules/radar.html"><em>radar</em></a></p>
+<span class="target" id="module-dnppy.radar"></span><p>The radar module is very small, but houses functions used to process
+radar data. It focuses on UAVSAR data, which is data from a Synthetic Aperture
+Radar (SAR) on board an Unmanned Aerial Vehicle (UAV). Assists the user in
+building header data and converting to decibels.</p>
+<p class="rubric"><a class="reference internal" href="modules/raster.html"><em>raster</em></a></p>
+<span class="target" id="module-dnppy.raster"></span><p>The raster module is used to analyze raster data from non-specific sources. In an idealized
+workflow, use of the convert and download modules can help users obtain and pre-process data
+for use with functions in the raster module. The modules capabilities include statistics
+generation, subsetting, reprojecting, null data management, correction functions, and others.
+Top level functions in the raster module should all have batch processing capabilities bult in.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<p class="rubric"><a class="reference internal" href="modules/solar.html"><em>solar</em></a></p>
+<span class="target" id="module-dnppy.solar"></span><p>The solar module contains just one class definition, with many associated methods to perform a plethora
+of calculations based around the sun-earth relationship. It replicates the functionality of the <a class="reference external" href="http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">common
+NOAA excel calculator</a>, including adjustments due to atmospheric refraction. Each method may be run
+independently as the user wishes, as each method will automatically invoke any other calculations that
+must be performed first, and it will not unnecessarily redo calculations that have already been completed.</p>
+<p>A solar class object allows scalar or numpy array inputs for latitude and longitude values for per-pixel
+computation and improved accuracy when scene-center calculations are insufficient. The solar class is not
+yet capable of ingesting digital elevation models to calculate slope and aspect dependent parameters, but
+it is a planned addition.</p>
+<p class="rubric"><a class="reference internal" href="modules/textio.html"><em>textio</em></a></p>
+<span class="target" id="module-dnppy.textio"></span><p>The textio module, read like &#8220;text I/O&#8221;, is a repository of functions for reading specific <cite>text</cite>
+data formats as they are served up from their respective DAACs. Custom text file formats are
+common in historical weather data and other ground based data collection networks. This module
+aims to convert them to something more standardized. Some limited <a class="reference external" href="http://json.org/">json</a> writing capabilities exist.</p>
+<p class="rubric"><a class="reference internal" href="modules/tsa.html"><em>tsa</em></a></p>
+<span class="target" id="module-dnppy.tsa"></span><p>The tsa (short for time series analysis) module is centered around the time_series
+class. One or more time_series objects should be central to any data analysis
+task that examines temporal relationships in data sets of raster or tabular
+format. This module also houses the rast_series class, which is an extension of
+time_series for handling filepaths to raster data.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules/convert.html" class="btn btn-neutral float-right" title="convert">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="design.html" class="btn btn-neutral" title="Design"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

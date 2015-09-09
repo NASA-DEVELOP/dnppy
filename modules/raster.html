@@ -1,0 +1,1031 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>raster &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="solar" href="solar.html"/>
+        <link rel="prev" title="radar" href="radar.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>raster</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/raster.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.raster">
+<span id="raster"></span><h1>raster<a class="headerlink" href="#module-dnppy.raster" title="Permalink to this headline">¶</a></h1>
+<p>The raster module is used to analyze raster data from non-specific sources. In an idealized
+workflow, use of the convert and download modules can help users obtain and pre-process data
+for use with functions in the raster module. The modules capabilities include statistics
+generation, subsetting, reprojecting, null data management, correction functions, and others.
+Top level functions in the raster module should all have batch processing capabilities bult in.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Raster manipulation in python</p>
+<p>There are two main ways to manipulate raster data in python. One of which is with <code class="docutils literal"><span class="pre">arcpy.Raster</span></code> objects, which can have arithmetic opperations performed directly upon them in many cases. The preferred method is match your rasters up with something like <code class="docutils literal"><span class="pre">dnppy.raster.spatially_match</span></code> and then convert them into numpy arrays for efficient matrix like operations. Two workhorse functions that can help you bring a raster into python, perform some mainpulations, and then save that raster again while preserving all geophysical and geospatial attributes are <code class="docutils literal"><span class="pre">raster.to_numpy</span></code> and <code class="docutils literal"><span class="pre">raster.from_numpy</span></code>. These functions are designed to pass around <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html#what-is-a-masked-array">masked numpy arrays</a>, which pretty much consist of an array for your data, and one with a bunch of true or false values that tell you if that pixel is nodata or not. You can just perform arithmetic operations on these masked arrays, and it will silently keep track of your nodata for you in the background! The general workflow goes like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">raster</span>
+
+<span class="c"># bring your raster in as a numpy array</span>
+<span class="n">my_numpy</span><span class="p">,</span> <span class="n">my_metadata</span> <span class="o">=</span> <span class="n">raster</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">my_raster_filepath</span><span class="p">)</span>
+
+<span class="c"># access the data and mask information</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="n">my_numpy</span><span class="p">)</span>    <span class="c"># you will see that this array is a masked numpy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">my_numpy</span><span class="o">.</span><span class="n">data</span>    <span class="c"># access just the data in your numpy array</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">my_numpy</span><span class="o">.</span><span class="n">mask</span>    <span class="c"># access just the mask of your numpy array</span>
+
+<span class="c"># perform some arbitrary polynomial arithmetic to create output numpy array</span>
+<span class="n">out_numpy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">my_numpy</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">my_numpy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span>
+
+<span class="c"># save our output array with the same metadata as our input array!</span>
+<span class="n">raster</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">out_numpy</span><span class="p">,</span> <span class="n">my_metadata</span><span class="p">,</span> <span class="n">my_output_filepath</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the middle step, you can see how easy it is to perform mathematical manipulations on one or more raster datasets as if they were any simple variable type!</p>
+<p class="rubric">Using <code class="docutils literal"><span class="pre">spatially_match</span></code></p>
+<p>Often times, one will want to perform an analysis which includes raster data from two different sources. This data usually has to converted to match the resolution, spatial extent, geographic reference, and projection. In order to do simple matrix type math, pixels must also be perfectly coincident, laying directly on top of one another. The <code class="docutils literal"><span class="pre">spatially_match</span></code> function was built for this purpose. It wraps other <code class="docutils literal"><span class="pre">dnppy.raster</span></code> functions, including <cite>clip_and_snap</cite> and <code class="docutils literal"><span class="pre">project_resample</span></code> and performs the necessary steps to make an input set of data match a reference file. Typically, all should be resampled and subseted to match that of the highest resolution layer, often times a Digital Elevation Model (DEM). One would use the syntax below to make a directory full of raster data match a reference tif, a DEM in this case.</p>
+<p>Assume we have a DEM, and a few dozen MODIS images, which are much lower resolution. If you have been following some of the other examples in this wiki, you may have a MODIS data set prepared already. You can easily fetch a DEM using the <code class="docutils literal"><span class="pre">fetch_SRTM</span></code> function in the <code class="docutils literal"><span class="pre">download</span></code> module.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">raster</span>
+
+<span class="n">dempath</span>  <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\test\SRTM_DEM.tif&quot;</span>    <span class="c"># filepath to DEM</span>
+<span class="n">modisdir</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\test_tifs&quot;</span>            <span class="c"># directory with MODIS tifs</span>
+<span class="n">smdir</span>    <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\sm_tifs&quot;</span>              <span class="c"># dir for output sm tiffs.</span>
+
+<span class="n">raster</span><span class="o">.</span><span class="n">spatially_match</span><span class="p">(</span><span class="n">dempath</span><span class="p">,</span> <span class="n">modisdir</span><span class="p">,</span> <span class="n">smdir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code block above will produce a folder full of tiffs at <code class="docutils literal"><span class="pre">smdir</span></code> that are spatially matched to the same resolution, extents, and projection of the <code class="docutils literal"><span class="pre">dempath</span></code> raster. The images are now ready for further numerical manipulation.</p>
+</div>
+<div class="section" id="module-dnppy.raster.apply_linear_correction">
+<span id="code-help"></span><h2>Code Help<a class="headerlink" href="#module-dnppy.raster.apply_linear_correction" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dnppy.raster.apply_linear_correction.apply_linear_correction">
+<code class="descname">apply_linear_correction</code><span class="sig-paren">(</span><em>rasterlist</em>, <em>factor</em>, <em>offset</em>, <em>suffix='lc'</em>, <em>outdir=None</em>, <em>floor=-999999</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/apply_linear_correction.html#apply_linear_correction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.apply_linear_correction.apply_linear_correction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a linear correction to a raster dataset.
+New offset rasters are saved in the output directory with a suffix of &#8220;lc&#8221;
+unless one is specified. This may be used to apply any kind of linear relationship
+that can be described with &#8220;mx + b&#8221; such as conversion between between K,C, and F.
+Also useful when ground truthing satellite data and discovering linear errors.
+All outputs are 32 bit floating point values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rasterlist</strong> &#8211; list of rasters, a single raster, or a directory full of tiffs to
+Have a linear correction applied to them.</li>
+<li><strong>factor</strong> &#8211; every pixel in the raster will be MULTIPLIED by this value.</li>
+<li><strong>offset</strong> &#8211; this offset value will be ADDED to every pixel in the raster.</li>
+<li><strong>suffix</strong> &#8211; output files will take the same name as input files with this string
+appended to the end. So input &#8220;FILE.tif&#8221; outputs &#8220;FILE_suffix.tif&#8221;</li>
+<li><strong>outdir</strong> &#8211; directory to save output rasters. &#8220;None&#8221; will save output images
+in the same folder as the input images.</li>
+<li><strong>floor</strong> &#8211; Used to manage NoData. All values less than floor are set to floor
+then floor is set to the new NoData value. defaults to -999,999</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>return outputpath:  filepath to output files created by this function</p>
+<p>Example Usage
+to convert from MODIS Land surface temperature from digital number to kelvin, you
+must simply multiply by 0.02 as the stated scale factor listed at the link below
+[<a class="reference external" href="https://lpdaac.usgs.gov/products/modis_products_table/myd11a1">https://lpdaac.usgs.gov/products/modis_products_table/myd11a1</a>].</p>
+<p>Now that it is in kelvin, converting to Celsius can be done by adding (-273.15)
+So, use this function with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">factor</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="mf">273.15</span>
+</pre></div>
+</div>
+<p>and one may convert MODIS land surface temperature digital numbers directly to
+celsius!</p>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.clip_and_snap"></span><dl class="function">
+<dt id="dnppy.raster.clip_and_snap.clip_and_snap">
+<code class="descname">clip_and_snap</code><span class="sig-paren">(</span><em>snap_raster</em>, <em>rastname</em>, <em>outname</em>, <em>NoData_Value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/clip_and_snap.html#clip_and_snap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.clip_and_snap.clip_and_snap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures perfect coincidence between a snap_raster and any input rasters</p>
+<p>This script is primarily intended for calling by the &#8220;raster.spatially_match&#8221; function
+but may be called independently.</p>
+<p>it is designed to input a reference image and a working image. The working image must
+be in exactly the same projection and spatial resolution as the reference image. This
+script will simply ensure the tif files are perfectly coincident, and that the total image
+extents are identical. This is important when performing numpy manipulations on matrices
+derived from different datasets manipulated in different ways to ensure alignment.</p>
+<p>This script makes modifications to the original raster file, so save a backup if you are
+unsure how to use this.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>snap_raster</strong> &#8211; filepath and name of reference raster whos extent will be taken on by
+the input rastername.</li>
+<li><strong>rastname</strong> &#8211; name of raster which should be snapped to the snap_raster</li>
+<li><strong>NoData_Value</strong> &#8211; Value desired to represent NoData in the saved image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return snap_meta:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">metadata of the snap_raster file as output by to_numpy</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return meta:</th><td class="field-body"><p class="first last">metadata of the rastername file as output by to_numpy</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.clip_to_shape"></span><dl class="function">
+<dt id="dnppy.raster.clip_to_shape.clip_to_shape">
+<code class="descname">clip_to_shape</code><span class="sig-paren">(</span><em>rasterlist</em>, <em>shapefile</em>, <em>outdir=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/clip_to_shape.html#clip_to_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.clip_to_shape.clip_to_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple batch clipping script to clip rasters to shapefiles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rasterlist</strong> &#8211; single file, list of files, or directory for which to clip rasters</li>
+<li><strong>shapefile</strong> &#8211; shapefile to which rasters will be clipped</li>
+<li><strong>outdir</strong> &#8211; desired output directory. If no output directory is specified, the
+new files will simply have &#8216;_c&#8217; added as a suffix.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of files created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.degree_days"></span><dl class="function">
+<dt id="dnppy.raster.degree_days.degree_days">
+<code class="descname">degree_days</code><span class="sig-paren">(</span><em>T_base</em>, <em>Max</em>, <em>Min</em>, <em>NoData_Value</em>, <em>outpath=False</em>, <em>roof=False</em>, <em>floor=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/degree_days.html#degree_days"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.degree_days.degree_days" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inputs rasters for maximum and minimum temperatures, calculates Growing Degree Days</p>
+<p>this function is built to perform the common degree day calculation on either a pair
+of raster filepaths, a pair of numpy arrays It requires, at minimum a maximum
+temperature value, a minimum temperature value, and a base temperature. This
+equation could also be used to calculate Chill hours or anything similar.</p>
+<p>The equation is <code class="docutils literal"><span class="pre">[(Max+Min)/2</span> <span class="pre">+</span> <span class="pre">T_base]</span></code></p>
+<p>where values in Max which are greater than roof are set equal to roof
+where values in Min which are less than floor are set equal to floor
+consult [<a class="reference external" href="https://en.wikipedia.org/wiki/Growing_degree-day">https://en.wikipedia.org/wiki/Growing_degree-day</a>] for more information.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>T_base</strong> &#8211; base temperature to ADD, be mindful of sign convention.</li>
+<li><strong>Max</strong> &#8211; filepath, numpy array, or list of maximum temperatures</li>
+<li><strong>Min</strong> &#8211; filepath, numpy array, or list of minimum temperatures</li>
+<li><strong>NoData_Value</strong> &#8211; values to ignore (must be int or float)</li>
+<li><strong>outpath</strong> &#8211; filepath to which output should be saved. Only works if Max and Min inputs
+are raster filepaths with spatial referencing.</li>
+<li><strong>roof</strong> &#8211; roof value above which Max temps do not mater</li>
+<li><strong>floor</strong> &#8211; floor value below which Min temps do not mater</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return deg_days:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">a numpy array of the output degree_days</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.degree_days_accum"></span><dl class="function">
+<dt id="dnppy.raster.degree_days_accum.degree_days_accum">
+<code class="descname">degree_days_accum</code><span class="sig-paren">(</span><em>rasterlist</em>, <em>critical_values=None</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/degree_days_accum.html#degree_days_accum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.degree_days_accum.degree_days_accum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accumulates degree days in a time series rasterlist</p>
+<p>This function is the logical successor to calc.degree_days. Input a list of rasters
+containing daily data to be accumulated. Output raster for a given day will be the sum
+total of the input raster for that day and all preceding days. The last output raster in
+a years worth of data (image 356) would be the sum of all 365 images. The 25th output
+raster would be a sum of the first 25 days.
+Critical value rasters will also be created. Usefull for example: we wish to know on what day
+of our 365 day sequence every pixel hits a value of 100. Input 100 as a critical value
+and that output raster will be generated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rasterlist</strong> &#8211; list of files, or directory containing rasters to accumulate</li>
+<li><strong>critical_values</strong> &#8211; Values at which the user wishes to know WHEN the total accumulation
+value reaches this point. For every critical value, an output
+raster will be created. This raster contains integer values denoting
+the index number of the file at which the value was reached.
+This input must be a list of ints or floats, not strings.</li>
+<li><strong>outdir</strong> &#8211; Desired output directory for all output files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">a list of all files created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.enf_rastlist"></span><dl class="function">
+<dt id="dnppy.raster.enf_rastlist.enf_rastlist">
+<code class="descname">enf_rastlist</code><span class="sig-paren">(</span><em>filelist</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/enf_rastlist.html#enf_rastlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.enf_rastlist.enf_rastlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures a list of inputs filepaths contains only valid raster types</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filelist</strong> &#8211; a list of filepaths that contains some raster filetypes</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return new_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">a list of filepaths with all non-raster files removed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.from_numpy"></span><dl class="function">
+<dt id="dnppy.raster.from_numpy.from_numpy">
+<code class="descname">from_numpy</code><span class="sig-paren">(</span><em>numpy_rast</em>, <em>metadata</em>, <em>outpath</em>, <em>NoData_Value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/from_numpy.html#from_numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.from_numpy.from_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for arcpy.NumPyArrayToRaster function with better metadata handling</p>
+<p>this is just a wrapper for the NumPyArrayToRaster function within arcpy. It is used in
+conjunction with to_numpy to streamline reading image files in and out of numpy
+arrays. It also ensures that all spatial referencing and projection info is preserved
+between input and outputs of numpy manipulations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>numpy_rast</strong> &#8211; The numpy array version of the input raster</li>
+<li><strong>metadata</strong> &#8211; The variable exactly as output from &#8220;to_numpy&#8221;</li>
+<li><strong>outpath</strong> &#8211; Output filepath of the individual raster</li>
+<li><strong>NoData_Value</strong> &#8211; The no data value of the output raster</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return outpath:</th><td class="field-body"><p class="first last">Same as input outpath, filepath to created file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage example
+call to_numpy with  &#8220;rast,metadata = to_numpy(Raster)&#8221;
+perform numpy manipulations as you please
+then save the array with &#8220;raster.from_numpy(rast, metadata, output)&#8221;</p>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.gap_fill_temporal"></span><dl class="function">
+<dt id="dnppy.raster.gap_fill_temporal.gap_fill_temporal">
+<code class="descname">gap_fill_temporal</code><span class="sig-paren">(</span><em>rasterlist</em>, <em>outdir=None</em>, <em>continuous=True</em>, <em>NoData_Value=None</em>, <em>numpy_datatype='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/gap_fill_temporal.html#gap_fill_temporal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.gap_fill_temporal.gap_fill_temporal" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is designed to input a time sequence of rasters with partial voids and
+output a copy of each input image with every pixel equal to the last good value taken.
+This function will step forward in time through each raster and fill voids from the values
+of previous rasters. The resulting output image will contain all the data that was in the
+original image, with the voids filled with older data. A second output image will be
+generated where the pixel values are equal to the age of each pixel in the image. So
+if a void was filled with data that&#8217;s 5 days old, the &#8220;age&#8221; raster will have a value of
+&#8220;5&#8221; at that location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rasterlist</strong> &#8211; A list of filepaths for rasters with which to fill gaps. THESE IMAGES
+MUST BE ORDERED FROM OLDEST TO NEWEST (ascending time).</li>
+<li><strong>outdir</strong> &#8211; the path to the desired output folder, if left &#8220;None&#8221;, outputs will be
+saved right next to respective inputs.</li>
+<li><strong>continuous</strong> &#8211; if &#8220;True&#8221; an output raster will be generated for every single input raster,
+which can be used to fill gaps in an entire time series. So, for example
+output raster 2 will have all the good points in input raster 2, with gaps
+filled with data from raster 1. output raster 3 will then be gap filled with
+output raster 2, which might contain some fill values from raster 1, and so
+forth. If &#8220;False&#8221; an output raster will only be generated for the LAST raster
+in the input rasterlist.</li>
+<li><strong>numpy_datatype</strong> &#8211; the numpy datatype of the output raster. usually &#8220;float32&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns a list of filepaths to new files created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.gap_fill_interpolate"></span><dl class="function">
+<dt id="dnppy.raster.gap_fill_interpolate.gap_fill_interpolate">
+<code class="descname">gap_fill_interpolate</code><span class="sig-paren">(</span><em>in_rasterpath</em>, <em>out_rasterpath</em>, <em>model=None</em>, <em>max_cell_dist=None</em>, <em>min_points=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/gap_fill_interpolate.html#gap_fill_interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.gap_fill_interpolate.gap_fill_interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills gaps in raster data by spatial kriging interpolation. This should only
+be used to fill small gaps in continuous datasets (like a DEM), and in
+instances where it makes sense. This function creates a feature class
+layer of points where pixels are not NoData, then performs a &#8220;kriging&#8221;
+interpolation on the point data to rebuild a uniform grid with a value
+at every location, thus filling gaps.</p>
+<p>WARNING: This script is processing intensive and may take a while to run
+even for modestly sized datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>in_rasterpath</strong> &#8211; input filepath to raster to fill gaps</li>
+<li><strong>out_rasterpath</strong> &#8211; filepath to store output gap filled raster in</li>
+<li><strong>model</strong> &#8211; type of kriging model to run, options include
+&#8220;SPHERICAL&#8221;, &#8220;CIRCULAR&#8221;, &#8220;EXPONENTIAL&#8221;,
+&#8220;GAUSSIAN&#8221;, and &#8220;LINEAR&#8221;</li>
+<li><strong>max_cell_dist</strong> &#8211; The maximum number of cells to interpolate between,
+data gaps which do not have at least &#8220;min_points&#8221;
+points within this distance will not be filled.</li>
+<li><strong>min_points</strong> &#8211; Minimum number of surrounding points to use in determining
+value at missing cell.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return out_rasterpath:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Returns path to file created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.in_dir"></span><dl class="function">
+<dt id="dnppy.raster.in_dir.in_dir">
+<code class="descname">in_dir</code><span class="sig-paren">(</span><em>dir_name</em>, <em>recursive=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/in_dir.html#in_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.in_dir.in_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists all the rasters in an input directory. finds all formats
+supported by <code class="docutils literal"><span class="pre">raster.enf_rastlist()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dir_name</strong> &#8211; directory to search rasters for</li>
+<li><strong>recursive</strong> &#8211; Set to &#8220;True&#8221; to search within subfolders of input
+directory &#8220;dir_name&#8221;</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.is_rast"></span><dl class="function">
+<dt id="dnppy.raster.is_rast.is_rast">
+<code class="descname">is_rast</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/is_rast.html#is_rast"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.is_rast.is_rast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verifies that input filename exists, and is of a valid raster format</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; check if this filename is a valid accessible raster.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return &lt;bool&gt;:</th><td class="field-body">returns True if filename is valid accessible raster. False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.many_stats"></span><dl class="function">
+<dt id="dnppy.raster.many_stats.many_stats">
+<code class="descname">many_stats</code><span class="sig-paren">(</span><em>rasterlist</em>, <em>outdir</em>, <em>outname</em>, <em>saves=None</em>, <em>low_thresh=None</em>, <em>high_thresh=None</em>, <em>numtype='float32'</em>, <em>NoData_Value=-9999</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/many_stats.html#many_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.many_stats.many_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take statistics across many input rasters. This function is used to take
+statistics on large groups of rasters with identical spatial extents.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rasterlist</strong> &#8211; list of raster filepaths for which to take statistics</li>
+<li><strong>outdir</strong> &#8211; directory where output should be stored.</li>
+<li><strong>outname</strong> &#8211; output name filename string that will be used in output filenames</li>
+<li><strong>saves</strong> &#8211; which statistics to save in a raster. Defaults to all
+three [&#8216;AVG&#8217;,&#8217;NUM&#8217;,&#8217;STD&#8217;].</li>
+<li><strong>low_thresh</strong> &#8211; values below low_thresh are assumed erroneous and set to NoData</li>
+<li><strong>high_thresh</strong> &#8211; values above high_thresh are assumed erroneous and set to NoData.</li>
+<li><strong>numtype</strong> &#8211; type of numerical value. defaults to 32bit float.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This function does not return anything.</p>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.metadata"></span><dl class="class">
+<dt id="dnppy.raster.metadata.metadata">
+<em class="property">class </em><code class="descname">metadata</code><span class="sig-paren">(</span><em>raster=None</em>, <em>xs=None</em>, <em>ys=None</em>, <em>zs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/metadata.html#metadata"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.metadata.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dnppy standard class for storing raster metadata in a way
+that allows arcpy.Raster() object style handling while using numpy
+arrays for data manipulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>raster</strong> &#8211; filepath to raster existing on disk</td>
+</tr>
+</tbody>
+</table>
+<p>typical attributes include the following</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribute</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Xsize</td>
+<td>x dimension of raster</td>
+</tr>
+<tr class="row-odd"><td>Ysize</td>
+<td>y dimension of raster</td>
+</tr>
+<tr class="row-even"><td>Zsize</td>
+<td>z dimension of raster (number of bands)</td>
+</tr>
+<tr class="row-odd"><td>Xmin</td>
+<td>lowest x coordinate</td>
+</tr>
+<tr class="row-even"><td>Ymin</td>
+<td>lowest y coordinate</td>
+</tr>
+<tr class="row-odd"><td>Xmax</td>
+<td>largest x coordiante</td>
+</tr>
+<tr class="row-even"><td>Ymax</td>
+<td>largest y coordinate</td>
+</tr>
+<tr class="row-odd"><td>cellWidth</td>
+<td>horizontal pixel resolution</td>
+</tr>
+<tr class="row-even"><td>cellHeight</td>
+<td>vertical pixel resolution</td>
+</tr>
+<tr class="row-odd"><td>desc_pixelType</td>
+<td>pixel type description returned by arcpy.Describe()</td>
+</tr>
+<tr class="row-even"><td>pixel_type</td>
+<td>pixel type description that is actually accepted
+as input by other <code class="docutils literal"><span class="pre">arcpy</span></code> functions. (ex &#8220;32_BIT_FLOAT&#8221;)</td>
+</tr>
+<tr class="row-odd"><td>numpy_datatype</td>
+<td>numpy accepted pixel type string. (ex &#8220;float32&#8221;)</td>
+</tr>
+<tr class="row-even"><td>projection</td>
+<td>the projection of the raster (long string)</td>
+</tr>
+<tr class="row-odd"><td>NoData_Value</td>
+<td>the value representing no data</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.new_mosaic"></span><dl class="function">
+<dt id="dnppy.raster.new_mosaic.new_mosaic">
+<code class="descname">new_mosaic</code><span class="sig-paren">(</span><em>rasterpaths</em>, <em>output_path</em>, <em>mosaic_method=None</em>, <em>cell_size=None</em>, <em>number_of_bands=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/new_mosaic.html#new_mosaic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.new_mosaic.new_mosaic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simply creates a new raster dataset mosaic of input rasters by wrapping the
+arcpy.MosaicToNewRaster_management function. learn more about the fields here</p>
+<p><a class="reference external" href="http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000">http://help.arcgis.com/en/arcgisdesktop/10.0/help/index.html#//001700000098000000</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rasterpaths</strong> &#8211; list of complete filepaths to raster data to mosaic</li>
+<li><strong>output_path</strong> &#8211; place to save new mosaic raster dataset</li>
+<li><strong>mosaic_method</strong> &#8211; options are &#8220;FIRST&#8221;, &#8220;LAST&#8221;, &#8220;BLEND&#8221;, &#8220;MEAN&#8221;, &#8220;MINIMUM&#8221;,&#8221;MAXIMUM&#8221;</li>
+<li><strong>cell_size</strong> &#8211; of format &#8220;[cellwidth] [cellheight]&#8221; in the appropriate linear units,
+usually meters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns filepath to new file, same as input <code class="docutils literal"><span class="pre">output_path</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.null_define"></span><dl class="function">
+<dt id="dnppy.raster.null_define.null_define">
+<code class="descname">null_define</code><span class="sig-paren">(</span><em>rastlist</em>, <em>NoData_Value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/null_define.html#null_define"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.null_define.null_define" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple batch NoData setting function. Makes raster data more arcmap viewing friendly</p>
+<p>Function inputs a list of raster (usually tifs) files and sets no data values. This
+function does not actually change the raster values in any way, and simply defines which
+numerical values to be considered NoData in metadata.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rastlist</strong> &#8211; list of rasters for which to set nodata value</li>
+<li><strong>NoData_Value</strong> &#8211; Value to declare as NoData (usually 0 or -9999)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return rastlist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">returns list of modified files</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.null_set_range"></span><dl class="function">
+<dt id="dnppy.raster.null_set_range.null_set_range">
+<code class="descname">null_set_range</code><span class="sig-paren">(</span><em>rastlist</em>, <em>high_thresh=None</em>, <em>low_thresh=None</em>, <em>NoData_Value=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/null_set_range.html#null_set_range"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.null_set_range.null_set_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes values within a certain range to NoData. similar to <code class="docutils literal"><span class="pre">raster.null_define</span></code>,
+but can take an entire range of values to set to NoData. useful in filtering
+obviously erroneous high or low values from a raster dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rastlist</strong> &#8211; list of rasters for which to set no dta values</li>
+<li><strong>high_thresh</strong> &#8211; will set all values above this to  NoData</li>
+<li><strong>low_thresh</strong> &#8211; will set all values below this to NoData</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return rastlist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of all rasters modified by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.project_resample"></span><dl class="function">
+<dt id="dnppy.raster.project_resample.project_resample">
+<code class="descname">project_resample</code><span class="sig-paren">(</span><em>filelist</em>, <em>reference_file</em>, <em>outdir=None</em>, <em>resampling_type=None</em>, <em>cell_size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/project_resample.html#project_resample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.project_resample.project_resample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for multiple arcpy projecting functions. Projects to reference file. Inputs a
+filelist and a reference file, then projects all rasters or feature classes
+in the filelist to match the projection of the reference file. Writes new files with a
+in the filelist to match the projection of the reference file. Writes new files with a
+&#8220;_p&#8221; appended to the end of the input filenames. This also will perform resampling.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filelist</strong> &#8211; list of files to be projected</li>
+<li><strong>outdir</strong> &#8211; optional desired output directory. If none is specified, output files
+will be named with &#8216;_p&#8217; as a suffix.</li>
+<li><strong>reference_file</strong> &#8211; Either a file with the desired projection, or a .prj file.</li>
+<li><strong>resampling_type</strong> &#8211; exactly as the input for arcmaps project_Raster_management function</li>
+<li><strong>cell_size</strong> &#8211; exactly as the input for arcmaps project_Raster_management function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">list of files created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.raster_fig"></span><dl class="class">
+<dt id="dnppy.raster.raster_fig.raster_fig">
+<em class="property">class </em><code class="descname">raster_fig</code><span class="sig-paren">(</span><em>numpy_rast</em>, <em>title=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/raster_fig.html#raster_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.raster_fig.raster_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>raster_fig objects are used for heads up displays of raster
+data to the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>numpy_rast</strong> &#8211; a numpy array representing araster dataset</li>
+<li><strong>title</strong> &#8211; title to put on the raster figure plot</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="dnppy.raster.raster_fig.raster_fig.close_fig">
+<code class="descname">close_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/raster_fig.html#raster_fig.close_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.raster_fig.raster_fig.close_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>closes an active figure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.raster.raster_fig.raster_fig.make_fig">
+<code class="descname">make_fig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/raster_fig.html#raster_fig.make_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.raster_fig.raster_fig.make_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>function to set up an initial figure</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.raster.raster_fig.raster_fig.update_fig">
+<code class="descname">update_fig</code><span class="sig-paren">(</span><em>numpy_rast</em>, <em>title=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/raster_fig.html#raster_fig.update_fig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.raster_fig.raster_fig.update_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to update a figure that already exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>numpy_rast</strong> &#8211; a numpy array representing a raster dataset</li>
+<li><strong>title</strong> &#8211; title to put on the raster figure object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.raster_overlap"></span><dl class="function">
+<dt id="dnppy.raster.raster_overlap.raster_overlap">
+<code class="descname">raster_overlap</code><span class="sig-paren">(</span><em>file_A</em>, <em>file_B</em>, <em>outpath</em>, <em>NoData_A=None</em>, <em>NoData_B=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/raster_overlap.html#raster_overlap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.raster_overlap.raster_overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds overlaping area between two raster images. this function examines
+two images and outputs a raster identifying pixels where both rasters have
+non-NoData values. Output raster has 1&#8217;s where both images have data and
+0&#8217;s where one or both images are missing data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_A</strong> &#8211; the first file</li>
+<li><strong>file_B</strong> &#8211; the second file</li>
+<li><strong>outpath</strong> &#8211; the output filename for the desired output. must end in &#8221;.tif&#8221;</li>
+<li><strong>NoData_A</strong> &#8211; the NoData value of file A</li>
+<li><strong>NoData_B</strong> &#8211; the NoData value of file B</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return outpath:</th><td class="field-body"><p class="first last">filepath to raster created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>This function automatically invokes</dt>
+<dd><ul class="first last simple">
+<li>clip_and_snap</li>
+<li>null_define</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.spatially_match"></span><dl class="function">
+<dt id="dnppy.raster.spatially_match.spatially_match">
+<code class="descname">spatially_match</code><span class="sig-paren">(</span><em>snap_raster</em>, <em>rasterlist</em>, <em>outdir</em>, <em>NoData_Value=False</em>, <em>resamp_type=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/spatially_match.html#spatially_match"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.spatially_match.spatially_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares input rasters for further numerical processing.
+This function simply ensures all rasters in &#8220;rasterlist&#8221; are identically projected
+and have the same cell size, then calls the raster.clip_and_snap function to ensure
+that the cells are perfectly coincident and that the total spatial extents of the images
+are identical, even when NoData values are considered. This is useful because it allows
+the two images to be passed on for numerical processing as nothing more than matrices
+of values, and the user can be sure that any index in any matrix is exactly coincident
+with the same index in any other matrix. This is especially important to use when
+comparing different datasets from different sources outside arcmap, for example MODIS
+and Landsat data with an ASTER DEM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>snap_raster</strong> &#8211; raster to which all other images will be snapped</li>
+<li><strong>rasterlist</strong> &#8211; list of rasters, a single raster, or a directory full of tiffs which
+will be clipped to the extent of &#8220;snap_raster&#8221; and aligned such that
+the cells are perfectly coincident.</li>
+<li><strong>outdir</strong> &#8211; the output directory to save newly created spatially matched tifs.</li>
+<li><strong>resamp_type</strong> &#8211; The resampling type to use if images are not identical cell sizes.
+&#8220;NEAREST&#8221;,&#8221;BILINEAR&#8221;,and &#8220;CUBIC&#8221; are the most common.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>this function automatically invokes</dt>
+<dd><ul class="first last simple">
+<li>clip_and_snap</li>
+<li>project_resample</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-dnppy.raster.to_numpy"></span><dl class="function">
+<dt id="dnppy.raster.to_numpy.to_numpy">
+<code class="descname">to_numpy</code><span class="sig-paren">(</span><em>raster</em>, <em>numpy_datatype=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/raster/to_numpy.html#to_numpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.raster.to_numpy.to_numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper for arcpy.RasterToNumpyArray with better metadata handling</p>
+<p>This is just a wraper for the RasterToNumPyArray function within arcpy, but it also
+extracts out all the spatial referencing information that will probably be needed
+to save the raster after desired manipulations have been performed.
+also see raster.from_numpy function in this module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>raster</strong> &#8211; Any raster supported by the arcpy.RasterToNumPyArray function</li>
+<li><strong>numpy_datatype</strong> &#8211; must be a string equal to any of the types listed at the following
+address [<a class="reference external" href="http://docs.scipy.org/doc/numpy/user/basics.types.html">http://docs.scipy.org/doc/numpy/user/basics.types.html</a>]
+for example: &#8216;uint8&#8217; or &#8216;int32&#8217; or &#8216;float32&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return numpy_rast:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">the numpy array version of the input raster</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Return Metadata:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first last">a metadata object. see <code class="docutils literal"><span class="pre">raster.metadata</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="solar.html" class="btn btn-neutral float-right" title="solar">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="radar.html" class="btn btn-neutral" title="radar"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

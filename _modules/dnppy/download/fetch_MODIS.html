@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.download.fetch_MODIS &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.download.fetch_MODIS</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.download.fetch_MODIS</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&#39;jwely&#39;</span>
+
+
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+
+<span class="kn">from</span> <span class="nn">list_ftp</span> <span class="kn">import</span> <span class="n">list_ftp</span>
+<span class="kn">from</span> <span class="nn">list_http_e4ftl01</span> <span class="kn">import</span> <span class="n">list_http_e4ftl01</span>
+<span class="kn">from</span> <span class="nn">download_url</span> <span class="kn">import</span> <span class="n">download_url</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;fetch_MODIS&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="fetch_MODIS"><a class="viewcode-back" href="../../../modules/download.html#dnppy.download.fetch_MODIS.fetch_MODIS">[docs]</a><span class="k">def</span> <span class="nf">fetch_MODIS</span><span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">tiles</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span> <span class="n">start_dto</span><span class="p">,</span> <span class="n">end_dto</span><span class="p">,</span>
+                                                <span class="n">force_overwrite</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetch MODIS Land products from one of two servers. If this function</span>
+<span class="sd">    runs and downloads 0 files, check that your inputs are consistent</span>
+<span class="sd">    with the naming convention at the appropriate server address.</span>
+
+<span class="sd">       http://e4ftl01.cr.usgs.gov</span>
+<span class="sd">       ftp://n5eil01u.ecs.nsidc.org</span>
+
+<span class="sd">    :param product:         MODIS product to download such as &#39;MOD10A1&#39; or &#39;MYD11A1&#39;</span>
+<span class="sd">    :param version:         version number, usually &#39;004&#39; or &#39;041&#39; or &#39;005&#39;</span>
+<span class="sd">    :param tiles:           list of tiles to grab such as [&#39;h11v12&#39;,&#39;h11v11&#39;]</span>
+<span class="sd">                            NOTE: for some MODIS products, the h and v are omitted.</span>
+
+<span class="sd">    :param outdir :         output directory to save downloaded files</span>
+<span class="sd">    :param start_dto:       datetime object, the starting date of the range of data to download</span>
+<span class="sd">    :param end_dto:         datetime object, the ending date of the range of data to download</span>
+<span class="sd">    :param force_overwrite: will re-download files even if they already exist</span>
+
+<span class="sd">    :return out_filepaths:  a list of filepaths to all files created by this function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">out_filepaths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c"># check formats</span>
+    <span class="n">tiles</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">enf_list</span><span class="p">(</span><span class="n">tiles</span><span class="p">)</span>
+
+    <span class="c"># create output directories</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outdir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Connecting to servers!&quot;</span><span class="p">)</span>
+
+    <span class="c"># obtain the web address, protocol information, and subdirectory where</span>
+    <span class="c"># this tpe of MODIS data can be found.</span>
+    <span class="n">site</span><span class="p">,</span> <span class="n">isftp</span><span class="p">,</span> <span class="n">Dir</span> <span class="o">=</span> <span class="n">_find_modis_product</span><span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">Dir</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Connected to {0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">Dir</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Connected to {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">))</span>
+
+    <span class="c"># Depending on the type of connection (ftp vs http) populate the file list</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isftp</span><span class="p">:</span>
+            <span class="n">dates</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">list_ftp</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">Dir</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dates</span>   <span class="o">=</span> <span class="n">list_http_e4ftl01</span><span class="p">(</span><span class="n">site</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Could not connect to {0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span><span class="n">Dir</span><span class="p">))</span>
+
+    <span class="c"># refine contents down to just addresses of valid year and j_day</span>
+    <span class="n">good_dates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">date_dto</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="s">&quot;%Y.%m.</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">start_dto</span> <span class="o">&lt;=</span> <span class="n">date_dto</span> <span class="o">&lt;=</span> <span class="n">end_dto</span><span class="p">:</span>
+                <span class="n">good_dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;skipping non date folder name {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date</span><span class="p">))</span>
+
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Found {0} days within range&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">good_dates</span><span class="p">)))</span>
+
+    <span class="c"># for all folders within the desired date range,  map the subfolder contents.</span>
+    <span class="k">for</span> <span class="n">good_date</span> <span class="ow">in</span> <span class="n">good_dates</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">isftp</span><span class="p">:</span>
+            <span class="n">files</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">list_ftp</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="n">Dir</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">good_date</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">files</span>   <span class="o">=</span> <span class="n">list_http_e4ftl01</span><span class="p">(</span><span class="n">site</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">good_date</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">afile</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+
+            <span class="c"># only list files with desired tile names and not preview jpgs</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="s">&#39;.jpg&#39;</span> <span class="ow">in</span> <span class="n">afile</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tiles</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">afile</span><span class="p">:</span>
+
+                        <span class="c"># assemble the address</span>
+                        <span class="k">if</span> <span class="n">isftp</span><span class="p">:</span>
+                            <span class="n">address</span><span class="o">=</span><span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;ftp://&#39;</span><span class="o">+</span><span class="n">site</span><span class="p">,</span> <span class="n">Dir</span><span class="p">,</span> <span class="n">good_date</span><span class="p">,</span> <span class="n">afile</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">address</span><span class="o">=</span><span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">site</span><span class="p">,</span> <span class="n">good_date</span><span class="p">,</span> <span class="n">afile</span><span class="p">])</span>
+
+                        <span class="c">#download the file</span>
+                        <span class="n">outname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">afile</span><span class="p">)</span>
+                        <span class="n">out_filepaths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force_overwrite</span><span class="p">:</span>
+                            <span class="n">download_url</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">outname</span><span class="p">)</span>
+
+                        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Downloaded {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">address</span><span class="p">))</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Finished retrieving MODIS - {0} data!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">product</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Downloaded {0} files&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out_filepaths</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">out_filepaths</span>
+
+
+</div>
+<span class="k">def</span> <span class="nf">_find_modis_product</span><span class="p">(</span><span class="n">product</span><span class="p">,</span> <span class="n">version</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sub-function to determine  server properties for MODIS data product.</span>
+<span class="sd">    returns http/ftp handles</span>
+
+<span class="sd">    the two current servers where aqua/terra MODIS data can be downloaded are</span>
+<span class="sd">        site1=&#39;http://e4ftl01.cr.usgs.gov&#39;</span>
+<span class="sd">        site2=&#39;n5eil01u.ecs.nsidc.org&#39;</span>
+
+<span class="sd">    :param product:  modis product such as &#39;MOD10A1&#39;</span>
+<span class="sd">    :param version:  modis version, usually &#39;005&#39;, &#39;004&#39;, or &#39;041&#39;</span>
+
+<span class="sd">    :returns site:   server address where data can be found</span>
+<span class="sd">    :returns ftp:    ftp handle for open ftp session</span>
+<span class="sd">    :returns Dir:    subdirectory of server to further search for files of input product.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sat_designation</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">prod_ID</span> <span class="o">=</span> <span class="n">product</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+
+    <span class="n">site1</span> <span class="o">=</span> <span class="s">&#39;http://e4ftl01.cr.usgs.gov/&#39;</span>
+    <span class="n">site2</span> <span class="o">=</span> <span class="s">&#39;n5eil01u.ecs.nsidc.org&#39;</span>
+
+    <span class="n">isftp</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">Dir</span>   <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="c"># refine the address of the desired data product</span>
+    <span class="k">if</span> <span class="s">&#39;10&#39;</span> <span class="ow">in</span> <span class="n">prod_ID</span><span class="p">:</span>
+        <span class="n">isftp</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">site</span>  <span class="o">=</span> <span class="n">site2</span>
+
+    <span class="k">if</span> <span class="n">sat_designation</span> <span class="o">==</span> <span class="s">&#39;MOD&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isftp</span><span class="p">:</span>
+            <span class="n">Dir</span> <span class="o">=</span> <span class="s">&#39;MOST/&#39;</span> <span class="o">+</span> <span class="n">product</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">version</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">site1</span><span class="o">+</span><span class="s">&#39;MOLT/&#39;</span> <span class="o">+</span> <span class="n">product</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">version</span>
+
+    <span class="k">elif</span> <span class="n">sat_designation</span> <span class="o">==</span> <span class="s">&#39;MYD&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isftp</span><span class="p">:</span>
+            <span class="n">Dir</span> <span class="o">=</span> <span class="s">&#39;DP1/MOSA/&#39;</span> <span class="o">+</span> <span class="n">product</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">version</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">site1</span><span class="o">+</span><span class="s">&#39;MOLA/&#39;</span> <span class="o">+</span> <span class="n">product</span><span class="o">+</span><span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">version</span>
+
+    <span class="k">elif</span> <span class="n">sat_designation</span> <span class="o">==</span> <span class="s">&#39;MCD&#39;</span><span class="p">:</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="n">site1</span><span class="o">+</span><span class="s">&#39;MOTA/&#39;</span> <span class="o">+</span> <span class="n">product</span> <span class="o">+</span> <span class="s">&#39;.&#39;</span> <span class="o">+</span> <span class="n">version</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;No such MODIS product is available for download with this script!&#39;</span><span class="p">)</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="s">&quot;None&quot;</span>
+
+    <span class="k">return</span> <span class="n">site</span><span class="p">,</span> <span class="n">isftp</span><span class="p">,</span> <span class="n">Dir</span>
+
+
+
+<span class="c"># testing area</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+    <span class="n">prod</span> <span class="o">=</span> <span class="s">&quot;MOD11_L2&quot;</span>
+    <span class="n">vers</span> <span class="o">=</span> <span class="s">&quot;041&quot;</span>
+    <span class="n">tile</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;1105&quot;</span><span class="p">,</span> <span class="s">&quot;1205&quot;</span><span class="p">]</span>
+    <span class="n">outd</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1&quot;</span>
+    <span class="n">star</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">end</span>    <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">fetch_MODIS</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">vers</span><span class="p">,</span> <span class="n">tile</span><span class="p">,</span> <span class="n">outd</span><span class="p">,</span> <span class="n">star</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

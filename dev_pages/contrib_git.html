@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GitHub Best Practices &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="Building Docs" href="doc.html"/>
+        <link rel="prev" title="Intro to gdal" href="gdal_tips.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>GitHub Best Practices</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/dev_pages/contrib_git.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="github-best-practices">
+<h1>GitHub Best Practices<a class="headerlink" href="#github-best-practices" title="Permalink to this headline">¶</a></h1>
+<p>A basic understanding of Git is key to expanding dnppy, as it is with many other large software packages such as <a class="reference external" href="https://github.com/numpy/numpy">numpy</a>,  <a class="reference external" href="https://github.com/scipy/scipy">scipy</a>,  <a class="reference external" href="https://github.com/OSGeo/gdal">gdal</a> and others you may be familiar with. If you&#8217;d like an introduction to git, checkout <a class="reference internal" href="../trub/git.html"><em>Git Basics</em></a>. There are are a small set of best practices that should be employed where possible.</p>
+<div class="section" id="what-to-include-in-a-git-repo">
+<h2>What to include in a Git repo<a class="headerlink" href="#what-to-include-in-a-git-repo" title="Permalink to this headline">¶</a></h2>
+<p>There are certain files that you might want to store near your development environment, but that you do not want to upload to your repository. Git uses a special file called <code class="docutils literal"><span class="pre">.gitignore</span></code> that can be used to ignore specific files or directories in a repository, which allows them to peacefully exist in your local repository without tracking their changes and updating them in the origin on GitHubs website. The .gitignore for dnppy is already set up to ignore several files by name, as well as several files by extension such as <code class="docutils literal"><span class="pre">.pyc's</span></code>.</p>
+<dl class="docutils">
+<dt>Things to include in your repository:</dt>
+<dd><ul class="first last simple">
+<li>Any kind of raw text or code. Tracking changes in text is what git was built for!</li>
+<li>Helpful description files such as <code class="docutils literal"><span class="pre">README.md</span></code> that can be interpreted by GitHub and displayed while browsing.</li>
+<li>Small static assets or images that are helpful for documentation purposes that do not frequently change.</li>
+</ul>
+</dd>
+<dt>Things to omit from your git repository</dt>
+<dd><ul class="first last simple">
+<li>Raster data! you never ever want to include raster data in your online repository, as this data will then be permanently included in your git and dramatically decrease performance in every aspect.</li>
+<li>Any kind of fairly constant binary data that github cannot interpret as text. These types of files are best stored in the release assets independent from repository tracking.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="committing-to-the-master-branch">
+<h2>Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch<a class="headerlink" href="#committing-to-the-master-branch" title="Permalink to this headline">¶</a></h2>
+<p>We typically direct people to simply download the most recent version of the master branch. As a general rule, the master branch should always be &#8220;deployable&#8221;, meaning it should work reliably.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Simple bug fixes can be committed directly to the master branch.</li>
+<li>Commits in which changes to documentation, docstrings, or comments to improve clarity, but preserve function can be committed directly to the master branch.</li>
+</ul>
+</div></blockquote>
+<p>When adding some kind of new functionality, you should always create a new branch for development and testing. When you are satisfied with the new additions, you can then merge that branch with the master branch with a pull request. Learn more about the <a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub Flow</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We started out as noobs, and did not institute proper git workflow with dnppy from the beginning. Nothing terrible happened, but some things were more difficult than they would have been otherwise. Just do your best, and learn as much as you can!</p>
+</div>
+</div>
+<div class="section" id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<p>We expect that a new version should be always be released immediately after, and sometimes immediately before every DEVELOP term. This is due in part to the inclusion of the <code class="docutils literal"><span class="pre">undeployed/proj_code</span></code> folder and the fact that it needs to be made available for project partners very quickly.</p>
+<p class="rubric">version numbers</p>
+<p>The numbering is pretty simple, and takes the format of</p>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">[major_revision].[two_digit_year].[minor_revision][beta</span> <span class="pre">tag]</span></code></div></blockquote>
+<p>The major revision is reserved for very large changes. When dnppy reaches complete <code class="docutils literal"><span class="pre">arcpy</span></code> independence or upgrades to use python 3.0, an increase in the major revision number would be justified. It is difficult for us to know what future scenarios may arise, but anything that changes the major revision number should be a pretty big deal. The two digit year is a simple record keeping device to associate a version of dnppy with NASA&#8217;s fiscal year, which turns over each September. The minor revision is more or less at your discretion, but should always rise as changes are made. The beta tag is used to say dnppy is still in beta. version changes with bug fixes and other things characteristic of a young software package still in beta can probably use a new digit after the beta tag. so, <code class="docutils literal"><span class="pre">1.16.1b0</span></code> to <code class="docutils literal"><span class="pre">1.16.1b1</span></code>, and so on. Eventually we should drop the beta tag and exit the &#8220;beta&#8221; phase.</p>
+<dl class="docutils">
+<dt>Example revision schedule:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.1b0</span></code> Fall 2015, at the beginning of FY16</li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.1b1</span></code> Bug fixes in <code class="docutils literal"><span class="pre">1b0</span></code></li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.2b0</span></code> Miscellaneous update that required new version number</li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.2b1</span></code> Fall 2015, end of the term update with new proj_code for partners</li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.4b0</span></code> Spring 2016, mid term fixes of something</li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.16.5b0</span></code> Spring 2016, end of the term update with new proj_code for partners</li>
+<li>...</li>
+<li><code class="docutils literal"><span class="pre">dnppy</span> <span class="pre">1.17.1b0</span></code> Fall 2016, beginning of FY17</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="doc.html" class="btn btn-neutral float-right" title="Building Docs">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gdal_tips.html" class="btn btn-neutral" title="Intro to gdal"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

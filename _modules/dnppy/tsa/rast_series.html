@@ -1,0 +1,638 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.tsa.rast_series &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.tsa.rast_series</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.tsa.rast_series</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Jwely&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;rast_series&quot;</span><span class="p">]</span>
+
+<span class="c"># local imports</span>
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">raster</span>
+<span class="kn">import</span> <span class="nn">time_series</span>
+
+<span class="c"># standard imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+
+<div class="viewcode-block" id="rast_series"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series">[docs]</a><span class="k">class</span> <span class="nc">rast_series</span><span class="p">(</span><span class="n">time_series</span><span class="o">.</span><span class="n">time_series</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is an extension of the time_series class</span>
+
+<span class="sd">    It is built to handle just like a time_series object, with</span>
+<span class="sd">    the simplification that the &quot;row_data&quot; attribute, is comprised</span>
+<span class="sd">    of nothing more than filepaths and filenames. All attributes</span>
+<span class="sd">    for tracking the time domain are the same.</span>
+
+<span class="sd">    some time_series methods for manipulating and viewing text data</span>
+<span class="sd">    will not apply to raster_series. It is unknown how they will behave.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+<div class="viewcode-block" id="rast_series.from_directory"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.from_directory">[docs]</a>    <span class="k">def</span> <span class="nf">from_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">fmt_unmask</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        creates a list of all rasters in a directory, then passes this</span>
+<span class="sd">        list to self.from_rastlist</span>
+
+<span class="sd">        see ``from_rastlist``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">filepaths</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">list_files</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="s">&quot;.tif&quot;</span><span class="p">)</span>
+        <span class="n">filepaths</span> <span class="o">=</span> <span class="n">raster</span><span class="o">.</span><span class="n">enf_rastlist</span><span class="p">(</span><span class="n">filepaths</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">from_rastlist</span><span class="p">(</span><span class="n">filepaths</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">fmt_unmask</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    </div>
+<div class="viewcode-block" id="rast_series.from_rastlist"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.from_rastlist">[docs]</a>    <span class="k">def</span> <span class="nf">from_rastlist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filepaths</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">fmt_unmask</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads up a list of filepaths as a time series. If filenames contain</span>
+<span class="sd">        variant characters that are not related to date and time, a</span>
+<span class="sd">        &quot;fmt_unmask&quot; may be used to isolate the datestrings from the rest</span>
+<span class="sd">        of the filenames by character index.</span>
+
+<span class="sd">        For an example filename ``&quot;MYD11A1.A2013001_day_clip_W05_C2014001_Avg_K_C_p_GSC.tif&quot;``</span>
+<span class="sd">        We only want the part with the year and julian day in it ``&quot;2013001&quot;``</span>
+<span class="sd">        So we can use</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            fmt        = &quot;%Y%j&quot;</span>
+<span class="sd">            fmt_unmask = [10,11,12,13,14,15,16]</span>
+
+<span class="sd">        To indicate that we only want the 10th through 16th characters of the filenames</span>
+<span class="sd">        to be used for anchoring each raster in a physical time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;filepaths&#39;</span><span class="p">,</span><span class="s">&#39;filenames&#39;</span><span class="p">,</span><span class="s">&#39;fmt_names&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+            <span class="n">head</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">fmt_unmask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">fmt_name</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">char_index</span> <span class="ow">in</span> <span class="n">fmt_unmask</span><span class="p">:</span>
+                    <span class="n">fmt_name</span> <span class="o">=</span> <span class="n">fmt_name</span> <span class="o">+</span> <span class="n">filename</span><span class="p">[</span><span class="n">char_index</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fmt_name</span> <span class="o">=</span> <span class="n">filename</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">filepath</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">fmt_name</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">build_col_data</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_time</span><span class="p">(</span><span class="s">&#39;fmt_names&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Imported and interpreted {0} raster filepath datetimes!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">)))</span>
+        <span class="k">return</span>
+    
+</div>
+<div class="viewcode-block" id="rast_series.null_set_range"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.null_set_range">[docs]</a>    <span class="k">def</span> <span class="nf">null_set_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">high_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">low_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the dnppy.raster.null_set_range() function to every raster in rast_series</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">raster</span><span class="o">.</span><span class="n">null_set_range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">[</span><span class="s">&#39;filepaths&#39;</span><span class="p">],</span>
+                                <span class="n">high_thresh</span><span class="p">,</span> <span class="n">low_thresh</span><span class="p">,</span> <span class="n">NoData_Value</span><span class="p">)</span>
+        <span class="k">return</span>
+
+</div>
+<div class="viewcode-block" id="rast_series.series_stats"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.series_stats">[docs]</a>    <span class="k">def</span> <span class="nf">series_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span> <span class="n">saves</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;AVG&#39;</span><span class="p">,</span><span class="s">&#39;NUM&#39;</span><span class="p">,</span><span class="s">&#39;STD&#39;</span><span class="p">,</span><span class="s">&#39;SUM&#39;</span><span class="p">],</span>
+                                        <span class="n">low_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">high_thresh</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies the dnppy.raster.many_stats() function to each</span>
+<span class="sd">        of the lowest level subsets of this rast_series.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outdir</span> <span class="o">=</span> <span class="n">outdir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">saves</span>  <span class="o">=</span> <span class="n">saves</span>
+        
+        <span class="c"># only at the lowest discretezation level should stats be taken.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span><span class="p">:</span>
+                <span class="n">subset</span><span class="o">.</span><span class="n">series_stats</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">saves</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">raster</span><span class="o">.</span><span class="n">many_stats</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">col_data</span><span class="p">[</span><span class="s">&#39;filepaths&#39;</span><span class="p">],</span>
+                              <span class="n">outdir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">saves</span><span class="p">,</span> <span class="n">low_thresh</span><span class="p">,</span> <span class="n">high_thresh</span><span class="p">)</span>
+        <span class="k">return</span>
+
+</div>
+<div class="viewcode-block" id="rast_series.make_subsets"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.make_subsets">[docs]</a>    <span class="k">def</span> <span class="nf">make_subsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subset_units</span><span class="p">,</span> <span class="n">overlap_width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                           <span class="n">cust_center_time</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">discard_old</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        splits the time series into individual time chunks</span>
+
+<span class="sd">        used for taking advanced statistics, usually periodic</span>
+<span class="sd">        in nature. Also useful for exploiting temporal relationships</span>
+<span class="sd">        in a dataset for a variety of purposes including data</span>
+<span class="sd">        sanitation, periodic curve fitting, etc.</span>
+
+<span class="sd">        :param subset_units:</span>
+<span class="sd">            subset_units follows convention of fmt. For example:</span>
+<span class="sd">            %Y  groups files by year</span>
+<span class="sd">            %m  groups files by month</span>
+<span class="sd">            %j  groups file by julian day of year</span>
+
+<span class="sd">        :param overlap_width:</span>
+<span class="sd">            this variable can be set to greater than 0</span>
+<span class="sd">            to allow &quot;window&quot; type statistics, so each subset may contain</span>
+<span class="sd">            data points from adjacent subsets.</span>
+
+<span class="sd">            overlap_width = 1 is like a window size of 3</span>
+<span class="sd">            overlap_width = 2 is like a window size of 5</span>
+
+<span class="sd">            WARNING: this function is imperfect for making subsets by months.</span>
+<span class="sd">            the possible lengths of a month are extremely variant, so sometimes</span>
+<span class="sd">            data points at the ends of a month will get placed in the adjacent</span>
+<span class="sd">            month. If you absolutely require accurate month subsetting,</span>
+<span class="sd">            you should use this function to subset by year, then use the</span>
+<span class="sd">            &quot;group_bins&quot; function to bin each year by month. so,</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">                ts.subset(&quot;%b&quot;)     # subset by month</span>
+
+<span class="sd">                ts.subset(&quot;%Y&quot;)     # subset by year</span>
+<span class="sd">                ts.group_bins(&quot;%b&quot;) # bin by month</span>
+
+<span class="sd">        :param cust_center_time:</span>
+<span class="sd">            Allows a custom center time to be used! This was added so that</span>
+<span class="sd">            days could be centered around a specific daily acquisition time.</span>
+<span class="sd">            for example, its often useful to define a day as</span>
+<span class="sd">            satellite data acquisition time +/- 12 hours.</span>
+<span class="sd">            if used, &quot;cust_center_time&quot; must be a datetime object!</span>
+
+<span class="sd">        :param discard_old:</span>
+<span class="sd">            By default, performing a subsetting on a time series that already</span>
+<span class="sd">            has subsets does not subset the master time series, but instead</span>
+<span class="sd">            the lowest level subsets. Setting &quot;discard_old&quot; to &quot;True&quot; will</span>
+<span class="sd">            discard all previous subsets of the time series and start subsetting</span>
+<span class="sd">            from scratch.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">discard_old</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span><span class="p">:</span>
+                <span class="n">subset</span><span class="o">.</span><span class="n">make_subsets</span><span class="p">(</span><span class="n">subset_units</span><span class="p">,</span> <span class="n">overlap_width</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="c"># sanitize overlap</span>
+            <span class="k">if</span> <span class="n">overlap_width</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;overlap_width must be 0 or more, setting it to 0!&quot;</span><span class="p">)</span>
+                <span class="n">overlap_width</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c"># convert units into subset units and into terms of seconds</span>
+            <span class="c"># timedelta objecs can only have units of days or seconds, so we use seconds</span>
+            <span class="n">subset_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_to_units</span><span class="p">(</span><span class="n">subset_units</span><span class="p">)</span>
+
+            <span class="c"># initial step width</span>
+            <span class="n">step_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units_to_seconds</span><span class="p">(</span><span class="n">subset_units</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">subset_units</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;year&#39;</span><span class="p">,</span><span class="s">&#39;month&#39;</span><span class="p">,</span><span class="s">&#39;day&#39;</span><span class="p">,</span><span class="s">&#39;minute&#39;</span><span class="p">]:</span>
+               <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Data is too high resolution to subset by {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_units</span><span class="p">))</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Subsetting data by {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subset_units</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;must call &#39;define_time&#39; method before taking subsets!&quot;</span><span class="p">)</span>
+            
+            <span class="c"># determine subset lists starting, end points and incriment</span>
+            <span class="n">time_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">time_f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c"># set up starttime with custom center times.</span>
+            <span class="k">if</span> <span class="n">cust_center_time</span><span class="p">:</span>
+                
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;using custom center time&quot;</span><span class="p">)</span>
+                
+                <span class="k">if</span> <span class="n">subset_units</span> <span class="o">==</span> <span class="s">&quot;month&quot;</span><span class="p">:</span>
+                    <span class="n">ustart</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">time_s</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">month</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">subset_units</span> <span class="o">==</span> <span class="s">&quot;hour&quot;</span><span class="p">:</span>
+                    <span class="n">ustart</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">time_s</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">second</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">subset_units</span> <span class="o">==</span> <span class="s">&quot;minute&quot;</span><span class="p">:</span>
+                    <span class="n">ustart</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">time_s</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span> <span class="c">#subset_units == &quot;day&quot;:</span>
+                    <span class="n">ustart</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">time_s</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">time_s</span><span class="o">.</span><span class="n">day</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">hour</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">minute</span><span class="p">,</span>
+                                       <span class="n">cust_center_time</span><span class="o">.</span><span class="n">second</span><span class="p">,</span> <span class="n">cust_center_time</span><span class="o">.</span><span class="n">microsecond</span><span class="p">)</span>
+
+                <span class="n">td</span>      <span class="o">=</span> <span class="n">time_f</span> <span class="o">-</span> <span class="n">time_s</span>
+                <span class="n">uend</span>    <span class="o">=</span> <span class="n">cust_center_time</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span>
+
+            <span class="c"># otherwise, set the centers with no offest.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ustart</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_center_datetime</span><span class="p">(</span><span class="n">time_s</span><span class="p">,</span> <span class="n">subset_units</span><span class="p">)</span>
+                <span class="n">uend</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_center_datetime</span><span class="p">(</span><span class="n">time_f</span><span class="p">,</span> <span class="n">subset_units</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">step_width</span><span class="p">)</span>
+
+
+            <span class="c"># Iterate through entire dataset one time step unit at a time.</span>
+            <span class="n">delta</span> <span class="o">=</span> <span class="n">uend</span> <span class="o">-</span> <span class="n">ustart</span>
+            <span class="n">center_time</span> <span class="o">=</span> <span class="n">ustart</span>
+
+            <span class="k">while</span> <span class="n">center_time</span> <span class="o">&lt;</span> <span class="n">uend</span><span class="p">:</span>
+                
+                <span class="n">step_width</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units_to_seconds</span><span class="p">(</span><span class="n">subset_units</span><span class="p">,</span> <span class="n">center_time</span><span class="p">)</span>
+                <span class="n">wind_seconds</span> <span class="o">=</span> <span class="n">step_width</span> <span class="o">*</span> <span class="p">(</span><span class="n">overlap_width</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">current_time</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span><span class="p">):</span>
+                    <span class="n">dt</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">center_time</span> <span class="o">-</span> <span class="n">current_time</span><span class="p">)</span>
+                    
+                    <span class="k">if</span> <span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">wind_seconds</span><span class="p">:</span>
+                        <span class="n">temp_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+                <span class="c"># create the subset only if some data was found to populate it</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_data</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">new_subset</span> <span class="o">=</span> <span class="n">rast_series</span><span class="p">(</span><span class="n">units</span> <span class="o">=</span> <span class="n">subset_units</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">center_time</span> <span class="o">=</span> <span class="n">center_time</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">temp_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span><span class="p">)</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">define_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span><span class="p">)</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">_name_as_subset</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_subset</span><span class="p">)</span>
+
+                <span class="n">center_time</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span> <span class="o">=</span> <span class="n">step_width</span><span class="p">)</span>
+
+        <span class="k">return</span>
+
+</div>
+<div class="viewcode-block" id="rast_series.group_bins"><a class="viewcode-back" href="../../../modules/tsa.html#dnppy.tsa.rast_series.rast_series.group_bins">[docs]</a>    <span class="k">def</span> <span class="nf">group_bins</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt_units</span><span class="p">,</span> <span class="n">overlap_width</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">cyclical</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sorts the time series into time chunks by common bin_unit</span>
+
+<span class="sd">        used for grouping data rows together. For example, if one used</span>
+<span class="sd">        this function on a 5 year dataset with a bin_unit of month,</span>
+<span class="sd">        then the time_series would be subseted into 12 sets (1 for each</span>
+<span class="sd">        month), which each set containing all entries for that month,</span>
+<span class="sd">        regardless of what year they occurred in.</span>
+
+<span class="sd">        :param fmt_units:</span>
+<span class="sd">            %Y  groups files by year</span>
+<span class="sd">            %m  groups files by month</span>
+<span class="sd">            %j  groups file by julian day of year</span>
+
+<span class="sd">        :param overlap_width:</span>
+<span class="sd">            similarly to &quot;make_subsets&quot; the &quot;overlap_width&quot; variable can be</span>
+<span class="sd">            set to greater than 1 to allow &quot;window&quot; type statistics, so</span>
+<span class="sd">            each subset may contain data points from adjacent subsets.</span>
+<span class="sd">            However, for group_bins, overlap_width must be an integer.</span>
+
+<span class="sd">        :param cyclical:</span>
+<span class="sd">            &quot;cyclical&quot; of &quot;True&quot; will allow end points to be considered adjacent.</span>
+<span class="sd">            So, for example, January will be considered adjacent to December,</span>
+<span class="sd">            day 1 will be considered adjacent to day 365.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ow</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">overlap_width</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span><span class="p">:</span>
+                <span class="n">subset</span><span class="o">.</span><span class="n">group_bins</span><span class="p">(</span><span class="n">fmt_units</span><span class="p">,</span> <span class="n">overlap_width</span><span class="p">,</span> <span class="n">cyclical</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">subsetted</span> <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="c"># ensure proper unit format is present</span>
+            <span class="n">fmt</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units_to_fmt</span><span class="p">(</span><span class="n">fmt_units</span><span class="p">)</span>
+            <span class="n">units</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_to_units</span><span class="p">(</span><span class="n">fmt_units</span><span class="p">)</span>
+
+            <span class="c"># set up cyclical parameters</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s">&quot;%j&quot;</span><span class="p">:</span> <span class="n">cylen</span> <span class="o">=</span> <span class="mi">365</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s">&quot;</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">:</span> <span class="n">cylen</span> <span class="o">=</span> <span class="mi">365</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s">&quot;%m&quot;</span><span class="p">:</span> <span class="n">cylen</span> <span class="o">=</span> <span class="mi">12</span>
+            <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s">&quot;%b&quot;</span><span class="p">:</span> <span class="n">cylen</span> <span class="o">=</span> <span class="mi">12</span>
+
+            <span class="c"># initialize a grouping array to idenfity row indices for each subset</span>
+            <span class="n">grouping</span>  <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span><span class="p">]</span>
+            
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">grouping</span><span class="p">),</span><span class="nb">max</span><span class="p">(</span><span class="n">grouping</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+
+                <span class="n">subset_units</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fmt_to_units</span><span class="p">(</span><span class="n">fmt</span><span class="p">)</span>
+                <span class="n">new_subset</span>      <span class="o">=</span> <span class="n">rast_series</span><span class="p">(</span> <span class="n">units</span> <span class="o">=</span> <span class="n">subset_units</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="p">)</span>
+
+                <span class="c"># only take rows whos grouping is within ow of i</span>
+                <span class="n">subset_rows</span> <span class="o">=</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grouping</span><span class="p">)</span> <span class="k">if</span> <span class="n">g</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">+</span><span class="n">ow</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">&gt;=</span><span class="n">i</span><span class="o">-</span><span class="n">ow</span><span class="p">]</span>
+
+                <span class="c"># fix endpoints</span>
+                <span class="k">if</span> <span class="n">cyclical</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">ow</span><span class="p">:</span>
+                        <span class="n">subset_rows</span> <span class="o">=</span> <span class="n">subset_rows</span> <span class="o">+</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grouping</span><span class="p">)</span> <span class="k">if</span>
+                                                     <span class="n">i</span><span class="o">+</span><span class="n">ow</span> <span class="o">&gt;=</span> <span class="n">cylen</span> <span class="o">-</span> <span class="n">g</span> <span class="o">-</span> <span class="n">cylen</span> <span class="o">&gt;=</span> <span class="n">i</span><span class="o">-</span><span class="n">ow</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">cylen</span> <span class="o">-</span> <span class="n">ow</span><span class="p">:</span>
+                        <span class="n">subset_rows</span> <span class="o">=</span> <span class="n">subset_rows</span> <span class="o">+</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grouping</span><span class="p">)</span> <span class="k">if</span>
+                                                     <span class="n">i</span><span class="o">+</span><span class="n">ow</span> <span class="o">&gt;=</span> <span class="n">cylen</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">cylen</span> <span class="o">&gt;=</span> <span class="n">i</span><span class="o">-</span><span class="n">ow</span><span class="p">]</span>
+
+                <span class="c"># grab row indeces from parent matrix to put in the subset</span>
+                <span class="n">subset_data</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">row_data</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">subset_rows</span><span class="p">]</span>
+
+                <span class="c"># run naming methods and definitions on the new subset</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">subset_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="n">subset_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span><span class="p">)</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">define_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmt</span><span class="p">)</span>
+                    
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">center_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_dom</span><span class="p">[</span><span class="n">grouping</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
+                    <span class="n">new_subset</span><span class="o">.</span><span class="n">_name_as_subset</span><span class="p">(</span><span class="n">binned</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">subsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_subset</span><span class="p">)</span>
+        <span class="k">return</span>
+
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">rs</span> <span class="o">=</span> <span class="n">rast_series</span><span class="p">()</span>
+    
+    <span class="n">rastdir</span>  <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\frac_snow\FracSnowCover\Mosaic&quot;</span>
+    <span class="n">fmt</span>      <span class="o">=</span> <span class="s">&quot;%Y%j&quot;</span>
+    <span class="n">fmtmask</span>  <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">rs</span><span class="o">.</span><span class="n">from_directory</span><span class="p">(</span><span class="n">rastdir</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">fmtmask</span><span class="p">)</span>
+
+    <span class="n">statsdir</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\troubleshooting\test\MOD10A1\statistics&quot;</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">null_set_range</span><span class="p">(</span><span class="n">high_thresh</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">NoData_Value</span> <span class="o">=</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">make_subsets</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">overlap_width</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">interrogate</span><span class="p">()</span>
+    <span class="n">rs</span><span class="o">.</span><span class="n">series_stats</span><span class="p">(</span><span class="n">statsdir</span><span class="p">,</span> <span class="n">low_thresh</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">high_thresh</span> <span class="o">=</span> <span class="mf">100.0</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

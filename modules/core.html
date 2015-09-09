@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>core &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="download" href="download.html"/>
+        <link rel="prev" title="convert" href="convert.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>core</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/core.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.core">
+<span id="core"></span><h1>core<a class="headerlink" href="#module-dnppy.core" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal"><span class="pre">core</span></code> module houses functions that assist in data formatting, input sanitation,
+path manipulations, file naming, logical checks, etc for use in other functions within
+dnppy. They are short and sweet, and can be used as examples to start defining your own functions!</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Listing files in a directory</p>
+<p>Perhaps the function with the greatest utility in the core module is the <cite>list_files</cite> function, which can crawl through a directory, or entire tree of directories (recursive) and find files that match a certain criteria in a beginner friendly way. The syntax is as follows</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">core</span>
+
+<span class="n">recursive</span>   <span class="o">=</span> <span class="bp">True</span>             <span class="c"># will find files in directories subfolders</span>
+<span class="n">directory</span>   <span class="o">=</span> <span class="s">r&quot;C:\mydir&quot;</span>      <span class="c"># the directory that we would like to search</span>
+<span class="n">contains</span>    <span class="o">=</span> <span class="p">[</span><span class="s">&quot;this&quot;</span><span class="p">,</span><span class="s">&quot;that&quot;</span><span class="p">]</span>  <span class="c"># files must contain these strings</span>
+<span class="n">not_contain</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;otherthing&quot;</span><span class="p">]</span>   <span class="c"># files must NOT contain these strings</span>
+
+<span class="n">filelist</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">list_files</span><span class="p">(</span><span class="n">recursive</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">contains</span><span class="p">,</span> <span class="n">not_contain</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that both <code class="docutils literal"><span class="pre">contains</span></code> and <code class="docutils literal"><span class="pre">not_contain</span></code> may be either single strings, or lists of strings. This is a good way to filter down by NASA EOS product type, Landsat band index, or perhaps filter out files by extension. Users wishing to get a little more advanced should check out <a class="reference external" href="https://docs.python.org/2/howto/regex.html">regular expressions</a>.</p>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.core.create_outname"></span><dl class="function">
+<dt id="dnppy.core.create_outname.create_outname">
+<code class="descname">create_outname</code><span class="sig-paren">(</span><em>outdir</em>, <em>inname</em>, <em>suffix</em>, <em>ext=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/create_outname.html#create_outname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.create_outname.create_outname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quick way to create unique output file names within iterative functions</p>
+<p>This function is built to simplify the creation of output file names. Function allows
+<code class="docutils literal"><span class="pre">outdir</span> <span class="pre">=</span> <span class="pre">False</span></code> and will create an outname in the same directory as inname. Function will
+add a the user input suffix, separated by an underscore &#8220;_&#8221; to generate an output name.
+this is useful when performing a small modification to a file and saving new output with
+a new suffix. Function merely returns an output name, it does not save the file as that name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>outdir</strong> &#8211; either the directory of the desired outname or False to create an outname
+in the same directory as the inname</li>
+<li><strong>inname</strong> &#8211; the input file from which to generate the output name &#8220;outname&#8221;</li>
+<li><strong>suffix</strong> &#8211; suffix to attach to the end of the filename to mark it as output</li>
+<li><strong>ext</strong> &#8211; specify the file extension of the output filename. Leave blank or False
+and the outname will inherit the same extension as inname.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return outname:</th><td class="field-body"><p class="first last">the full filepath at which a new file can be created.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.enf_filelist"></span><dl class="function">
+<dt id="dnppy.core.enf_filelist.enf_filelist">
+<code class="descname">enf_filelist</code><span class="sig-paren">(</span><em>filelist</em>, <em>extension=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/enf_filelist.html#enf_filelist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.enf_filelist.enf_filelist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sanitizes file list inputs</p>
+<p>This function checks that the input is a list of files and not a directory. If the input
+is a directory, then it returns a list of files in the directory which match the desired
+extension. This is to allow all functions which input filelists to be a little more
+flexible by accepting directories instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filelist</strong> &#8211; a list of filepath strings</li>
+<li><strong>extension</strong> &#8211; output list contains only files with this string extension. (txt, tif, etc)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return new_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">sanitized file list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.enf_list"></span><dl class="function">
+<dt id="dnppy.core.enf_list.enf_list">
+<code class="descname">enf_list</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/enf_list.html#enf_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.enf_list.enf_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>When a list is expected, this function can be used to ensure
+non-list data types are placed inside of a single entry list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>item</strong> &#8211; any datatype</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return list:</th><td class="field-body">a list type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.exists"></span><dl class="function">
+<dt id="dnppy.core.exists.exists">
+<code class="descname">exists</code><span class="sig-paren">(</span><em>location</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/exists.html#exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.exists.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures input location is either a file or a folder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>location</strong> &#8211; a filepath to a directory or file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return bool:</th><td class="field-body">returns true if filepath leads to a real place</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.install_from_wheel"></span><dl class="function">
+<dt id="dnppy.core.install_from_wheel.install_from_wheel">
+<code class="descname">install_from_wheel</code><span class="sig-paren">(</span><em>whl_filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/install_from_wheel.html#install_from_wheel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.install_from_wheel.install_from_wheel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This script can be used to add python libraries to the arcmap
+installation of python from wheel files. A great source of wheel files
+can be found at [<a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>whl_filepath</strong> &#8211; the full local filepath to a downloaded wheel file.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.list_files"></span><dl class="function">
+<dt id="dnppy.core.list_files.list_files">
+<code class="descname">list_files</code><span class="sig-paren">(</span><em>recursive</em>, <em>directory</em>, <em>contains=None</em>, <em>not_contains=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/list_files.html#list_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.list_files.list_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple file listing function with more versatility than python builtins or arcpy.List</p>
+<p>This function sifts through a directory and returns a list of filepaths for all files
+meeting the input criteria. Useful for discriminatory iteration or recursive searches.
+Could be used to find all tiles with a given datestring such as &#8216;MOD11A1.A2012&#8217;, or
+perhaps all Band 4 tiles from a directory containing landsat 8 data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>recursive</strong> &#8211; &#8216;True&#8217; if search should search subfolders within the directory
+&#8216;False&#8217; if search should ignore files in subfolders.</li>
+<li><strong>directory</strong> &#8211; The directory in which to search for files meeting the criteria</li>
+<li><strong>contains</strong> &#8211; search criteria to limit returned file list. File names must
+contain parameters listed here. If no criteria exists use &#8216;False&#8217;</li>
+<li><strong>not_contains</strong> &#8211; search criteria to limit returned file list. File names must not
+contain parameters listed here. If no criteria exists use &#8216;False&#8217;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">An array of full filepaths meeting the criteria.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.move"></span><dl class="function">
+<dt id="dnppy.core.move.move">
+<code class="descname">move</code><span class="sig-paren">(</span><em>source</em>, <em>destination</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/move.html#move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.move.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>moves a file, ensures destination directory exists</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> &#8211; the current full location of the file</li>
+<li><strong>destination</strong> &#8211; the desired full location of the file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.rename"></span><dl class="function">
+<dt id="dnppy.core.rename.rename">
+<code class="descname">rename</code><span class="sig-paren">(</span><em>filename</em>, <em>replace_this</em>, <em>with_this</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/rename.html#rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.rename.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>renames a file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> &#8211; input file to rename</li>
+<li><strong>replace_this</strong> &#8211; string to be replaced. such as &#8221; &#8221; (a space)</li>
+<li><strong>with_this</strong> &#8211; what to replace the string with. such as &#8220;_&#8221; (an underscore)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return newfilename:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">the new name of the file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.core.run_command"></span><dl class="function">
+<dt id="dnppy.core.run_command.run_command">
+<code class="descname">run_command</code><span class="sig-paren">(</span><em>*command</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/core/run_command.html#run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.core.run_command.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function formats and runs commands that one would call from the console.
+Primarily intended for calling gdal commands from other functions in cases
+where the python bindings are absent. Particularly useful for commands with
+list type arguments. This function provides simplicity, but users wanting more
+functionality should use the subprocess module directly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> &#8211; command can be virtually any number of string arguments in
+any configuration of args, lists, and tuples. This function
+will take all input strings in the order in which they are
+given and place a space <code class="docutils literal"><span class="pre">&quot;</span> <span class="pre">&quot;</span></code> between each argument before
+passing it to the command line.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># all of these are valid syntax</span>
+<span class="n">core</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>
+<span class="n">core</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+<span class="n">core</span><span class="o">.</span><span class="n">run_command</span><span class="p">([</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">])</span>
+<span class="n">core</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="p">[</span><span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">])</span>
+<span class="n">core</span><span class="o">.</span><span class="n">run_command</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="p">[</span><span class="n">arg2</span><span class="p">,</span> <span class="n">arg3</span><span class="p">,</span> <span class="p">[</span><span class="n">arg4</span><span class="p">,</span> <span class="n">arg5</span><span class="p">]],</span> <span class="p">(</span><span class="n">arg7</span><span class="p">,</span> <span class="n">arg8</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="download.html" class="btn btn-neutral float-right" title="download">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="convert.html" class="btn btn-neutral" title="convert"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

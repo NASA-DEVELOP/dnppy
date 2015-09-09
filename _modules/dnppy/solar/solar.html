@@ -1,0 +1,1123 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.solar.solar &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.solar.solar</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.solar.solar</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Jwely&quot;</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">radians</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">degrees</span><span class="p">,</span> <span class="n">arctan2</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">arccos</span>
+
+
+<div class="viewcode-block" id="solar"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar">[docs]</a><span class="k">class</span> <span class="nc">solar</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Object class for handling solar calculations. Many equations are taken from the</span>
+<span class="sd">    excel sheet at this url : [http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html]</span>
+
+<span class="sd">    It requires a physical location on the earth and a datetime object</span>
+
+<span class="sd">    :param lat:             decimal degrees latitude (float OR numpy array)</span>
+<span class="sd">    :param lon:             decimal degrees longitude (float OR numpy array)</span>
+<span class="sd">    :param time_zone:       float of time shift from GMT (such as &quot;-5&quot; for EST)</span>
+<span class="sd">    :param date_time_obj:   either a timestamp string following fmt or a datetime obj</span>
+<span class="sd">    :param fmt:             if date_time_obj is a string, fmt is required to interpret it</span>
+<span class="sd">    :param slope:           slope of land at lat,lon for solar energy calculations</span>
+<span class="sd">    :param aspect:          aspect of land at lat,lon for solar energy calculations</span>
+
+<span class="sd">    An instance of this class may have the following attributes:</span>
+
+<span class="sd">        =================== =========================================== ========</span>
+<span class="sd">        attribute           description                                 type</span>
+<span class="sd">        =================== =========================================== ========</span>
+<span class="sd">        lat                 latitude                                    (array)</span>
+<span class="sd">        lon                 longitude                                   (array)</span>
+<span class="sd">        tz                  time zone                                   (scalar)</span>
+<span class="sd">        rdt                 reference datetime object (date_time_obj)   (scalar)</span>
+<span class="sd">        slope               slope, derivative of DEM                    (array)</span>
+<span class="sd">        aspect              aspect (north is 0, south is 180)           (array)</span>
+<span class="sd">        ajd                 absolute julian day                         (scalar)</span>
+<span class="sd">        ajc                 absolute julian century                     (scalar)</span>
+<span class="sd">        geomean_long        geometric mean longitude of the sun         (scalar)</span>
+<span class="sd">        geomean_anom        geometric mean longitude anomaly of the sun (scalar)</span>
+<span class="sd">        earth_eccent        eccentricity of earths orbit                (scalar)</span>
+<span class="sd">        sun_eq_of_center    the suns equation of center                 (scalar)</span>
+<span class="sd">        true_long           true longitude of the sun                   (scalar)</span>
+<span class="sd">        true_anom           true longitude anomaly of the sun           (scalar)</span>
+<span class="sd">        app_long            the suns apparent longitude                 (scalar)</span>
+<span class="sd">        oblique_mean_elip   earth oblique mean ellipse                  (scalar)</span>
+<span class="sd">        oblique_corr        correction to earths oblique elipse         (scalar)</span>
+<span class="sd">        right_ascension     suns right ascension angle                  (scalar)</span>
+<span class="sd">        declination         solar declination angle                     (scalar)</span>
+<span class="sd">        equation_of_time    equation of time (minutes)                  (scalar)</span>
+<span class="sd">        hour_angle_sunrise  the hour angle at sunrise                   (array)</span>
+<span class="sd">        solar_noon          LST of solar noon                           (array)</span>
+<span class="sd">        sunrise             LST of sunrise time                         (array)</span>
+<span class="sd">        sunset              LST of sunset time                          (array)</span>
+<span class="sd">        sunlight            LST fractional days of sunlight             (array)</span>
+<span class="sd">        true_solar          LST for true solar time                     (array)</span>
+<span class="sd">        hour_angle          total hour angle                            (array)</span>
+<span class="sd">        zenith              zenith angle                                (array)</span>
+<span class="sd">        elevation           elevation angle                             (array)</span>
+<span class="sd">        azimuth             azimuthal angle                             (array)</span>
+<span class="sd">        rad_vector          radiation vector (distance in AU)           (scalar)</span>
+<span class="sd">        earth_distance      earths distance to sun in meters            (scalar)</span>
+<span class="sd">        norm_irradiance     incident solar energy at earth distance     (scalar)</span>
+<span class="sd">        =================== =========================================== ========</span>
+
+<span class="sd">    Units used by this class unless otherwise labeled</span>
+
+<span class="sd">      - angle =     degrees</span>
+<span class="sd">      - distance =  meters</span>
+<span class="sd">      - energy =    watts or joules</span>
+<span class="sd">      - time =      mostly in datetime objects. labeled in most cases.</span>
+
+<span class="sd">    Planned improvements</span>
+
+<span class="sd">        1. DONE. Inputs of numpy arrays for lat and lon needs to be allowed.</span>
+<span class="sd">        2. inputs of a numpy array DEM for slope/aspect effects on incident solar energy</span>
+
+<span class="sd">    Present performance</span>
+
+<span class="sd">        To process about one landsat tile (7300^2 matrix) requires 9GB of memory and</span>
+<span class="sd">        takes 45 seconds to process on a single 3.3GHz thread. It would be nice to get</span>
+<span class="sd">        the same output to run on ~5GB of memory so a 8GB system could handle it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">date_time_obj</span><span class="p">,</span> <span class="n">time_zone</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                         <span class="n">fmt</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">slope</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">aspect</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes critical spatial and temporal information for solar object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># empty list of class attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span>                <span class="o">=</span> <span class="bp">None</span>          <span class="c"># abs julian century (defined on __init__)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ajd</span>                <span class="o">=</span> <span class="bp">None</span>          <span class="c"># abs julian day (defined on __init__)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span>           <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atmo_refraction</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span>            <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">declination</span>        <span class="o">=</span> <span class="bp">None</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">earth_distance</span>     <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elevation_noatmo</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frac_day</span>           <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lat</span>                <span class="o">=</span> <span class="n">lat</span>           <span class="c"># lattitude (E positive)- float</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lat_r</span>              <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>  <span class="c"># lattitude in radians</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lon</span>                <span class="o">=</span> <span class="n">lon</span>           <span class="c"># longitude (N positive)- float</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lon_r</span>              <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>  <span class="c"># longitude in radians</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm_irradiance</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span>  <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span>                <span class="o">=</span> <span class="bp">None</span>          <span class="c"># reference datetime (defined on __init__)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_ascension</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon_time</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span>   <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span>           <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunlight_time</span>      <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span>            <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunrise_time</span>       <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span>             <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunset_time</span>        <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span>          <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span>         <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_solar_time</span>    <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tz</span>                 <span class="o">=</span> <span class="bp">None</span>          <span class="c"># time zone (defined on __init__)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span>             <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="c"># slope and aspect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slope</span> <span class="o">=</span> <span class="n">slope</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aspect</span> <span class="o">=</span> <span class="n">aspect</span>
+        
+        <span class="c"># Constants as attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sun_surf_rad</span>       <span class="o">=</span> <span class="mf">63156942.6</span>    <span class="c"># radiation at suns surface (W/m^2)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sun_radius</span>         <span class="o">=</span> <span class="mf">695800000.</span>    <span class="c"># radius of the sun in meters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orbital_period</span>     <span class="o">=</span> <span class="mf">365.2563630</span>   <span class="c"># num of days it takes earth to revolve</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">altitude</span>           <span class="o">=</span> <span class="o">-</span><span class="mf">0.01448623</span>   <span class="c"># altitude of center of solar disk</span>
+
+
+        <span class="c"># sets up the object with some subfunctions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_datetime</span><span class="p">(</span><span class="n">date_time_obj</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">GMT_hour_offset</span> <span class="o">=</span> <span class="n">time_zone</span><span class="p">)</span>
+
+        <span class="c"># specify if attributes are scalar floats or numpy array floats</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span>   <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span>   <span class="o">=</span> <span class="bp">False</span>
+        
+        <span class="k">return</span>
+    
+
+    <span class="k">def</span> <span class="nf">_set_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time_obj</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">GMT_hour_offset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the critical time information including absolute julian day/century.</span>
+<span class="sd">        Accepts datetime objects or a datetime string with format</span>
+
+<span class="sd">        :param date_time_obj:   datetime object for time of solar calculations. Will also</span>
+<span class="sd">                                accept string input with matching value for &quot;fmt&quot; param</span>
+<span class="sd">        :param fmt:             if date_time_obj is input as a string, fmt allows it to be</span>
+<span class="sd">                                interpreted</span>
+<span class="sd">        :param GMT_hour_offset: Number of hours from GMT for timezone of calculation area.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># if input is datetime_obj set it</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">date_time_obj</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">=</span>      <span class="n">date_time_obj</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">+=</span>     <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span> <span class="o">=</span> <span class="o">-</span><span class="n">GMT_hour_offset</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">date_time_obj</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fmt</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">=</span>      <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_time_obj</span><span class="p">,</span><span class="n">fmt</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">+=</span>     <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span> <span class="o">=</span> <span class="o">-</span><span class="n">GMT_hour_offset</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;bad datetime!&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">tz</span> <span class="o">=</span> <span class="n">GMT_hour_offset</span>
+
+
+        <span class="c"># uses the reference day of january 1st 2000</span>
+        <span class="n">jan_1st_2000_jd</span>   <span class="o">=</span> <span class="mi">2451545</span>
+        <span class="n">jan_1st_2000</span>      <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">time_del</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">-</span> <span class="n">jan_1st_2000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ajd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jan_1st_2000_jd</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_del</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">())</span><span class="o">/</span><span class="mi">86400</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ajd</span> <span class="o">-</span> <span class="mi">2451545</span><span class="p">)</span><span class="o">/</span><span class="mf">36525.0</span>
+        
+        <span class="k">return</span>
+
+
+<div class="viewcode-block" id="solar.get_geomean_long"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_geomean_long">[docs]</a>    <span class="k">def</span> <span class="nf">get_geomean_long</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return geomean_long: geometric mean longitude of the sun&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="o">=</span> <span class="p">(</span><span class="mf">280.46646</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span> <span class="o">*</span> <span class="p">(</span><span class="mf">36000.76983</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span><span class="o">*</span><span class="mf">0.0003032</span><span class="p">))</span> <span class="o">%</span> <span class="mi">360</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_geomean_anom"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_geomean_anom">[docs]</a>    <span class="k">def</span> <span class="nf">get_geomean_anom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;calculates the geometric mean anomoly of the sun&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span> <span class="o">=</span> <span class="p">(</span><span class="mf">357.52911</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span> <span class="o">*</span> <span class="p">(</span><span class="mf">35999.05029</span> <span class="o">-</span> <span class="mf">0.0001537</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span>
+
+    </div>
+<div class="viewcode-block" id="solar.get_earth_eccent"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_earth_eccent">[docs]</a>    <span class="k">def</span> <span class="nf">get_earth_eccent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return earth_eccent: precise eccentricity of earths orbit at referece datetime &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span> <span class="o">=</span> <span class="mf">0.016708634</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span> <span class="o">*</span> <span class="p">(</span><span class="mf">4.2037e-5</span> <span class="o">+</span> <span class="mf">1.267e-7</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_sun_eq_of_center"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_sun_eq_of_center">[docs]</a>    <span class="k">def</span> <span class="nf">get_sun_eq_of_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return sun_eq_of_center: the suns equation of center&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_anom</span><span class="p">()</span>
+            
+        <span class="n">ajc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span>
+        <span class="n">gma</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">gma</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.914602</span> <span class="o">-</span> <span class="n">ajc</span><span class="o">*</span><span class="p">(</span><span class="mf">0.004817</span> <span class="o">+</span> <span class="mf">0.000014</span> <span class="o">*</span> <span class="n">ajc</span><span class="p">))</span> <span class="o">+</span> \
+                                <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">gma</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.019993</span> <span class="o">-</span> <span class="mf">0.000101</span> <span class="o">*</span> <span class="n">ajc</span><span class="p">)</span> <span class="o">+</span> \
+                                <span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">gma</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.000289</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_true_long"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_true_long">[docs]</a>    <span class="k">def</span> <span class="nf">get_true_long</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return true_long: the tru longitude of the sun&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_long</span><span class="p">()</span>
+            
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_sun_eq_of_center</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_true_anom"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_true_anom">[docs]</a>    <span class="k">def</span> <span class="nf">get_true_anom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return true_anom: calculates the true anomaly of the sun&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_long</span><span class="p">()</span>
+            
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_sun_eq_of_center</span><span class="p">()</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_eq_of_center</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span>
+
+        </div>
+<div class="viewcode-block" id="solar.get_rad_vector"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_rad_vector">[docs]</a>    <span class="k">def</span> <span class="nf">get_rad_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return rad_vector: incident radiation vector to surface at ref_datetime (AUs)&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_earth_eccent</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_true_anom</span><span class="p">()</span>
+            
+        <span class="n">ec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span>
+        <span class="n">ta</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_anom</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span>  <span class="o">=</span> <span class="p">(</span><span class="mf">1.000001018</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ec</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">ec</span> <span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">ta</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_app_long"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_app_long">[docs]</a>    <span class="k">def</span> <span class="nf">get_app_long</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return app_long: calculates apparent longitude of the sun&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_true_long</span><span class="p">()</span>
+
+        <span class="n">stl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_long</span>
+        <span class="n">ajc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span> <span class="o">=</span> <span class="n">stl</span> <span class="o">-</span> <span class="mf">0.00569</span> <span class="o">-</span> <span class="mf">0.00478</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="mf">125.04</span> <span class="o">-</span> <span class="mf">1934.136</span> <span class="o">*</span> <span class="n">ajc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span>
+        
+</div>
+<div class="viewcode-block" id="solar.get_oblique_mean_elip"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_oblique_mean_elip">[docs]</a>    <span class="k">def</span> <span class="nf">get_oblique_mean_elip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return oblique_mean_elip: oblique mean elliptic of earth orbit &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span>
+        
+        <span class="n">ajc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span> <span class="o">=</span> <span class="mi">23</span> <span class="o">+</span> <span class="p">(</span><span class="mi">26</span> <span class="o">+</span> <span class="p">(</span><span class="mf">21.448</span> <span class="o">-</span> <span class="n">ajc</span> <span class="o">*</span> <span class="p">(</span><span class="mf">46.815</span> <span class="o">+</span> <span class="n">ajc</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.00059</span> <span class="o">-</span> <span class="n">ajc</span> <span class="o">*</span> <span class="mf">0.001813</span><span class="p">)))</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_oblique_corr"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_oblique_corr">[docs]</a>    <span class="k">def</span> <span class="nf">get_oblique_corr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return oblique_corr:  the oblique correction &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_mean_elip</span><span class="p">()</span>
+            
+        <span class="n">ome</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_mean_elip</span>
+        <span class="n">ajc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ajc</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span> <span class="o">=</span> <span class="n">ome</span> <span class="o">+</span> <span class="mf">0.00256</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="mf">125.04</span> <span class="o">-</span> <span class="mf">1934.136</span> <span class="o">*</span> <span class="n">ajc</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_right_ascension"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_right_ascension">[docs]</a>    <span class="k">def</span> <span class="nf">get_right_ascension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return right_ascension: the suns right ascension angle &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_ascension</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_ascension</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_app_long</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_corr</span><span class="p">()</span>
+            
+        <span class="n">sal</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_long</span><span class="p">)</span>
+        <span class="n">oc</span>  <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_ascension</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arctan2</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">oc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">sal</span><span class="p">),</span> <span class="n">cos</span><span class="p">(</span><span class="n">sal</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_ascension</span>
+        
+    </div>
+<div class="viewcode-block" id="solar.get_declination"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_declination">[docs]</a>    <span class="k">def</span> <span class="nf">get_declination</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return declination: solar declination angle at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_app_long</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_corr</span><span class="p">()</span>
+            
+        <span class="n">sal</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_long</span><span class="p">)</span>
+        <span class="n">oc</span>  <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">declination</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arcsin</span><span class="p">((</span><span class="n">sin</span><span class="p">(</span><span class="n">oc</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">sal</span><span class="p">))))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_equation_of_time"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_equation_of_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_equation_of_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return equation_of_time: the equation of time in minutes &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_corr</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_long</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_anom</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_earth_eccent</span><span class="p">()</span>
+
+        <span class="n">oc</span>  <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oblique_corr</span><span class="p">)</span>
+        <span class="n">gml</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geomean_long</span><span class="p">)</span>
+        <span class="n">gma</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geomean_anom</span><span class="p">)</span>
+        <span class="n">ec</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_eccent</span>
+
+        <span class="n">vary</span> <span class="o">=</span> <span class="n">tan</span><span class="p">(</span><span class="n">oc</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">degrees</span><span class="p">(</span><span class="n">vary</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">gml</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ec</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">gma</span><span class="p">)</span> <span class="o">+</span>
+                                <span class="mi">4</span> <span class="o">*</span> <span class="n">ec</span> <span class="o">*</span> <span class="n">vary</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">gma</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">gml</span><span class="p">)</span> <span class="o">-</span>
+                                <span class="mf">0.5</span> <span class="o">*</span> <span class="n">vary</span> <span class="o">*</span> <span class="n">vary</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">gml</span><span class="p">)</span> <span class="o">-</span>
+                                <span class="mf">1.25</span> <span class="o">*</span> <span class="n">ec</span> <span class="o">*</span> <span class="n">ec</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">gma</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_hour_angle_sunrise"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_hour_angle_sunrise">[docs]</a>    <span class="k">def</span> <span class="nf">get_hour_angle_sunrise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return hour_angle_sunrise: the hour angle of sunrise &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span>
+            
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_declination</span><span class="p">()</span>
+
+        <span class="n">d</span>   <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">declination</span><span class="p">)</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lat_r</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">((</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="mf">90.833</span><span class="p">))</span> <span class="o">/</span>
+                                  <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">-</span> <span class="n">tan</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">tan</span><span class="p">(</span><span class="n">d</span><span class="p">))))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_solar_noon"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_solar_noon">[docs]</a>    <span class="k">def</span> <span class="nf">get_solar_noon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return solar_noon: solar noon in (local sidereal time LST)&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_equation_of_time</span>
+
+        <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span>
+        <span class="n">eot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span>
+        <span class="n">tz</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tz</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span> <span class="o">=</span> <span class="p">(</span><span class="mi">720</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">-</span> <span class="n">eot</span> <span class="o">+</span> <span class="n">tz</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span><span class="o">/</span><span class="mi">1440</span>
+
+        <span class="c"># format this as a time for display purposes (Hours:Minutes:Seconds)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span>
+    
+</div>
+<div class="viewcode-block" id="solar.get_sunrise"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_sunrise">[docs]</a>    <span class="k">def</span> <span class="nf">get_sunrise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return sunrise: returns the time of sunrise&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_solar_noon</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle_sunrise</span><span class="p">()</span>
+
+        <span class="n">sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span>
+        <span class="n">ha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span> <span class="o">=</span> <span class="p">(</span><span class="n">sn</span> <span class="o">*</span> <span class="mi">1440</span> <span class="o">-</span> <span class="n">ha</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">1440</span>
+
+        <span class="c"># format this as a time for display purposes (Hours:Minutes:Seconds)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunrise_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunrise_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunrise</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_sunset"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_sunset">[docs]</a>    <span class="k">def</span> <span class="nf">get_sunset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return sunset: returns the time of sunset&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_solar_noon</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle_sunrise</span><span class="p">()</span>
+
+        <span class="n">sn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solar_noon</span>
+        <span class="n">ha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span>
+
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span> <span class="o">=</span> <span class="p">(</span><span class="n">sn</span> <span class="o">*</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">ha</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="mi">1440</span>
+
+        <span class="c"># format this as a time for display purposes (Hours:Minutes:Seconds)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunset_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunset_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunset</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_sunlight"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_sunlight">[docs]</a>    <span class="k">def</span> <span class="nf">get_sunlight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return sunlight: amount of daily sunlight in fractional days&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle_sunrise</span><span class="p">()</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle_sunrise</span> <span class="o">/</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">24</span><span class="p">)</span>
+
+        <span class="c"># format this as a time for display purposes (Hours:Minutes:Seconds)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunlight_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sunlight_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunlight</span>
+
+    </div>
+<div class="viewcode-block" id="solar.get_true_solar"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_true_solar">[docs]</a>    <span class="k">def</span> <span class="nf">get_true_solar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return true_solar: true solar time at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_equation_of_time</span>
+
+        <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span>
+        <span class="n">eot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">equation_of_time</span>
+
+        <span class="c"># turn reference datetime into fractional days</span>
+        <span class="n">frac_sec</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdt</span> <span class="o">-</span> <span class="n">datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rdt</span><span class="o">.</span><span class="n">day</span><span class="p">))</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> 
+        <span class="n">frac_hr</span>  <span class="o">=</span> <span class="n">frac_sec</span> <span class="o">/</span> <span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tz</span>
+        <span class="n">frac_day</span> <span class="o">=</span> <span class="n">frac_hr</span> <span class="o">/</span> <span class="mi">24</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frac_day</span> <span class="o">=</span> <span class="n">frac_day</span>
+
+        <span class="c"># now get true solar time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span> <span class="o">=</span> <span class="p">(</span><span class="n">frac_day</span> <span class="o">*</span> <span class="mi">1440</span> <span class="o">+</span> <span class="n">eot</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">-</span> <span class="mi">60</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tz</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1440</span>
+
+        <span class="c"># format this as a time for display purposes (Hours:Minutes:Seconds)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">true_solar_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">true_solar_time</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span> <span class="o">/</span> <span class="p">(</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span>
+        
+</div>
+<div class="viewcode-block" id="solar.get_hour_angle"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_hour_angle">[docs]</a>    <span class="k">def</span> <span class="nf">get_hour_angle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return hour_angle: returns hour angle at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_true_solar</span><span class="p">()</span>
+            
+        <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_solar</span>
+
+        <span class="c"># matrix hour_angle calculations</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="n">ha</span> <span class="o">=</span> <span class="n">ts</span>
+            <span class="n">ha</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ha</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">180</span>
+            <span class="n">ha</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span>  <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ha</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span>  <span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">180</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="o">=</span> <span class="n">ha</span>
+
+        <span class="c"># scalar hour_angle calculations</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ts</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="o">=</span> <span class="n">ts</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">180</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="o">=</span> <span class="n">ts</span><span class="o">/</span><span class="mi">4</span> <span class="o">-</span> <span class="mi">180</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span>
+        
+        </div>
+<div class="viewcode-block" id="solar.get_zenith"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_zenith">[docs]</a>    <span class="k">def</span> <span class="nf">get_zenith</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return zenith: returns solar zenith angle at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_declination</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle</span><span class="p">()</span>
+
+        <span class="n">d</span>   <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">declination</span><span class="p">)</span>
+        <span class="n">ha</span>  <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span><span class="p">)</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lat_r</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ha</span><span class="p">)))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span>
+    
+</div>
+<div class="viewcode-block" id="solar.get_elevation"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_elevation">[docs]</a>    <span class="k">def</span> <span class="nf">get_elevation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return elevation: returns solar elevation angle at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_zenith</span><span class="p">()</span>
+            
+        <span class="c"># perform an approximate atmospheric refraction correction</span>
+        
+        <span class="c"># matrix hour_angle calculations</span>
+        <span class="c"># these equations are hideous, but im not sure how to improve them without</span>
+        <span class="c"># adding computational complexity</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="mi">90</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span>
+            <span class="n">ar</span> <span class="o">=</span> <span class="n">e</span> <span class="o">*</span> <span class="mi">0</span> 
+
+            <span class="n">ar</span><span class="p">[</span><span class="n">e</span> <span class="o">&gt;</span>  <span class="mi">85</span><span class="p">]</span>                 <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">ar</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span><span class="mi">85</span><span class="p">)]</span>      <span class="o">=</span> <span class="mf">58.1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span><span class="mi">85</span><span class="p">)]))</span> <span class="o">-</span> \
+                                          <span class="mf">0.07</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span><span class="mi">85</span><span class="p">)]))</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> \
+                                          <span class="mf">0.000086</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span><span class="mi">85</span><span class="p">)]))</span><span class="o">**</span><span class="mi">5</span>
+            <span class="n">ar</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1735</span> <span class="o">+</span> <span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)]</span> <span class="o">*</span> \
+                                            <span class="p">(</span><span class="mf">103.4</span> <span class="o">+</span> <span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)]</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">12.79</span> <span class="o">+</span> <span class="n">e</span><span class="p">[(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">)]</span> <span class="o">*</span> <span class="mf">0.711</span><span class="p">))</span>
+            <span class="n">ar</span><span class="p">[</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">]</span>             <span class="o">=</span> <span class="o">-</span><span class="mf">20.772</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">e</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">]))</span>
+
+        <span class="c"># scalar hour_angle calculations</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">e</span>  <span class="o">=</span> <span class="mi">90</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span>
+            <span class="n">er</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            
+            <span class="k">if</span>   <span class="n">e</span> <span class="o">&gt;</span> <span class="mi">85</span><span class="p">:</span>        <span class="n">ar</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>         <span class="n">ar</span> <span class="o">=</span> <span class="mf">58.1</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">er</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.07</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">er</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mf">0.000086</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">er</span><span class="p">)</span><span class="o">**</span><span class="mi">5</span>  
+            <span class="k">elif</span> <span class="n">e</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">0.575</span><span class="p">:</span>    <span class="n">ar</span> <span class="o">=</span> <span class="mi">1735</span> <span class="o">+</span> <span class="n">e</span> <span class="o">*</span> <span class="p">(</span><span class="mf">103.4</span> <span class="o">+</span> <span class="n">e</span> <span class="o">*</span> <span class="p">(</span> <span class="o">-</span><span class="mf">12.79</span> <span class="o">+</span> <span class="n">e</span> <span class="o">*</span> <span class="mf">0.711</span><span class="p">))</span> 
+            <span class="k">else</span><span class="p">:</span>               <span class="n">ar</span> <span class="o">=</span> <span class="o">-</span><span class="mf">20.772</span> <span class="o">/</span> <span class="n">tan</span><span class="p">(</span><span class="n">er</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">elevation_noatmo</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atmo_refraction</span>  <span class="o">=</span> <span class="n">ar</span> <span class="o">/</span> <span class="mi">3600</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span>        <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">elevation_noatmo</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">atmo_refraction</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">elevation</span>
+
+    </div>
+<div class="viewcode-block" id="solar.get_azimuth"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_azimuth">[docs]</a>    <span class="k">def</span> <span class="nf">get_azimuth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; :return azimuth: returns solar azimuth angle at ref_datetime&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">declination</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_declination</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zenith</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_zenith</span><span class="p">()</span>
+            
+        <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lat_r</span>       
+        <span class="n">d</span>   <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">declination</span><span class="p">)</span>
+        <span class="n">ha</span>  <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hour_angle</span><span class="p">)</span>                
+        <span class="n">z</span>   <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zenith</span><span class="p">)</span>     
+
+        <span class="c"># matrix azimuth calculations</span>
+        <span class="c"># these equations are hideous monsters, but im not sure how to improve them without</span>
+        <span class="c"># adding computational complexity.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span>
+
+            <span class="n">az</span> <span class="o">=</span> <span class="n">ha</span> <span class="o">*</span> <span class="mi">0</span>
+
+            <span class="n">az</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">(((</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]))</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]))))</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+            <span class="n">az</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">540</span> <span class="o">-</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">(((</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">]))</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="o">/</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="n">ha</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">])))))</span> <span class="o">%</span> <span class="mi">360</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span> <span class="o">=</span> <span class="n">az</span>
+
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">if</span> <span class="n">ha</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span> <span class="o">=</span> <span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">(((</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">))))</span> <span class="o">+</span> <span class="mi">180</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span> <span class="o">=</span> <span class="p">(</span><span class="mi">540</span> <span class="o">-</span> <span class="n">degrees</span><span class="p">(</span><span class="n">arccos</span><span class="p">(((</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">z</span><span class="p">))</span> <span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="o">/</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="p">)))))</span> <span class="o">%</span> <span class="mi">360</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">azimuth</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_earth_distance"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_earth_distance">[docs]</a>    <span class="k">def</span> <span class="nf">get_earth_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return earth_distance: distance between the earth and the sun at ref_datetime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_rad_vector</span><span class="p">()</span>
+
+            
+        <span class="c"># convert rad_vector length from AU to meters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">earth_distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rad_vector</span> <span class="o">*</span> <span class="mi">149597870700</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_distance</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_norm_irradiance"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_norm_irradiance">[docs]</a>    <span class="k">def</span> <span class="nf">get_norm_irradiance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates incoming solar energy in W/m^2 to a surface normal to the sun.</span>
+
+<span class="sd">        inst_irradiance is calculated as = sun_surf_radiance\*(sun_radius / earth_distance)^2</span>
+<span class="sd">        and is then corrected as a function of solar incidence angle</span>
+
+<span class="sd">        :return norm_irradiance: the normal irradiance in W/m^2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_irradiance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_irradiance</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_distance</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_earth_distance</span><span class="p">()</span>
+            
+        <span class="n">ed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">earth_distance</span>
+
+        <span class="c"># calculate irradiance to normal surface at earth distance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm_irradiance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sun_surf_rad</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sun_radius</span> <span class="o">/</span> <span class="n">ed</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_irradiance</span>
+
+</div>
+<div class="viewcode-block" id="solar.get_inc_irradiance"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.get_inc_irradiance">[docs]</a>    <span class="k">def</span> <span class="nf">get_inc_irradiance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        calculates the actual incident solar irradiance at a given lat,lon coordinate</span>
+<span class="sd">        with adjustments for slope and aspect if they have been given. Not finished.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;this function is unfinished!&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span>
+
+</div>
+<div class="viewcode-block" id="solar.summarize"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.summarize">[docs]</a>    <span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; prints attribute list and corresponding values&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">iterkeys</span><span class="p">()):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;{0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="n">sc</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+
+        <span class="k">return</span>
+    
+</div>
+<div class="viewcode-block" id="solar.compute_all"><a class="viewcode-back" href="../../../modules/solar.html#dnppy.solar.solar.solar.compute_all">[docs]</a>    <span class="k">def</span> <span class="nf">compute_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes and prints all the attributes of this solar object. Spatial</span>
+<span class="sd">        averages are printed for numpy array type attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Interogation of entire matrix of points.&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Some values displayed below are spatial averages&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span> <span class="c"># print means of lat/lon arrays</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;latitude, longitude </span><span class="se">\t</span><span class="s">{0}, {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;latitude, longitude </span><span class="se">\t</span><span class="s">{0}, {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lon</span><span class="p">))</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;datetime </span><span class="se">\t\t</span><span class="s">{0} (GMT)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rdt</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;time zone </span><span class="se">\t\t</span><span class="s">{0} (GMT offset)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tz</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;abs julian day </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (day)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ajd</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;abs julian century </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (cen)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ajc</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns geomean long </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_long</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns geomean anom </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_geomean_anom</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;earth eccentricity </span><span class="se">\t</span><span class="s">{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_earth_eccent</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns eq of center </span><span class="se">\t</span><span class="s">{0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sun_eq_of_center</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns true long </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_true_long</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns true anom </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_true_anom</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;suns apparent long </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_app_long</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;earth obliq mean elip </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_mean_elip</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;earth obliq correction</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_oblique_corr</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;sun right ascension </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_right_ascension</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar declination angle {0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_declination</span><span class="p">()))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;equation of time </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (min)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_equation_of_time</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span> <span class="c"># print means of hour angle array</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;hour angle sunrise</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle_sunrise</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span> 
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;hour angle sunrise</span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle_sunrise</span><span class="p">()))</span>    
+            
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_solar_noon</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar noon </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (HMS - LST)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solar_noon_time</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_sunrise</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;sunrise </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (HMS - LST)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sunrise_time</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_sunset</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;sunset  </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (HMS - LST)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sunset_time</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_sunlight</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;sunlight durration </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (HMS)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sunlight_time</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_true_solar</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;true solar time </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (HMS - LST)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_solar_time</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_numpy</span><span class="p">:</span> <span class="c"># print means of these array objects</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;hour angle </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>            
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar zenith angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_zenith</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>        
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar elevation angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_elevation</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>    
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar azimuth angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_azimuth</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;hour angle </span><span class="se">\t\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_hour_angle</span><span class="p">()))</span>                  
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar zenith angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_zenith</span><span class="p">()))</span>                 
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar elevation angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_elevation</span><span class="p">()))</span>           
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;solar azimuth angle </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (deg)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_azimuth</span><span class="p">()))</span>               
+
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;radiation vector </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (AU)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_rad_vector</span><span class="p">()))</span>                  
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;earth sun distance </span><span class="se">\t</span><span class="s">{0}(m)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_earth_distance</span><span class="p">()))</span>             
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;norm irradiance </span><span class="se">\t</span><span class="s">{0}</span><span class="se">\t</span><span class="s"> (W/m*m)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_norm_irradiance</span><span class="p">()))</span>           
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+
+
+<span class="c"># testing</span></div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c"># use the current time and my time zone</span>
+    <span class="n">my_datestamp</span>   <span class="o">=</span> <span class="s">&quot;20150515-120000&quot;</span>     <span class="c"># date stamp</span>
+    <span class="n">my_fmt</span>         <span class="o">=</span> <span class="s">&quot;%Y%m</span><span class="si">%d</span><span class="s">-%H%M%S&quot;</span>       <span class="c"># datestamp format</span>
+    <span class="n">my_tz</span>          <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>                    <span class="c"># timezone (GMT/UTC) offset</span>
+    <span class="n">my_lat</span> <span class="o">=</span> <span class="mi">37</span>                            <span class="c"># lat (N positive)</span>
+    <span class="n">my_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">76.4</span>                         <span class="c"># lon (E positive)</span>
+    
+    <span class="n">sc</span>  <span class="o">=</span> <span class="n">solar</span><span class="p">(</span><span class="n">my_lat</span><span class="p">,</span> <span class="n">my_lon</span><span class="p">,</span> <span class="n">my_datestamp</span><span class="p">,</span> <span class="n">my_tz</span><span class="p">,</span> <span class="n">my_fmt</span><span class="p">)</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">compute_all</span><span class="p">()</span>
+    <span class="n">sc</span><span class="o">.</span><span class="n">summarize</span><span class="p">()</span>
+
+
+<span class="c">##    # numpy array test</span>
+<span class="c">##    import numpy</span>
+<span class="c">##    my_lat = numpy.array([[36, 36],[38,38]])</span>
+<span class="c">##    my_lon = numpy.array([[-77.4,-75.4],[-77.4,-75.4]])</span>
+<span class="c">##    sm  = solar(my_lat, my_lon, my_datestamp, my_tz, my_fmt)</span>
+<span class="c">##    </span>
+<span class="c">##    sm.compute_all()</span>
+    
+
+
+
+
+
+
+
+    
+        
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

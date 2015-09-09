@@ -1,0 +1,895 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>solar &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="textio" href="textio.html"/>
+        <link rel="prev" title="raster" href="raster.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>solar</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/solar.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.solar">
+<span id="solar"></span><h1>solar<a class="headerlink" href="#module-dnppy.solar" title="Permalink to this headline">¶</a></h1>
+<p>The solar module contains just one class definition, with many associated methods to perform a plethora
+of calculations based around the sun-earth relationship. It replicates the functionality of the <a class="reference external" href="http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">common
+NOAA excel calculator</a>, including adjustments due to atmospheric refraction. Each method may be run
+independently as the user wishes, as each method will automatically invoke any other calculations that
+must be performed first, and it will not unnecessarily redo calculations that have already been completed.</p>
+<p>A solar class object allows scalar or numpy array inputs for latitude and longitude values for per-pixel
+computation and improved accuracy when scene-center calculations are insufficient. The solar class is not
+yet capable of ingesting digital elevation models to calculate slope and aspect dependent parameters, but
+it is a planned addition.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Compute all available solar parameters</p>
+<p>For a simple example, lets just assume we want to go ahead and calculate everything. The inputs for all solar calculations come down to space and time. More specifically, latitude and longitude coordinates and a precise time in standard GMT. For the example below, we are going to use 2015-May-15th at exactly noon local time, in Hampton Virginia USA. Note that while observing daylight savings time, the east coast observes EDT, which is GMT-4, watch out for mistakes with time zones!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">solar</span>
+
+<span class="n">lat</span>         <span class="o">=</span> <span class="mi">37</span>                    <span class="c"># lat (N positive)</span>
+<span class="n">lon</span>         <span class="o">=</span> <span class="o">-</span><span class="mf">76.4</span>                 <span class="c"># lon (E positive)</span>
+<span class="n">datestamp</span>   <span class="o">=</span> <span class="s">&quot;20150515-120000&quot;</span>     <span class="c"># date stamp</span>
+<span class="n">fmt</span>         <span class="o">=</span> <span class="s">&quot;%Y%m</span><span class="si">%d</span><span class="s">-%H%M%S&quot;</span>       <span class="c"># datestamp format</span>
+<span class="n">tz</span>          <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>                    <span class="c"># timezone (GMT/UTC) offset</span>
+
+<span class="n">sc</span>  <span class="o">=</span> <span class="n">solar</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">datestamp</span><span class="p">,</span> <span class="n">tz</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">compute_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code above successfully updates <code class="docutils literal"><span class="pre">solar</span></code> instance <code class="docutils literal"><span class="pre">sc</span></code> to have all the attributes supported by the class, and prints a summary with descriptive variable names, values, and units. If the <code class="docutils literal"><span class="pre">datestamp</span></code> and <code class="docutils literal"><span class="pre">fmt</span></code> variables are unfamiliar to you, you can read more about python <a class="reference external" href="https://docs.python.org/2/library/datetime.html#datetime-objects">datetime objects</a> and how to create them from strings with <a class="reference external" href="https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior">fmt syntax</a>.</p>
+<p>Once you mastered datetime objects, you will probably want to use them all the time (they are pretty great). Fortunately, you can simply input a datetime object in place of the <code class="docutils literal"><span class="pre">datestamp</span></code> variable in the code above, and omit the <code class="docutils literal"><span class="pre">fmt</span></code> variable entirely, such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">solar</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">lat</span>     <span class="o">=</span> <span class="mi">37</span>
+<span class="n">lon</span>     <span class="o">=</span> <span class="o">-</span><span class="mf">76.4</span>
+<span class="n">dt_obj</span>  <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tz</span>      <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
+
+<span class="n">sc</span>  <span class="o">=</span> <span class="n">solar</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">dt_obj</span><span class="p">,</span> <span class="n">tz</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">compute_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Lets say you aren&#8217;t interested in anything except the solar elevation angle. After consulting <code class="docutils literal"><span class="pre">help(solar)</span></code> or the function list below, we see there is a method called <code class="docutils literal"><span class="pre">get_elevation</span></code>, and decide to invoke that instead of <code class="docutils literal"><span class="pre">compute_all()</span></code> and save it  in a new variable called <code class="docutils literal"><span class="pre">solar_elevation</span></code>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">solar_elevation</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">get_elevation</span><span class="p">()</span>  <span class="c"># invoke method of solar instance &quot;sc&quot;</span>
+</pre></div>
+</div>
+<p>That&#8217;s it! you can get any available attribute of a solar instance in exactly the same way!</p>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.solar.solar"></span><dl class="class">
+<dt id="dnppy.solar.solar.solar">
+<em class="property">class </em><code class="descname">solar</code><span class="sig-paren">(</span><em>lat</em>, <em>lon</em>, <em>date_time_obj</em>, <em>time_zone=0</em>, <em>fmt=False</em>, <em>slope=None</em>, <em>aspect=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object class for handling solar calculations. Many equations are taken from the
+excel sheet at this url : [<a class="reference external" href="http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">http://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html</a>]</p>
+<p>It requires a physical location on the earth and a datetime object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>lat</strong> &#8211; decimal degrees latitude (float OR numpy array)</li>
+<li><strong>lon</strong> &#8211; decimal degrees longitude (float OR numpy array)</li>
+<li><strong>time_zone</strong> &#8211; float of time shift from GMT (such as &#8220;-5&#8221; for EST)</li>
+<li><strong>date_time_obj</strong> &#8211; either a timestamp string following fmt or a datetime obj</li>
+<li><strong>fmt</strong> &#8211; if date_time_obj is a string, fmt is required to interpret it</li>
+<li><strong>slope</strong> &#8211; slope of land at lat,lon for solar energy calculations</li>
+<li><strong>aspect</strong> &#8211; aspect of land at lat,lon for solar energy calculations</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>An instance of this class may have the following attributes:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="61%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">attribute</th>
+<th class="head">description</th>
+<th class="head">type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>lat</td>
+<td>latitude</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>lon</td>
+<td>longitude</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>tz</td>
+<td>time zone</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>rdt</td>
+<td>reference datetime object (date_time_obj)</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>slope</td>
+<td>slope, derivative of DEM</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>aspect</td>
+<td>aspect (north is 0, south is 180)</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>ajd</td>
+<td>absolute julian day</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>ajc</td>
+<td>absolute julian century</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>geomean_long</td>
+<td>geometric mean longitude of the sun</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>geomean_anom</td>
+<td>geometric mean longitude anomaly of the sun</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>earth_eccent</td>
+<td>eccentricity of earths orbit</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>sun_eq_of_center</td>
+<td>the suns equation of center</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>true_long</td>
+<td>true longitude of the sun</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>true_anom</td>
+<td>true longitude anomaly of the sun</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>app_long</td>
+<td>the suns apparent longitude</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>oblique_mean_elip</td>
+<td>earth oblique mean ellipse</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>oblique_corr</td>
+<td>correction to earths oblique elipse</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>right_ascension</td>
+<td>suns right ascension angle</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>declination</td>
+<td>solar declination angle</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>equation_of_time</td>
+<td>equation of time (minutes)</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>hour_angle_sunrise</td>
+<td>the hour angle at sunrise</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>solar_noon</td>
+<td>LST of solar noon</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>sunrise</td>
+<td>LST of sunrise time</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>sunset</td>
+<td>LST of sunset time</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>sunlight</td>
+<td>LST fractional days of sunlight</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>true_solar</td>
+<td>LST for true solar time</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>hour_angle</td>
+<td>total hour angle</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>zenith</td>
+<td>zenith angle</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>elevation</td>
+<td>elevation angle</td>
+<td>(array)</td>
+</tr>
+<tr class="row-odd"><td>azimuth</td>
+<td>azimuthal angle</td>
+<td>(array)</td>
+</tr>
+<tr class="row-even"><td>rad_vector</td>
+<td>radiation vector (distance in AU)</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-odd"><td>earth_distance</td>
+<td>earths distance to sun in meters</td>
+<td>(scalar)</td>
+</tr>
+<tr class="row-even"><td>norm_irradiance</td>
+<td>incident solar energy at earth distance</td>
+<td>(scalar)</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Units used by this class unless otherwise labeled</p>
+<blockquote>
+<div><ul class="simple">
+<li>angle =     degrees</li>
+<li>distance =  meters</li>
+<li>energy =    watts or joules</li>
+<li>time =      mostly in datetime objects. labeled in most cases.</li>
+</ul>
+</div></blockquote>
+<p>Planned improvements</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>DONE. Inputs of numpy arrays for lat and lon needs to be allowed.</li>
+<li>inputs of a numpy array DEM for slope/aspect effects on incident solar energy</li>
+</ol>
+</div></blockquote>
+<p>Present performance</p>
+<blockquote>
+<div>To process about one landsat tile (7300^2 matrix) requires 9GB of memory and
+takes 45 seconds to process on a single 3.3GHz thread. It would be nice to get
+the same output to run on ~5GB of memory so a 8GB system could handle it.</div></blockquote>
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.compute_all">
+<code class="descname">compute_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.compute_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.compute_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes and prints all the attributes of this solar object. Spatial
+averages are printed for numpy array type attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_app_long">
+<code class="descname">get_app_long</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_app_long"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_app_long" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return app_long:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">calculates apparent longitude of the sun</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_azimuth">
+<code class="descname">get_azimuth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_azimuth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_azimuth" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return azimuth:</th><td class="field-body">returns solar azimuth angle at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_declination">
+<code class="descname">get_declination</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_declination"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_declination" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return declination:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">solar declination angle at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_earth_distance">
+<code class="descname">get_earth_distance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_earth_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_earth_distance" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return earth_distance:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">distance between the earth and the sun at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_earth_eccent">
+<code class="descname">get_earth_eccent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_earth_eccent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_earth_eccent" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return earth_eccent:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">precise eccentricity of earths orbit at referece datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_elevation">
+<code class="descname">get_elevation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_elevation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_elevation" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return elevation:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">returns solar elevation angle at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_equation_of_time">
+<code class="descname">get_equation_of_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_equation_of_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_equation_of_time" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return equation_of_time:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the equation of time in minutes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_geomean_anom">
+<code class="descname">get_geomean_anom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_geomean_anom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_geomean_anom" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the geometric mean anomoly of the sun</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_geomean_long">
+<code class="descname">get_geomean_long</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_geomean_long"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_geomean_long" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return geomean_long:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">geometric mean longitude of the sun</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_hour_angle">
+<code class="descname">get_hour_angle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_hour_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_hour_angle" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return hour_angle:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">returns hour angle at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_hour_angle_sunrise">
+<code class="descname">get_hour_angle_sunrise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_hour_angle_sunrise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_hour_angle_sunrise" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return hour_angle_sunrise:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the hour angle of sunrise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_inc_irradiance">
+<code class="descname">get_inc_irradiance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_inc_irradiance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_inc_irradiance" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the actual incident solar irradiance at a given lat,lon coordinate
+with adjustments for slope and aspect if they have been given. Not finished.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_norm_irradiance">
+<code class="descname">get_norm_irradiance</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_norm_irradiance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_norm_irradiance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates incoming solar energy in W/m^2 to a surface normal to the sun.</p>
+<p>inst_irradiance is calculated as = sun_surf_radiance*(sun_radius / earth_distance)^2
+and is then corrected as a function of solar incidence angle</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return norm_irradiance:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the normal irradiance in W/m^2</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_oblique_corr">
+<code class="descname">get_oblique_corr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_oblique_corr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_oblique_corr" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return oblique_corr:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the oblique correction</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_oblique_mean_elip">
+<code class="descname">get_oblique_mean_elip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_oblique_mean_elip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_oblique_mean_elip" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return oblique_mean_elip:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">oblique mean elliptic of earth orbit</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_rad_vector">
+<code class="descname">get_rad_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_rad_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_rad_vector" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return rad_vector:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">incident radiation vector to surface at ref_datetime (AUs)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_right_ascension">
+<code class="descname">get_right_ascension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_right_ascension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_right_ascension" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return right_ascension:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the suns right ascension angle</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_solar_noon">
+<code class="descname">get_solar_noon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_solar_noon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_solar_noon" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return solar_noon:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">solar noon in (local sidereal time LST)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_sun_eq_of_center">
+<code class="descname">get_sun_eq_of_center</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_sun_eq_of_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_sun_eq_of_center" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return sun_eq_of_center:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the suns equation of center</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_sunlight">
+<code class="descname">get_sunlight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_sunlight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_sunlight" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return sunlight:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">amount of daily sunlight in fractional days</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_sunrise">
+<code class="descname">get_sunrise</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_sunrise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_sunrise" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return sunrise:</th><td class="field-body">returns the time of sunrise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_sunset">
+<code class="descname">get_sunset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_sunset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_sunset" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return sunset:</th><td class="field-body">returns the time of sunset</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_true_anom">
+<code class="descname">get_true_anom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_true_anom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_true_anom" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return true_anom:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">calculates the true anomaly of the sun</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_true_long">
+<code class="descname">get_true_long</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_true_long"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_true_long" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return true_long:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">the tru longitude of the sun</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_true_solar">
+<code class="descname">get_true_solar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_true_solar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_true_solar" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Return true_solar:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">true solar time at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.get_zenith">
+<code class="descname">get_zenith</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.get_zenith"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.get_zenith" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return zenith:</th><td class="field-body">returns solar zenith angle at ref_datetime</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dnppy.solar.solar.solar.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/solar/solar.html#solar.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.solar.solar.solar.summarize" title="Permalink to this definition">¶</a></dt>
+<dd><p>prints attribute list and corresponding values</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="textio.html" class="btn btn-neutral float-right" title="textio">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="raster.html" class="btn btn-neutral" title="raster"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

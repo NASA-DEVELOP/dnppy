@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>landsat &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../index.html"/>
+        <link rel="next" title="modis" href="modis.html"/>
+        <link rel="prev" title="download" href="download.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>landsat</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/modules/landsat.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="module-dnppy.landsat">
+<span id="landsat"></span><h1>landsat<a class="headerlink" href="#module-dnppy.landsat" title="Permalink to this headline">¶</a></h1>
+<p>Landsat imagery is pretty versatile and commonly used, so the landsat data has its own
+module for common tasks associated with this product. This includes things like converting
+to top-of-atmosphere reflectance, at-satellite brightness temperature, cloud masking, and others.</p>
+<p>Requires <code class="docutils literal"><span class="pre">arcpy</span></code></p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">Accessing Landsat metadata</p>
+<p>Sometimes you need to access landsat metadata from its MTL file in a programmatic fashion. We have a class for that, called <code class="docutils literal"><span class="pre">landsat_metadata</span></code>. This class exists almost entirely for its attributes, which are built from an input MTL file quite easily.</p>
+<p>Here is some example syntax for delcaring the object, exploring attributes, and accessing specific attributes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">landsat</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="n">landsat</span><span class="o">.</span><span class="n">landsat_metadata</span><span class="p">(</span><span class="n">my_MTL_filepath</span><span class="p">)</span> <span class="c"># create object</span>
+
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>                        <span class="c"># import pprint</span>
+<span class="n">pprint</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span>                               <span class="c"># pretty print meta contents</span>
+<span class="n">scene_id</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">LANDSAT_SCENE_ID</span>                 <span class="c"># access specific attribute</span>
+</pre></div>
+</div>
+<p>You can read more about <code class="docutils literal"><span class="pre">landsat_metadata</span></code> in the code help below!</p>
+<p class="rubric">Converting to Top-of-Atmosphere Reflectance</p>
+<p>Raw Landsat data comes in a collection of tiff files that whose values (Digital Numbers) are on a 8-bit (Landsat 4, 5, and 7) or 16-bit (Landsat 8) scale. These tiffs often need to be converted to reflectance values, such that each pixel represents the proportion of radiation, scaled from 0 to 1, in that band&#8217;s bandwidth that is reflected. Note that this includes atmospheric conditions that may be responsible for reflecting a portion of that radiation. Processing these data is now very easy in dnppy, as shown in the code below. First, import the landsat module from dnppy. Then, type in the command landsat.toa_reflectance_457 or landsat.toa_reflectance_8. The first parameter to fill out is the list of band numbers you wish to convert, which should be entered as [1,2,3,4,5,7] for example. The second parameter is the file path to the Landsat scene&#8217;s metadata file, which ends in _MTL.txt. The last parameter, which is optional, is the directory you wish to deposit the output tiffs in. If left out, the output tiffs will be placed in the same folder as the input data. Now just close the parentheses and execute the command to convert the data.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dnppy</span> <span class="kn">import</span> <span class="n">landsat</span>
+
+<span class="n">band_nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">meta_path</span> <span class="o">=</span> <span class="s">r&quot;C:\folder\LE70410362002335EDC00\LE70410362002335EDC00_MTL.txt&quot;</span>
+<span class="n">outdir</span> <span class="o">=</span> <span class="s">r&quot;C:\folder\output&quot;</span>
+
+<span class="n">landsat</span><span class="o">.</span><span class="n">toa_reflectance_457</span><span class="p">(</span><span class="n">band_nums</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">outdir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="code-help">
+<h2>Code Help<a class="headerlink" href="#code-help" title="Permalink to this headline">¶</a></h2>
+<p>Auto-documentation for functions and classes within this module is generated below!</p>
+<span class="target" id="module-dnppy.landsat.atsat_bright_temp"></span><dl class="function">
+<dt id="dnppy.landsat.atsat_bright_temp.atsat_bright_temp_8">
+<code class="descname">atsat_bright_temp_8</code><span class="sig-paren">(</span><em>meta_path</em>, <em>outdir=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/atsat_bright_temp.html#atsat_bright_temp_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.atsat_bright_temp.atsat_bright_temp_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts Landsat 8 TIRS bands to at satellite brightnes temperature in Kelvins</p>
+<p>To be performed on raw Landsat 8 level 1 data. See link below for details
+see here <a class="reference external" href="http://landsat.usgs.gov/Landsat8_Using_Product.php">http://landsat.usgs.gov/Landsat8_Using_Product.php</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band_nums</strong> &#8211; A list of desired band numbers, which should be [10,11]</li>
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file for those bands</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files. If left False it will save ouput
+files in the same directory as input files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">A list of all files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.atsat_bright_temp.atsat_bright_temp_457">
+<code class="descname">atsat_bright_temp_457</code><span class="sig-paren">(</span><em>meta_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/atsat_bright_temp.html#atsat_bright_temp_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.atsat_bright_temp.atsat_bright_temp_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts band 6 from Landsat 4 and 5 or bands 6 VCID 1 and 2 from Landsat 7
+to at satellite brightness temperature in Kelvins</p>
+<p>To be performed on raw Landsat 4, 5, or 7 level 1 data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file, labeled &#8216;_MTL.txt&#8217;, which must
+be in the same folder as band 6 or 6_VCID_1 and 6_VCID_2</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files. If left False it will save ouput
+files in the same directory as input files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">A list of all files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.cloud_mask"></span><dl class="function">
+<dt id="dnppy.landsat.cloud_mask.make_cloud_mask_457">
+<code class="descname">make_cloud_mask_457</code><span class="sig-paren">(</span><em>B2_TOA_Ref</em>, <em>outdir=None</em>, <em>Filter5Thresh=2.0</em>, <em>Filter6Thresh=2.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/cloud_mask.html#make_cloud_mask_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.cloud_mask.make_cloud_mask_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a binary mask raster for removal of cloud-covered pixels in raw Landsat 4, 5, and 7 bands.</p>
+<p>To be performed on Landsat 4, 5, or 7 data. Must be processed first with landsat.toa_reflectance_457
+for bands 2, 3, 4, and 5 and landsat.atsat_bright_temp_457 for band 6.</p>
+<p>Note that for this function to run properly, bands 2, 3, 4, 5, and 6 must each be in the same folder
+and have the correct naming convention output by the landsat.toa_reflectance_457 and landsat.atsat_bright_temp_457
+functions (e.g. LT50410362011240PAC01_B2_TOA_Ref.tif, LT50410362011240PAC01_B6_Temp.tif).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>B2_TOA_Ref</strong> &#8211; The full filepath to the band 2 top-of-atmosphere reflectance tiff file</li>
+<li><strong>outdir</strong> &#8211; Output directory to the cloud mask and TOA band tiffs</li>
+<li><strong>Filter5Thresh</strong> &#8211; Optional threshold value for Filter #5, default set at 2</li>
+<li><strong>Filter6Thresh</strong> &#8211; Optional threshold value for Filter #6, default set at 2</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return cloud_mask_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Filepath to newly created cloud mask</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.cloud_mask.make_cloud_mask_8">
+<code class="descname">make_cloud_mask_8</code><span class="sig-paren">(</span><em>BQA_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/cloud_mask.html#make_cloud_mask_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.cloud_mask.make_cloud_mask_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a cloud mask tiff file from the Landsat 8 Quality Assessment Band (BQA) file.
+Requires only the BQA tiff file included in the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>BQA_path</strong> &#8211; The full filepath to the BQA file for the raw Landsat 8 dataset</li>
+<li><strong>outdir</strong> &#8211; Output directory to save cloudless band tifs and the cloud mask</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return cloud_mask_path:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Filepath to newly created cloud mask</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.cloud_mask.apply_cloud_mask">
+<code class="descname">apply_cloud_mask</code><span class="sig-paren">(</span><em>mask_path</em>, <em>folder</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/cloud_mask.html#apply_cloud_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.cloud_mask.apply_cloud_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removal of cloud-covered pixels in Landsat 4, 5, 7, or 8 bands using the mask created with
+landsat.make_cloud_mask_8 or landsat.make_cloud_mask_457.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>folder</strong> &#8211; The folder containing the raw or processed band tiffs to remove clouds from</li>
+<li><strong>mask_path</strong> &#8211; The full filepath to the mask file created by make_cloud_mask_8 or make_cloud_mask_457</li>
+<li><strong>outdir</strong> &#8211; Output directory to save cloudless band tiffs, default is same as &#8220;folder&#8221;</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return no_clouds_list:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">List of files created by this function with cloud mask applied.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.grab_meta"></span><dl class="function">
+<dt id="dnppy.landsat.grab_meta.grab_meta">
+<code class="descname">grab_meta</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/grab_meta.html#grab_meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.grab_meta.grab_meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Legacy metadata function simply wraps the newer landsat_metadata class.
+You should use <code class="docutils literal"><span class="pre">landsat_metadata</span></code> instead of this function, and can
+refer to that class for further explanation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> &#8211; filepath to an MTL file</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return landsat_metadata:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Metadata object with MTL attributes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.ndvi"></span><dl class="function">
+<dt id="dnppy.landsat.ndvi.ndvi_8">
+<code class="descname">ndvi_8</code><span class="sig-paren">(</span><em>Band5</em>, <em>Band4</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/ndvi.html#ndvi_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.ndvi.ndvi_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple calculator of Normalized difference vegetation index on some Landsat 8 OLI
+data. Output file will have same name as inputs with &#8220;NDVI&#8221; in place of &#8220;B5&#8221;, so
+inputs of files &#8220;LC80140342014347LGN00_B5.tif&#8221; and &#8220;LC80140342014347LGN00_B4.tif&#8221;
+will generate a file named &#8220;LC80140342014347LGN00_NDVI.tif&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Band5</strong> &#8211; The full filepath to the band 5 tiff file, the OLI NIR band</li>
+<li><strong>Band4</strong> &#8211; The full filepath to the band 4 tiff file, the OLI Visible Red band</li>
+<li><strong>outdir</strong> &#8211; directory to store output &#8220;NDVI&#8221; tiff</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return ndvi8:</th><td class="field-body"><p class="first last">Name of output file created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.ndvi.ndvi_457">
+<code class="descname">ndvi_457</code><span class="sig-paren">(</span><em>Band4</em>, <em>Band3</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/ndvi.html#ndvi_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.ndvi.ndvi_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple calculator of Normalized difference vegetation index on some Landsat 4/5/7 TM/ETM+
+data. Output file will have same name as inputs with &#8220;NDVI&#8221; in place of &#8220;B5&#8221;, so
+inputs of files &#8220;LC70140342014347LGN00_B4.tif&#8221; and &#8220;LC70140342014347LGN00_B3.tif&#8221;
+will generate a file named &#8220;LC70140342014347LGN00_NDVI.tif&#8221;</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>Band4</strong> &#8211; The full filepath to the band 4 tiff file, the TM/ETM+ NIR band</li>
+<li><strong>Band3</strong> &#8211; The full filepath to the band 3 tiff file, the TM/ETM+ Visible Red band</li>
+<li><strong>outdir</strong> &#8211; directory to store output &#8220;NDVI&#8221; tiff</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return ndvi457:</th><td class="field-body"><p class="first last">Name of output file created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.surface_reflectance"></span><dl class="function">
+<dt id="dnppy.landsat.surface_reflectance.surface_reflectance">
+<code class="descname">surface_reflectance</code><span class="sig-paren">(</span><em>meta_path</em>, <em>toa_folder</em>, <em>dem_path</em>, <em>dew_point</em>, <em>outdir=False</em>, <em>kt=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/surface_reflectance.html#surface_reflectance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.surface_reflectance.surface_reflectance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will estimate surface reflectance for Landsat 4 TM, 5 TM, 7 ETM+, or 8 OLI data.</p>
+<p>Note this function will calculate surface reflectance for Landsat 4, 5, and 7
+bands 1, 2, 3, 4, 5, and 7 or Landsat 8 bands 2, 3, 4, 5, 6, and 7. All 6 bands should be in the
+toa_folder and have &#8220;TOA_Ref&#8221; in their filenames as per the landsat.toa_reflectance convention.</p>
+<p>The Landsat 8 Coastal Aerosol band (1) and Cirrus band (9) will not be calculated as they do not
+have a corresponding band in TM or ETM+. To be performed on Top-of-Atmosphere Reflectance data
+processed with the landsat.toa_reflectance_457 or the landsat.toa_reflectance_8 function.</p>
+<dl class="docutils">
+<dt>Resources</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>DEM</dt>
+<dd><ul class="first last simple">
+<li>NASA Shuttle Radar Topography Mission (SRTM) up to 30m resolution.
+[<a class="reference external" href="http://www2.jpl.nasa.gov/srtm/cbanddataproducts.html">http://www2.jpl.nasa.gov/srtm/cbanddataproducts.html</a>]</li>
+<li>NASA Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER)
+Global Digital Elevation Model (GDEM) [<a class="reference external" href="http://asterweb.jpl.nasa.gov/gdem.asp">http://asterweb.jpl.nasa.gov/gdem.asp</a>]</li>
+<li>USGS National Elevation Dataset (NED) [<a class="reference external" href="http://nationalmap.gov/elevation.html">http://nationalmap.gov/elevation.html</a>]
+downloadable in 30 meter resolution through The National Map Viewer</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Dew Point</dt>
+<dd><ul class="first last simple">
+<li>NOAA Daily Observational Data: Global Summary of the Day (GSOD) - GIS Data Locator
+[<a class="reference external" href="http://gis.ncdc.noaa.gov/map/viewer/#app=clim&amp;cfg=cdo&amp;theme=daily&amp;layers=0001&amp;node=gis">http://gis.ncdc.noaa.gov/map/viewer/#app=clim&amp;cfg=cdo&amp;theme=daily&amp;layers=0001&amp;node=gis</a>].
+Select a weather station within the Landsat scene&#8217;s extent, follow the link,
+and enter the scene&#8217;s acquisition date. This will output a text file, with
+dew point under DEWP. More NOAA climatic data available at
+[<a class="reference external" href="https://www.climate.gov/data/maps-and-data">https://www.climate.gov/data/maps-and-data</a>]</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file (ending in MTL.txt) for the dataset</li>
+<li><strong>toa_folder</strong> &#8211; The filepath to the folder containing the TOA_Ref tiffs to be processed</li>
+<li><strong>dem_path</strong> &#8211; The full filepath to a DEM tif that covers the desired Landsat scene
+Note that the DEM should be resampled to the Landsat bands&#8217; resolution (30m)
+and pixel alignment. Also ensure there are no gaps in the dataset.</li>
+<li><strong>dew_point</strong> &#8211; The number (e.g. 57.7) for the dew point at the time and place of scene acquisition</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files. If left False it will save
+output files in the toa_folder directory.</li>
+<li><strong>kt</strong> &#8211; Unitless turbidity coefficient. Default set at 1.0 for clean air.
+Set at 0.5 for extremely turbid, dusty, or polluted air.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">A list of all files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.surface_temp"></span><dl class="function">
+<dt id="dnppy.landsat.surface_temp.surface_temp_8">
+<code class="descname">surface_temp_8</code><span class="sig-paren">(</span><em>band4_toa</em>, <em>meta_path</em>, <em>path_rad</em>, <em>nbt</em>, <em>sky_rad</em>, <em>outdir=False</em>, <em>L=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/surface_temp.html#surface_temp_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.surface_temp.surface_temp_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates surface temperature from Landsat 8 OLI and TIRS data. Requires band 4 and 5
+Top-of-Atmosphere Reflectance tiffs and the unprocessed band 10 and 11 tiffs.</p>
+<p>Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband     Transmissivity, and Sky Radiance constants, atmospheric conditions will not be accounted
+for and the surface values may be off. Values are attainable using MODTRAN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band4_toa</strong> &#8211; Filepath to the Band 4 Top-of-Atmosphere Reflectance tiff.
+use landsat.toa_reflectance_8</li>
+<li><strong>meta_path</strong> &#8211; Filepath to the metadata file (ending in _MTL.txt)</li>
+<li><strong>path_rad</strong> &#8211; Path Radiance constant (default 0)</li>
+<li><strong>nbt</strong> &#8211; Narrowband Transmissivity constant (default 1)</li>
+<li><strong>sky_rad</strong> &#8211; Sky Radiance constant (default 0)</li>
+<li><strong>outdir</strong> &#8211; Path to the desired output folder. If left False the
+output tiff will be place in band4_toa&#8217;s folder</li>
+<li><strong>L</strong> &#8211; Soil brightness correction factor, between 0 and 1. used to calculate
+Soil Adjusted Vegetation Index. Default L = 0.5 works well in
+most situations. when L = 0, SAVI = NDVI.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return surface_temp_8:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Full filepath of tif created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.surface_temp.surface_temp_457">
+<code class="descname">surface_temp_457</code><span class="sig-paren">(</span><em>band3_toa</em>, <em>meta_path</em>, <em>path_rad</em>, <em>nbt</em>, <em>sky_rad</em>, <em>outdir=False</em>, <em>L=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/surface_temp.html#surface_temp_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.surface_temp.surface_temp_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates surface temperature from Landsat 4/5 TM or 7 ETM+ data. Requires
+band 3 and 4 Top-of-Atmosphere Reflectance tiffs and the unprocessed band
+6 (or 6_VCID_1 for Landsat 7) tiff.</p>
+<p>Note: if the default values of 0, 1, and 0 are used for the Path Radiance, Narrowband
+Transmissivity, and Sky Radiance constants, atmospheric conditions will not be accounted
+for and the surface values may be off. Values are attainable using MODTRAN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band3_toa</strong> &#8211; Filepath to the Band 3 Top-of-Atmosphere Reflectance tiff.
+use landsat.toa_reflectance_457</li>
+<li><strong>meta_path</strong> &#8211; Filepath to the metadata file (ending in _MTL.txt)</li>
+<li><strong>path_rad</strong> &#8211; Path Radiance constant (default 0)</li>
+<li><strong>nbt</strong> &#8211; Narrowband Transmissivity constant (default 1)</li>
+<li><strong>sky_rad</strong> &#8211; Sky Radiance constant (default 0)</li>
+<li><strong>outdir</strong> &#8211; Path to the desired output folder. If left False the
+output tiff will be place in band4_toa&#8217;s folder</li>
+<li><strong>L</strong> &#8211; Soil brightness correction factor, between 0 and 1. used to calculate
+Soil Adjusted Vegetation Index. Default L = 0.5 works well in
+most situations. when L = 0, SAVI = NDVI.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return surface_temp_457:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">Full filepath of tif created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.toa_radiance"></span><dl class="function">
+<dt id="dnppy.landsat.toa_radiance.toa_radiance_8">
+<code class="descname">toa_radiance_8</code><span class="sig-paren">(</span><em>band_nums</em>, <em>meta_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/toa_radiance.html#toa_radiance_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.toa_radiance.toa_radiance_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))
+conversion for landsat 8 data. To be performed on raw Landsat 8
+level 1 data. See link below for details:
+see here <a class="reference external" href="http://landsat.usgs.gov/Landsat8_Using_Product.php">http://landsat.usgs.gov/Landsat8_Using_Product.php</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band_nums</strong> &#8211; A list of desired band numbers such as [3, 4, 5]</li>
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file for those bands</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">List of filepaths created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.toa_radiance.toa_radiance_457">
+<code class="descname">toa_radiance_457</code><span class="sig-paren">(</span><em>band_nums</em>, <em>meta_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/toa_radiance.html#toa_radiance_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.toa_radiance.toa_radiance_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>Top of Atmosphere radiance (in Watts/(square meter x steradians x micrometers))
+conversion for Landsat 4, 5, and 7 data. To be performed on raw
+Landsat 4, 5, or 7 level 1 data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band_nums</strong> &#8211; A list of desired band numbers such as [3, 4, 5]</li>
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file for those bands</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">List of filepaths created by this function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-dnppy.landsat.toa_reflectance"></span><dl class="function">
+<dt id="dnppy.landsat.toa_reflectance.toa_reflectance_8">
+<code class="descname">toa_reflectance_8</code><span class="sig-paren">(</span><em>band_nums</em>, <em>meta_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/toa_reflectance.html#toa_reflectance_8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.toa_reflectance.toa_reflectance_8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts Landsat 8 bands to Top-of-Atmosphere reflectance. To be performed
+on raw Landsat 8 level 1 data. See link below for details
+see here [<a class="reference external" href="http://landsat.usgs.gov/Landsat8_Using_Product.php">http://landsat.usgs.gov/Landsat8_Using_Product.php</a>]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band_nums</strong> &#8211; A list of desired band numbers such as [3,4,5]</li>
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file for those bands</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files. If left False it will save ouput
+files in the same directory as input files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">List of files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dnppy.landsat.toa_reflectance.toa_reflectance_457">
+<code class="descname">toa_reflectance_457</code><span class="sig-paren">(</span><em>band_nums</em>, <em>meta_path</em>, <em>outdir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/dnppy/landsat/toa_reflectance.html#toa_reflectance_457"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dnppy.landsat.toa_reflectance.toa_reflectance_457" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to convert Landsat 4, 5, or 7 pixel values from
+digital numbers to Top-of-Atmosphere Reflectance. To be performed on raw
+Landsat 4, 5, or 7 data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>band_nums</strong> &#8211; A list of desired band numbers such as [3,4,5]</li>
+<li><strong>meta_path</strong> &#8211; The full filepath to the metadata file for those bands</li>
+<li><strong>outdir</strong> &#8211; Output directory to save converted files. If left False it will save ouput
+files in the same directory as input files.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return output_filelist:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">List of files created by this function</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modis.html" class="btn btn-neutral float-right" title="modis">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="download.html" class="btn btn-neutral" title="download"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

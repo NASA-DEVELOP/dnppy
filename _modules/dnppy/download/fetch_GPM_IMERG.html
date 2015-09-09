@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dnppy.download.fetch_GPM_IMERG &mdash; dnppy 1.15.2 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="dnppy 1.15.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../../index.html" class="fa fa-home"> dnppy</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Purpose and Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../overview.html#structure">Structure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install.html#included-packages">Included Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../design.html">Design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../design.html#functional-format">Functional Format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modulesum.html">Exploring the modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modulesum.html#module-summary">Module Summary</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/convert.html">convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/convert.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/core.html">core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/core.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/download.html">download</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/download.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/landsat.html">landsat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/landsat.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modis.html">modis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/modis.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/radar.html">radar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/radar.html#module-dnppy.radar.create_header">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/raster.html">raster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/raster.html#module-dnppy.raster.apply_linear_correction">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/solar.html">solar</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/solar.html#code-help">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/textio.html">textio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/textio.html#module-dnppy.textio.read_DS3505">Code Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/tsa.html">tsa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/tsa.html#code-help">Code Help</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/development.html">Developers Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#contributing-through-github">Contributing Through GitHub</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#integrated-development-environment">Integrated Development Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/development.html#stylistic-coding-conventions">Stylistic Coding Conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/dev_goals.html">Future Development Goals</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#dump-arcpy">Dump arcpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/dev_goals.html#python-3">Python 3</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/gdal_tips.html">Intro to gdal</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#gdal-with-dnppy">gdal with dnppy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#using-the-osr-to-manage-projections">Using the osr to manage projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/gdal_tips.html#geotransforms">Geotransforms</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/contrib_git.html">GitHub Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#what-to-include-in-a-git-repo">What to include in a Git repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#committing-to-the-master-branch">Committing to the <code class="docutils literal"><span class="pre">master</span></code> branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/contrib_git.html#versioning">Versioning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev_pages/doc.html">Building Docs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#documenting-new-additions">Documenting new additions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#checking-the-docs">Checking the docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_pages/doc.html#building-the-docs">Building the docs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Help and Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/git.html">GitHub Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/pythonstarter.html">Python Quick-Starter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#the-right-mindset">The right mindset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#frequent-pitfalls">Frequent Pitfalls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../trub/pythonstarter.html#python-terminology">Python Terminology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../trub/faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">dnppy</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>dnppy.download.fetch_GPM_IMERG</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for dnppy.download.fetch_GPM_IMERG</h1><div class="highlight"><pre>
+<span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;jwely&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;fetch_GPM_IMERG&quot;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">list_ftp</span> <span class="kn">import</span> <span class="n">list_ftp</span>
+<span class="kn">from</span> <span class="nn">download_url</span> <span class="kn">import</span> <span class="n">download_url</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="fetch_GPM_IMERG"><a class="viewcode-back" href="../../../modules/download.html#dnppy.download.fetch_GPM_IMERG.fetch_GPM_IMERG">[docs]</a><span class="k">def</span> <span class="nf">fetch_GPM_IMERG</span><span class="p">(</span><span class="n">start_dto</span><span class="p">,</span> <span class="n">end_dto</span><span class="p">,</span> <span class="n">outdir</span><span class="p">,</span> <span class="n">product</span> <span class="o">=</span> <span class="s">&quot;gis&quot;</span><span class="p">,</span> <span class="n">time_res</span> <span class="o">=</span> <span class="s">&quot;1day&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches 30 minute resolution GPM IMERG data from an ftp server. Several restrictions exist</span>
+<span class="sd">    for this relatively new dataset, please read in the input section carefully.</span>
+
+<span class="sd">       http://pps.gsfc.nasa.gov/Documents/GPM_Data_Info_140616.pdf</span>
+
+<span class="sd">    :param start_dto:   datetime object for starting time of study boundary</span>
+<span class="sd">    :param end_dto:     datetime object for ending time of study boundary</span>
+<span class="sd">    :param outdir:      output directory to save the data</span>
+<span class="sd">    :param product:     either &quot;early&quot; , &quot;late&quot; or &quot;final&quot; for full HDF5 data stacks of the respective runs,</span>
+<span class="sd">                        which are all at 30minute resolutions. OR product can be set equal to &quot;gis&quot;</span>
+<span class="sd">                        (default) to find only tif averages of the precipitation estimates. This gis</span>
+<span class="sd">                        tif data is ONLY provided for data less than one year old.</span>
+<span class="sd">    :param time_res:    if &quot;product&quot;  is set to &quot;gis&quot;, specify what time average period you want.</span>
+<span class="sd">                        options are &quot;30min&quot;, &quot;3hr&quot;, &quot;1day&quot;, &quot;3day&quot;, &quot;7day&quot;. Defaults to &quot;1day&quot;</span>
+
+<span class="sd">    :return:            Returns a list of filepaths to freshly downloaded files</span>
+
+<span class="sd">    learn more at [http://pmm.nasa.gov/data-access/downloads/gpm]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># set up empty list of downloaded filepaths on local dir</span>
+    <span class="n">download_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c"># username and password info, should eventually be some DEVELOP credential.</span>
+    <span class="c"># this information is not at all sensitive.</span>
+    <span class="n">login</span> <span class="o">=</span> <span class="s">&quot;jeff.ely.08@gmail.com&quot;</span>
+
+
+    <span class="c"># special filtering for gis type tif data to minimize data representation overlap.</span>
+    <span class="k">if</span> <span class="n">product</span> <span class="o">==</span> <span class="s">&quot;gis&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">time_res</span> <span class="o">==</span> <span class="s">&quot;30min&quot;</span><span class="p">:</span>
+            <span class="n">ok_minutes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1440</span><span class="p">,</span> <span class="mi">30</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="n">time_res</span> <span class="o">==</span> <span class="s">&quot;3hr&quot;</span><span class="p">:</span>
+            <span class="n">ok_minutes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1440</span><span class="p">,</span> <span class="mi">180</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ok_minutes</span> <span class="o">=</span> <span class="s">&quot;0000&quot;</span>
+
+    <span class="c"># assemble address information</span>
+    <span class="n">pps_server</span>  <span class="o">=</span> <span class="s">r&quot;ftp://jsimpson.pps.eosdis.nasa.gov&quot;</span>
+
+    <span class="c"># set product directory</span>
+    <span class="n">prod_server</span> <span class="o">=</span> <span class="s">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;NRTPUB/imerg&quot;</span><span class="p">,</span> <span class="n">product</span><span class="p">])</span>
+
+    <span class="c"># log in and list available month folders.</span>
+    <span class="n">foldnames</span><span class="p">,</span> <span class="n">foldpaths</span> <span class="o">=</span> <span class="n">list_ftp</span><span class="p">(</span><span class="n">site</span> <span class="o">=</span> <span class="n">pps_server</span><span class="p">,</span>
+                                    <span class="nb">dir</span> <span class="o">=</span> <span class="n">prod_server</span><span class="p">,</span>
+                                    <span class="n">username</span> <span class="o">=</span> <span class="n">login</span><span class="p">,</span>
+                                    <span class="n">password</span> <span class="o">=</span> <span class="n">login</span><span class="p">)</span>
+
+    <span class="c"># perform a simple quick filtering of folders that definitely don&#39;t have data we want.</span>
+    <span class="k">for</span> <span class="n">foldname</span> <span class="ow">in</span> <span class="n">foldnames</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">foldname</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">foldnames</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">foldname</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">foldname</span> <span class="ow">in</span> <span class="n">foldnames</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;exploring directory &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">foldname</span><span class="p">))</span>
+        <span class="n">subdir</span> <span class="o">=</span> <span class="s">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">prod_server</span><span class="p">,</span> <span class="n">foldname</span><span class="p">])</span>
+        <span class="n">filenames</span><span class="p">,</span> <span class="n">filepaths</span> <span class="o">=</span> <span class="n">list_ftp</span><span class="p">(</span><span class="n">site</span> <span class="o">=</span> <span class="n">pps_server</span><span class="p">,</span>
+                                        <span class="nb">dir</span> <span class="o">=</span> <span class="n">subdir</span><span class="p">,</span>
+                                        <span class="n">username</span> <span class="o">=</span> <span class="n">login</span><span class="p">,</span>
+                                        <span class="n">password</span> <span class="o">=</span> <span class="n">login</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">finfo</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+            <span class="n">prod</span>       <span class="o">=</span> <span class="n">finfo</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">date_cords</span> <span class="o">=</span> <span class="n">finfo</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">minutes</span>    <span class="o">=</span> <span class="n">finfo</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+            <span class="n">time</span>       <span class="o">=</span> <span class="n">finfo</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+            <span class="n">date_str</span> <span class="o">=</span> <span class="n">date_cords</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span><span class="p">,</span> <span class="s">&quot;%Y%m</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">minutes</span><span class="p">))</span>
+
+            <span class="c"># see if this file meets criteria for download</span>
+            <span class="n">good_date</span> <span class="o">=</span> <span class="n">start_dto</span> <span class="o">&lt;=</span>  <span class="n">date</span>  <span class="o">&lt;=</span> <span class="n">end_dto</span>
+
+            <span class="k">if</span> <span class="n">product</span> <span class="o">==</span> <span class="s">&quot;gis&quot;</span><span class="p">:</span>
+                <span class="n">good_minutes</span> <span class="o">=</span> <span class="n">minutes</span> <span class="ow">in</span> <span class="n">ok_minutes</span>
+                <span class="n">good_time</span>    <span class="o">=</span> <span class="n">time_res</span> <span class="o">==</span> <span class="n">time</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">good_minutes</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="n">good_time</span>    <span class="o">=</span> <span class="bp">True</span>
+
+            <span class="c"># download the files</span>
+            <span class="k">if</span> <span class="n">good_date</span> <span class="ow">and</span> <span class="n">good_time</span> <span class="ow">and</span> <span class="n">good_minutes</span><span class="p">:</span>
+                <span class="n">outname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+                <span class="n">download_url</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">outname</span><span class="p">,</span> <span class="n">username</span> <span class="o">=</span> <span class="n">login</span><span class="p">,</span> <span class="n">password</span> <span class="o">=</span> <span class="n">login</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;saved &#39;{0}&#39; in &#39;{1}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">outdir</span><span class="p">))</span>
+                <span class="n">download_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outname</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">download_list</span>
+
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">end</span>   <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+    <span class="n">testdir</span> <span class="o">=</span> <span class="s">r&quot;C:\Users\jwely\Desktop\troubleshooting\GPM&quot;</span>
+
+    <span class="n">prod</span> <span class="o">=</span> <span class="s">&quot;late&quot;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="s">&quot;3day&quot;</span>
+
+    <span class="n">dlist</span> <span class="o">=</span> <span class="n">fetch_GPM_IMERG</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">testdir</span><span class="p">,</span> <span class="n">product</span> <span class="o">=</span> <span class="n">prod</span><span class="p">,</span> <span class="n">time_res</span> <span class="o">=</span> <span class="n">time</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
