@@ -10,4 +10,5 @@ install_dependencies.main()
 
 # uses pip to install this local copy of the repo
 import pip
-pip.main(["install", "--upgrade", "../dnppy"])
+import os
+pip.main(["install", "--upgrade", "../{dir}".format(dir=os.path.dirname(__file__).split("/")[-1])])
