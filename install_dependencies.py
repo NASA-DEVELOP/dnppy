@@ -42,6 +42,14 @@ def count_user():
         return False
 
 
+def remove_numpy():
+    """ removes numpy 1.7 by deleting the folder from site packages """
+
+    if not check_mod("numpy", "1.9.2"):
+        import pip
+        pip.main(["uninstall", "numpy"])
+
+
 def get_pip():
     """ ensures pip is installed"""
 
@@ -148,7 +156,7 @@ def get_mod_with_pip(module_name, version = None):
             pip.main(["install", module_name])
 
 
-def check_mod(module_name, version = None):
+def check_mod(module_name, version=None):
     """
     returns true if module of input version can be imported
     """
@@ -175,6 +183,7 @@ def main():
 
     count_user()
     get_pip()
+    remove_numpy()
 
     # list of assets to install, add to assets here.
     # {module : [version,
