@@ -1,8 +1,3 @@
-.. dnppy documentation master file, created by
-   sphinx-quickstart on Tue Aug 04 11:29:04 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to the dnppy documentation page!
 ========================================
 
@@ -19,7 +14,7 @@ Contents
 --------
 
 .. toctree::
-    :name: Getting Started
+    :caption: Getting Started
     :maxdepth: 2
 
     overview
@@ -28,7 +23,7 @@ Contents
     modulesum
 
 .. toctree::
-    :name: Modules
+    :caption: Modules
     :maxdepth: 2
 
     modules/convert
@@ -43,7 +38,7 @@ Contents
     modules/tsa
 
 .. toctree::
-    :name: Developers
+    :caption: Developers
 
     dev_pages/development
     dev_pages/dev_goals
@@ -53,7 +48,7 @@ Contents
 
 
 .. toctree::
-    :name: Help and Reference
+    :caption: Help and Reference
 
     trub/git
     trub/pythonstarter
