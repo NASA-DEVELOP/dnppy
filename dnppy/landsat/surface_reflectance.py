@@ -1,6 +1,6 @@
 
 # standard imports
-from grab_meta import grab_meta
+from landsat_metadata import landsat_metadata
 from dnppy import solar
 import arcpy
 import datetime
@@ -77,7 +77,7 @@ def surface_reflectance(meta_path, toa_folder, dem_path, dew_point, outdir = Fal
                          [0.365, -0.00097, 0.004296, 0.0155, 0.6390]]
 
     #enforce the list of band numbers, grab metadata from the MTL file, and define the band numbers needed from each sensor
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
     OLI_bands = ['2','3','4','5','6','7']
     TM_ETM_bands = ['1','2','3','4','5','7']
 

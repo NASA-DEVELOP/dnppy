@@ -1,6 +1,6 @@
 
-#standard imports
-from grab_meta import grab_meta
+# standard imports
+from landsat_metadata import landsat_metadata
 from dnppy import core
 import arcpy
 import os
@@ -8,8 +8,8 @@ if arcpy.CheckExtension('Spatial') == 'Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
 
-__all__=['toa_radiance_8',          # complete
-         'toa_radiance_457']        # complete
+__all__ = ['toa_radiance_8',          # complete
+           'toa_radiance_457']        # complete
 
 
 def toa_radiance_8(band_nums, meta_path, outdir = None):
@@ -32,7 +32,7 @@ def toa_radiance_8(band_nums, meta_path, outdir = None):
     #enforce list of band numbers and grab the metadata from the MTL file
     band_nums = core.enf_list(band_nums)
     band_nums = map(str, band_nums)
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
     
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
     
@@ -105,7 +105,7 @@ def toa_radiance_457(band_nums, meta_path, outdir = None):
     f = open(meta_path)
     MText = f.read()
 
-    metadata = grab_meta(meta_path)
+    metadata = landsat_metadata(meta_path)
 
     #the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
     #if this is not present, the meta data is considered new.

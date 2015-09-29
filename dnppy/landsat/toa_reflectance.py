@@ -1,6 +1,6 @@
 
 # standard imports
-from grab_meta import grab_meta
+from landsat_metadata import landsat_metadata
 from dnppy import core
 import math
 import os
@@ -34,7 +34,7 @@ def toa_reflectance_8(band_nums, meta_path, outdir = None):
     band_nums = map(str, band_nums)
     OLI_bands = ['1','2','3','4','5','6','7','8','9']
     meta_path = os.path.abspath(meta_path)
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
 
     # cycle through each band in the list for calculation, ensuring each is in the list of OLI bands
     for band_num in band_nums:
@@ -98,7 +98,7 @@ def toa_reflectance_457(band_nums, meta_path, outdir = None):
     MText = f.read()
 
     meta_path = os.path.abspath(meta_path)
-    metadata = grab_meta(meta_path)
+    metadata = landsat_metadata(meta_path)
     
     # the presence of a PRODUCT_CREATION_TIME category is used to identify old metadata
     # if this is not present, the meta data is considered new.

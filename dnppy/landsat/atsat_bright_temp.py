@@ -3,7 +3,7 @@
 import arcpy
 import os
 from dnppy import core
-from grab_meta import grab_meta
+from landsat_metadata import landsat_metadata
 
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
@@ -31,7 +31,7 @@ def atsat_bright_temp_8(meta_path, outdir = False):
     #enforce the list of band numbers and grab metadata from the MTL file
     band_nums = ["10", "11"]
     meta_path = os.path.abspath(meta_path)
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
 
     output_filelist = []
 
@@ -93,7 +93,7 @@ def atsat_bright_temp_457(meta_path, outdir = None):
 
     output_filelist = []
     meta_path = os.path.abspath(meta_path)
-    metadata = grab_meta(meta_path)
+    metadata = landsat_metadata(meta_path)
     spacecraft = getattr(metadata, "SPACECRAFT_ID")
 
     if "4" in spacecraft or "5" in spacecraft:

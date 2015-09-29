@@ -1,5 +1,5 @@
 # local imports
-from grab_meta import *
+from landsat_metadata import landsat_metadata
 
 import os
 import arcpy
@@ -45,10 +45,10 @@ class scene:
         the landsat images as tif_dir.
         """
 
-        self.mtl_dir    = os.path.dirname(MTL_path) # directory of MTL file
-        self.meta       = grab_meta(MTL_path)       # dnppy landsat_metadata object
-        self.in_paths   = {}                        # dict of filepaths to tifs
-        self.rasts      = {}                        # dict of arcpy raster objects
+        self.mtl_dir    = os.path.dirname(MTL_path)     # directory of MTL file
+        self.meta       = landsat_metadata(MTL_path)    # dnppy landsat_metadata object
+        self.in_paths   = {}                            # dict of filepaths to tifs
+        self.rasts      = {}                            # dict of arcpy raster objects
 
         if not tif_dir:
             self.tif_dir = self.mtl_dir

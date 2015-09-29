@@ -3,7 +3,7 @@
 import arcpy
 import os
 from dnppy import core
-from dnppy.landsat.grab_meta import grab_meta
+from landsat_metadata import landsat_metadata
 if arcpy.CheckExtension('Spatial')=='Available':
     arcpy.CheckOutExtension('Spatial')
     arcpy.env.overwriteOutput = True
@@ -40,7 +40,7 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
     meta_path = os.path.abspath(meta_path)
 
     # Grab metadata from the MTL file and set the pathnames for Band 5 TOA Reflectance and the raw Band 11 tiffs
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
 
     band5_toa = band4_toa.replace("_B4_", "_B5_")
     band10 = meta_path.replace("_MTL.txt", "_B10.tif")
@@ -141,7 +141,7 @@ def surface_temp_457(band3_toa, meta_path, path_rad, nbt, sky_rad, outdir = Fals
     band4_toa = band3_toa.replace("_B3_", "_B4_")
 
     # Grab metadata from the MTL file and identify the spacecraft ID
-    meta = grab_meta(meta_path)
+    meta = landsat_metadata(meta_path)
     spacecraft = getattr(meta, "SPACECRAFT_ID")
 
     # Set the band 6 number, K1 and K2 thermal constants, and band 6 pathname based on spacecraft ID
