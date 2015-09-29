@@ -19,7 +19,7 @@ Contents
 --------
 
 .. toctree::
-    :caption: Getting Started
+    :name: Getting Started
     :maxdepth: 2
 
     overview
@@ -28,7 +28,7 @@ Contents
     modulesum
 
 .. toctree::
-    :caption: Modules
+    :name: Modules
     :maxdepth: 2
 
     modules/convert
@@ -43,7 +43,7 @@ Contents
     modules/tsa
 
 .. toctree::
-    :caption: Developers
+    :name: Developers
 
     dev_pages/development
     dev_pages/dev_goals
@@ -53,7 +53,7 @@ Contents
 
 
 .. toctree::
-    :caption: Help and Reference
+    :name: Help and Reference
 
     trub/git
     trub/pythonstarter
