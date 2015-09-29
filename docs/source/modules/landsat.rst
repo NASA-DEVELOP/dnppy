@@ -51,7 +51,7 @@ Auto-documentation for functions and classes within this module is generated bel
 .. automodule:: dnppy.landsat.cloud_mask
     :members:
 
-.. automodule:: dnppy.landsat.grab_meta
+.. automodule:: dnppy.landsat.landsat_metadata
     :members:
 
 .. automodule:: dnppy.landsat.ndvi
