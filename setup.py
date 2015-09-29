@@ -11,7 +11,7 @@ from distutils.core import setup
 
 setup(
     name='dnppy',
-    version='1.15.3b1',
+    version='1.15.3b2',
     packages=['dnppy',
               'dnppy.convert',
               'dnppy.core',
