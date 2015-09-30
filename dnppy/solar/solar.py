@@ -429,7 +429,7 @@ class solar:
             return self.solar_noon
         
         if self.equation_of_time is None:
-            self.get_equation_of_time
+            self.get_equation_of_time()
 
         lon = self.lon
         eot = self.equation_of_time
