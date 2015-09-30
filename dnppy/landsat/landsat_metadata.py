@@ -1,12 +1,13 @@
 __author__ = 'jwely'
+__all__ = ["landsat_metadata"]
 
 # standard imports
 from datetime import datetime
-from dnppy import solar
+from dnppy.solar import solar
 import inspect
 
 
-class landsat_metadata():
+class landsat_metadata:
     """
     A landsat metadata object. This class builds is attributes
     from the names of each tag in the xml formatted .MTL files that
@@ -65,7 +66,6 @@ class landsat_metadata():
         # read the file and populate the MTL attributes
         self._read(filename)
 
-
     def _read(self, filename):
         """ reads the contents of an MTL file """
 
@@ -76,7 +76,7 @@ class landsat_metadata():
         fields = []
         values = []
 
-        metafile = open(filename,'r')
+        metafile = open(filename, 'r')
         metadata = metafile.readlines()
 
         for line in metadata:
@@ -84,23 +84,24 @@ class landsat_metadata():
             # greater than 1000 characters. 1000 character limit works around an odd LC5
             # issue where the metadata has 40,000+ characters of whitespace
             bad_flags = ["END", "GROUP"]
-            if not any(x in line for x in bad_flags) and len(line)<=1000:
+            if not any(x in line for x in bad_flags) and len(line) <= 1000:
                 try:
-                    line = line.replace("  ","")
-                    line = line.replace("\n","")
-                    field_name , field_value = line.split(' = ')
+                    line = line.replace("  ", "")
+                    line = line.replace("\n", "")
+                    field_name, field_value = line.split(' = ')
                     fields.append(field_name)
                     values.append(field_value)
-                except: pass
+                except:
+                    pass
 
         for i in range(len(fields)):
 
-            #format fields without quotes,dates, or times in them as floats
-            if not any(['"' in values[i],'DATE' in fields[i],'TIME' in fields[i]]):
-                setattr(self, fields[i],float(values[i]))
+            # format fields without quotes,dates, or times in them as floats
+            if not any(['"' in values[i], 'DATE' in fields[i], 'TIME' in fields[i]]):
+                setattr(self, fields[i], float(values[i]))
             else:
-                values[i] = values[i].replace('"','')
-                setattr(self, fields[i],values[i])
+                values[i] = values[i].replace('"', '')
+                setattr(self, fields[i], values[i])
 
         # create datetime_obj attribute (drop decimal seconds)
         dto_string          = self.DATE_ACQUIRED + self.SCENE_CENTER_TIME
@@ -111,7 +112,7 @@ class landsat_metadata():
         if not self.SPACECRAFT_ID == "LANDSAT_8":
 
             # use 0s for lat and lon, sun_earth_distance is not a function of any one location on earth.
-            s = solar.solar(0 ,0 , self.DATETIME_OBJ , 0)
+            s = solar(0, 0, self.DATETIME_OBJ, 0)
             self.EARTH_SUN_DISTANCE = s.get_rad_vector()
 
         print("Scene {0} center time is {1}".format(self.LANDSAT_SCENE_ID, self.DATETIME_OBJ))
