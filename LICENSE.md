@@ -2,43 +2,26 @@ NASA OPEN SOURCE AGREEMENT VERSION 1.3
 
 THIS OPEN SOURCE AGREEMENT (“AGREEMENT”) DEFINES THE RIGHTS OF USE, REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY").  THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR REDISTRIBUTIONS OF THE SUBJECT SOFTWARE.  ANYONE WHO USES, REPRODUCES, DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT. 
 
-Government Agency: National Aeronautics and Space Administration
-
+Government Agency: National Aeronautics and Space Administration  
 Government Agency Original Software Designation: LAR-18583-1
-
 Government Agency Original Software Title: DEVELOP National Program Python Package
-
-Government Agency Point of Contact for Original Software: Jeffry Ely
-
+Government Agency Point of Contact for Original Software: Jeffry Ely [jeffry.w.ely@nasa.gov]
 
 1.	DEFINITIONS
 
 A.	“Contributor” means Government Agency, as the developer of the Original Software, and any entity that makes a Modification.
-
 B.	“Covered Patents” mean patent claims licensable by a Contributor that are necessarily infringed by the use or sale of its Modification alone or when combined with the Subject Software.
-
 C.	 “Display” means the showing of a copy of the Subject Software, either directly or by means of an image, or any other device.
-
 D.	“Distribution” means conveyance or transfer of the Subject Software, regardless of means, to another.
-
 E.	 “Larger Work” means computer software that combines Subject Software, or portions thereof, with software separate from the Subject Software that is not governed by the terms of this Agreement.
-
 F.	 “Modification” means any alteration of, including addition to or deletion from, the substance or structure of either the Original Software or Subject Software, and includes derivative works, as that term is defined in the Copyright Statute, 17 USC 101.  However, the act of including Subject Software as part of a Larger Work does not in and of itself constitute a Modification.
-
 G.	“Original Software” means the computer software first released under this Agreement by Government Agency with Government Agency designation LAR-18583-1 and entitled DEVELOP National Program Python Package, including source code, object code and accompanying documentation, if any.
-
 H.	“Recipient” means anyone who acquires the Subject Software under this Agreement, including all Contributors.
-
 I.	“Redistribution” means Distribution of the Subject Software after a Modification has been made.
-
 J.	“Reproduction” means the making of a counterpart, image or copy of the Subject Software.
-
 K.	“Sale” means the exchange of the Subject Software for money or equivalent value.
-
 L.	“Subject Software” means the Original Software, Modifications, or any respective parts thereof.
-
 M.	“Use” means the application or employment of the Subject Software for any purpose.
-
 
 2.	GRANT OF RIGHTS
 
@@ -72,7 +55,7 @@ A.	Distribution or Redistribution of the Subject Software must be made under thi
 
 B.	Each Recipient must ensure that the following copyright notice appears prominently in the Subject Software:
 
-Copyright Ó 2013 United States Government as represented by  the National Aeronautics and Space Administration.  No copyright is claimed in the United States under Title 17, U.S.Code. All Other Rights Reserved.
+This software may be used, reproduced, and provided to others only as permitted under the terms of the agreement under which it was acquired from the U.S. Government. Neither title to, nor ownership of, the software is hereby transferred. This notice shall remain on all copies of the software.
 
 C.	Each Contributor must characterize its alteration of the Subject Software as a Modification and must identify itself as the originator of its Modification in a manner that reasonably allows subsequent Recipients to identify the originator of the Modification.  In fulfillment of these requirements, Contributor must include a file (e.g., a change log file) that describes the alterations made and the date of the alterations, identifies Contributor as originator of the alterations, and consents to characterization of the alterations as a Modification, for example, by including a statement that the Modification is derived, directly or indirectly, from Original Software provided by Government Agency. Once consent is granted, it may not thereafter be revoked.
 
@@ -111,13 +94,10 @@ E.	Binding Authority:  By accepting and using the Subject Software under this Ag
 
 F.	Point of Contact:  Any Recipient contact with Government Agency is to be directed to the designated representative as follows:
 
-Stuart Pendleton
+Barbara “Bonnie” Lumanog
 Software Release Authority
 MS 158, NASA Langley Research Center
 Hampton, VA 23681
-
-Phone: 757-864-2943
-Email: stuart.e.pendleton@nasa.gov
-
-
-
+Fax: 757-864-6500
+Phone: 757-864-2933
+Email: b.lumanog@nasa.gov
