@@ -50,7 +50,7 @@ def surface_temp_8(band4_toa, meta_path, path_rad, nbt, sky_rad, outdir = False,
     red = arcpy.sa.Float(band4_toa)
     nir = arcpy.sa.Float(band5_toa)
     
-    savi = ((1 + L) * (nir - red))/(L + (nir - red))
+    savi = ((1 + L) * (nir - red))/(L + (nir + red))
 
     # Leaf Area Index
     # assigns LAI for 0.1 <= SAVI <= 0.687
