@@ -1,4 +1,4 @@
-### Docs [![Build Status](https://travis-ci.org/NASA-DEVELOP/dnppy.svg?branch=master)](https://travis-ci.org/NASA-DEVELOP/dnppy)
+### Docs
 
 https://nasa-develop.github.io/dnppy/
 
