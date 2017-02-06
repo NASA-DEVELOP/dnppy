@@ -40,7 +40,7 @@ def fetch_Landsat_WELD(product, tiles, years, outdir):
     print('Connecting to servers!')
 
     # Map the contents of the directory
-    site= 'http://e4ftl01.cr.usgs.gov/WELD/WELD'+product+'.001'
+    site= 'https://e4ftl01.cr.usgs.gov/WELD/WELD'+product+'.001'
     try:
         dates = list_http_e4ftl01(site)
     except:
